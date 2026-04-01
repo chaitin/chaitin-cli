@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"net/url"
+	"os"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -25,7 +26,6 @@ func NewParser(client *Client, renderer Renderer) *Parser {
 
 // GenerateCommands 生成 Cobra 命令
 func (p *Parser) GenerateCommands(api *OpenAPI) ([]*cobra.Command, error) {
-	// 按 tag 分组
 	tagCommands := make(map[string]*cobra.Command)
 
 	for path, pathItem := range api.Paths {
@@ -49,7 +49,6 @@ func (p *Parser) GenerateCommands(api *OpenAPI) ([]*cobra.Command, error) {
 				tag = op.operation.Tags[0]
 			}
 
-			// 确保 tag 命令存在
 			if _, exists := tagCommands[tag]; !exists {
 				tagCommands[tag] = &cobra.Command{
 					Use:   tag,
@@ -57,13 +56,11 @@ func (p *Parser) GenerateCommands(api *OpenAPI) ([]*cobra.Command, error) {
 				}
 			}
 
-			// 创建操作命令
 			cmd := p.createOperationCommand(op.method, path, op.operation, api.BasePath)
 			tagCommands[tag].AddCommand(cmd)
 		}
 	}
 
-	// 转换为切片
 	var commands []*cobra.Command
 	for _, cmd := range tagCommands {
 		commands = append(commands, cmd)
@@ -198,4 +195,12 @@ func addFlag(cmd *cobra.Command, param Parameter) {
 	if param.Required {
 		cmd.MarkFlagRequired(param.Name)
 	}
+}
+
+func newRenderer(cmd *cobra.Command) Renderer {
+	format := FormatTable
+	if o, _ := cmd.Flags().GetString("output"); o == "json" {
+		format = FormatJSON
+	}
+	return NewRenderer(format, os.Stdout)
 }
