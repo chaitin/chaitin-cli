@@ -3,14 +3,12 @@
 package security_strategy
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetSecurityStrategyTreeCmd = &cobra.Command{
 	Use:   "get_security_strategy_tree",
@@ -31,5 +29,3 @@ var GetSecurityStrategyTreeCmd = &cobra.Command{
 func init() {
 
 }
-
-

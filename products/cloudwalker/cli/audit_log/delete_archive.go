@@ -3,8 +3,8 @@
 package audit_log
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var DeleteArchiveCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteArchiveCmd.Flags().Float64SliceVar(&deleteArchiveParams.Id, "id", nil, "归档ID")
+	DeleteArchiveCmd.Flags().Float64SliceVar(&deleteArchiveParams.Id, "id", nil, "归档ID")
 }
-
 
 // DeleteArchiveParams 请求参数
 type DeleteArchiveParams struct {
 	Id []float64 `json:"id"` // 归档ID
 }
-

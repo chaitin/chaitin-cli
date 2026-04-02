@@ -3,8 +3,8 @@
 package crontab
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,32 +29,30 @@ var CreateAgentInstallCmd = &cobra.Command{
 }
 
 func init() {
-		CreateAgentInstallCmd.Flags().Float64SliceVar(&createAgentInstallParams.AgentRange, "agent-range", nil, "探针范围")
-		CreateAgentInstallCmd.Flags().Float64SliceVar(&createAgentInstallParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		CreateAgentInstallCmd.Flags().StringVar(&createAgentInstallParams.Comment, "comment", "", "计划备注")
-		// cron is object type, use JSON string
-		var cronJSON string
-		CreateAgentInstallCmd.Flags().StringVar(&cronJSON, "cron", "", "定时器, null 意为一次性任务 (JSON, e.g. {\"interval\": 1, \"now\": true, \"plan_time\": 1667461108.618155, \"trigger_method\": \"day\", \"week_selector\": [0]})")
-		CreateAgentInstallCmd.Flags().StringSliceVar(&createAgentInstallParams.HostTagRange, "host-tag-range", nil, "主机标签范围")
-		CreateAgentInstallCmd.Flags().StringVar(&createAgentInstallParams.Name, "name", "", "计划名称")
-		CreateAgentInstallCmd.Flags().StringVar(&createAgentInstallParams.PlanType, "plan-type", "", "计划任务类型，security_tool")
-		// tasks is complex type []map[string]interface{}, use JSON string
-		var tasksJSON string
-		CreateAgentInstallCmd.Flags().StringVar(&tasksJSON, "tasks", "", "计划关联的任务 (JSON, e.g. [{\"args\": \"\", \"task_type\": \"malware_Scan\"}])")
-		CreateAgentInstallCmd.Flags().IntVar(&createAgentInstallParams.Timeout, "timeout", 0, "最大运行时间(秒)")
+	CreateAgentInstallCmd.Flags().Float64SliceVar(&createAgentInstallParams.AgentRange, "agent-range", nil, "探针范围")
+	CreateAgentInstallCmd.Flags().Float64SliceVar(&createAgentInstallParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	CreateAgentInstallCmd.Flags().StringVar(&createAgentInstallParams.Comment, "comment", "", "计划备注")
+	// cron is object type, use JSON string
+	var cronJSON string
+	CreateAgentInstallCmd.Flags().StringVar(&cronJSON, "cron", "", "定时器, null 意为一次性任务 (JSON, e.g. {\"interval\": 1, \"now\": true, \"plan_time\": 1667461108.618155, \"trigger_method\": \"day\", \"week_selector\": [0]})")
+	CreateAgentInstallCmd.Flags().StringSliceVar(&createAgentInstallParams.HostTagRange, "host-tag-range", nil, "主机标签范围")
+	CreateAgentInstallCmd.Flags().StringVar(&createAgentInstallParams.Name, "name", "", "计划名称")
+	CreateAgentInstallCmd.Flags().StringVar(&createAgentInstallParams.PlanType, "plan-type", "", "计划任务类型，security_tool")
+	// tasks is complex type []map[string]interface{}, use JSON string
+	var tasksJSON string
+	CreateAgentInstallCmd.Flags().StringVar(&tasksJSON, "tasks", "", "计划关联的任务 (JSON, e.g. [{\"args\": \"\", \"task_type\": \"malware_Scan\"}])")
+	CreateAgentInstallCmd.Flags().IntVar(&createAgentInstallParams.Timeout, "timeout", 0, "最大运行时间(秒)")
 }
-
 
 // CreateAgentInstallParams 请求参数
 type CreateAgentInstallParams struct {
-	AgentRange []float64 `json:"agent_range"` // 探针范围
-	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Comment string `json:"comment"` // 计划备注
-	Cron map[string]interface{} `json:"cron"` // 定时器, null 意为一次性任务
-	HostTagRange []string `json:"host_tag_range"` // 主机标签范围
-	Name string `json:"name"` // 计划名称
-	PlanType string `json:"plan_type"` // 计划任务类型，security_tool
-	Tasks []map[string]interface{} `json:"tasks"` // 计划关联的任务
-	Timeout int `json:"timeout"` // 最大运行时间(秒)
+	AgentRange         []float64                `json:"agent_range"`          // 探针范围
+	BusinessGroupRange []float64                `json:"business_group_range"` // 业务组范围
+	Comment            string                   `json:"comment"`              // 计划备注
+	Cron               map[string]interface{}   `json:"cron"`                 // 定时器, null 意为一次性任务
+	HostTagRange       []string                 `json:"host_tag_range"`       // 主机标签范围
+	Name               string                   `json:"name"`                 // 计划名称
+	PlanType           string                   `json:"plan_type"`            // 计划任务类型，security_tool
+	Tasks              []map[string]interface{} `json:"tasks"`                // 计划关联的任务
+	Timeout            int                      `json:"timeout"`              // 最大运行时间(秒)
 }
-

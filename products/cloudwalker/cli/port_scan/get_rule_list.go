@@ -3,8 +3,8 @@
 package port_scan
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,40 +29,38 @@ var GetRuleListCmd = &cobra.Command{
 }
 
 func init() {
-		GetRuleListCmd.Flags().IntVar(&getRuleListParams.Count, "count", 20, "每页记录数量")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetRuleListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetRuleListCmd.Flags().BoolSliceVar(&getRuleListParams.Enable, "enable", nil, "是否启用")
-		GetRuleListCmd.Flags().StringSliceVar(&getRuleListParams.HostComment, "host-comment", nil, "主机备注")
-		GetRuleListCmd.Flags().Float64SliceVar(&getRuleListParams.HostId, "host-id", nil, "主机ID")
-		GetRuleListCmd.Flags().StringSliceVar(&getRuleListParams.HostIp, "host-ip", nil, "主机IP")
-		GetRuleListCmd.Flags().StringSliceVar(&getRuleListParams.HostName, "host-name", nil, "主机名称")
-		GetRuleListCmd.Flags().StringSliceVar(&getRuleListParams.HostState, "host-state", nil, "主机状态")
-		GetRuleListCmd.Flags().StringSliceVar(&getRuleListParams.HostTag, "host-tag", nil, "主机标签")
-		GetRuleListCmd.Flags().StringSliceVar(&getRuleListParams.Ids, "ids", nil, "规则 id")
-		GetRuleListCmd.Flags().IntVar(&getRuleListParams.Offset, "offset", 0, "页偏移")
-		GetRuleListCmd.Flags().Float64SliceVar(&getRuleListParams.Oid, "oid", nil, "组织 id")
-		GetRuleListCmd.Flags().StringSliceVar(&getRuleListParams.PortScanMode, "port-scan-mode", nil, "防护模式，warning/protect")
-		GetRuleListCmd.Flags().StringSliceVar(&getRuleListParams.RuleName, "rule-name", nil, "规则名称")
+	GetRuleListCmd.Flags().IntVar(&getRuleListParams.Count, "count", 20, "每页记录数量")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetRuleListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetRuleListCmd.Flags().BoolSliceVar(&getRuleListParams.Enable, "enable", nil, "是否启用")
+	GetRuleListCmd.Flags().StringSliceVar(&getRuleListParams.HostComment, "host-comment", nil, "主机备注")
+	GetRuleListCmd.Flags().Float64SliceVar(&getRuleListParams.HostId, "host-id", nil, "主机ID")
+	GetRuleListCmd.Flags().StringSliceVar(&getRuleListParams.HostIp, "host-ip", nil, "主机IP")
+	GetRuleListCmd.Flags().StringSliceVar(&getRuleListParams.HostName, "host-name", nil, "主机名称")
+	GetRuleListCmd.Flags().StringSliceVar(&getRuleListParams.HostState, "host-state", nil, "主机状态")
+	GetRuleListCmd.Flags().StringSliceVar(&getRuleListParams.HostTag, "host-tag", nil, "主机标签")
+	GetRuleListCmd.Flags().StringSliceVar(&getRuleListParams.Ids, "ids", nil, "规则 id")
+	GetRuleListCmd.Flags().IntVar(&getRuleListParams.Offset, "offset", 0, "页偏移")
+	GetRuleListCmd.Flags().Float64SliceVar(&getRuleListParams.Oid, "oid", nil, "组织 id")
+	GetRuleListCmd.Flags().StringSliceVar(&getRuleListParams.PortScanMode, "port-scan-mode", nil, "防护模式，warning/protect")
+	GetRuleListCmd.Flags().StringSliceVar(&getRuleListParams.RuleName, "rule-name", nil, "规则名称")
 }
-
 
 // GetRuleListParams 请求参数
 type GetRuleListParams struct {
-	Count int `json:"count"` // 每页记录数量
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Enable []bool `json:"enable"` // 是否启用
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTag []string `json:"host_tag"` // 主机标签
-	Ids []string `json:"ids"` // 规则 id
-	Offset int `json:"offset"` // 页偏移
-	Oid []float64 `json:"oid"` // 组织 id
-	PortScanMode []string `json:"port_scan_mode"` // 防护模式，warning/protect
-	RuleName []string `json:"rule_name"` // 规则名称
+	Count        int                      `json:"count"`          // 每页记录数量
+	CustomAttr   []map[string]interface{} `json:"custom_attr"`    // 主机业务属性
+	Enable       []bool                   `json:"enable"`         // 是否启用
+	HostComment  []string                 `json:"host_comment"`   // 主机备注
+	HostId       []float64                `json:"host_id"`        // 主机ID
+	HostIp       []string                 `json:"host_ip"`        // 主机IP
+	HostName     []string                 `json:"host_name"`      // 主机名称
+	HostState    []string                 `json:"host_state"`     // 主机状态
+	HostTag      []string                 `json:"host_tag"`       // 主机标签
+	Ids          []string                 `json:"ids"`            // 规则 id
+	Offset       int                      `json:"offset"`         // 页偏移
+	Oid          []float64                `json:"oid"`            // 组织 id
+	PortScanMode []string                 `json:"port_scan_mode"` // 防护模式，warning/protect
+	RuleName     []string                 `json:"rule_name"`      // 规则名称
 }
-

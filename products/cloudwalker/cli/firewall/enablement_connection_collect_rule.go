@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,18 +29,16 @@ var EnablementConnectionCollectRuleCmd = &cobra.Command{
 }
 
 func init() {
-		EnablementConnectionCollectRuleCmd.Flags().BoolVar(&enablementConnectionCollectRuleParams.Enable, "enable", false, "是否启用")
-		// filter is object type, use JSON string
-		var filterJSON string
-		EnablementConnectionCollectRuleCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选条件 (JSON, e.g. {\"created_at\": [\"xxxxxxxxx\"], \"enable\": true, \"host_ip\": [\"192.168.1.1\"], \"...\": \"...\"})")
-		EnablementConnectionCollectRuleCmd.Flags().BoolVar(&enablementConnectionCollectRuleParams.SelectAll, "select-all", false, "是否全选")
+	EnablementConnectionCollectRuleCmd.Flags().BoolVar(&enablementConnectionCollectRuleParams.Enable, "enable", false, "是否启用")
+	// filter is object type, use JSON string
+	var filterJSON string
+	EnablementConnectionCollectRuleCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选条件 (JSON, e.g. {\"created_at\": [\"xxxxxxxxx\"], \"enable\": true, \"host_ip\": [\"192.168.1.1\"], \"...\": \"...\"})")
+	EnablementConnectionCollectRuleCmd.Flags().BoolVar(&enablementConnectionCollectRuleParams.SelectAll, "select-all", false, "是否全选")
 }
-
 
 // EnablementConnectionCollectRuleParams 请求参数
 type EnablementConnectionCollectRuleParams struct {
-	Enable bool `json:"enable"` // 是否启用
-	Filter map[string]interface{} `json:"filter"` // 筛选条件
-	SelectAll bool `json:"select_all"` // 是否全选
+	Enable    bool                   `json:"enable"`     // 是否启用
+	Filter    map[string]interface{} `json:"filter"`     // 筛选条件
+	SelectAll bool                   `json:"select_all"` // 是否全选
 }
-

@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetAgentInfoCmd = &cobra.Command{
 }
 
 func init() {
-		GetAgentInfoCmd.Flags().IntVar(&getAgentInfoParams.Id, "id", 0, "ID")
+	GetAgentInfoCmd.Flags().IntVar(&getAgentInfoParams.Id, "id", 0, "ID")
 }
-
 
 // GetAgentInfoParams 请求参数
 type GetAgentInfoParams struct {
 	Id int `json:"id"` // ID
 }
-

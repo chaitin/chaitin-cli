@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,56 +29,54 @@ var StartTaskCmd = &cobra.Command{
 }
 
 func init() {
-		StartTaskCmd.Flags().StringSliceVar(&startTaskParams.CreatedAt, "created-at", nil, "任务创建时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		StartTaskCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		StartTaskCmd.Flags().BoolVar(&startTaskParams.Enable, "enable", false, "是否启用")
-		StartTaskCmd.Flags().StringSliceVar(&startTaskParams.FinishedAt, "finished-at", nil, "任务结束时间")
-		StartTaskCmd.Flags().Float64SliceVar(&startTaskParams.Gids, "gids", nil, "业务组 ID")
-		StartTaskCmd.Flags().StringSliceVar(&startTaskParams.HostComment, "host-comment", nil, "主机备注")
-		StartTaskCmd.Flags().Float64SliceVar(&startTaskParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
-		StartTaskCmd.Flags().StringSliceVar(&startTaskParams.HostIp, "host-ip", nil, "主机IP")
-		StartTaskCmd.Flags().StringSliceVar(&startTaskParams.HostName, "host-name", nil, "主机名称")
-		StartTaskCmd.Flags().StringSliceVar(&startTaskParams.HostState, "host-state", nil, "主机状态")
-		StartTaskCmd.Flags().StringSliceVar(&startTaskParams.HostTags, "host-tags", nil, "主机标签")
-		StartTaskCmd.Flags().StringSliceVar(&startTaskParams.ItemName, "item-name", nil, "核查项名称")
-		// select is complex type []map[string]interface{}, use JSON string
-		var selectJSON string
-		StartTaskCmd.Flags().StringVar(&selectJSON, "select", "", "选择内容 (JSON, e.g. [{\"id\": 1}])")
-		StartTaskCmd.Flags().BoolVar(&startTaskParams.SelectAll, "select-all", false, "选择所有")
-		StartTaskCmd.Flags().StringSliceVar(&startTaskParams.SetName, "set-name", nil, "核查策略名称")
-		StartTaskCmd.Flags().StringSliceVar(&startTaskParams.StartedAt, "started-at", nil, "任务运行时间")
-		StartTaskCmd.Flags().StringSliceVar(&startTaskParams.Tag, "tag", nil, "TAG")
-		StartTaskCmd.Flags().Float64SliceVar(&startTaskParams.TaskIds, "task-ids", nil, "任务 ID")
-		StartTaskCmd.Flags().StringSliceVar(&startTaskParams.TaskName, "task-name", nil, "核查任务名称")
-		StartTaskCmd.Flags().StringSliceVar(&startTaskParams.TaskState, "task-state", nil, "核查任务状态")
-		StartTaskCmd.Flags().StringSliceVar(&startTaskParams.TriggerMethod, "trigger-method", nil, "触发方式：多选")
+	StartTaskCmd.Flags().StringSliceVar(&startTaskParams.CreatedAt, "created-at", nil, "任务创建时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	StartTaskCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	StartTaskCmd.Flags().BoolVar(&startTaskParams.Enable, "enable", false, "是否启用")
+	StartTaskCmd.Flags().StringSliceVar(&startTaskParams.FinishedAt, "finished-at", nil, "任务结束时间")
+	StartTaskCmd.Flags().Float64SliceVar(&startTaskParams.Gids, "gids", nil, "业务组 ID")
+	StartTaskCmd.Flags().StringSliceVar(&startTaskParams.HostComment, "host-comment", nil, "主机备注")
+	StartTaskCmd.Flags().Float64SliceVar(&startTaskParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
+	StartTaskCmd.Flags().StringSliceVar(&startTaskParams.HostIp, "host-ip", nil, "主机IP")
+	StartTaskCmd.Flags().StringSliceVar(&startTaskParams.HostName, "host-name", nil, "主机名称")
+	StartTaskCmd.Flags().StringSliceVar(&startTaskParams.HostState, "host-state", nil, "主机状态")
+	StartTaskCmd.Flags().StringSliceVar(&startTaskParams.HostTags, "host-tags", nil, "主机标签")
+	StartTaskCmd.Flags().StringSliceVar(&startTaskParams.ItemName, "item-name", nil, "核查项名称")
+	// select is complex type []map[string]interface{}, use JSON string
+	var selectJSON string
+	StartTaskCmd.Flags().StringVar(&selectJSON, "select", "", "选择内容 (JSON, e.g. [{\"id\": 1}])")
+	StartTaskCmd.Flags().BoolVar(&startTaskParams.SelectAll, "select-all", false, "选择所有")
+	StartTaskCmd.Flags().StringSliceVar(&startTaskParams.SetName, "set-name", nil, "核查策略名称")
+	StartTaskCmd.Flags().StringSliceVar(&startTaskParams.StartedAt, "started-at", nil, "任务运行时间")
+	StartTaskCmd.Flags().StringSliceVar(&startTaskParams.Tag, "tag", nil, "TAG")
+	StartTaskCmd.Flags().Float64SliceVar(&startTaskParams.TaskIds, "task-ids", nil, "任务 ID")
+	StartTaskCmd.Flags().StringSliceVar(&startTaskParams.TaskName, "task-name", nil, "核查任务名称")
+	StartTaskCmd.Flags().StringSliceVar(&startTaskParams.TaskState, "task-state", nil, "核查任务状态")
+	StartTaskCmd.Flags().StringSliceVar(&startTaskParams.TriggerMethod, "trigger-method", nil, "触发方式：多选")
 }
-
 
 // StartTaskParams 请求参数
 type StartTaskParams struct {
-	CreatedAt []string `json:"created_at"` // 任务创建时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Enable bool `json:"enable"` // 是否启用
-	FinishedAt []string `json:"finished_at"` // 任务结束时间
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID, 用于主机详情页面
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	ItemName []string `json:"item_name"` // 核查项名称
-	Select []map[string]interface{} `json:"select"` // 选择内容
-	SelectAll bool `json:"select_all"` // 选择所有
-	SetName []string `json:"set_name"` // 核查策略名称
-	StartedAt []string `json:"started_at"` // 任务运行时间
-	Tag []string `json:"tag"` // TAG
-	TaskIds []float64 `json:"task_ids"` // 任务 ID
-	TaskName []string `json:"task_name"` // 核查任务名称
-	TaskState []string `json:"task_state"` // 核查任务状态
-	TriggerMethod []string `json:"trigger_method"` // 触发方式：多选
+	CreatedAt     []string                 `json:"created_at"`     // 任务创建时间
+	CustomAttr    []map[string]interface{} `json:"custom_attr"`    // 主机业务属性
+	Enable        bool                     `json:"enable"`         // 是否启用
+	FinishedAt    []string                 `json:"finished_at"`    // 任务结束时间
+	Gids          []float64                `json:"gids"`           // 业务组 ID
+	HostComment   []string                 `json:"host_comment"`   // 主机备注
+	HostId        []float64                `json:"host_id"`        // 主机ID, 用于主机详情页面
+	HostIp        []string                 `json:"host_ip"`        // 主机IP
+	HostName      []string                 `json:"host_name"`      // 主机名称
+	HostState     []string                 `json:"host_state"`     // 主机状态
+	HostTags      []string                 `json:"host_tags"`      // 主机标签
+	ItemName      []string                 `json:"item_name"`      // 核查项名称
+	Select        []map[string]interface{} `json:"select"`         // 选择内容
+	SelectAll     bool                     `json:"select_all"`     // 选择所有
+	SetName       []string                 `json:"set_name"`       // 核查策略名称
+	StartedAt     []string                 `json:"started_at"`     // 任务运行时间
+	Tag           []string                 `json:"tag"`            // TAG
+	TaskIds       []float64                `json:"task_ids"`       // 任务 ID
+	TaskName      []string                 `json:"task_name"`      // 核查任务名称
+	TaskState     []string                 `json:"task_state"`     // 核查任务状态
+	TriggerMethod []string                 `json:"trigger_method"` // 触发方式：多选
 }
-

@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,32 +29,30 @@ var CreateNetworkAuditRuleCmd = &cobra.Command{
 }
 
 func init() {
-		CreateNetworkAuditRuleCmd.Flags().Float64SliceVar(&createNetworkAuditRuleParams.AgentRange, "agent-range", nil, "主机范围")
-		CreateNetworkAuditRuleCmd.Flags().Float64SliceVar(&createNetworkAuditRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		CreateNetworkAuditRuleCmd.Flags().StringSliceVar(&createNetworkAuditRuleParams.Cidr, "cidr", nil, "CIDR")
-		CreateNetworkAuditRuleCmd.Flags().StringVar(&createNetworkAuditRuleParams.DnsAddr, "dns-addr", "", "DNS 地址正则表达式")
-		CreateNetworkAuditRuleCmd.Flags().BoolVar(&createNetworkAuditRuleParams.Enable, "enable", false, "是否启用")
-		CreateNetworkAuditRuleCmd.Flags().StringVar(&createNetworkAuditRuleParams.ExecName, "exec-name", "", "进程名")
-		CreateNetworkAuditRuleCmd.Flags().StringVar(&createNetworkAuditRuleParams.ExecPath, "exec-path", "", "进程路径")
-		CreateNetworkAuditRuleCmd.Flags().BoolVar(&createNetworkAuditRuleParams.Global, "global", false, "是否绑定全局探针")
-		CreateNetworkAuditRuleCmd.Flags().IntVar(&createNetworkAuditRuleParams.Level, "level", 0, "风险等级(1-低危，2-中危，3-高危，4-严重)")
-		CreateNetworkAuditRuleCmd.Flags().StringVar(&createNetworkAuditRuleParams.Method, "method", "", "匹配目标")
-		CreateNetworkAuditRuleCmd.Flags().StringVar(&createNetworkAuditRuleParams.RuleName, "rule-name", "", "规则名称")
+	CreateNetworkAuditRuleCmd.Flags().Float64SliceVar(&createNetworkAuditRuleParams.AgentRange, "agent-range", nil, "主机范围")
+	CreateNetworkAuditRuleCmd.Flags().Float64SliceVar(&createNetworkAuditRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	CreateNetworkAuditRuleCmd.Flags().StringSliceVar(&createNetworkAuditRuleParams.Cidr, "cidr", nil, "CIDR")
+	CreateNetworkAuditRuleCmd.Flags().StringVar(&createNetworkAuditRuleParams.DnsAddr, "dns-addr", "", "DNS 地址正则表达式")
+	CreateNetworkAuditRuleCmd.Flags().BoolVar(&createNetworkAuditRuleParams.Enable, "enable", false, "是否启用")
+	CreateNetworkAuditRuleCmd.Flags().StringVar(&createNetworkAuditRuleParams.ExecName, "exec-name", "", "进程名")
+	CreateNetworkAuditRuleCmd.Flags().StringVar(&createNetworkAuditRuleParams.ExecPath, "exec-path", "", "进程路径")
+	CreateNetworkAuditRuleCmd.Flags().BoolVar(&createNetworkAuditRuleParams.Global, "global", false, "是否绑定全局探针")
+	CreateNetworkAuditRuleCmd.Flags().IntVar(&createNetworkAuditRuleParams.Level, "level", 0, "风险等级(1-低危，2-中危，3-高危，4-严重)")
+	CreateNetworkAuditRuleCmd.Flags().StringVar(&createNetworkAuditRuleParams.Method, "method", "", "匹配目标")
+	CreateNetworkAuditRuleCmd.Flags().StringVar(&createNetworkAuditRuleParams.RuleName, "rule-name", "", "规则名称")
 }
-
 
 // CreateNetworkAuditRuleParams 请求参数
 type CreateNetworkAuditRuleParams struct {
-	AgentRange []float64 `json:"agent_range"` // 主机范围
+	AgentRange         []float64 `json:"agent_range"`          // 主机范围
 	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Cidr []string `json:"cidr"` // CIDR
-	DnsAddr string `json:"dns_addr"` // DNS 地址正则表达式
-	Enable bool `json:"enable"` // 是否启用
-	ExecName string `json:"exec_name"` // 进程名
-	ExecPath string `json:"exec_path"` // 进程路径
-	Global bool `json:"global"` // 是否绑定全局探针
-	Level int `json:"level"` // 风险等级(1-低危，2-中危，3-高危，4-严重)
-	Method string `json:"method"` // 匹配目标
-	RuleName string `json:"rule_name"` // 规则名称
+	Cidr               []string  `json:"cidr"`                 // CIDR
+	DnsAddr            string    `json:"dns_addr"`             // DNS 地址正则表达式
+	Enable             bool      `json:"enable"`               // 是否启用
+	ExecName           string    `json:"exec_name"`            // 进程名
+	ExecPath           string    `json:"exec_path"`            // 进程路径
+	Global             bool      `json:"global"`               // 是否绑定全局探针
+	Level              int       `json:"level"`                // 风险等级(1-低危，2-中危，3-高危，4-严重)
+	Method             string    `json:"method"`               // 匹配目标
+	RuleName           string    `json:"rule_name"`            // 规则名称
 }
-

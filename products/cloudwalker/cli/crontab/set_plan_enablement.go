@@ -3,8 +3,8 @@
 package crontab
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,36 +29,34 @@ var SetPlanEnablementCmd = &cobra.Command{
 }
 
 func init() {
-		SetPlanEnablementCmd.Flags().BoolVar(&setPlanEnablementParams.Enable, "Enable", false, "是否启用自动执行")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.Comment, "comment", nil, "计划备注：子串匹配")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.CreatedAt, "created-at", nil, "创建时间：时间范围")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.LastFinishedAt, "last-finished-at", nil, "上次结束时间：时间范围")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.LastStartedAt, "last-started-at", nil, "上次启动时间：时间范围")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.Name, "name", nil, "计划名称：子串匹配")
-		SetPlanEnablementCmd.Flags().Float64SliceVar(&setPlanEnablementParams.PlanId, "plan-id", nil, "计划 ID")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.PlanType, "plan-type", nil, "计划任务类型：多选")
-		SetPlanEnablementCmd.Flags().BoolVar(&setPlanEnablementParams.SelectAll, "select-all", false, "是否全部停止筛选器选中的任务计划")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.State, "state", nil, "上次执行状态：多选")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.TriggerMethod, "trigger-method", nil, "触发方式：多选")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.Type, "type", nil, "任务类型：多选")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.UpdatedAt, "updated-at", nil, "最近修改时间：时间范围")
+	SetPlanEnablementCmd.Flags().BoolVar(&setPlanEnablementParams.Enable, "Enable", false, "是否启用自动执行")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.Comment, "comment", nil, "计划备注：子串匹配")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.CreatedAt, "created-at", nil, "创建时间：时间范围")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.LastFinishedAt, "last-finished-at", nil, "上次结束时间：时间范围")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.LastStartedAt, "last-started-at", nil, "上次启动时间：时间范围")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.Name, "name", nil, "计划名称：子串匹配")
+	SetPlanEnablementCmd.Flags().Float64SliceVar(&setPlanEnablementParams.PlanId, "plan-id", nil, "计划 ID")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.PlanType, "plan-type", nil, "计划任务类型：多选")
+	SetPlanEnablementCmd.Flags().BoolVar(&setPlanEnablementParams.SelectAll, "select-all", false, "是否全部停止筛选器选中的任务计划")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.State, "state", nil, "上次执行状态：多选")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.TriggerMethod, "trigger-method", nil, "触发方式：多选")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.Type, "type", nil, "任务类型：多选")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.UpdatedAt, "updated-at", nil, "最近修改时间：时间范围")
 }
-
 
 // SetPlanEnablementParams 请求参数
 type SetPlanEnablementParams struct {
-	Enable bool `json:"Enable"` // 是否启用自动执行
-	Comment []string `json:"comment"` // 计划备注：子串匹配
-	CreatedAt []string `json:"created_at"` // 创建时间：时间范围
-	LastFinishedAt []string `json:"last_finished_at"` // 上次结束时间：时间范围
-	LastStartedAt []string `json:"last_started_at"` // 上次启动时间：时间范围
-	Name []string `json:"name"` // 计划名称：子串匹配
-	PlanId []float64 `json:"plan_id"` // 计划 ID
-	PlanType []string `json:"plan_type"` // 计划任务类型：多选
-	SelectAll bool `json:"select_all"` // 是否全部停止筛选器选中的任务计划
-	State []string `json:"state"` // 上次执行状态：多选
-	TriggerMethod []string `json:"trigger_method"` // 触发方式：多选
-	Type []string `json:"type"` // 任务类型：多选
-	UpdatedAt []string `json:"updated_at"` // 最近修改时间：时间范围
+	Enable         bool      `json:"Enable"`           // 是否启用自动执行
+	Comment        []string  `json:"comment"`          // 计划备注：子串匹配
+	CreatedAt      []string  `json:"created_at"`       // 创建时间：时间范围
+	LastFinishedAt []string  `json:"last_finished_at"` // 上次结束时间：时间范围
+	LastStartedAt  []string  `json:"last_started_at"`  // 上次启动时间：时间范围
+	Name           []string  `json:"name"`             // 计划名称：子串匹配
+	PlanId         []float64 `json:"plan_id"`          // 计划 ID
+	PlanType       []string  `json:"plan_type"`        // 计划任务类型：多选
+	SelectAll      bool      `json:"select_all"`       // 是否全部停止筛选器选中的任务计划
+	State          []string  `json:"state"`            // 上次执行状态：多选
+	TriggerMethod  []string  `json:"trigger_method"`   // 触发方式：多选
+	Type           []string  `json:"type"`             // 任务类型：多选
+	UpdatedAt      []string  `json:"updated_at"`       // 最近修改时间：时间范围
 }
-

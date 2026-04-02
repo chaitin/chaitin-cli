@@ -3,8 +3,8 @@
 package brute_force
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,72 +29,70 @@ var GenerateEventFirewallRuleCmd = &cobra.Command{
 }
 
 func init() {
-		GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.AuthMethod, "auth-method", nil, "auth_method")
-		// block_durations is object type, use JSON string
-		var blockDurationsJSON string
-		GenerateEventFirewallRuleCmd.Flags().StringVar(&blockDurationsJSON, "block-durations", "", "按风险等级设置阻断时间 (JSON, e.g. {\"level_critical\": 600, \"level_high\": 60, \"level_low\": 5, \"level_medium\": 20})")
-		GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.Category, "category", nil, "爆破类型")
-		GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.Comment, "comment", nil, "comment")
-		GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.CreatedAt, "created-at", nil, "爆破开始时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GenerateEventFirewallRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.Description, "description", nil, "爆破描述")
-		GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.FailureCount, "failure-count", nil, "failure_count")
-		GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.FinishedAt, "finished-at", nil, "finished_at")
-		GenerateEventFirewallRuleCmd.Flags().Float64SliceVar(&generateEventFirewallRuleParams.Gids, "gids", nil, "gids")
-		GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.HostComment, "host-comment", nil, "主机备注")
-		GenerateEventFirewallRuleCmd.Flags().Float64SliceVar(&generateEventFirewallRuleParams.HostId, "host-id", nil, "主机 ID")
-		GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.HostIp, "host-ip", nil, "主机 IP")
-		GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.HostName, "host-name", nil, "主机名称")
-		GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.HostState, "host-state", nil, "主机状态")
-		GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.HostTags, "host-tags", nil, "主机标签")
-		GenerateEventFirewallRuleCmd.Flags().Float64SliceVar(&generateEventFirewallRuleParams.Id, "id", nil, "ID")
-		GenerateEventFirewallRuleCmd.Flags().IntSliceVar(&generateEventFirewallRuleParams.Level, "level", nil, "风险等级(1-低危，2-中危，3-高危，4-严重)")
-		GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.LocationCode, "location-code", nil, "location_code")
-		GenerateEventFirewallRuleCmd.Flags().Float64SliceVar(&generateEventFirewallRuleParams.Oid, "oid", nil, "机构 ID")
-		GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
-		GenerateEventFirewallRuleCmd.Flags().BoolVar(&generateEventFirewallRuleParams.SelectAll, "select-all", false, "是否选中所有")
-		GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.SourceIp, "source-ip", nil, "source_ip")
-		GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.StartedAt, "started-at", nil, "started_at")
-		GenerateEventFirewallRuleCmd.Flags().Float64SliceVar(&generateEventFirewallRuleParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
-		GenerateEventFirewallRuleCmd.Flags().IntSliceVar(&generateEventFirewallRuleParams.State, "state", nil, "处置状态(1-有风险，2-已忽略，3-已处理)")
-		GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.SuccessCount, "success-count", nil, "success_count")
-		GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.UserName, "user-name", nil, "user_name")
-		GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.AuthMethod, "auth-method", nil, "auth_method")
+	// block_durations is object type, use JSON string
+	var blockDurationsJSON string
+	GenerateEventFirewallRuleCmd.Flags().StringVar(&blockDurationsJSON, "block-durations", "", "按风险等级设置阻断时间 (JSON, e.g. {\"level_critical\": 600, \"level_high\": 60, \"level_low\": 5, \"level_medium\": 20})")
+	GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.Category, "category", nil, "爆破类型")
+	GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.Comment, "comment", nil, "comment")
+	GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.CreatedAt, "created-at", nil, "爆破开始时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GenerateEventFirewallRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.Description, "description", nil, "爆破描述")
+	GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.FailureCount, "failure-count", nil, "failure_count")
+	GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.FinishedAt, "finished-at", nil, "finished_at")
+	GenerateEventFirewallRuleCmd.Flags().Float64SliceVar(&generateEventFirewallRuleParams.Gids, "gids", nil, "gids")
+	GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.HostComment, "host-comment", nil, "主机备注")
+	GenerateEventFirewallRuleCmd.Flags().Float64SliceVar(&generateEventFirewallRuleParams.HostId, "host-id", nil, "主机 ID")
+	GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.HostIp, "host-ip", nil, "主机 IP")
+	GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.HostName, "host-name", nil, "主机名称")
+	GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.HostState, "host-state", nil, "主机状态")
+	GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.HostTags, "host-tags", nil, "主机标签")
+	GenerateEventFirewallRuleCmd.Flags().Float64SliceVar(&generateEventFirewallRuleParams.Id, "id", nil, "ID")
+	GenerateEventFirewallRuleCmd.Flags().IntSliceVar(&generateEventFirewallRuleParams.Level, "level", nil, "风险等级(1-低危，2-中危，3-高危，4-严重)")
+	GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.LocationCode, "location-code", nil, "location_code")
+	GenerateEventFirewallRuleCmd.Flags().Float64SliceVar(&generateEventFirewallRuleParams.Oid, "oid", nil, "机构 ID")
+	GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
+	GenerateEventFirewallRuleCmd.Flags().BoolVar(&generateEventFirewallRuleParams.SelectAll, "select-all", false, "是否选中所有")
+	GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.SourceIp, "source-ip", nil, "source_ip")
+	GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.StartedAt, "started-at", nil, "started_at")
+	GenerateEventFirewallRuleCmd.Flags().Float64SliceVar(&generateEventFirewallRuleParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
+	GenerateEventFirewallRuleCmd.Flags().IntSliceVar(&generateEventFirewallRuleParams.State, "state", nil, "处置状态(1-有风险，2-已忽略，3-已处理)")
+	GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.SuccessCount, "success-count", nil, "success_count")
+	GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.UserName, "user-name", nil, "user_name")
+	GenerateEventFirewallRuleCmd.Flags().StringSliceVar(&generateEventFirewallRuleParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // GenerateEventFirewallRuleParams 请求参数
 type GenerateEventFirewallRuleParams struct {
-	AuthMethod []string `json:"auth_method"` // auth_method
-	BlockDurations map[string]interface{} `json:"block_durations"` // 按风险等级设置阻断时间
-	Category []string `json:"category"` // 爆破类型
-	Comment []string `json:"comment"` // comment
-	CreatedAt []string `json:"created_at"` // 爆破开始时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Description []string `json:"description"` // 爆破描述
-	FailureCount []string `json:"failure_count"` // failure_count
-	FinishedAt []string `json:"finished_at"` // finished_at
-	Gids []float64 `json:"gids"` // gids
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Id []float64 `json:"id"` // ID
-	Level []int `json:"level"` // 风险等级(1-低危，2-中危，3-高危，4-严重)
-	LocationCode []string `json:"location_code"` // location_code
-	Oid []float64 `json:"oid"` // 机构 ID
-	RemoteAddrType []string `json:"remote_addr_type"` // 远程IP类型，intranet(内网)、internet(外网)
-	SelectAll bool `json:"select_all"` // 是否选中所有
-	SourceIp []string `json:"source_ip"` // source_ip
-	StartedAt []string `json:"started_at"` // started_at
-	StatEventId []float64 `json:"stat_event_id"` // 事件统计 ID
-	State []int `json:"state"` // 处置状态(1-有风险，2-已忽略，3-已处理)
-	SuccessCount []string `json:"success_count"` // success_count
-	UserName []string `json:"user_name"` // user_name
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	AuthMethod     []string                 `json:"auth_method"`      // auth_method
+	BlockDurations map[string]interface{}   `json:"block_durations"`  // 按风险等级设置阻断时间
+	Category       []string                 `json:"category"`         // 爆破类型
+	Comment        []string                 `json:"comment"`          // comment
+	CreatedAt      []string                 `json:"created_at"`       // 爆破开始时间
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	Description    []string                 `json:"description"`      // 爆破描述
+	FailureCount   []string                 `json:"failure_count"`    // failure_count
+	FinishedAt     []string                 `json:"finished_at"`      // finished_at
+	Gids           []float64                `json:"gids"`             // gids
+	HostComment    []string                 `json:"host_comment"`     // 主机备注
+	HostId         []float64                `json:"host_id"`          // 主机 ID
+	HostIp         []string                 `json:"host_ip"`          // 主机 IP
+	HostName       []string                 `json:"host_name"`        // 主机名称
+	HostState      []string                 `json:"host_state"`       // 主机状态
+	HostTags       []string                 `json:"host_tags"`        // 主机标签
+	Id             []float64                `json:"id"`               // ID
+	Level          []int                    `json:"level"`            // 风险等级(1-低危，2-中危，3-高危，4-严重)
+	LocationCode   []string                 `json:"location_code"`    // location_code
+	Oid            []float64                `json:"oid"`              // 机构 ID
+	RemoteAddrType []string                 `json:"remote_addr_type"` // 远程IP类型，intranet(内网)、internet(外网)
+	SelectAll      bool                     `json:"select_all"`       // 是否选中所有
+	SourceIp       []string                 `json:"source_ip"`        // source_ip
+	StartedAt      []string                 `json:"started_at"`       // started_at
+	StatEventId    []float64                `json:"stat_event_id"`    // 事件统计 ID
+	State          []int                    `json:"state"`            // 处置状态(1-有风险，2-已忽略，3-已处理)
+	SuccessCount   []string                 `json:"success_count"`    // success_count
+	UserName       []string                 `json:"user_name"`        // user_name
+	WhiteRuleId    []string                 `json:"white_rule_id"`    // 白名单规则 ID
 }
-

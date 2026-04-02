@@ -3,8 +3,8 @@
 package business_group
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetBusinessGroupTreeByOrgCmd = &cobra.Command{
 }
 
 func init() {
-		GetBusinessGroupTreeByOrgCmd.Flags().IntVar(&getBusinessGroupTreeByOrgParams.Oid, "oid", 0, "机构 id")
+	GetBusinessGroupTreeByOrgCmd.Flags().IntVar(&getBusinessGroupTreeByOrgParams.Oid, "oid", 0, "机构 id")
 }
-
 
 // GetBusinessGroupTreeByOrgParams 请求参数
 type GetBusinessGroupTreeByOrgParams struct {
 	Oid int `json:"oid"` // 机构 id
 }
-

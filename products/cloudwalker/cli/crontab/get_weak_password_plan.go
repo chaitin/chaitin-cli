@@ -3,8 +3,8 @@
 package crontab
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetWeakPasswordPlanCmd = &cobra.Command{
 }
 
 func init() {
-		GetWeakPasswordPlanCmd.Flags().IntVar(&getWeakPasswordPlanParams.PlanId, "plan-id", 0, "计划 ID")
+	GetWeakPasswordPlanCmd.Flags().IntVar(&getWeakPasswordPlanParams.PlanId, "plan-id", 0, "计划 ID")
 }
-
 
 // GetWeakPasswordPlanParams 请求参数
 type GetWeakPasswordPlanParams struct {
 	PlanId int `json:"plan_id"` // 计划 ID
 }
-

@@ -3,8 +3,8 @@
 package security_check
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,56 +29,54 @@ var EditEventCommentCmd = &cobra.Command{
 }
 
 func init() {
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Comment, "comment", nil, "用户自定义备注")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.CreatedAt, "created-at", nil, "创建时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		EditEventCommentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		// filter is complex type []map[string]interface{}, use JSON string
-		var filterJSON string
-		EditEventCommentCmd.Flags().StringVar(&filterJSON, "filter", "", "聚合筛选 (JSON, e.g. [{\"host_id\": 15, \"id\": 15, \"item_id\": \"15\"}])")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Gids, "gids", nil, "业务组 ID 列表")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Hint, "hint", nil, "脆弱点")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostComment, "host-comment", nil, "主机备注")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.HostId, "host-id", nil, "主机 ID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostIp, "host-ip", nil, "主机 IP")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostName, "host-name", nil, "主机名称")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostState, "host-state", nil, "主机状态")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostTags, "host-tags", nil, "主机标签")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Id, "id", nil, "事件 ID 列表")
-		EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Name, "name", nil, "事件名称")
-		EditEventCommentCmd.Flags().StringVar(&editEventCommentParams.NewComment, "new-comment", "", "新的事件备注")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Oid, "oid", nil, "机构 ID")
-		EditEventCommentCmd.Flags().BoolVar(&editEventCommentParams.SelectAll, "select-all", false, "是否全选")
-		EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Tags, "tags", nil, "风险标签")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.UpdatedAt, "updated-at", nil, "最近发现时间")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Comment, "comment", nil, "用户自定义备注")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.CreatedAt, "created-at", nil, "创建时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	EditEventCommentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	// filter is complex type []map[string]interface{}, use JSON string
+	var filterJSON string
+	EditEventCommentCmd.Flags().StringVar(&filterJSON, "filter", "", "聚合筛选 (JSON, e.g. [{\"host_id\": 15, \"id\": 15, \"item_id\": \"15\"}])")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Gids, "gids", nil, "业务组 ID 列表")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Hint, "hint", nil, "脆弱点")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostComment, "host-comment", nil, "主机备注")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.HostId, "host-id", nil, "主机 ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostIp, "host-ip", nil, "主机 IP")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostName, "host-name", nil, "主机名称")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostState, "host-state", nil, "主机状态")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostTags, "host-tags", nil, "主机标签")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Id, "id", nil, "事件 ID 列表")
+	EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Name, "name", nil, "事件名称")
+	EditEventCommentCmd.Flags().StringVar(&editEventCommentParams.NewComment, "new-comment", "", "新的事件备注")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Oid, "oid", nil, "机构 ID")
+	EditEventCommentCmd.Flags().BoolVar(&editEventCommentParams.SelectAll, "select-all", false, "是否全选")
+	EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Tags, "tags", nil, "风险标签")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.UpdatedAt, "updated-at", nil, "最近发现时间")
 }
-
 
 // EditEventCommentParams 请求参数
 type EditEventCommentParams struct {
-	Comment []string `json:"comment"` // 用户自定义备注
-	CreatedAt []string `json:"created_at"` // 创建时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Filter []map[string]interface{} `json:"filter"` // 聚合筛选
-	Gids []float64 `json:"gids"` // 业务组 ID 列表
-	Hint []string `json:"hint"` // 脆弱点
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Id []float64 `json:"id"` // 事件 ID 列表
-	Level []int `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	Name []string `json:"name"` // 事件名称
-	NewComment string `json:"new_comment"` // 新的事件备注
-	Oid []float64 `json:"oid"` // 机构 ID
-	SelectAll bool `json:"select_all"` // 是否全选
-	State []int `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
-	Tags []string `json:"tags"` // 风险标签
-	UpdatedAt []string `json:"updated_at"` // 最近发现时间
+	Comment     []string                 `json:"comment"`      // 用户自定义备注
+	CreatedAt   []string                 `json:"created_at"`   // 创建时间
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Filter      []map[string]interface{} `json:"filter"`       // 聚合筛选
+	Gids        []float64                `json:"gids"`         // 业务组 ID 列表
+	Hint        []string                 `json:"hint"`         // 脆弱点
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机 ID
+	HostIp      []string                 `json:"host_ip"`      // 主机 IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTags    []string                 `json:"host_tags"`    // 主机标签
+	Id          []float64                `json:"id"`           // 事件 ID 列表
+	Level       []int                    `json:"level"`        // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	Name        []string                 `json:"name"`         // 事件名称
+	NewComment  string                   `json:"new_comment"`  // 新的事件备注
+	Oid         []float64                `json:"oid"`          // 机构 ID
+	SelectAll   bool                     `json:"select_all"`   // 是否全选
+	State       []int                    `json:"state"`        // 事件状态(1-有风险，2-已忽略，3-已处理)
+	Tags        []string                 `json:"tags"`         // 风险标签
+	UpdatedAt   []string                 `json:"updated_at"`   // 最近发现时间
 }
-

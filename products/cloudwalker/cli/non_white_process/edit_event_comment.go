@@ -3,8 +3,8 @@
 package non_white_process
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,90 +29,88 @@ var EditEventCommentCmd = &cobra.Command{
 }
 
 func init() {
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.BeginTime, "begin-time", nil, "启动时间")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Cmdline, "cmdline", nil, "命令行参数")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Comment, "comment", nil, "用户自定义备注")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.ContainerHashId, "container-hash-id", nil, "容器ID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.CreatedAt, "created-at", nil, "创建时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		EditEventCommentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Cwd, "cwd", nil, "执行目录")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Egid, "egid", nil, "有效用户组ID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Egname, "egname", nil, "有效用户组名")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Euid, "euid", nil, "有效用户ID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Euname, "euname", nil, "有效用户名")
-		// filter is complex type []map[string]interface{}, use JSON string
-		var filterJSON string
-		EditEventCommentCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. [{\"cmdline\": \"\", \"host_id\": 0.0, \"id\": 0.0, \"name\": \"\"}])")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Gid, "gid", nil, "用户组ID")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Gids, "gids", nil, "业务组ID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Gname, "gname", nil, "用户组")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.GroupName, "group-name", nil, "业务组名")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostComment, "host-comment", nil, "主机备注")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostIp, "host-ip", nil, "主机IP")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostName, "host-name", nil, "主机名称")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostState, "host-state", nil, "主机状态")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostTags, "host-tags", nil, "主机标签")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Ids, "ids", nil, "事件ID, 用于事件详情页面")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Level, "level", nil, "风险等级(1-低危，2-中危，3-高危，4-严重)")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Name, "name", nil, "进程名称/命令名称")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.NetApp, "net-app", nil, "网络应用名称")
-		EditEventCommentCmd.Flags().StringVar(&editEventCommentParams.NewComment, "new-comment", "", "新的事件备注")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Oid, "oid", nil, "机构 ID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Path, "path", nil, "可执行文件路径")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Pid, "pid", nil, "pid")
-		EditEventCommentCmd.Flags().BoolVar(&editEventCommentParams.SelectAll, "select-all", false, "select_all")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Sid, "sid", nil, "sessionID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.SshClientIp, "ssh-client-ip", nil, "ssh 登陆地址")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.SshUser, "ssh-user", nil, "ssh 登录用户")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.State, "state", nil, "处置状态(1-有风险，2-已忽略，3-已处理)")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Uid, "uid", nil, "用户ID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Uname, "uname", nil, "用户名")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.BeginTime, "begin-time", nil, "启动时间")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Cmdline, "cmdline", nil, "命令行参数")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Comment, "comment", nil, "用户自定义备注")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.ContainerHashId, "container-hash-id", nil, "容器ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.CreatedAt, "created-at", nil, "创建时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	EditEventCommentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Cwd, "cwd", nil, "执行目录")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Egid, "egid", nil, "有效用户组ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Egname, "egname", nil, "有效用户组名")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Euid, "euid", nil, "有效用户ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Euname, "euname", nil, "有效用户名")
+	// filter is complex type []map[string]interface{}, use JSON string
+	var filterJSON string
+	EditEventCommentCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. [{\"cmdline\": \"\", \"host_id\": 0.0, \"id\": 0.0, \"name\": \"\"}])")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Gid, "gid", nil, "用户组ID")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Gids, "gids", nil, "业务组ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Gname, "gname", nil, "用户组")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.GroupName, "group-name", nil, "业务组名")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostComment, "host-comment", nil, "主机备注")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostIp, "host-ip", nil, "主机IP")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostName, "host-name", nil, "主机名称")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostState, "host-state", nil, "主机状态")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostTags, "host-tags", nil, "主机标签")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Ids, "ids", nil, "事件ID, 用于事件详情页面")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Level, "level", nil, "风险等级(1-低危，2-中危，3-高危，4-严重)")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Name, "name", nil, "进程名称/命令名称")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.NetApp, "net-app", nil, "网络应用名称")
+	EditEventCommentCmd.Flags().StringVar(&editEventCommentParams.NewComment, "new-comment", "", "新的事件备注")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Oid, "oid", nil, "机构 ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Path, "path", nil, "可执行文件路径")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Pid, "pid", nil, "pid")
+	EditEventCommentCmd.Flags().BoolVar(&editEventCommentParams.SelectAll, "select-all", false, "select_all")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Sid, "sid", nil, "sessionID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.SshClientIp, "ssh-client-ip", nil, "ssh 登陆地址")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.SshUser, "ssh-user", nil, "ssh 登录用户")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.State, "state", nil, "处置状态(1-有风险，2-已忽略，3-已处理)")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Uid, "uid", nil, "用户ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Uname, "uname", nil, "用户名")
 }
-
 
 // EditEventCommentParams 请求参数
 type EditEventCommentParams struct {
-	BeginTime []string `json:"begin_time"` // 启动时间
-	Cmdline []string `json:"cmdline"` // 命令行参数
-	Comment []string `json:"comment"` // 用户自定义备注
-	ContainerHashId []string `json:"container_hash_id"` // 容器ID
-	CreatedAt []string `json:"created_at"` // 创建时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Cwd []string `json:"cwd"` // 执行目录
-	Egid []float64 `json:"egid"` // 有效用户组ID
-	Egname []string `json:"egname"` // 有效用户组名
-	Euid []float64 `json:"euid"` // 有效用户ID
-	Euname []string `json:"euname"` // 有效用户名
-	Filter []map[string]interface{} `json:"filter"` // filter
-	Gid []float64 `json:"gid"` // 用户组ID
-	Gids []float64 `json:"gids"` // 业务组ID
-	Gname []string `json:"gname"` // 用户组
-	GroupName []string `json:"group_name"` // 业务组名
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID, 用于主机详情页面
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Ids []float64 `json:"ids"` // 事件ID, 用于事件详情页面
-	Level []float64 `json:"level"` // 风险等级(1-低危，2-中危，3-高危，4-严重)
-	Name []string `json:"name"` // 进程名称/命令名称
-	NetApp []string `json:"net_app"` // 网络应用名称
-	NewComment string `json:"new_comment"` // 新的事件备注
-	Oid []float64 `json:"oid"` // 机构 ID
-	Path []string `json:"path"` // 可执行文件路径
-	Pid []float64 `json:"pid"` // pid
-	SelectAll bool `json:"select_all"` // select_all
-	Sid []string `json:"sid"` // sessionID
-	SshClientIp []string `json:"ssh_client_ip"` // ssh 登陆地址
-	SshUser []string `json:"ssh_user"` // ssh 登录用户
-	StatEventId []float64 `json:"stat_event_id"` // 事件统计 ID
-	State []float64 `json:"state"` // 处置状态(1-有风险，2-已忽略，3-已处理)
-	Uid []float64 `json:"uid"` // 用户ID
-	Uname []string `json:"uname"` // 用户名
+	BeginTime       []string                 `json:"begin_time"`        // 启动时间
+	Cmdline         []string                 `json:"cmdline"`           // 命令行参数
+	Comment         []string                 `json:"comment"`           // 用户自定义备注
+	ContainerHashId []string                 `json:"container_hash_id"` // 容器ID
+	CreatedAt       []string                 `json:"created_at"`        // 创建时间
+	CustomAttr      []map[string]interface{} `json:"custom_attr"`       // 主机业务属性
+	Cwd             []string                 `json:"cwd"`               // 执行目录
+	Egid            []float64                `json:"egid"`              // 有效用户组ID
+	Egname          []string                 `json:"egname"`            // 有效用户组名
+	Euid            []float64                `json:"euid"`              // 有效用户ID
+	Euname          []string                 `json:"euname"`            // 有效用户名
+	Filter          []map[string]interface{} `json:"filter"`            // filter
+	Gid             []float64                `json:"gid"`               // 用户组ID
+	Gids            []float64                `json:"gids"`              // 业务组ID
+	Gname           []string                 `json:"gname"`             // 用户组
+	GroupName       []string                 `json:"group_name"`        // 业务组名
+	HostComment     []string                 `json:"host_comment"`      // 主机备注
+	HostId          []float64                `json:"host_id"`           // 主机ID, 用于主机详情页面
+	HostIp          []string                 `json:"host_ip"`           // 主机IP
+	HostName        []string                 `json:"host_name"`         // 主机名称
+	HostState       []string                 `json:"host_state"`        // 主机状态
+	HostTags        []string                 `json:"host_tags"`         // 主机标签
+	Ids             []float64                `json:"ids"`               // 事件ID, 用于事件详情页面
+	Level           []float64                `json:"level"`             // 风险等级(1-低危，2-中危，3-高危，4-严重)
+	Name            []string                 `json:"name"`              // 进程名称/命令名称
+	NetApp          []string                 `json:"net_app"`           // 网络应用名称
+	NewComment      string                   `json:"new_comment"`       // 新的事件备注
+	Oid             []float64                `json:"oid"`               // 机构 ID
+	Path            []string                 `json:"path"`              // 可执行文件路径
+	Pid             []float64                `json:"pid"`               // pid
+	SelectAll       bool                     `json:"select_all"`        // select_all
+	Sid             []string                 `json:"sid"`               // sessionID
+	SshClientIp     []string                 `json:"ssh_client_ip"`     // ssh 登陆地址
+	SshUser         []string                 `json:"ssh_user"`          // ssh 登录用户
+	StatEventId     []float64                `json:"stat_event_id"`     // 事件统计 ID
+	State           []float64                `json:"state"`             // 处置状态(1-有风险，2-已忽略，3-已处理)
+	Uid             []float64                `json:"uid"`               // 用户ID
+	Uname           []string                 `json:"uname"`             // 用户名
 }
-

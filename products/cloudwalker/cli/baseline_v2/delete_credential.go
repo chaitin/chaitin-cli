@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var DeleteCredentialCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteCredentialCmd.Flags().IntSliceVar(&deleteCredentialParams.Id, "id", nil, "凭据 ID")
+	DeleteCredentialCmd.Flags().IntSliceVar(&deleteCredentialParams.Id, "id", nil, "凭据 ID")
 }
-
 
 // DeleteCredentialParams 请求参数
 type DeleteCredentialParams struct {
 	Id []int `json:"id"` // 凭据 ID
 }
-

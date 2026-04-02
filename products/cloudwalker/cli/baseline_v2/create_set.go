@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var CreateSetCmd = &cobra.Command{
 }
 
 func init() {
-		CreateSetCmd.Flags().StringVar(&createSetParams.Comment, "comment", "", "新策略的，如果留空则会根据已有策略生成一个")
-		CreateSetCmd.Flags().StringVar(&createSetParams.FormExitedSetId, "form-exited-set-id", "", "从已有的策略复制一个新的策略出来")
-		CreateSetCmd.Flags().StringVar(&createSetParams.Name, "name", "", "新策略的名称，如果留空则会根据已有策略生成一个")
+	CreateSetCmd.Flags().StringVar(&createSetParams.Comment, "comment", "", "新策略的，如果留空则会根据已有策略生成一个")
+	CreateSetCmd.Flags().StringVar(&createSetParams.FormExitedSetId, "form-exited-set-id", "", "从已有的策略复制一个新的策略出来")
+	CreateSetCmd.Flags().StringVar(&createSetParams.Name, "name", "", "新策略的名称，如果留空则会根据已有策略生成一个")
 }
-
 
 // CreateSetParams 请求参数
 type CreateSetParams struct {
-	Comment string `json:"comment"` // 新策略的，如果留空则会根据已有策略生成一个
+	Comment         string `json:"comment"`            // 新策略的，如果留空则会根据已有策略生成一个
 	FormExitedSetId string `json:"form_exited_set_id"` // 从已有的策略复制一个新的策略出来
-	Name string `json:"name"` // 新策略的名称，如果留空则会根据已有策略生成一个
+	Name            string `json:"name"`               // 新策略的名称，如果留空则会根据已有策略生成一个
 }
-

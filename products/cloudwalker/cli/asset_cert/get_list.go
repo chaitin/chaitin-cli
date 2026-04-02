@@ -3,8 +3,8 @@
 package asset_cert
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,64 +29,62 @@ var GetListCmd = &cobra.Command{
 }
 
 func init() {
-		GetListCmd.Flags().IntVar(&getListParams.Count, "count", 20, "数量")
-		GetListCmd.Flags().StringSliceVar(&getListParams.CreatedAt, "created-at", nil, "发现时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetListCmd.Flags().Float64SliceVar(&getListParams.Gids, "gids", nil, "业务组")
-		GetListCmd.Flags().StringSliceVar(&getListParams.HostComment, "host-comment", nil, "主机备注")
-		GetListCmd.Flags().Float64SliceVar(&getListParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
-		GetListCmd.Flags().StringSliceVar(&getListParams.HostIp, "host-ip", nil, "主机IP")
-		GetListCmd.Flags().StringSliceVar(&getListParams.HostName, "host-name", nil, "主机名称")
-		GetListCmd.Flags().StringSliceVar(&getListParams.HostOsType, "host-os-type", nil, "主机操作系统")
-		GetListCmd.Flags().StringSliceVar(&getListParams.HostState, "host-state", nil, "主机状态")
-		GetListCmd.Flags().StringSliceVar(&getListParams.HostTags, "host-tags", nil, "主机标签")
-		GetListCmd.Flags().StringSliceVar(&getListParams.Issuer, "issuer", nil, "颁发者，RFC 2253 格式")
-		GetListCmd.Flags().StringSliceVar(&getListParams.NotAfter, "not-after", nil, "证书截止日期")
-		GetListCmd.Flags().StringSliceVar(&getListParams.NotBefore, "not-before", nil, "证书生效日期")
-		GetListCmd.Flags().IntVar(&getListParams.Offset, "offset", 0, "偏移量")
-		GetListCmd.Flags().Float64SliceVar(&getListParams.Oid, "oid", nil, "机构 ID")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetListCmd.Flags().StringSliceVar(&getListParams.SerialNumber, "serial-number", nil, "序列号")
-		GetListCmd.Flags().StringSliceVar(&getListParams.Sha1Fingerprint, "sha1-fingerprint", nil, "SHA1 指纹，小写八进制")
-		GetListCmd.Flags().StringSliceVar(&getListParams.SignatureAlgorithm, "signature-algorithm", nil, "签名算法")
-		GetListCmd.Flags().StringSliceVar(&getListParams.StoreLocation, "store-location", nil, "证书存储路径")
-		GetListCmd.Flags().StringSliceVar(&getListParams.Subject, "subject", nil, "使用者，RFC 2253 格式")
-		GetListCmd.Flags().StringSliceVar(&getListParams.SubjectCommonName, "subject-common-name", nil, "证书（使用者）CN")
-		GetListCmd.Flags().StringSliceVar(&getListParams.UpdatedAt, "updated-at", nil, "更新时间")
-		GetListCmd.Flags().StringSliceVar(&getListParams.Version, "version", nil, "版本")
+	GetListCmd.Flags().IntVar(&getListParams.Count, "count", 20, "数量")
+	GetListCmd.Flags().StringSliceVar(&getListParams.CreatedAt, "created-at", nil, "发现时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetListCmd.Flags().Float64SliceVar(&getListParams.Gids, "gids", nil, "业务组")
+	GetListCmd.Flags().StringSliceVar(&getListParams.HostComment, "host-comment", nil, "主机备注")
+	GetListCmd.Flags().Float64SliceVar(&getListParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
+	GetListCmd.Flags().StringSliceVar(&getListParams.HostIp, "host-ip", nil, "主机IP")
+	GetListCmd.Flags().StringSliceVar(&getListParams.HostName, "host-name", nil, "主机名称")
+	GetListCmd.Flags().StringSliceVar(&getListParams.HostOsType, "host-os-type", nil, "主机操作系统")
+	GetListCmd.Flags().StringSliceVar(&getListParams.HostState, "host-state", nil, "主机状态")
+	GetListCmd.Flags().StringSliceVar(&getListParams.HostTags, "host-tags", nil, "主机标签")
+	GetListCmd.Flags().StringSliceVar(&getListParams.Issuer, "issuer", nil, "颁发者，RFC 2253 格式")
+	GetListCmd.Flags().StringSliceVar(&getListParams.NotAfter, "not-after", nil, "证书截止日期")
+	GetListCmd.Flags().StringSliceVar(&getListParams.NotBefore, "not-before", nil, "证书生效日期")
+	GetListCmd.Flags().IntVar(&getListParams.Offset, "offset", 0, "偏移量")
+	GetListCmd.Flags().Float64SliceVar(&getListParams.Oid, "oid", nil, "机构 ID")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetListCmd.Flags().StringSliceVar(&getListParams.SerialNumber, "serial-number", nil, "序列号")
+	GetListCmd.Flags().StringSliceVar(&getListParams.Sha1Fingerprint, "sha1-fingerprint", nil, "SHA1 指纹，小写八进制")
+	GetListCmd.Flags().StringSliceVar(&getListParams.SignatureAlgorithm, "signature-algorithm", nil, "签名算法")
+	GetListCmd.Flags().StringSliceVar(&getListParams.StoreLocation, "store-location", nil, "证书存储路径")
+	GetListCmd.Flags().StringSliceVar(&getListParams.Subject, "subject", nil, "使用者，RFC 2253 格式")
+	GetListCmd.Flags().StringSliceVar(&getListParams.SubjectCommonName, "subject-common-name", nil, "证书（使用者）CN")
+	GetListCmd.Flags().StringSliceVar(&getListParams.UpdatedAt, "updated-at", nil, "更新时间")
+	GetListCmd.Flags().StringSliceVar(&getListParams.Version, "version", nil, "版本")
 }
-
 
 // GetListParams 请求参数
 type GetListParams struct {
-	Count int `json:"count"` // 数量
-	CreatedAt []string `json:"created_at"` // 发现时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // 业务组
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID, 用于主机详情页面
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostOsType []string `json:"host_os_type"` // 主机操作系统
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Issuer []string `json:"issuer"` // 颁发者，RFC 2253 格式
-	NotAfter []string `json:"not_after"` // 证书截止日期
-	NotBefore []string `json:"not_before"` // 证书生效日期
-	Offset int `json:"offset"` // 偏移量
-	Oid []float64 `json:"oid"` // 机构 ID
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	SerialNumber []string `json:"serial_number"` // 序列号
-	Sha1Fingerprint []string `json:"sha1_fingerprint"` // SHA1 指纹，小写八进制
-	SignatureAlgorithm []string `json:"signature_algorithm"` // 签名算法
-	StoreLocation []string `json:"store_location"` // 证书存储路径
-	Subject []string `json:"subject"` // 使用者，RFC 2253 格式
-	SubjectCommonName []string `json:"subject_common_name"` // 证书（使用者）CN
-	UpdatedAt []string `json:"updated_at"` // 更新时间
-	Version []string `json:"version"` // 版本
+	Count              int                      `json:"count"`               // 数量
+	CreatedAt          []string                 `json:"created_at"`          // 发现时间
+	CustomAttr         []map[string]interface{} `json:"custom_attr"`         // 主机业务属性
+	Gids               []float64                `json:"gids"`                // 业务组
+	HostComment        []string                 `json:"host_comment"`        // 主机备注
+	HostId             []float64                `json:"host_id"`             // 主机ID, 用于主机详情页面
+	HostIp             []string                 `json:"host_ip"`             // 主机IP
+	HostName           []string                 `json:"host_name"`           // 主机名称
+	HostOsType         []string                 `json:"host_os_type"`        // 主机操作系统
+	HostState          []string                 `json:"host_state"`          // 主机状态
+	HostTags           []string                 `json:"host_tags"`           // 主机标签
+	Issuer             []string                 `json:"issuer"`              // 颁发者，RFC 2253 格式
+	NotAfter           []string                 `json:"not_after"`           // 证书截止日期
+	NotBefore          []string                 `json:"not_before"`          // 证书生效日期
+	Offset             int                      `json:"offset"`              // 偏移量
+	Oid                []float64                `json:"oid"`                 // 机构 ID
+	OrderBy            map[string]interface{}   `json:"order_by"`            // 排序规则
+	SerialNumber       []string                 `json:"serial_number"`       // 序列号
+	Sha1Fingerprint    []string                 `json:"sha1_fingerprint"`    // SHA1 指纹，小写八进制
+	SignatureAlgorithm []string                 `json:"signature_algorithm"` // 签名算法
+	StoreLocation      []string                 `json:"store_location"`      // 证书存储路径
+	Subject            []string                 `json:"subject"`             // 使用者，RFC 2253 格式
+	SubjectCommonName  []string                 `json:"subject_common_name"` // 证书（使用者）CN
+	UpdatedAt          []string                 `json:"updated_at"`          // 更新时间
+	Version            []string                 `json:"version"`             // 版本
 }
-

@@ -3,8 +3,8 @@
 package admin_agent
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,18 +29,16 @@ var DeleteModuleCmd = &cobra.Command{
 }
 
 func init() {
-		// filter is object type, use JSON string
-		var filterJSON string
-		DeleteModuleCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"applied\": [\"true\"], \"arch\": [\"amd64\"], \"distributor_os_release\": [\"Ubuntu linux 22.04\"], \"...\": \"...\"})")
-		// select_filter is object type, use JSON string
-		var selectFilterJSON string
-		DeleteModuleCmd.Flags().StringVar(&selectFilterJSON, "select-filter", "", "是否全选&模块ID (JSON, e.g. {\"select\": [{\"id\": 0}], \"select_all\": true})")
+	// filter is object type, use JSON string
+	var filterJSON string
+	DeleteModuleCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"applied\": [\"true\"], \"arch\": [\"amd64\"], \"distributor_os_release\": [\"Ubuntu linux 22.04\"], \"...\": \"...\"})")
+	// select_filter is object type, use JSON string
+	var selectFilterJSON string
+	DeleteModuleCmd.Flags().StringVar(&selectFilterJSON, "select-filter", "", "是否全选&模块ID (JSON, e.g. {\"select\": [{\"id\": 0}], \"select_all\": true})")
 }
-
 
 // DeleteModuleParams 请求参数
 type DeleteModuleParams struct {
-	Filter map[string]interface{} `json:"filter"` // 筛选器
+	Filter       map[string]interface{} `json:"filter"`        // 筛选器
 	SelectFilter map[string]interface{} `json:"select_filter"` // 是否全选&模块ID
 }
-

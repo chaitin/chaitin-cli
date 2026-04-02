@@ -3,14 +3,12 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetInternalIpDefineCmd = &cobra.Command{
 	Use:   "get_internal_ip_define",
@@ -31,5 +29,3 @@ var GetInternalIpDefineCmd = &cobra.Command{
 func init() {
 
 }
-
-

@@ -3,8 +3,8 @@
 package sensitive_file_scan
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,28 +29,26 @@ var ListRuleCmd = &cobra.Command{
 }
 
 func init() {
-		ListRuleCmd.Flags().StringSliceVar(&listRuleParams.Action, "action", nil, "行为")
-		ListRuleCmd.Flags().IntVar(&listRuleParams.Count, "count", 20, "每页记录数量")
-		ListRuleCmd.Flags().BoolVar(&listRuleParams.Enable, "enable", false, "是否启用")
-		ListRuleCmd.Flags().StringSliceVar(&listRuleParams.Id, "id", nil, "规则 ID")
-		ListRuleCmd.Flags().BoolVar(&listRuleParams.IsBuiltin, "is-builtin", false, "是否为内置规则")
-		ListRuleCmd.Flags().Float64SliceVar(&listRuleParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		ListRuleCmd.Flags().IntVar(&listRuleParams.Offset, "offset", 0, "页偏移")
-		ListRuleCmd.Flags().StringSliceVar(&listRuleParams.Path, "path", nil, "文件路径")
-		ListRuleCmd.Flags().StringSliceVar(&listRuleParams.RuleName, "rule-name", nil, "规则名称")
+	ListRuleCmd.Flags().StringSliceVar(&listRuleParams.Action, "action", nil, "行为")
+	ListRuleCmd.Flags().IntVar(&listRuleParams.Count, "count", 20, "每页记录数量")
+	ListRuleCmd.Flags().BoolVar(&listRuleParams.Enable, "enable", false, "是否启用")
+	ListRuleCmd.Flags().StringSliceVar(&listRuleParams.Id, "id", nil, "规则 ID")
+	ListRuleCmd.Flags().BoolVar(&listRuleParams.IsBuiltin, "is-builtin", false, "是否为内置规则")
+	ListRuleCmd.Flags().Float64SliceVar(&listRuleParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	ListRuleCmd.Flags().IntVar(&listRuleParams.Offset, "offset", 0, "页偏移")
+	ListRuleCmd.Flags().StringSliceVar(&listRuleParams.Path, "path", nil, "文件路径")
+	ListRuleCmd.Flags().StringSliceVar(&listRuleParams.RuleName, "rule-name", nil, "规则名称")
 }
-
 
 // ListRuleParams 请求参数
 type ListRuleParams struct {
-	Action []string `json:"action"` // 行为
-	Count int `json:"count"` // 每页记录数量
-	Enable bool `json:"enable"` // 是否启用
-	Id []string `json:"id"` // 规则 ID
-	IsBuiltin bool `json:"is_builtin"` // 是否为内置规则
-	Level []float64 `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	Offset int `json:"offset"` // 页偏移
-	Path []string `json:"path"` // 文件路径
-	RuleName []string `json:"rule_name"` // 规则名称
+	Action    []string  `json:"action"`     // 行为
+	Count     int       `json:"count"`      // 每页记录数量
+	Enable    bool      `json:"enable"`     // 是否启用
+	Id        []string  `json:"id"`         // 规则 ID
+	IsBuiltin bool      `json:"is_builtin"` // 是否为内置规则
+	Level     []float64 `json:"level"`      // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	Offset    int       `json:"offset"`     // 页偏移
+	Path      []string  `json:"path"`       // 文件路径
+	RuleName  []string  `json:"rule_name"`  // 规则名称
 }
-

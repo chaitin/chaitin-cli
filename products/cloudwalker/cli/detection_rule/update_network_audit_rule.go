@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,34 +29,32 @@ var UpdateNetworkAuditRuleCmd = &cobra.Command{
 }
 
 func init() {
-		UpdateNetworkAuditRuleCmd.Flags().Float64SliceVar(&updateNetworkAuditRuleParams.AgentRange, "agent-range", nil, "主机范围")
-		UpdateNetworkAuditRuleCmd.Flags().Float64SliceVar(&updateNetworkAuditRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		UpdateNetworkAuditRuleCmd.Flags().StringSliceVar(&updateNetworkAuditRuleParams.Cidr, "cidr", nil, "CIDR")
-		UpdateNetworkAuditRuleCmd.Flags().StringVar(&updateNetworkAuditRuleParams.DnsAddr, "dns-addr", "", "DNS 地址正则表达式")
-		UpdateNetworkAuditRuleCmd.Flags().BoolVar(&updateNetworkAuditRuleParams.Enable, "enable", false, "是否启用")
-		UpdateNetworkAuditRuleCmd.Flags().StringVar(&updateNetworkAuditRuleParams.ExecName, "exec-name", "", "进程名")
-		UpdateNetworkAuditRuleCmd.Flags().StringVar(&updateNetworkAuditRuleParams.ExecPath, "exec-path", "", "进程路径")
-		UpdateNetworkAuditRuleCmd.Flags().BoolVar(&updateNetworkAuditRuleParams.Global, "global", false, "是否绑定全局探针")
-		UpdateNetworkAuditRuleCmd.Flags().StringVar(&updateNetworkAuditRuleParams.Id, "id", "", "规则ID")
-		UpdateNetworkAuditRuleCmd.Flags().IntVar(&updateNetworkAuditRuleParams.Level, "level", 0, "风险等级(1-低危，2-中危，3-高危，4-严重)")
-		UpdateNetworkAuditRuleCmd.Flags().StringVar(&updateNetworkAuditRuleParams.Method, "method", "", "匹配目标")
-		UpdateNetworkAuditRuleCmd.Flags().StringVar(&updateNetworkAuditRuleParams.RuleName, "rule-name", "", "规则名称")
+	UpdateNetworkAuditRuleCmd.Flags().Float64SliceVar(&updateNetworkAuditRuleParams.AgentRange, "agent-range", nil, "主机范围")
+	UpdateNetworkAuditRuleCmd.Flags().Float64SliceVar(&updateNetworkAuditRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	UpdateNetworkAuditRuleCmd.Flags().StringSliceVar(&updateNetworkAuditRuleParams.Cidr, "cidr", nil, "CIDR")
+	UpdateNetworkAuditRuleCmd.Flags().StringVar(&updateNetworkAuditRuleParams.DnsAddr, "dns-addr", "", "DNS 地址正则表达式")
+	UpdateNetworkAuditRuleCmd.Flags().BoolVar(&updateNetworkAuditRuleParams.Enable, "enable", false, "是否启用")
+	UpdateNetworkAuditRuleCmd.Flags().StringVar(&updateNetworkAuditRuleParams.ExecName, "exec-name", "", "进程名")
+	UpdateNetworkAuditRuleCmd.Flags().StringVar(&updateNetworkAuditRuleParams.ExecPath, "exec-path", "", "进程路径")
+	UpdateNetworkAuditRuleCmd.Flags().BoolVar(&updateNetworkAuditRuleParams.Global, "global", false, "是否绑定全局探针")
+	UpdateNetworkAuditRuleCmd.Flags().StringVar(&updateNetworkAuditRuleParams.Id, "id", "", "规则ID")
+	UpdateNetworkAuditRuleCmd.Flags().IntVar(&updateNetworkAuditRuleParams.Level, "level", 0, "风险等级(1-低危，2-中危，3-高危，4-严重)")
+	UpdateNetworkAuditRuleCmd.Flags().StringVar(&updateNetworkAuditRuleParams.Method, "method", "", "匹配目标")
+	UpdateNetworkAuditRuleCmd.Flags().StringVar(&updateNetworkAuditRuleParams.RuleName, "rule-name", "", "规则名称")
 }
-
 
 // UpdateNetworkAuditRuleParams 请求参数
 type UpdateNetworkAuditRuleParams struct {
-	AgentRange []float64 `json:"agent_range"` // 主机范围
+	AgentRange         []float64 `json:"agent_range"`          // 主机范围
 	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Cidr []string `json:"cidr"` // CIDR
-	DnsAddr string `json:"dns_addr"` // DNS 地址正则表达式
-	Enable bool `json:"enable"` // 是否启用
-	ExecName string `json:"exec_name"` // 进程名
-	ExecPath string `json:"exec_path"` // 进程路径
-	Global bool `json:"global"` // 是否绑定全局探针
-	Id string `json:"id"` // 规则ID
-	Level int `json:"level"` // 风险等级(1-低危，2-中危，3-高危，4-严重)
-	Method string `json:"method"` // 匹配目标
-	RuleName string `json:"rule_name"` // 规则名称
+	Cidr               []string  `json:"cidr"`                 // CIDR
+	DnsAddr            string    `json:"dns_addr"`             // DNS 地址正则表达式
+	Enable             bool      `json:"enable"`               // 是否启用
+	ExecName           string    `json:"exec_name"`            // 进程名
+	ExecPath           string    `json:"exec_path"`            // 进程路径
+	Global             bool      `json:"global"`               // 是否绑定全局探针
+	Id                 string    `json:"id"`                   // 规则ID
+	Level              int       `json:"level"`                // 风险等级(1-低危，2-中危，3-高危，4-严重)
+	Method             string    `json:"method"`               // 匹配目标
+	RuleName           string    `json:"rule_name"`            // 规则名称
 }
-

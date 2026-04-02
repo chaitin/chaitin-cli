@@ -3,8 +3,8 @@
 package crontab
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetSensitiveFilePlanCmd = &cobra.Command{
 }
 
 func init() {
-		GetSensitiveFilePlanCmd.Flags().IntVar(&getSensitiveFilePlanParams.PlanId, "plan-id", 0, "计划 ID")
+	GetSensitiveFilePlanCmd.Flags().IntVar(&getSensitiveFilePlanParams.PlanId, "plan-id", 0, "计划 ID")
 }
-
 
 // GetSensitiveFilePlanParams 请求参数
 type GetSensitiveFilePlanParams struct {
 	PlanId int `json:"plan_id"` // 计划 ID
 }
-

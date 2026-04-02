@@ -3,8 +3,8 @@
 package business_group
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,18 +29,16 @@ var EditBusinessGroupCmd = &cobra.Command{
 }
 
 func init() {
-		EditBusinessGroupCmd.Flags().StringVar(&editBusinessGroupParams.Comment, "comment", "", "描述")
-		EditBusinessGroupCmd.Flags().IntVar(&editBusinessGroupParams.Id, "id", 0, "ID")
-		EditBusinessGroupCmd.Flags().StringVar(&editBusinessGroupParams.Name, "name", "", "业务组名称")
-		EditBusinessGroupCmd.Flags().IntVar(&editBusinessGroupParams.Pid, "pid", 0, "父业务组ID")
+	EditBusinessGroupCmd.Flags().StringVar(&editBusinessGroupParams.Comment, "comment", "", "描述")
+	EditBusinessGroupCmd.Flags().IntVar(&editBusinessGroupParams.Id, "id", 0, "ID")
+	EditBusinessGroupCmd.Flags().StringVar(&editBusinessGroupParams.Name, "name", "", "业务组名称")
+	EditBusinessGroupCmd.Flags().IntVar(&editBusinessGroupParams.Pid, "pid", 0, "父业务组ID")
 }
-
 
 // EditBusinessGroupParams 请求参数
 type EditBusinessGroupParams struct {
 	Comment string `json:"comment"` // 描述
-	Id int `json:"id"` // ID
-	Name string `json:"name"` // 业务组名称
-	Pid int `json:"pid"` // 父业务组ID
+	Id      int    `json:"id"`      // ID
+	Name    string `json:"name"`    // 业务组名称
+	Pid     int    `json:"pid"`     // 父业务组ID
 }
-

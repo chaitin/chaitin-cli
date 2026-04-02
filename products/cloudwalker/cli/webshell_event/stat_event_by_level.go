@@ -3,8 +3,8 @@
 package webshell_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,60 +29,58 @@ var StatEventByLevelCmd = &cobra.Command{
 }
 
 func init() {
-		StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.Comment, "comment", nil, "用户自定义备注")
-		StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.CreatedAt, "created-at", nil, "事件发现时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		StatEventByLevelCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.Domain, "domain", nil, "域名")
-		StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.FileName, "file-name", nil, "文件名")
-		StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.FilePath, "file-path", nil, "文件路径")
-		StatEventByLevelCmd.Flags().Float64SliceVar(&statEventByLevelParams.Gids, "gids", nil, "业务组 ID")
-		StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.HostComment, "host-comment", nil, "主机备注")
-		StatEventByLevelCmd.Flags().Float64SliceVar(&statEventByLevelParams.HostId, "host-id", nil, "主机 ID")
-		StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.HostIp, "host-ip", nil, "主机 IP")
-		StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.HostName, "host-name", nil, "主机名称")
-		StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.HostState, "host-state", nil, "主机状态")
-		StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.HostTags, "host-tags", nil, "主机标签")
-		StatEventByLevelCmd.Flags().Float64SliceVar(&statEventByLevelParams.Id, "id", nil, "事件ID")
-		StatEventByLevelCmd.Flags().Float64SliceVar(&statEventByLevelParams.IsolateState, "isolate-state", nil, "隔离状态")
-		StatEventByLevelCmd.Flags().IntSliceVar(&statEventByLevelParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.Md5, "md5", nil, "文件 MD5")
-		StatEventByLevelCmd.Flags().Float64SliceVar(&statEventByLevelParams.Oid, "oid", nil, "机构 ID")
-		StatEventByLevelCmd.Flags().Float64SliceVar(&statEventByLevelParams.PlanId, "plan-id", nil, "任务 id")
-		StatEventByLevelCmd.Flags().Float64SliceVar(&statEventByLevelParams.StatEventId, "stat-event-id", nil, "统计事件 ID")
-		StatEventByLevelCmd.Flags().IntSliceVar(&statEventByLevelParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
-		StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.UpdatedAt, "updated-at", nil, "最后发现时间")
-		StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.WebshellType, "webshell-type", nil, "Webshell 类型")
-		StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.Comment, "comment", nil, "用户自定义备注")
+	StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.CreatedAt, "created-at", nil, "事件发现时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	StatEventByLevelCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.Domain, "domain", nil, "域名")
+	StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.FileName, "file-name", nil, "文件名")
+	StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.FilePath, "file-path", nil, "文件路径")
+	StatEventByLevelCmd.Flags().Float64SliceVar(&statEventByLevelParams.Gids, "gids", nil, "业务组 ID")
+	StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.HostComment, "host-comment", nil, "主机备注")
+	StatEventByLevelCmd.Flags().Float64SliceVar(&statEventByLevelParams.HostId, "host-id", nil, "主机 ID")
+	StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.HostIp, "host-ip", nil, "主机 IP")
+	StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.HostName, "host-name", nil, "主机名称")
+	StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.HostState, "host-state", nil, "主机状态")
+	StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.HostTags, "host-tags", nil, "主机标签")
+	StatEventByLevelCmd.Flags().Float64SliceVar(&statEventByLevelParams.Id, "id", nil, "事件ID")
+	StatEventByLevelCmd.Flags().Float64SliceVar(&statEventByLevelParams.IsolateState, "isolate-state", nil, "隔离状态")
+	StatEventByLevelCmd.Flags().IntSliceVar(&statEventByLevelParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.Md5, "md5", nil, "文件 MD5")
+	StatEventByLevelCmd.Flags().Float64SliceVar(&statEventByLevelParams.Oid, "oid", nil, "机构 ID")
+	StatEventByLevelCmd.Flags().Float64SliceVar(&statEventByLevelParams.PlanId, "plan-id", nil, "任务 id")
+	StatEventByLevelCmd.Flags().Float64SliceVar(&statEventByLevelParams.StatEventId, "stat-event-id", nil, "统计事件 ID")
+	StatEventByLevelCmd.Flags().IntSliceVar(&statEventByLevelParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.UpdatedAt, "updated-at", nil, "最后发现时间")
+	StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.WebshellType, "webshell-type", nil, "Webshell 类型")
+	StatEventByLevelCmd.Flags().StringSliceVar(&statEventByLevelParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // StatEventByLevelParams 请求参数
 type StatEventByLevelParams struct {
-	Comment []string `json:"comment"` // 用户自定义备注
-	CreatedAt []string `json:"created_at"` // 事件发现时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Domain []string `json:"domain"` // 域名
-	FileName []string `json:"file_name"` // 文件名
-	FilePath []string `json:"file_path"` // 文件路径
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Id []float64 `json:"id"` // 事件ID
-	IsolateState []float64 `json:"isolate_state"` // 隔离状态
-	Level []int `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	Md5 []string `json:"md5"` // 文件 MD5
-	Oid []float64 `json:"oid"` // 机构 ID
-	PlanId []float64 `json:"plan_id"` // 任务 id
-	StatEventId []float64 `json:"stat_event_id"` // 统计事件 ID
-	State []int `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
-	UpdatedAt []string `json:"updated_at"` // 最后发现时间
-	WebshellType []string `json:"webshell_type"` // Webshell 类型
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	Comment      []string                 `json:"comment"`       // 用户自定义备注
+	CreatedAt    []string                 `json:"created_at"`    // 事件发现时间
+	CustomAttr   []map[string]interface{} `json:"custom_attr"`   // 主机业务属性
+	Domain       []string                 `json:"domain"`        // 域名
+	FileName     []string                 `json:"file_name"`     // 文件名
+	FilePath     []string                 `json:"file_path"`     // 文件路径
+	Gids         []float64                `json:"gids"`          // 业务组 ID
+	HostComment  []string                 `json:"host_comment"`  // 主机备注
+	HostId       []float64                `json:"host_id"`       // 主机 ID
+	HostIp       []string                 `json:"host_ip"`       // 主机 IP
+	HostName     []string                 `json:"host_name"`     // 主机名称
+	HostState    []string                 `json:"host_state"`    // 主机状态
+	HostTags     []string                 `json:"host_tags"`     // 主机标签
+	Id           []float64                `json:"id"`            // 事件ID
+	IsolateState []float64                `json:"isolate_state"` // 隔离状态
+	Level        []int                    `json:"level"`         // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	Md5          []string                 `json:"md5"`           // 文件 MD5
+	Oid          []float64                `json:"oid"`           // 机构 ID
+	PlanId       []float64                `json:"plan_id"`       // 任务 id
+	StatEventId  []float64                `json:"stat_event_id"` // 统计事件 ID
+	State        []int                    `json:"state"`         // 事件状态(1-有风险，2-已忽略，3-已处理)
+	UpdatedAt    []string                 `json:"updated_at"`    // 最后发现时间
+	WebshellType []string                 `json:"webshell_type"` // Webshell 类型
+	WhiteRuleId  []string                 `json:"white_rule_id"` // 白名单规则 ID
 }
-

@@ -3,8 +3,8 @@
 package log_collect
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var EnablementLogCollectCmd = &cobra.Command{
 }
 
 func init() {
-		EnablementLogCollectCmd.Flags().BoolVar(&enablementLogCollectParams.Enable, "enable", false, "是否启用")
-		// filter is object type, use JSON string
-		var filterJSON string
-		EnablementLogCollectCmd.Flags().StringVar(&filterJSON, "filter", "", "规则过滤器 (JSON, e.g. {\"id\": [\"\"]})")
+	EnablementLogCollectCmd.Flags().BoolVar(&enablementLogCollectParams.Enable, "enable", false, "是否启用")
+	// filter is object type, use JSON string
+	var filterJSON string
+	EnablementLogCollectCmd.Flags().StringVar(&filterJSON, "filter", "", "规则过滤器 (JSON, e.g. {\"id\": [\"\"]})")
 }
-
 
 // EnablementLogCollectParams 请求参数
 type EnablementLogCollectParams struct {
-	Enable bool `json:"enable"` // 是否启用
+	Enable bool                   `json:"enable"` // 是否启用
 	Filter map[string]interface{} `json:"filter"` // 规则过滤器
 }
-

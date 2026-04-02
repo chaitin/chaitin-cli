@@ -3,8 +3,8 @@
 package organization
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,34 +29,32 @@ var ListOrgCmd = &cobra.Command{
 }
 
 func init() {
-		ListOrgCmd.Flags().StringSliceVar(&listOrgParams.AdminName, "admin-name", nil, "管理员名称")
-		ListOrgCmd.Flags().StringSliceVar(&listOrgParams.AuthType, "auth-type", nil, "认证方式")
-		ListOrgCmd.Flags().Float64Var(&listOrgParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		ListOrgCmd.Flags().StringSliceVar(&listOrgParams.CreatedAt, "created-at", nil, "创建时间")
-		ListOrgCmd.Flags().BoolVar(&listOrgParams.Enable, "enable", false, "是否启用")
-		ListOrgCmd.Flags().Float64SliceVar(&listOrgParams.Id, "id", nil, "机构 ID")
-		ListOrgCmd.Flags().StringSliceVar(&listOrgParams.Name, "name", nil, "机构名称")
-		ListOrgCmd.Flags().Float64Var(&listOrgParams.Offset, "offset", 0, "页偏移, 默认为 0")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		ListOrgCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		ListOrgCmd.Flags().StringSliceVar(&listOrgParams.Remark, "remark", nil, "机构备注")
-		ListOrgCmd.Flags().StringSliceVar(&listOrgParams.UpdatedAt, "updated-at", nil, "更新时间")
+	ListOrgCmd.Flags().StringSliceVar(&listOrgParams.AdminName, "admin-name", nil, "管理员名称")
+	ListOrgCmd.Flags().StringSliceVar(&listOrgParams.AuthType, "auth-type", nil, "认证方式")
+	ListOrgCmd.Flags().Float64Var(&listOrgParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	ListOrgCmd.Flags().StringSliceVar(&listOrgParams.CreatedAt, "created-at", nil, "创建时间")
+	ListOrgCmd.Flags().BoolVar(&listOrgParams.Enable, "enable", false, "是否启用")
+	ListOrgCmd.Flags().Float64SliceVar(&listOrgParams.Id, "id", nil, "机构 ID")
+	ListOrgCmd.Flags().StringSliceVar(&listOrgParams.Name, "name", nil, "机构名称")
+	ListOrgCmd.Flags().Float64Var(&listOrgParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	ListOrgCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	ListOrgCmd.Flags().StringSliceVar(&listOrgParams.Remark, "remark", nil, "机构备注")
+	ListOrgCmd.Flags().StringSliceVar(&listOrgParams.UpdatedAt, "updated-at", nil, "更新时间")
 }
-
 
 // ListOrgParams 请求参数
 type ListOrgParams struct {
-	AdminName []string `json:"admin_name"` // 管理员名称
-	AuthType []string `json:"auth_type"` // 认证方式
-	Count float64 `json:"count"` // 每页记录数量, 默认为 20
-	CreatedAt []string `json:"created_at"` // 创建时间
-	Enable bool `json:"enable"` // 是否启用
-	Id []float64 `json:"id"` // 机构 ID
-	Name []string `json:"name"` // 机构名称
-	Offset float64 `json:"offset"` // 页偏移, 默认为 0
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	Remark []string `json:"remark"` // 机构备注
-	UpdatedAt []string `json:"updated_at"` // 更新时间
+	AdminName []string               `json:"admin_name"` // 管理员名称
+	AuthType  []string               `json:"auth_type"`  // 认证方式
+	Count     float64                `json:"count"`      // 每页记录数量, 默认为 20
+	CreatedAt []string               `json:"created_at"` // 创建时间
+	Enable    bool                   `json:"enable"`     // 是否启用
+	Id        []float64              `json:"id"`         // 机构 ID
+	Name      []string               `json:"name"`       // 机构名称
+	Offset    float64                `json:"offset"`     // 页偏移, 默认为 0
+	OrderBy   map[string]interface{} `json:"order_by"`   // 排序规则
+	Remark    []string               `json:"remark"`     // 机构备注
+	UpdatedAt []string               `json:"updated_at"` // 更新时间
 }
-

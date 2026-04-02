@@ -3,8 +3,8 @@
 package memory_webshell_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,68 +29,66 @@ var CreateWhitelistCmd = &cobra.Command{
 }
 
 func init() {
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.ClassName, "class-name", nil, "类名")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.Comment, "comment", nil, "用户自定义备注")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.CreatedAt, "created-at", nil, "事件发现时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		CreateWhitelistCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.Gids, "gids", nil, "业务组 ID")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.HostComment, "host-comment", nil, "主机备注")
-		CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.HostId, "host-id", nil, "主机 ID")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.HostIp, "host-ip", nil, "主机 IP")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.HostName, "host-name", nil, "主机名称")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.HostState, "host-state", nil, "主机状态")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.HostTags, "host-tags", nil, "主机标签")
-		CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.Id, "id", nil, "事件ID")
-		CreateWhitelistCmd.Flags().IntSliceVar(&createWhitelistParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.Oid, "oid", nil, "机构 ID")
-		CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.Pid, "pid", nil, "进程 ID")
-		CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.PlanId, "plan-id", nil, "任务 id")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.ProcessName, "process-name", nil, "进程名称")
-		// select is complex type []map[string]interface{}, use JSON string
-		var selectJSON string
-		CreateWhitelistCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"class_name\": \".class\", \"host_id\": 162, \"id\": 154, \"server_name\": \"tomcat\"}])")
-		CreateWhitelistCmd.Flags().BoolVar(&createWhitelistParams.SelectAll, "select-all", false, "是否全选")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.ServerName, "server-name", nil, "服务名称")
-		CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
-		CreateWhitelistCmd.Flags().IntSliceVar(&createWhitelistParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
-		CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.Type, "type", nil, "事件类型 1:内存马 2:内存恶意代码")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.UpdatedAt, "updated-at", nil, "最后发现时间")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
-		// whitelist is object type, use JSON string
-		var whitelistJSON string
-		CreateWhitelistCmd.Flags().StringVar(&whitelistJSON, "whitelist", "", "whitelist (JSON, e.g. {\"agent_range\": [1, 2, 3], \"builtin_id\": \"1\", \"business_group_range\": [1, 2, 3], \"...\": \"...\"})")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.ClassName, "class-name", nil, "类名")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.Comment, "comment", nil, "用户自定义备注")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.CreatedAt, "created-at", nil, "事件发现时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	CreateWhitelistCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.Gids, "gids", nil, "业务组 ID")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.HostComment, "host-comment", nil, "主机备注")
+	CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.HostId, "host-id", nil, "主机 ID")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.HostIp, "host-ip", nil, "主机 IP")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.HostName, "host-name", nil, "主机名称")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.HostState, "host-state", nil, "主机状态")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.HostTags, "host-tags", nil, "主机标签")
+	CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.Id, "id", nil, "事件ID")
+	CreateWhitelistCmd.Flags().IntSliceVar(&createWhitelistParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.Oid, "oid", nil, "机构 ID")
+	CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.Pid, "pid", nil, "进程 ID")
+	CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.PlanId, "plan-id", nil, "任务 id")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.ProcessName, "process-name", nil, "进程名称")
+	// select is complex type []map[string]interface{}, use JSON string
+	var selectJSON string
+	CreateWhitelistCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"class_name\": \".class\", \"host_id\": 162, \"id\": 154, \"server_name\": \"tomcat\"}])")
+	CreateWhitelistCmd.Flags().BoolVar(&createWhitelistParams.SelectAll, "select-all", false, "是否全选")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.ServerName, "server-name", nil, "服务名称")
+	CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
+	CreateWhitelistCmd.Flags().IntSliceVar(&createWhitelistParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.Type, "type", nil, "事件类型 1:内存马 2:内存恶意代码")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.UpdatedAt, "updated-at", nil, "最后发现时间")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	// whitelist is object type, use JSON string
+	var whitelistJSON string
+	CreateWhitelistCmd.Flags().StringVar(&whitelistJSON, "whitelist", "", "whitelist (JSON, e.g. {\"agent_range\": [1, 2, 3], \"builtin_id\": \"1\", \"business_group_range\": [1, 2, 3], \"...\": \"...\"})")
 }
-
 
 // CreateWhitelistParams 请求参数
 type CreateWhitelistParams struct {
-	ClassName []string `json:"class_name"` // 类名
-	Comment []string `json:"comment"` // 用户自定义备注
-	CreatedAt []string `json:"created_at"` // 事件发现时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Id []float64 `json:"id"` // 事件ID
-	Level []int `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	Oid []float64 `json:"oid"` // 机构 ID
-	Pid []float64 `json:"pid"` // 进程 ID
-	PlanId []float64 `json:"plan_id"` // 任务 id
-	ProcessName []string `json:"process_name"` // 进程名称
-	Select []map[string]interface{} `json:"select"` // select
-	SelectAll bool `json:"select_all"` // 是否全选
-	ServerName []string `json:"server_name"` // 服务名称
-	StatEventId []float64 `json:"stat_event_id"` // 事件统计 ID
-	State []int `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
-	Type []float64 `json:"type"` // 事件类型 1:内存马 2:内存恶意代码
-	UpdatedAt []string `json:"updated_at"` // 最后发现时间
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
-	Whitelist map[string]interface{} `json:"whitelist"` // whitelist
+	ClassName   []string                 `json:"class_name"`    // 类名
+	Comment     []string                 `json:"comment"`       // 用户自定义备注
+	CreatedAt   []string                 `json:"created_at"`    // 事件发现时间
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`   // 主机业务属性
+	Gids        []float64                `json:"gids"`          // 业务组 ID
+	HostComment []string                 `json:"host_comment"`  // 主机备注
+	HostId      []float64                `json:"host_id"`       // 主机 ID
+	HostIp      []string                 `json:"host_ip"`       // 主机 IP
+	HostName    []string                 `json:"host_name"`     // 主机名称
+	HostState   []string                 `json:"host_state"`    // 主机状态
+	HostTags    []string                 `json:"host_tags"`     // 主机标签
+	Id          []float64                `json:"id"`            // 事件ID
+	Level       []int                    `json:"level"`         // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	Oid         []float64                `json:"oid"`           // 机构 ID
+	Pid         []float64                `json:"pid"`           // 进程 ID
+	PlanId      []float64                `json:"plan_id"`       // 任务 id
+	ProcessName []string                 `json:"process_name"`  // 进程名称
+	Select      []map[string]interface{} `json:"select"`        // select
+	SelectAll   bool                     `json:"select_all"`    // 是否全选
+	ServerName  []string                 `json:"server_name"`   // 服务名称
+	StatEventId []float64                `json:"stat_event_id"` // 事件统计 ID
+	State       []int                    `json:"state"`         // 事件状态(1-有风险，2-已忽略，3-已处理)
+	Type        []float64                `json:"type"`          // 事件类型 1:内存马 2:内存恶意代码
+	UpdatedAt   []string                 `json:"updated_at"`    // 最后发现时间
+	WhiteRuleId []string                 `json:"white_rule_id"` // 白名单规则 ID
+	Whitelist   map[string]interface{}   `json:"whitelist"`     // whitelist
 }
-

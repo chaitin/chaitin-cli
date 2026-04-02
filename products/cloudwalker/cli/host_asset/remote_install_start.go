@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,28 +29,26 @@ var RemoteInstallStartCmd = &cobra.Command{
 }
 
 func init() {
-		RemoteInstallStartCmd.Flags().BoolVar(&remoteInstallStartParams.DisableAgentAfterInstall, "disable-agent-after-install", false, "安装后是否禁用探针")
-		// hosts is complex type []map[string]interface{}, use JSON string
-		var hostsJSON string
-		RemoteInstallStartCmd.Flags().StringVar(&hostsJSON, "hosts", "", "主机信息, 请直接传入 RemoteInstallUploadCSV 接口返回的 result.data 内容 (JSON, e.g. [{\"connection\": \"wmi\", \"gid\": 132, \"host\": \"10.10.3.155\", \"password\": \"!=:加密后的登陆密码:=\", \"username\": \"monster\"}])")
-		RemoteInstallStartCmd.Flags().StringVar(&remoteInstallStartParams.InstallDir, "install-dir", "", "安装路径")
-		RemoteInstallStartCmd.Flags().StringVar(&remoteInstallStartParams.InstallOption, "install-option", "", "重装选项")
-		RemoteInstallStartCmd.Flags().StringVar(&remoteInstallStartParams.InstallUsername, "install-username", "", "探针运行用户")
-		// proxy_config is object type, use JSON string
-		var proxyConfigJSON string
-		RemoteInstallStartCmd.Flags().StringVar(&proxyConfigJSON, "proxy-config", "", "代理配置 (JSON, e.g. {\"host\": \"127.0.0.1\", \"password\": \"123456\", \"port\": 3306, \"type\": \"none\", \"username\": \"root\"})")
-		RemoteInstallStartCmd.Flags().StringVar(&remoteInstallStartParams.RemoteHost, "remote-host", "", "服务端地址")
+	RemoteInstallStartCmd.Flags().BoolVar(&remoteInstallStartParams.DisableAgentAfterInstall, "disable-agent-after-install", false, "安装后是否禁用探针")
+	// hosts is complex type []map[string]interface{}, use JSON string
+	var hostsJSON string
+	RemoteInstallStartCmd.Flags().StringVar(&hostsJSON, "hosts", "", "主机信息, 请直接传入 RemoteInstallUploadCSV 接口返回的 result.data 内容 (JSON, e.g. [{\"connection\": \"wmi\", \"gid\": 132, \"host\": \"10.10.3.155\", \"password\": \"!=:加密后的登陆密码:=\", \"username\": \"monster\"}])")
+	RemoteInstallStartCmd.Flags().StringVar(&remoteInstallStartParams.InstallDir, "install-dir", "", "安装路径")
+	RemoteInstallStartCmd.Flags().StringVar(&remoteInstallStartParams.InstallOption, "install-option", "", "重装选项")
+	RemoteInstallStartCmd.Flags().StringVar(&remoteInstallStartParams.InstallUsername, "install-username", "", "探针运行用户")
+	// proxy_config is object type, use JSON string
+	var proxyConfigJSON string
+	RemoteInstallStartCmd.Flags().StringVar(&proxyConfigJSON, "proxy-config", "", "代理配置 (JSON, e.g. {\"host\": \"127.0.0.1\", \"password\": \"123456\", \"port\": 3306, \"type\": \"none\", \"username\": \"root\"})")
+	RemoteInstallStartCmd.Flags().StringVar(&remoteInstallStartParams.RemoteHost, "remote-host", "", "服务端地址")
 }
-
 
 // RemoteInstallStartParams 请求参数
 type RemoteInstallStartParams struct {
-	DisableAgentAfterInstall bool `json:"disable_agent_after_install"` // 安装后是否禁用探针
-	Hosts []map[string]interface{} `json:"hosts"` // 主机信息, 请直接传入 RemoteInstallUploadCSV 接口返回的 result.data 内容
-	InstallDir string `json:"install_dir"` // 安装路径
-	InstallOption string `json:"install_option"` // 重装选项
-	InstallUsername string `json:"install_username"` // 探针运行用户
-	ProxyConfig map[string]interface{} `json:"proxy_config"` // 代理配置
-	RemoteHost string `json:"remote_host"` // 服务端地址
+	DisableAgentAfterInstall bool                     `json:"disable_agent_after_install"` // 安装后是否禁用探针
+	Hosts                    []map[string]interface{} `json:"hosts"`                       // 主机信息, 请直接传入 RemoteInstallUploadCSV 接口返回的 result.data 内容
+	InstallDir               string                   `json:"install_dir"`                 // 安装路径
+	InstallOption            string                   `json:"install_option"`              // 重装选项
+	InstallUsername          string                   `json:"install_username"`            // 探针运行用户
+	ProxyConfig              map[string]interface{}   `json:"proxy_config"`                // 代理配置
+	RemoteHost               string                   `json:"remote_host"`                 // 服务端地址
 }
-

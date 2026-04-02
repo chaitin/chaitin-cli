@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,18 +29,16 @@ var GetHostIsolateRuleCmd = &cobra.Command{
 }
 
 func init() {
-		// filter is object type, use JSON string
-		var filterJSON string
-		GetHostIsolateRuleCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"created_at\": [\"\"], \"enable\": true, \"host_group\": [1], \"...\": \"...\"})")
-		// page is object type, use JSON string
-		var pageJSON string
-		GetHostIsolateRuleCmd.Flags().StringVar(&pageJSON, "page", "", "分页器 (JSON, e.g. {\"count\": 20, \"offset\": 0, \"order\": {\"column\": \"level\", \"order\": \"ASC\"}})")
+	// filter is object type, use JSON string
+	var filterJSON string
+	GetHostIsolateRuleCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"created_at\": [\"\"], \"enable\": true, \"host_group\": [1], \"...\": \"...\"})")
+	// page is object type, use JSON string
+	var pageJSON string
+	GetHostIsolateRuleCmd.Flags().StringVar(&pageJSON, "page", "", "分页器 (JSON, e.g. {\"count\": 20, \"offset\": 0, \"order\": {\"column\": \"level\", \"order\": \"ASC\"}})")
 }
-
 
 // GetHostIsolateRuleParams 请求参数
 type GetHostIsolateRuleParams struct {
 	Filter map[string]interface{} `json:"filter"` // 筛选器
-	Page map[string]interface{} `json:"page"` // 分页器
+	Page   map[string]interface{} `json:"page"`   // 分页器
 }
-

@@ -3,8 +3,8 @@
 package port_scan
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,56 +29,54 @@ var EditEventCommentCmd = &cobra.Command{
 }
 
 func init() {
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Comment, "comment", nil, "comment")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		EditEventCommentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.FinishedAt, "finished-at", nil, "finished_at")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Gids, "gids", nil, "业务组 ID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostComment, "host-comment", nil, "主机备注")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.HostId, "host-id", nil, "主机 ID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostIp, "host-ip", nil, "主机 IP")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostName, "host-name", nil, "主机名称")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostState, "host-state", nil, "主机状态")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostTags, "host-tags", nil, "主机标签")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Id, "id", nil, "事件ID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.LocationCode, "location-code", nil, "location_code")
-		EditEventCommentCmd.Flags().StringVar(&editEventCommentParams.NewComment, "new-comment", "", "新的事件备注")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Oid, "oid", nil, "机构 ID")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Port, "port", nil, "port")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.RuleId, "rule-id", nil, "规则ID")
-		// select is complex type []map[string]interface{}, use JSON string
-		var selectJSON string
-		EditEventCommentCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"host_id\": 162, \"id\": 154, \"source_ip\": \"127.0.0.1\"}])")
-		EditEventCommentCmd.Flags().BoolVar(&editEventCommentParams.SelectAll, "select-all", false, "是否全选")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.SourceIp, "source-ip", nil, "source_ip")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.StartedAt, "started-at", nil, "started_at")
-		EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Comment, "comment", nil, "comment")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	EditEventCommentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.FinishedAt, "finished-at", nil, "finished_at")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Gids, "gids", nil, "业务组 ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostComment, "host-comment", nil, "主机备注")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.HostId, "host-id", nil, "主机 ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostIp, "host-ip", nil, "主机 IP")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostName, "host-name", nil, "主机名称")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostState, "host-state", nil, "主机状态")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostTags, "host-tags", nil, "主机标签")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Id, "id", nil, "事件ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.LocationCode, "location-code", nil, "location_code")
+	EditEventCommentCmd.Flags().StringVar(&editEventCommentParams.NewComment, "new-comment", "", "新的事件备注")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Oid, "oid", nil, "机构 ID")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Port, "port", nil, "port")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.RuleId, "rule-id", nil, "规则ID")
+	// select is complex type []map[string]interface{}, use JSON string
+	var selectJSON string
+	EditEventCommentCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"host_id\": 162, \"id\": 154, \"source_ip\": \"127.0.0.1\"}])")
+	EditEventCommentCmd.Flags().BoolVar(&editEventCommentParams.SelectAll, "select-all", false, "是否全选")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.SourceIp, "source-ip", nil, "source_ip")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.StartedAt, "started-at", nil, "started_at")
+	EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
 }
-
 
 // EditEventCommentParams 请求参数
 type EditEventCommentParams struct {
-	Comment []string `json:"comment"` // comment
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	FinishedAt []string `json:"finished_at"` // finished_at
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Id []float64 `json:"id"` // 事件ID
-	LocationCode []string `json:"location_code"` // location_code
-	NewComment string `json:"new_comment"` // 新的事件备注
-	Oid []float64 `json:"oid"` // 机构 ID
-	Port []float64 `json:"port"` // port
-	RuleId []string `json:"rule_id"` // 规则ID
-	Select []map[string]interface{} `json:"select"` // select
-	SelectAll bool `json:"select_all"` // 是否全选
-	SourceIp []string `json:"source_ip"` // source_ip
-	StartedAt []string `json:"started_at"` // started_at
-	State []int `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
+	Comment      []string                 `json:"comment"`       // comment
+	CustomAttr   []map[string]interface{} `json:"custom_attr"`   // 主机业务属性
+	FinishedAt   []string                 `json:"finished_at"`   // finished_at
+	Gids         []float64                `json:"gids"`          // 业务组 ID
+	HostComment  []string                 `json:"host_comment"`  // 主机备注
+	HostId       []float64                `json:"host_id"`       // 主机 ID
+	HostIp       []string                 `json:"host_ip"`       // 主机 IP
+	HostName     []string                 `json:"host_name"`     // 主机名称
+	HostState    []string                 `json:"host_state"`    // 主机状态
+	HostTags     []string                 `json:"host_tags"`     // 主机标签
+	Id           []float64                `json:"id"`            // 事件ID
+	LocationCode []string                 `json:"location_code"` // location_code
+	NewComment   string                   `json:"new_comment"`   // 新的事件备注
+	Oid          []float64                `json:"oid"`           // 机构 ID
+	Port         []float64                `json:"port"`          // port
+	RuleId       []string                 `json:"rule_id"`       // 规则ID
+	Select       []map[string]interface{} `json:"select"`        // select
+	SelectAll    bool                     `json:"select_all"`    // 是否全选
+	SourceIp     []string                 `json:"source_ip"`     // source_ip
+	StartedAt    []string                 `json:"started_at"`    // started_at
+	State        []int                    `json:"state"`         // 事件状态(1-有风险，2-已忽略，3-已处理)
 }
-

@@ -3,8 +3,8 @@
 package emergency_vuln_v1
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,18 +29,16 @@ var EditEventCommentCmd = &cobra.Command{
 }
 
 func init() {
-		EditEventCommentCmd.Flags().StringVar(&editEventCommentParams.NewComment, "new-comment", "", "新的事件备注")
-		// select is complex type []map[string]interface{}, use JSON string
-		var selectJSON string
-		EditEventCommentCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"event_id\": 120, \"host_id\": 111, \"vuln_id\": 111}])")
-		EditEventCommentCmd.Flags().BoolVar(&editEventCommentParams.SelectAll, "select-all", false, "select_all")
+	EditEventCommentCmd.Flags().StringVar(&editEventCommentParams.NewComment, "new-comment", "", "新的事件备注")
+	// select is complex type []map[string]interface{}, use JSON string
+	var selectJSON string
+	EditEventCommentCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"event_id\": 120, \"host_id\": 111, \"vuln_id\": 111}])")
+	EditEventCommentCmd.Flags().BoolVar(&editEventCommentParams.SelectAll, "select-all", false, "select_all")
 }
-
 
 // EditEventCommentParams 请求参数
 type EditEventCommentParams struct {
-	NewComment string `json:"new_comment"` // 新的事件备注
-	Select []map[string]interface{} `json:"select"` // select
-	SelectAll bool `json:"select_all"` // select_all
+	NewComment string                   `json:"new_comment"` // 新的事件备注
+	Select     []map[string]interface{} `json:"select"`      // select
+	SelectAll  bool                     `json:"select_all"`  // select_all
 }
-

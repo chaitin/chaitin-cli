@@ -3,8 +3,8 @@
 package elevation_process_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,58 +29,56 @@ var GetEventListByOriginEffectUserCmd = &cobra.Command{
 }
 
 func init() {
-		GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.Comment, "comment", nil, "用户自定义备注")
-		GetEventListByOriginEffectUserCmd.Flags().IntVar(&getEventListByOriginEffectUserParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.CreatedAt, "created-at", nil, "首次发现时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetEventListByOriginEffectUserCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.Exename, "exename", nil, "进程名")
-		GetEventListByOriginEffectUserCmd.Flags().Float64SliceVar(&getEventListByOriginEffectUserParams.Gids, "gids", nil, "业务组 ID")
-		GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.HostComment, "host-comment", nil, "主机备注")
-		GetEventListByOriginEffectUserCmd.Flags().Float64SliceVar(&getEventListByOriginEffectUserParams.HostId, "host-id", nil, "主机 ID")
-		GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.HostIp, "host-ip", nil, "主机 IP")
-		GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.HostName, "host-name", nil, "主机名称")
-		GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.HostState, "host-state", nil, "主机状态")
-		GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.HostTags, "host-tags", nil, "主机标签")
-		GetEventListByOriginEffectUserCmd.Flags().Float64SliceVar(&getEventListByOriginEffectUserParams.Ids, "ids", nil, "事件 ID")
-		GetEventListByOriginEffectUserCmd.Flags().IntSliceVar(&getEventListByOriginEffectUserParams.Level, "level", nil, "风险等级(1-低危，2-中危，3-高危，4-严重)")
-		GetEventListByOriginEffectUserCmd.Flags().IntVar(&getEventListByOriginEffectUserParams.Offset, "offset", 0, "页偏移, 默认为 0")
-		GetEventListByOriginEffectUserCmd.Flags().Float64SliceVar(&getEventListByOriginEffectUserParams.Oid, "oid", nil, "机构 ID")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetEventListByOriginEffectUserCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.OriginUser, "origin-user", nil, "提权源用户")
-		GetEventListByOriginEffectUserCmd.Flags().Float64SliceVar(&getEventListByOriginEffectUserParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
-		GetEventListByOriginEffectUserCmd.Flags().IntSliceVar(&getEventListByOriginEffectUserParams.State, "state", nil, "处置状态(1-有风险，2-已忽略，3-已处理)")
-		GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.TargetUser, "target-user", nil, "提权目标用户")
-		GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.Comment, "comment", nil, "用户自定义备注")
+	GetEventListByOriginEffectUserCmd.Flags().IntVar(&getEventListByOriginEffectUserParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.CreatedAt, "created-at", nil, "首次发现时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetEventListByOriginEffectUserCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.Exename, "exename", nil, "进程名")
+	GetEventListByOriginEffectUserCmd.Flags().Float64SliceVar(&getEventListByOriginEffectUserParams.Gids, "gids", nil, "业务组 ID")
+	GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.HostComment, "host-comment", nil, "主机备注")
+	GetEventListByOriginEffectUserCmd.Flags().Float64SliceVar(&getEventListByOriginEffectUserParams.HostId, "host-id", nil, "主机 ID")
+	GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.HostIp, "host-ip", nil, "主机 IP")
+	GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.HostName, "host-name", nil, "主机名称")
+	GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.HostState, "host-state", nil, "主机状态")
+	GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.HostTags, "host-tags", nil, "主机标签")
+	GetEventListByOriginEffectUserCmd.Flags().Float64SliceVar(&getEventListByOriginEffectUserParams.Ids, "ids", nil, "事件 ID")
+	GetEventListByOriginEffectUserCmd.Flags().IntSliceVar(&getEventListByOriginEffectUserParams.Level, "level", nil, "风险等级(1-低危，2-中危，3-高危，4-严重)")
+	GetEventListByOriginEffectUserCmd.Flags().IntVar(&getEventListByOriginEffectUserParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	GetEventListByOriginEffectUserCmd.Flags().Float64SliceVar(&getEventListByOriginEffectUserParams.Oid, "oid", nil, "机构 ID")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetEventListByOriginEffectUserCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.OriginUser, "origin-user", nil, "提权源用户")
+	GetEventListByOriginEffectUserCmd.Flags().Float64SliceVar(&getEventListByOriginEffectUserParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
+	GetEventListByOriginEffectUserCmd.Flags().IntSliceVar(&getEventListByOriginEffectUserParams.State, "state", nil, "处置状态(1-有风险，2-已忽略，3-已处理)")
+	GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.TargetUser, "target-user", nil, "提权目标用户")
+	GetEventListByOriginEffectUserCmd.Flags().StringSliceVar(&getEventListByOriginEffectUserParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // GetEventListByOriginEffectUserParams 请求参数
 type GetEventListByOriginEffectUserParams struct {
-	Comment []string `json:"comment"` // 用户自定义备注
-	Count int `json:"count"` // 每页记录数量, 默认为 20
-	CreatedAt []string `json:"created_at"` // 首次发现时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Exename []string `json:"exename"` // 进程名
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Ids []float64 `json:"ids"` // 事件 ID
-	Level []int `json:"level"` // 风险等级(1-低危，2-中危，3-高危，4-严重)
-	Offset int `json:"offset"` // 页偏移, 默认为 0
-	Oid []float64 `json:"oid"` // 机构 ID
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	OriginUser []string `json:"origin_user"` // 提权源用户
-	StatEventId []float64 `json:"stat_event_id"` // 事件统计 ID
-	State []int `json:"state"` // 处置状态(1-有风险，2-已忽略，3-已处理)
-	TargetUser []string `json:"target_user"` // 提权目标用户
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	Comment     []string                 `json:"comment"`       // 用户自定义备注
+	Count       int                      `json:"count"`         // 每页记录数量, 默认为 20
+	CreatedAt   []string                 `json:"created_at"`    // 首次发现时间
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`   // 主机业务属性
+	Exename     []string                 `json:"exename"`       // 进程名
+	Gids        []float64                `json:"gids"`          // 业务组 ID
+	HostComment []string                 `json:"host_comment"`  // 主机备注
+	HostId      []float64                `json:"host_id"`       // 主机 ID
+	HostIp      []string                 `json:"host_ip"`       // 主机 IP
+	HostName    []string                 `json:"host_name"`     // 主机名称
+	HostState   []string                 `json:"host_state"`    // 主机状态
+	HostTags    []string                 `json:"host_tags"`     // 主机标签
+	Ids         []float64                `json:"ids"`           // 事件 ID
+	Level       []int                    `json:"level"`         // 风险等级(1-低危，2-中危，3-高危，4-严重)
+	Offset      int                      `json:"offset"`        // 页偏移, 默认为 0
+	Oid         []float64                `json:"oid"`           // 机构 ID
+	OrderBy     map[string]interface{}   `json:"order_by"`      // 排序规则
+	OriginUser  []string                 `json:"origin_user"`   // 提权源用户
+	StatEventId []float64                `json:"stat_event_id"` // 事件统计 ID
+	State       []int                    `json:"state"`         // 处置状态(1-有风险，2-已忽略，3-已处理)
+	TargetUser  []string                 `json:"target_user"`   // 提权目标用户
+	WhiteRuleId []string                 `json:"white_rule_id"` // 白名单规则 ID
 }
-

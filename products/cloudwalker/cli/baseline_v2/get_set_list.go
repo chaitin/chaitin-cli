@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,30 +29,28 @@ var GetSetListCmd = &cobra.Command{
 }
 
 func init() {
-		GetSetListCmd.Flags().StringSliceVar(&getSetListParams.Comment, "comment", nil, "核查策略备注")
-		GetSetListCmd.Flags().IntVar(&getSetListParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		GetSetListCmd.Flags().StringSliceVar(&getSetListParams.CreatedAt, "created-at", nil, "创建时间")
-		GetSetListCmd.Flags().BoolVar(&getSetListParams.IsSystem, "is-system", false, "是否指定系统自带核查策略")
-		GetSetListCmd.Flags().BoolVar(&getSetListParams.IsValid, "is-valid", false, "是否可以此策略创建任务")
-		GetSetListCmd.Flags().StringSliceVar(&getSetListParams.Name, "name", nil, "核查策略名称")
-		GetSetListCmd.Flags().IntVar(&getSetListParams.Offset, "offset", 0, "页偏移, 默认为 0")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetSetListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetSetListCmd.Flags().StringSliceVar(&getSetListParams.UpdatedAt, "updated-at", nil, "修改时间")
+	GetSetListCmd.Flags().StringSliceVar(&getSetListParams.Comment, "comment", nil, "核查策略备注")
+	GetSetListCmd.Flags().IntVar(&getSetListParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	GetSetListCmd.Flags().StringSliceVar(&getSetListParams.CreatedAt, "created-at", nil, "创建时间")
+	GetSetListCmd.Flags().BoolVar(&getSetListParams.IsSystem, "is-system", false, "是否指定系统自带核查策略")
+	GetSetListCmd.Flags().BoolVar(&getSetListParams.IsValid, "is-valid", false, "是否可以此策略创建任务")
+	GetSetListCmd.Flags().StringSliceVar(&getSetListParams.Name, "name", nil, "核查策略名称")
+	GetSetListCmd.Flags().IntVar(&getSetListParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetSetListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetSetListCmd.Flags().StringSliceVar(&getSetListParams.UpdatedAt, "updated-at", nil, "修改时间")
 }
-
 
 // GetSetListParams 请求参数
 type GetSetListParams struct {
-	Comment []string `json:"comment"` // 核查策略备注
-	Count int `json:"count"` // 每页记录数量, 默认为 20
-	CreatedAt []string `json:"created_at"` // 创建时间
-	IsSystem bool `json:"is_system"` // 是否指定系统自带核查策略
-	IsValid bool `json:"is_valid"` // 是否可以此策略创建任务
-	Name []string `json:"name"` // 核查策略名称
-	Offset int `json:"offset"` // 页偏移, 默认为 0
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	UpdatedAt []string `json:"updated_at"` // 修改时间
+	Comment   []string               `json:"comment"`    // 核查策略备注
+	Count     int                    `json:"count"`      // 每页记录数量, 默认为 20
+	CreatedAt []string               `json:"created_at"` // 创建时间
+	IsSystem  bool                   `json:"is_system"`  // 是否指定系统自带核查策略
+	IsValid   bool                   `json:"is_valid"`   // 是否可以此策略创建任务
+	Name      []string               `json:"name"`       // 核查策略名称
+	Offset    int                    `json:"offset"`     // 页偏移, 默认为 0
+	OrderBy   map[string]interface{} `json:"order_by"`   // 排序规则
+	UpdatedAt []string               `json:"updated_at"` // 修改时间
 }
-

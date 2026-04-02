@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var DeleteRuleCmd = &cobra.Command{
 }
 
 func init() {
-		// filter is object type, use JSON string
-		var filterJSON string
-		DeleteRuleCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"action\": [\"ACCEPT\"], \"cidr\": [\"\"], \"created_at\": [\"\"], \"...\": \"...\"})")
+	// filter is object type, use JSON string
+	var filterJSON string
+	DeleteRuleCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"action\": [\"ACCEPT\"], \"cidr\": [\"\"], \"created_at\": [\"\"], \"...\": \"...\"})")
 }
-
 
 // DeleteRuleParams 请求参数
 type DeleteRuleParams struct {
 	Filter map[string]interface{} `json:"filter"` // 筛选器
 }
-

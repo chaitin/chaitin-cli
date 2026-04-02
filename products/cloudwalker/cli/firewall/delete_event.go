@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,48 +29,46 @@ var DeleteEventCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.Action, "action", nil, "操作，DROP/WARNING")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.CreatedAt, "created-at", nil, "创建时间")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.Domain, "domain", nil, "关联域名")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Gids, "gids", nil, "业务组 ID")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostComment, "host-comment", nil, "主机备注")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.HostId, "host-id", nil, "主机 ID")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostIp, "host-ip", nil, "主机 IP")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostName, "host-name", nil, "主机名称")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostState, "host-state", nil, "主机状态")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostTag, "host-tag", nil, "主机标签")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Id, "id", nil, "事件ID")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Oid, "oid", nil, "机构 ID")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.Process, "process", nil, "进程")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.Protocol, "protocol", nil, "协议")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.RuleId, "rule-id", nil, "规则ID")
-		DeleteEventCmd.Flags().BoolVar(&deleteEventParams.SelectAll, "select-all", false, "是否全选")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.SourceAddress, "source-address", nil, "源地址")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.TargetAddress, "target-address", nil, "目标地址")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.TargetPort, "target-port", nil, "目标端口")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.Action, "action", nil, "操作，DROP/WARNING")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.CreatedAt, "created-at", nil, "创建时间")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.Domain, "domain", nil, "关联域名")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Gids, "gids", nil, "业务组 ID")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostComment, "host-comment", nil, "主机备注")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.HostId, "host-id", nil, "主机 ID")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostIp, "host-ip", nil, "主机 IP")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostName, "host-name", nil, "主机名称")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostState, "host-state", nil, "主机状态")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostTag, "host-tag", nil, "主机标签")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Id, "id", nil, "事件ID")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Oid, "oid", nil, "机构 ID")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.Process, "process", nil, "进程")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.Protocol, "protocol", nil, "协议")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.RuleId, "rule-id", nil, "规则ID")
+	DeleteEventCmd.Flags().BoolVar(&deleteEventParams.SelectAll, "select-all", false, "是否全选")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.SourceAddress, "source-address", nil, "源地址")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.TargetAddress, "target-address", nil, "目标地址")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.TargetPort, "target-port", nil, "目标端口")
 }
-
 
 // DeleteEventParams 请求参数
 type DeleteEventParams struct {
-	Action []string `json:"action"` // 操作，DROP/WARNING
-	CreatedAt []string `json:"created_at"` // 创建时间
-	Domain []string `json:"domain"` // 关联域名
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTag []string `json:"host_tag"` // 主机标签
-	Id []float64 `json:"id"` // 事件ID
-	Oid []float64 `json:"oid"` // 机构 ID
-	Process []string `json:"process"` // 进程
-	Protocol []string `json:"protocol"` // 协议
-	RuleId []float64 `json:"rule_id"` // 规则ID
-	SelectAll bool `json:"select_all"` // 是否全选
-	SourceAddress []string `json:"source_address"` // 源地址
-	TargetAddress []string `json:"target_address"` // 目标地址
-	TargetPort []float64 `json:"target_port"` // 目标端口
+	Action        []string  `json:"action"`         // 操作，DROP/WARNING
+	CreatedAt     []string  `json:"created_at"`     // 创建时间
+	Domain        []string  `json:"domain"`         // 关联域名
+	Gids          []float64 `json:"gids"`           // 业务组 ID
+	HostComment   []string  `json:"host_comment"`   // 主机备注
+	HostId        []float64 `json:"host_id"`        // 主机 ID
+	HostIp        []string  `json:"host_ip"`        // 主机 IP
+	HostName      []string  `json:"host_name"`      // 主机名称
+	HostState     []string  `json:"host_state"`     // 主机状态
+	HostTag       []string  `json:"host_tag"`       // 主机标签
+	Id            []float64 `json:"id"`             // 事件ID
+	Oid           []float64 `json:"oid"`            // 机构 ID
+	Process       []string  `json:"process"`        // 进程
+	Protocol      []string  `json:"protocol"`       // 协议
+	RuleId        []float64 `json:"rule_id"`        // 规则ID
+	SelectAll     bool      `json:"select_all"`     // 是否全选
+	SourceAddress []string  `json:"source_address"` // 源地址
+	TargetAddress []string  `json:"target_address"` // 目标地址
+	TargetPort    []float64 `json:"target_port"`    // 目标端口
 }
-

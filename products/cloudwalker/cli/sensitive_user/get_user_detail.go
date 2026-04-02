@@ -3,8 +3,8 @@
 package sensitive_user
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetUserDetailCmd = &cobra.Command{
 }
 
 func init() {
-		GetUserDetailCmd.Flags().Float64Var(&getUserDetailParams.EventId, "event-id", 0, "事件ID")
+	GetUserDetailCmd.Flags().Float64Var(&getUserDetailParams.EventId, "event-id", 0, "事件ID")
 }
-
 
 // GetUserDetailParams 请求参数
 type GetUserDetailParams struct {
 	EventId float64 `json:"event_id"` // 事件ID
 }
-

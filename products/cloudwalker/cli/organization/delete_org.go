@@ -3,8 +3,8 @@
 package organization
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,26 +29,24 @@ var DeleteOrgCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteOrgCmd.Flags().StringSliceVar(&deleteOrgParams.AdminName, "admin-name", nil, "管理员名称")
-		DeleteOrgCmd.Flags().StringSliceVar(&deleteOrgParams.AuthType, "auth-type", nil, "认证方式")
-		DeleteOrgCmd.Flags().StringSliceVar(&deleteOrgParams.CreatedAt, "created-at", nil, "创建时间")
-		DeleteOrgCmd.Flags().BoolVar(&deleteOrgParams.Enable, "enable", false, "是否启用")
-		DeleteOrgCmd.Flags().Float64SliceVar(&deleteOrgParams.Id, "id", nil, "机构 ID")
-		DeleteOrgCmd.Flags().StringSliceVar(&deleteOrgParams.Name, "name", nil, "机构名称")
-		DeleteOrgCmd.Flags().StringSliceVar(&deleteOrgParams.Remark, "remark", nil, "机构备注")
-		DeleteOrgCmd.Flags().StringSliceVar(&deleteOrgParams.UpdatedAt, "updated-at", nil, "更新时间")
+	DeleteOrgCmd.Flags().StringSliceVar(&deleteOrgParams.AdminName, "admin-name", nil, "管理员名称")
+	DeleteOrgCmd.Flags().StringSliceVar(&deleteOrgParams.AuthType, "auth-type", nil, "认证方式")
+	DeleteOrgCmd.Flags().StringSliceVar(&deleteOrgParams.CreatedAt, "created-at", nil, "创建时间")
+	DeleteOrgCmd.Flags().BoolVar(&deleteOrgParams.Enable, "enable", false, "是否启用")
+	DeleteOrgCmd.Flags().Float64SliceVar(&deleteOrgParams.Id, "id", nil, "机构 ID")
+	DeleteOrgCmd.Flags().StringSliceVar(&deleteOrgParams.Name, "name", nil, "机构名称")
+	DeleteOrgCmd.Flags().StringSliceVar(&deleteOrgParams.Remark, "remark", nil, "机构备注")
+	DeleteOrgCmd.Flags().StringSliceVar(&deleteOrgParams.UpdatedAt, "updated-at", nil, "更新时间")
 }
-
 
 // DeleteOrgParams 请求参数
 type DeleteOrgParams struct {
-	AdminName []string `json:"admin_name"` // 管理员名称
-	AuthType []string `json:"auth_type"` // 认证方式
-	CreatedAt []string `json:"created_at"` // 创建时间
-	Enable bool `json:"enable"` // 是否启用
-	Id []float64 `json:"id"` // 机构 ID
-	Name []string `json:"name"` // 机构名称
-	Remark []string `json:"remark"` // 机构备注
-	UpdatedAt []string `json:"updated_at"` // 更新时间
+	AdminName []string  `json:"admin_name"` // 管理员名称
+	AuthType  []string  `json:"auth_type"`  // 认证方式
+	CreatedAt []string  `json:"created_at"` // 创建时间
+	Enable    bool      `json:"enable"`     // 是否启用
+	Id        []float64 `json:"id"`         // 机构 ID
+	Name      []string  `json:"name"`       // 机构名称
+	Remark    []string  `json:"remark"`     // 机构备注
+	UpdatedAt []string  `json:"updated_at"` // 更新时间
 }
-

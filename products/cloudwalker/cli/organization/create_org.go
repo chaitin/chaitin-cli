@@ -3,8 +3,8 @@
 package organization
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,20 +29,18 @@ var CreateOrgCmd = &cobra.Command{
 }
 
 func init() {
-		CreateOrgCmd.Flags().StringVar(&createOrgParams.AdminName, "admin-name", "", "管理员名称")
-		CreateOrgCmd.Flags().StringVar(&createOrgParams.AuthType, "auth-type", "", "认证方式")
-		CreateOrgCmd.Flags().BoolVar(&createOrgParams.Enable, "enable", false, "是否启用")
-		CreateOrgCmd.Flags().StringVar(&createOrgParams.Name, "name", "", "机构名称")
-		CreateOrgCmd.Flags().StringVar(&createOrgParams.Remark, "remark", "", "机构备注")
+	CreateOrgCmd.Flags().StringVar(&createOrgParams.AdminName, "admin-name", "", "管理员名称")
+	CreateOrgCmd.Flags().StringVar(&createOrgParams.AuthType, "auth-type", "", "认证方式")
+	CreateOrgCmd.Flags().BoolVar(&createOrgParams.Enable, "enable", false, "是否启用")
+	CreateOrgCmd.Flags().StringVar(&createOrgParams.Name, "name", "", "机构名称")
+	CreateOrgCmd.Flags().StringVar(&createOrgParams.Remark, "remark", "", "机构备注")
 }
-
 
 // CreateOrgParams 请求参数
 type CreateOrgParams struct {
 	AdminName string `json:"admin_name"` // 管理员名称
-	AuthType string `json:"auth_type"` // 认证方式
-	Enable bool `json:"enable"` // 是否启用
-	Name string `json:"name"` // 机构名称
-	Remark string `json:"remark"` // 机构备注
+	AuthType  string `json:"auth_type"`  // 认证方式
+	Enable    bool   `json:"enable"`     // 是否启用
+	Name      string `json:"name"`       // 机构名称
+	Remark    string `json:"remark"`     // 机构备注
 }
-

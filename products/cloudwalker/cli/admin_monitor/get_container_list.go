@@ -3,8 +3,8 @@
 package admin_monitor
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetContainerListCmd = &cobra.Command{
 }
 
 func init() {
-		GetContainerListCmd.Flags().StringVar(&getContainerListParams.Namespace, "namespace", "", "命名空间（仅 k8s）")
+	GetContainerListCmd.Flags().StringVar(&getContainerListParams.Namespace, "namespace", "", "命名空间（仅 k8s）")
 }
-
 
 // GetContainerListParams 请求参数
 type GetContainerListParams struct {
 	Namespace string `json:"namespace"` // 命名空间（仅 k8s）
 }
-

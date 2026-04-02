@@ -3,8 +3,8 @@
 package asset_startup
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,44 +29,42 @@ var GetListCmd = &cobra.Command{
 }
 
 func init() {
-		GetListCmd.Flags().StringSliceVar(&getListParams.Cmdline, "cmdline", nil, "命令")
-		GetListCmd.Flags().IntVar(&getListParams.Count, "count", 20, "数量")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetListCmd.Flags().Float64SliceVar(&getListParams.Gids, "gids", nil, "业务组")
-		GetListCmd.Flags().StringSliceVar(&getListParams.HostComment, "host-comment", nil, "主机备注")
-		GetListCmd.Flags().Float64SliceVar(&getListParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
-		GetListCmd.Flags().StringSliceVar(&getListParams.HostIp, "host-ip", nil, "主机IP")
-		GetListCmd.Flags().StringSliceVar(&getListParams.HostName, "host-name", nil, "主机名称")
-		GetListCmd.Flags().StringSliceVar(&getListParams.HostState, "host-state", nil, "主机状态")
-		GetListCmd.Flags().StringSliceVar(&getListParams.HostTags, "host-tags", nil, "主机标签")
-		GetListCmd.Flags().IntVar(&getListParams.Offset, "offset", 0, "偏移量")
-		GetListCmd.Flags().Float64SliceVar(&getListParams.Oid, "oid", nil, "机构 ID")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetListCmd.Flags().StringSliceVar(&getListParams.Path, "path", nil, "位置")
-		GetListCmd.Flags().StringSliceVar(&getListParams.StartupState, "startup-state", nil, "状态")
+	GetListCmd.Flags().StringSliceVar(&getListParams.Cmdline, "cmdline", nil, "命令")
+	GetListCmd.Flags().IntVar(&getListParams.Count, "count", 20, "数量")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetListCmd.Flags().Float64SliceVar(&getListParams.Gids, "gids", nil, "业务组")
+	GetListCmd.Flags().StringSliceVar(&getListParams.HostComment, "host-comment", nil, "主机备注")
+	GetListCmd.Flags().Float64SliceVar(&getListParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
+	GetListCmd.Flags().StringSliceVar(&getListParams.HostIp, "host-ip", nil, "主机IP")
+	GetListCmd.Flags().StringSliceVar(&getListParams.HostName, "host-name", nil, "主机名称")
+	GetListCmd.Flags().StringSliceVar(&getListParams.HostState, "host-state", nil, "主机状态")
+	GetListCmd.Flags().StringSliceVar(&getListParams.HostTags, "host-tags", nil, "主机标签")
+	GetListCmd.Flags().IntVar(&getListParams.Offset, "offset", 0, "偏移量")
+	GetListCmd.Flags().Float64SliceVar(&getListParams.Oid, "oid", nil, "机构 ID")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetListCmd.Flags().StringSliceVar(&getListParams.Path, "path", nil, "位置")
+	GetListCmd.Flags().StringSliceVar(&getListParams.StartupState, "startup-state", nil, "状态")
 }
-
 
 // GetListParams 请求参数
 type GetListParams struct {
-	Cmdline []string `json:"cmdline"` // 命令
-	Count int `json:"count"` // 数量
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // 业务组
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID, 用于主机详情页面
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Offset int `json:"offset"` // 偏移量
-	Oid []float64 `json:"oid"` // 机构 ID
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	Path []string `json:"path"` // 位置
-	StartupState []string `json:"startup_state"` // 状态
+	Cmdline      []string                 `json:"cmdline"`       // 命令
+	Count        int                      `json:"count"`         // 数量
+	CustomAttr   []map[string]interface{} `json:"custom_attr"`   // 主机业务属性
+	Gids         []float64                `json:"gids"`          // 业务组
+	HostComment  []string                 `json:"host_comment"`  // 主机备注
+	HostId       []float64                `json:"host_id"`       // 主机ID, 用于主机详情页面
+	HostIp       []string                 `json:"host_ip"`       // 主机IP
+	HostName     []string                 `json:"host_name"`     // 主机名称
+	HostState    []string                 `json:"host_state"`    // 主机状态
+	HostTags     []string                 `json:"host_tags"`     // 主机标签
+	Offset       int                      `json:"offset"`        // 偏移量
+	Oid          []float64                `json:"oid"`           // 机构 ID
+	OrderBy      map[string]interface{}   `json:"order_by"`      // 排序规则
+	Path         []string                 `json:"path"`          // 位置
+	StartupState []string                 `json:"startup_state"` // 状态
 }
-

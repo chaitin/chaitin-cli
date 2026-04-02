@@ -3,14 +3,12 @@
 package message_queue
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetNsqSummaryCmd = &cobra.Command{
 	Use:   "get_nsq_summary",
@@ -31,5 +29,3 @@ var GetNsqSummaryCmd = &cobra.Command{
 func init() {
 
 }
-
-

@@ -3,8 +3,8 @@
 package weak_passwd
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,26 +29,24 @@ var EditDictCmd = &cobra.Command{
 }
 
 func init() {
-		EditDictCmd.Flags().StringVar(&editDictParams.Comment, "comment", "", "备注")
-		EditDictCmd.Flags().StringSliceVar(&editDictParams.Dict, "dict", nil, "字典，最多5000条")
-		EditDictCmd.Flags().IntVar(&editDictParams.Id, "id", 0, "弱口令字典 ID")
-		EditDictCmd.Flags().StringVar(&editDictParams.Name, "name", "", "字典名称")
-		// params is complex type []map[string]interface{}, use JSON string
-		var paramsJSON string
-		EditDictCmd.Flags().StringVar(&paramsJSON, "params", "", "字典参数 (JSON, e.g. [{\"description\": \"描述\", \"is_default\": false, \"name\": \"test\", \"value\": \"1\"}])")
-		EditDictCmd.Flags().StringSliceVar(&editDictParams.Prefix, "prefix", nil, "前缀，最多3条")
-		EditDictCmd.Flags().StringSliceVar(&editDictParams.Suffix, "suffix", nil, "后缀，最多3条")
+	EditDictCmd.Flags().StringVar(&editDictParams.Comment, "comment", "", "备注")
+	EditDictCmd.Flags().StringSliceVar(&editDictParams.Dict, "dict", nil, "字典，最多5000条")
+	EditDictCmd.Flags().IntVar(&editDictParams.Id, "id", 0, "弱口令字典 ID")
+	EditDictCmd.Flags().StringVar(&editDictParams.Name, "name", "", "字典名称")
+	// params is complex type []map[string]interface{}, use JSON string
+	var paramsJSON string
+	EditDictCmd.Flags().StringVar(&paramsJSON, "params", "", "字典参数 (JSON, e.g. [{\"description\": \"描述\", \"is_default\": false, \"name\": \"test\", \"value\": \"1\"}])")
+	EditDictCmd.Flags().StringSliceVar(&editDictParams.Prefix, "prefix", nil, "前缀，最多3条")
+	EditDictCmd.Flags().StringSliceVar(&editDictParams.Suffix, "suffix", nil, "后缀，最多3条")
 }
-
 
 // EditDictParams 请求参数
 type EditDictParams struct {
-	Comment string `json:"comment"` // 备注
-	Dict []string `json:"dict"` // 字典，最多5000条
-	Id int `json:"id"` // 弱口令字典 ID
-	Name string `json:"name"` // 字典名称
-	Params []map[string]interface{} `json:"params"` // 字典参数
-	Prefix []string `json:"prefix"` // 前缀，最多3条
-	Suffix []string `json:"suffix"` // 后缀，最多3条
+	Comment string                   `json:"comment"` // 备注
+	Dict    []string                 `json:"dict"`    // 字典，最多5000条
+	Id      int                      `json:"id"`      // 弱口令字典 ID
+	Name    string                   `json:"name"`    // 字典名称
+	Params  []map[string]interface{} `json:"params"`  // 字典参数
+	Prefix  []string                 `json:"prefix"`  // 前缀，最多3条
+	Suffix  []string                 `json:"suffix"`  // 后缀，最多3条
 }
-

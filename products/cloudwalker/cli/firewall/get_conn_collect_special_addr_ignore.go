@@ -3,14 +3,12 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetConnCollectSpecialAddrIgnoreCmd = &cobra.Command{
 	Use:   "get_conn_collect_special_addr_ignore",
@@ -31,5 +29,3 @@ var GetConnCollectSpecialAddrIgnoreCmd = &cobra.Command{
 func init() {
 
 }
-
-

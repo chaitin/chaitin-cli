@@ -3,8 +3,8 @@
 package memory_webshell_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var GetFileCmd = &cobra.Command{
 }
 
 func init() {
-		GetFileCmd.Flags().IntVar(&getFileParams.EventId, "event-id", 0, "事件 ID")
-		GetFileCmd.Flags().IntVar(&getFileParams.Limit, "limit", 51200, "返回的数据量, byte")
-		GetFileCmd.Flags().IntVar(&getFileParams.Offset, "offset", 0, "从文件头的开始偏移, 默认为 0")
+	GetFileCmd.Flags().IntVar(&getFileParams.EventId, "event-id", 0, "事件 ID")
+	GetFileCmd.Flags().IntVar(&getFileParams.Limit, "limit", 51200, "返回的数据量, byte")
+	GetFileCmd.Flags().IntVar(&getFileParams.Offset, "offset", 0, "从文件头的开始偏移, 默认为 0")
 }
-
 
 // GetFileParams 请求参数
 type GetFileParams struct {
 	EventId int `json:"event_id"` // 事件 ID
-	Limit int `json:"limit"` // 返回的数据量, byte
-	Offset int `json:"offset"` // 从文件头的开始偏移, 默认为 0
+	Limit   int `json:"limit"`    // 返回的数据量, byte
+	Offset  int `json:"offset"`   // 从文件头的开始偏移, 默认为 0
 }
-

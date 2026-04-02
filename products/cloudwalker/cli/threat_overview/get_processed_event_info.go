@@ -3,8 +3,8 @@
 package threat_overview
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var GetProcessedEventInfoCmd = &cobra.Command{
 }
 
 func init() {
-		GetProcessedEventInfoCmd.Flags().Float64SliceVar(&getProcessedEventInfoParams.Gids, "gids", nil, "ID")
-		GetProcessedEventInfoCmd.Flags().Float64SliceVar(&getProcessedEventInfoParams.Level, "level", nil, "level")
-		GetProcessedEventInfoCmd.Flags().IntVar(&getProcessedEventInfoParams.Period, "period", 0, "统计周期")
+	GetProcessedEventInfoCmd.Flags().Float64SliceVar(&getProcessedEventInfoParams.Gids, "gids", nil, "ID")
+	GetProcessedEventInfoCmd.Flags().Float64SliceVar(&getProcessedEventInfoParams.Level, "level", nil, "level")
+	GetProcessedEventInfoCmd.Flags().IntVar(&getProcessedEventInfoParams.Period, "period", 0, "统计周期")
 }
-
 
 // GetProcessedEventInfoParams 请求参数
 type GetProcessedEventInfoParams struct {
-	Gids []float64 `json:"gids"` // ID
-	Level []float64 `json:"level"` // level
-	Period int `json:"period"` // 统计周期
+	Gids   []float64 `json:"gids"`   // ID
+	Level  []float64 `json:"level"`  // level
+	Period int       `json:"period"` // 统计周期
 }
-

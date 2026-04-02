@@ -7,9 +7,9 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"github.com/chaitin/workspace-cli/products/xray/models"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-	"github.com/chaitin/workspace-cli/products/xray/models"
 )
 
 // Schema cli for ScannerDict

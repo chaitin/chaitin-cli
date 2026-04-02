@@ -3,8 +3,8 @@
 package scout_agent_api
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,18 +29,16 @@ var UpgradeCmd = &cobra.Command{
 }
 
 func init() {
-		// filter is object type, use JSON string
-		var filterJSON string
-		UpgradeCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"agent_memory_rate\": [\"0.03298633\"], \"cpu\": [\"0.007942708\"], \"created_at\": [\"1664273285.232421\"], \"...\": \"...\"})")
-		// select_filter is object type, use JSON string
-		var selectFilterJSON string
-		UpgradeCmd.Flags().StringVar(&selectFilterJSON, "select-filter", "", "是否全选&主机ID (JSON, e.g. {\"select\": [{\"id\": 196}], \"select_all\": true})")
+	// filter is object type, use JSON string
+	var filterJSON string
+	UpgradeCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"agent_memory_rate\": [\"0.03298633\"], \"cpu\": [\"0.007942708\"], \"created_at\": [\"1664273285.232421\"], \"...\": \"...\"})")
+	// select_filter is object type, use JSON string
+	var selectFilterJSON string
+	UpgradeCmd.Flags().StringVar(&selectFilterJSON, "select-filter", "", "是否全选&主机ID (JSON, e.g. {\"select\": [{\"id\": 196}], \"select_all\": true})")
 }
-
 
 // UpgradeParams 请求参数
 type UpgradeParams struct {
-	Filter map[string]interface{} `json:"filter"` // 筛选器
+	Filter       map[string]interface{} `json:"filter"`        // 筛选器
 	SelectFilter map[string]interface{} `json:"select_filter"` // 是否全选&主机ID
 }
-

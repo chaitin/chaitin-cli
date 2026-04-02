@@ -3,8 +3,8 @@
 package security_check
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,48 +29,46 @@ var StatEventByLevelStateCmd = &cobra.Command{
 }
 
 func init() {
-		StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.Comment, "comment", nil, "用户自定义备注")
-		StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.CreatedAt, "created-at", nil, "创建时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		StatEventByLevelStateCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		StatEventByLevelStateCmd.Flags().Float64SliceVar(&statEventByLevelStateParams.Gids, "gids", nil, "业务组 ID 列表")
-		StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.Hint, "hint", nil, "脆弱点")
-		StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.HostComment, "host-comment", nil, "主机备注")
-		StatEventByLevelStateCmd.Flags().Float64SliceVar(&statEventByLevelStateParams.HostId, "host-id", nil, "主机 ID")
-		StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.HostIp, "host-ip", nil, "主机 IP")
-		StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.HostName, "host-name", nil, "主机名称")
-		StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.HostState, "host-state", nil, "主机状态")
-		StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.HostTags, "host-tags", nil, "主机标签")
-		StatEventByLevelStateCmd.Flags().Float64SliceVar(&statEventByLevelStateParams.Id, "id", nil, "事件 ID 列表")
-		StatEventByLevelStateCmd.Flags().IntSliceVar(&statEventByLevelStateParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.Name, "name", nil, "事件名称")
-		StatEventByLevelStateCmd.Flags().Float64SliceVar(&statEventByLevelStateParams.Oid, "oid", nil, "机构 ID")
-		StatEventByLevelStateCmd.Flags().IntSliceVar(&statEventByLevelStateParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
-		StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.Tags, "tags", nil, "风险标签")
-		StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.UpdatedAt, "updated-at", nil, "最近发现时间")
+	StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.Comment, "comment", nil, "用户自定义备注")
+	StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.CreatedAt, "created-at", nil, "创建时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	StatEventByLevelStateCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	StatEventByLevelStateCmd.Flags().Float64SliceVar(&statEventByLevelStateParams.Gids, "gids", nil, "业务组 ID 列表")
+	StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.Hint, "hint", nil, "脆弱点")
+	StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.HostComment, "host-comment", nil, "主机备注")
+	StatEventByLevelStateCmd.Flags().Float64SliceVar(&statEventByLevelStateParams.HostId, "host-id", nil, "主机 ID")
+	StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.HostIp, "host-ip", nil, "主机 IP")
+	StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.HostName, "host-name", nil, "主机名称")
+	StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.HostState, "host-state", nil, "主机状态")
+	StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.HostTags, "host-tags", nil, "主机标签")
+	StatEventByLevelStateCmd.Flags().Float64SliceVar(&statEventByLevelStateParams.Id, "id", nil, "事件 ID 列表")
+	StatEventByLevelStateCmd.Flags().IntSliceVar(&statEventByLevelStateParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.Name, "name", nil, "事件名称")
+	StatEventByLevelStateCmd.Flags().Float64SliceVar(&statEventByLevelStateParams.Oid, "oid", nil, "机构 ID")
+	StatEventByLevelStateCmd.Flags().IntSliceVar(&statEventByLevelStateParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.Tags, "tags", nil, "风险标签")
+	StatEventByLevelStateCmd.Flags().StringSliceVar(&statEventByLevelStateParams.UpdatedAt, "updated-at", nil, "最近发现时间")
 }
-
 
 // StatEventByLevelStateParams 请求参数
 type StatEventByLevelStateParams struct {
-	Comment []string `json:"comment"` // 用户自定义备注
-	CreatedAt []string `json:"created_at"` // 创建时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // 业务组 ID 列表
-	Hint []string `json:"hint"` // 脆弱点
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Id []float64 `json:"id"` // 事件 ID 列表
-	Level []int `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	Name []string `json:"name"` // 事件名称
-	Oid []float64 `json:"oid"` // 机构 ID
-	State []int `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
-	Tags []string `json:"tags"` // 风险标签
-	UpdatedAt []string `json:"updated_at"` // 最近发现时间
+	Comment     []string                 `json:"comment"`      // 用户自定义备注
+	CreatedAt   []string                 `json:"created_at"`   // 创建时间
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Gids        []float64                `json:"gids"`         // 业务组 ID 列表
+	Hint        []string                 `json:"hint"`         // 脆弱点
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机 ID
+	HostIp      []string                 `json:"host_ip"`      // 主机 IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTags    []string                 `json:"host_tags"`    // 主机标签
+	Id          []float64                `json:"id"`           // 事件 ID 列表
+	Level       []int                    `json:"level"`        // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	Name        []string                 `json:"name"`         // 事件名称
+	Oid         []float64                `json:"oid"`          // 机构 ID
+	State       []int                    `json:"state"`        // 事件状态(1-有风险，2-已忽略，3-已处理)
+	Tags        []string                 `json:"tags"`         // 风险标签
+	UpdatedAt   []string                 `json:"updated_at"`   // 最近发现时间
 }
-

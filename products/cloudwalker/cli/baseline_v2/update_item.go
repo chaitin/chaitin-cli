@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var UpdateItemCmd = &cobra.Command{
 }
 
 func init() {
-		UpdateItemCmd.Flags().StringVar(&updateItemParams.Args, "args", "", "args")
-		UpdateItemCmd.Flags().BoolVar(&updateItemParams.Enable, "enable", false, "是否启用核查项")
-		UpdateItemCmd.Flags().StringVar(&updateItemParams.ItemId, "item-id", "", "ID")
+	UpdateItemCmd.Flags().StringVar(&updateItemParams.Args, "args", "", "args")
+	UpdateItemCmd.Flags().BoolVar(&updateItemParams.Enable, "enable", false, "是否启用核查项")
+	UpdateItemCmd.Flags().StringVar(&updateItemParams.ItemId, "item-id", "", "ID")
 }
-
 
 // UpdateItemParams 请求参数
 type UpdateItemParams struct {
-	Args string `json:"args"` // args
-	Enable bool `json:"enable"` // 是否启用核查项
+	Args   string `json:"args"`    // args
+	Enable bool   `json:"enable"`  // 是否启用核查项
 	ItemId string `json:"item_id"` // ID
 }
-

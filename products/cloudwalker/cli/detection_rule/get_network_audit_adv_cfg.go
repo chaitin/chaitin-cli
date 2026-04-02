@@ -3,14 +3,12 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetNetworkAuditAdvCfgCmd = &cobra.Command{
 	Use:   "get_network_audit_adv_cfg",
@@ -31,5 +29,3 @@ var GetNetworkAuditAdvCfgCmd = &cobra.Command{
 func init() {
 
 }
-
-

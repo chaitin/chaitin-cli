@@ -3,8 +3,8 @@
 package elevation_process_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,50 +29,48 @@ var StatEventByTimeCmd = &cobra.Command{
 }
 
 func init() {
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.Comment, "comment", nil, "用户自定义备注")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.CreatedAt, "created-at", nil, "首次发现时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		StatEventByTimeCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.Exename, "exename", nil, "进程名")
-		StatEventByTimeCmd.Flags().Float64SliceVar(&statEventByTimeParams.Gids, "gids", nil, "业务组 ID")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.HostComment, "host-comment", nil, "主机备注")
-		StatEventByTimeCmd.Flags().Float64SliceVar(&statEventByTimeParams.HostId, "host-id", nil, "主机 ID")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.HostIp, "host-ip", nil, "主机 IP")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.HostName, "host-name", nil, "主机名称")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.HostState, "host-state", nil, "主机状态")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.HostTags, "host-tags", nil, "主机标签")
-		StatEventByTimeCmd.Flags().Float64SliceVar(&statEventByTimeParams.Ids, "ids", nil, "事件 ID")
-		StatEventByTimeCmd.Flags().IntSliceVar(&statEventByTimeParams.Level, "level", nil, "风险等级(1-低危，2-中危，3-高危，4-严重)")
-		StatEventByTimeCmd.Flags().Float64SliceVar(&statEventByTimeParams.Oid, "oid", nil, "机构 ID")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.OriginUser, "origin-user", nil, "提权源用户")
-		StatEventByTimeCmd.Flags().Float64SliceVar(&statEventByTimeParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
-		StatEventByTimeCmd.Flags().IntSliceVar(&statEventByTimeParams.State, "state", nil, "处置状态(1-有风险，2-已忽略，3-已处理)")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.TargetUser, "target-user", nil, "提权目标用户")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.Comment, "comment", nil, "用户自定义备注")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.CreatedAt, "created-at", nil, "首次发现时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	StatEventByTimeCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.Exename, "exename", nil, "进程名")
+	StatEventByTimeCmd.Flags().Float64SliceVar(&statEventByTimeParams.Gids, "gids", nil, "业务组 ID")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.HostComment, "host-comment", nil, "主机备注")
+	StatEventByTimeCmd.Flags().Float64SliceVar(&statEventByTimeParams.HostId, "host-id", nil, "主机 ID")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.HostIp, "host-ip", nil, "主机 IP")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.HostName, "host-name", nil, "主机名称")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.HostState, "host-state", nil, "主机状态")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.HostTags, "host-tags", nil, "主机标签")
+	StatEventByTimeCmd.Flags().Float64SliceVar(&statEventByTimeParams.Ids, "ids", nil, "事件 ID")
+	StatEventByTimeCmd.Flags().IntSliceVar(&statEventByTimeParams.Level, "level", nil, "风险等级(1-低危，2-中危，3-高危，4-严重)")
+	StatEventByTimeCmd.Flags().Float64SliceVar(&statEventByTimeParams.Oid, "oid", nil, "机构 ID")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.OriginUser, "origin-user", nil, "提权源用户")
+	StatEventByTimeCmd.Flags().Float64SliceVar(&statEventByTimeParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
+	StatEventByTimeCmd.Flags().IntSliceVar(&statEventByTimeParams.State, "state", nil, "处置状态(1-有风险，2-已忽略，3-已处理)")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.TargetUser, "target-user", nil, "提权目标用户")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // StatEventByTimeParams 请求参数
 type StatEventByTimeParams struct {
-	Comment []string `json:"comment"` // 用户自定义备注
-	CreatedAt []string `json:"created_at"` // 首次发现时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Exename []string `json:"exename"` // 进程名
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Ids []float64 `json:"ids"` // 事件 ID
-	Level []int `json:"level"` // 风险等级(1-低危，2-中危，3-高危，4-严重)
-	Oid []float64 `json:"oid"` // 机构 ID
-	OriginUser []string `json:"origin_user"` // 提权源用户
-	StatEventId []float64 `json:"stat_event_id"` // 事件统计 ID
-	State []int `json:"state"` // 处置状态(1-有风险，2-已忽略，3-已处理)
-	TargetUser []string `json:"target_user"` // 提权目标用户
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	Comment     []string                 `json:"comment"`       // 用户自定义备注
+	CreatedAt   []string                 `json:"created_at"`    // 首次发现时间
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`   // 主机业务属性
+	Exename     []string                 `json:"exename"`       // 进程名
+	Gids        []float64                `json:"gids"`          // 业务组 ID
+	HostComment []string                 `json:"host_comment"`  // 主机备注
+	HostId      []float64                `json:"host_id"`       // 主机 ID
+	HostIp      []string                 `json:"host_ip"`       // 主机 IP
+	HostName    []string                 `json:"host_name"`     // 主机名称
+	HostState   []string                 `json:"host_state"`    // 主机状态
+	HostTags    []string                 `json:"host_tags"`     // 主机标签
+	Ids         []float64                `json:"ids"`           // 事件 ID
+	Level       []int                    `json:"level"`         // 风险等级(1-低危，2-中危，3-高危，4-严重)
+	Oid         []float64                `json:"oid"`           // 机构 ID
+	OriginUser  []string                 `json:"origin_user"`   // 提权源用户
+	StatEventId []float64                `json:"stat_event_id"` // 事件统计 ID
+	State       []int                    `json:"state"`         // 处置状态(1-有风险，2-已忽略，3-已处理)
+	TargetUser  []string                 `json:"target_user"`   // 提权目标用户
+	WhiteRuleId []string                 `json:"white_rule_id"` // 白名单规则 ID
 }
-

@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,40 +29,38 @@ var EditAutoTagRuleCmd = &cobra.Command{
 }
 
 func init() {
-		EditAutoTagRuleCmd.Flags().Float64SliceVar(&editAutoTagRuleParams.AgentRange, "agent-range", nil, "主机范围")
-		EditAutoTagRuleCmd.Flags().Float64SliceVar(&editAutoTagRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		EditAutoTagRuleCmd.Flags().BoolVar(&editAutoTagRuleParams.Enable, "enable", false, "是否启用")
-		EditAutoTagRuleCmd.Flags().StringSliceVar(&editAutoTagRuleParams.Exename, "exename", nil, "进程名全等匹配")
-		EditAutoTagRuleCmd.Flags().StringSliceVar(&editAutoTagRuleParams.ExenameRegex, "exename-regex", nil, "进程名正则匹配")
-		EditAutoTagRuleCmd.Flags().BoolVar(&editAutoTagRuleParams.Global, "global", false, "是否绑定全局探针")
-		EditAutoTagRuleCmd.Flags().StringSliceVar(&editAutoTagRuleParams.Hostname, "hostname", nil, "主机名全等匹配")
-		EditAutoTagRuleCmd.Flags().StringSliceVar(&editAutoTagRuleParams.HostnameRegex, "hostname-regex", nil, "主机名正则匹配")
-		EditAutoTagRuleCmd.Flags().StringVar(&editAutoTagRuleParams.Id, "id", "", "规则ID")
-		EditAutoTagRuleCmd.Flags().StringSliceVar(&editAutoTagRuleParams.Ip, "ip", nil, "IP 匹配")
-		EditAutoTagRuleCmd.Flags().StringSliceVar(&editAutoTagRuleParams.OsType, "os-type", nil, "操作系统类型")
-		EditAutoTagRuleCmd.Flags().StringVar(&editAutoTagRuleParams.RuleName, "rule-name", "", "规则名称")
-		EditAutoTagRuleCmd.Flags().StringSliceVar(&editAutoTagRuleParams.Software, "software", nil, "软件名全等匹配")
-		EditAutoTagRuleCmd.Flags().StringSliceVar(&editAutoTagRuleParams.SoftwareRegex, "software-regex", nil, "软件名正则匹配")
-		EditAutoTagRuleCmd.Flags().StringSliceVar(&editAutoTagRuleParams.Tags, "tags", nil, "标签")
+	EditAutoTagRuleCmd.Flags().Float64SliceVar(&editAutoTagRuleParams.AgentRange, "agent-range", nil, "主机范围")
+	EditAutoTagRuleCmd.Flags().Float64SliceVar(&editAutoTagRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	EditAutoTagRuleCmd.Flags().BoolVar(&editAutoTagRuleParams.Enable, "enable", false, "是否启用")
+	EditAutoTagRuleCmd.Flags().StringSliceVar(&editAutoTagRuleParams.Exename, "exename", nil, "进程名全等匹配")
+	EditAutoTagRuleCmd.Flags().StringSliceVar(&editAutoTagRuleParams.ExenameRegex, "exename-regex", nil, "进程名正则匹配")
+	EditAutoTagRuleCmd.Flags().BoolVar(&editAutoTagRuleParams.Global, "global", false, "是否绑定全局探针")
+	EditAutoTagRuleCmd.Flags().StringSliceVar(&editAutoTagRuleParams.Hostname, "hostname", nil, "主机名全等匹配")
+	EditAutoTagRuleCmd.Flags().StringSliceVar(&editAutoTagRuleParams.HostnameRegex, "hostname-regex", nil, "主机名正则匹配")
+	EditAutoTagRuleCmd.Flags().StringVar(&editAutoTagRuleParams.Id, "id", "", "规则ID")
+	EditAutoTagRuleCmd.Flags().StringSliceVar(&editAutoTagRuleParams.Ip, "ip", nil, "IP 匹配")
+	EditAutoTagRuleCmd.Flags().StringSliceVar(&editAutoTagRuleParams.OsType, "os-type", nil, "操作系统类型")
+	EditAutoTagRuleCmd.Flags().StringVar(&editAutoTagRuleParams.RuleName, "rule-name", "", "规则名称")
+	EditAutoTagRuleCmd.Flags().StringSliceVar(&editAutoTagRuleParams.Software, "software", nil, "软件名全等匹配")
+	EditAutoTagRuleCmd.Flags().StringSliceVar(&editAutoTagRuleParams.SoftwareRegex, "software-regex", nil, "软件名正则匹配")
+	EditAutoTagRuleCmd.Flags().StringSliceVar(&editAutoTagRuleParams.Tags, "tags", nil, "标签")
 }
-
 
 // EditAutoTagRuleParams 请求参数
 type EditAutoTagRuleParams struct {
-	AgentRange []float64 `json:"agent_range"` // 主机范围
+	AgentRange         []float64 `json:"agent_range"`          // 主机范围
 	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Enable bool `json:"enable"` // 是否启用
-	Exename []string `json:"exename"` // 进程名全等匹配
-	ExenameRegex []string `json:"exename_regex"` // 进程名正则匹配
-	Global bool `json:"global"` // 是否绑定全局探针
-	Hostname []string `json:"hostname"` // 主机名全等匹配
-	HostnameRegex []string `json:"hostname_regex"` // 主机名正则匹配
-	Id string `json:"id"` // 规则ID
-	Ip []string `json:"ip"` // IP 匹配
-	OsType []string `json:"os_type"` // 操作系统类型
-	RuleName string `json:"rule_name"` // 规则名称
-	Software []string `json:"software"` // 软件名全等匹配
-	SoftwareRegex []string `json:"software_regex"` // 软件名正则匹配
-	Tags []string `json:"tags"` // 标签
+	Enable             bool      `json:"enable"`               // 是否启用
+	Exename            []string  `json:"exename"`              // 进程名全等匹配
+	ExenameRegex       []string  `json:"exename_regex"`        // 进程名正则匹配
+	Global             bool      `json:"global"`               // 是否绑定全局探针
+	Hostname           []string  `json:"hostname"`             // 主机名全等匹配
+	HostnameRegex      []string  `json:"hostname_regex"`       // 主机名正则匹配
+	Id                 string    `json:"id"`                   // 规则ID
+	Ip                 []string  `json:"ip"`                   // IP 匹配
+	OsType             []string  `json:"os_type"`              // 操作系统类型
+	RuleName           string    `json:"rule_name"`            // 规则名称
+	Software           []string  `json:"software"`             // 软件名全等匹配
+	SoftwareRegex      []string  `json:"software_regex"`       // 软件名正则匹配
+	Tags               []string  `json:"tags"`                 // 标签
 }
-

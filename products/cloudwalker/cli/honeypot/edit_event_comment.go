@@ -3,8 +3,8 @@
 package honeypot
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,68 +29,66 @@ var EditEventCommentCmd = &cobra.Command{
 }
 
 func init() {
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.AggHostId, "agg-host-id", nil, "主机 ID")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.AggId, "agg-id", nil, "事件 ID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.AggName, "agg-name", nil, "蜜罐名称")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.AggSourceIp, "agg-source-ip", nil, "攻击源IP")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Comment, "comment", nil, "用户自定义备注")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.CreatedAt, "created-at", nil, "事件创建时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		EditEventCommentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.EndTime, "end-time", nil, "攻击结束时间")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Gids, "gids", nil, "业务组 ID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostComment, "host-comment", nil, "主机备注")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.HostId, "host-id", nil, "主机 ID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostIp, "host-ip", nil, "主机 IP")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostName, "host-name", nil, "主机名称")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostState, "host-state", nil, "主机状态")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostTags, "host-tags", nil, "主机标签")
-		EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.LocationCode, "location-code", nil, "地理信息")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Name, "name", nil, "蜜罐名称")
-		EditEventCommentCmd.Flags().StringVar(&editEventCommentParams.NewComment, "new-comment", "", "新的事件备注")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Oid, "oid", nil, "机构 ID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
-		EditEventCommentCmd.Flags().BoolVar(&editEventCommentParams.SelectAll, "select-all", false, "是否选中所有")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.SourceIp, "source-ip", nil, "攻击源 IP")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.StartTime, "start-time", nil, "攻击开始时间")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
-		EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.TargetIp, "target-ip", nil, "攻击目标 IP")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.AggHostId, "agg-host-id", nil, "主机 ID")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.AggId, "agg-id", nil, "事件 ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.AggName, "agg-name", nil, "蜜罐名称")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.AggSourceIp, "agg-source-ip", nil, "攻击源IP")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Comment, "comment", nil, "用户自定义备注")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.CreatedAt, "created-at", nil, "事件创建时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	EditEventCommentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.EndTime, "end-time", nil, "攻击结束时间")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Gids, "gids", nil, "业务组 ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostComment, "host-comment", nil, "主机备注")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.HostId, "host-id", nil, "主机 ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostIp, "host-ip", nil, "主机 IP")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostName, "host-name", nil, "主机名称")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostState, "host-state", nil, "主机状态")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostTags, "host-tags", nil, "主机标签")
+	EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.LocationCode, "location-code", nil, "地理信息")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Name, "name", nil, "蜜罐名称")
+	EditEventCommentCmd.Flags().StringVar(&editEventCommentParams.NewComment, "new-comment", "", "新的事件备注")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Oid, "oid", nil, "机构 ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
+	EditEventCommentCmd.Flags().BoolVar(&editEventCommentParams.SelectAll, "select-all", false, "是否选中所有")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.SourceIp, "source-ip", nil, "攻击源 IP")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.StartTime, "start-time", nil, "攻击开始时间")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
+	EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.TargetIp, "target-ip", nil, "攻击目标 IP")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // EditEventCommentParams 请求参数
 type EditEventCommentParams struct {
-	AggHostId []float64 `json:"agg_host_id"` // 主机 ID
-	AggId []float64 `json:"agg_id"` // 事件 ID
-	AggName []string `json:"agg_name"` // 蜜罐名称
-	AggSourceIp []string `json:"agg_source_ip"` // 攻击源IP
-	Comment []string `json:"comment"` // 用户自定义备注
-	CreatedAt []string `json:"created_at"` // 事件创建时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	EndTime []string `json:"end_time"` // 攻击结束时间
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Level []int `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	LocationCode []string `json:"location_code"` // 地理信息
-	Name []string `json:"name"` // 蜜罐名称
-	NewComment string `json:"new_comment"` // 新的事件备注
-	Oid []float64 `json:"oid"` // 机构 ID
-	RemoteAddrType []string `json:"remote_addr_type"` // 远程IP类型，intranet(内网)、internet(外网)
-	SelectAll bool `json:"select_all"` // 是否选中所有
-	SourceIp []string `json:"source_ip"` // 攻击源 IP
-	StartTime []string `json:"start_time"` // 攻击开始时间
-	StatEventId []float64 `json:"stat_event_id"` // 事件统计 ID
-	State []int `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
-	TargetIp []string `json:"target_ip"` // 攻击目标 IP
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	AggHostId      []float64                `json:"agg_host_id"`      // 主机 ID
+	AggId          []float64                `json:"agg_id"`           // 事件 ID
+	AggName        []string                 `json:"agg_name"`         // 蜜罐名称
+	AggSourceIp    []string                 `json:"agg_source_ip"`    // 攻击源IP
+	Comment        []string                 `json:"comment"`          // 用户自定义备注
+	CreatedAt      []string                 `json:"created_at"`       // 事件创建时间
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	EndTime        []string                 `json:"end_time"`         // 攻击结束时间
+	Gids           []float64                `json:"gids"`             // 业务组 ID
+	HostComment    []string                 `json:"host_comment"`     // 主机备注
+	HostId         []float64                `json:"host_id"`          // 主机 ID
+	HostIp         []string                 `json:"host_ip"`          // 主机 IP
+	HostName       []string                 `json:"host_name"`        // 主机名称
+	HostState      []string                 `json:"host_state"`       // 主机状态
+	HostTags       []string                 `json:"host_tags"`        // 主机标签
+	Level          []int                    `json:"level"`            // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	LocationCode   []string                 `json:"location_code"`    // 地理信息
+	Name           []string                 `json:"name"`             // 蜜罐名称
+	NewComment     string                   `json:"new_comment"`      // 新的事件备注
+	Oid            []float64                `json:"oid"`              // 机构 ID
+	RemoteAddrType []string                 `json:"remote_addr_type"` // 远程IP类型，intranet(内网)、internet(外网)
+	SelectAll      bool                     `json:"select_all"`       // 是否选中所有
+	SourceIp       []string                 `json:"source_ip"`        // 攻击源 IP
+	StartTime      []string                 `json:"start_time"`       // 攻击开始时间
+	StatEventId    []float64                `json:"stat_event_id"`    // 事件统计 ID
+	State          []int                    `json:"state"`            // 事件状态(1-有风险，2-已忽略，3-已处理)
+	TargetIp       []string                 `json:"target_ip"`        // 攻击目标 IP
+	WhiteRuleId    []string                 `json:"white_rule_id"`    // 白名单规则 ID
 }
-

@@ -3,8 +3,8 @@
 package sensitive_file
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var CreateWhitelistCmd = &cobra.Command{
 }
 
 func init() {
-		CreateWhitelistCmd.Flags().Float64Var(&createWhitelistParams.EventId, "event-id", 0, "事件 ID")
-		// whitelist is object type, use JSON string
-		var whitelistJSON string
-		CreateWhitelistCmd.Flags().StringVar(&whitelistJSON, "whitelist", "", "whitelist (JSON, e.g. {\"agent_range\": [1, 2, 3], \"builtin_id\": \"1\", \"business_group_range\": [1, 2, 3], \"...\": \"...\"})")
+	CreateWhitelistCmd.Flags().Float64Var(&createWhitelistParams.EventId, "event-id", 0, "事件 ID")
+	// whitelist is object type, use JSON string
+	var whitelistJSON string
+	CreateWhitelistCmd.Flags().StringVar(&whitelistJSON, "whitelist", "", "whitelist (JSON, e.g. {\"agent_range\": [1, 2, 3], \"builtin_id\": \"1\", \"business_group_range\": [1, 2, 3], \"...\": \"...\"})")
 }
-
 
 // CreateWhitelistParams 请求参数
 type CreateWhitelistParams struct {
-	EventId float64 `json:"event_id"` // 事件 ID
+	EventId   float64                `json:"event_id"`  // 事件 ID
 	Whitelist map[string]interface{} `json:"whitelist"` // whitelist
 }
-

@@ -3,8 +3,8 @@
 package anti_ransomware
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,62 +29,60 @@ var EditEventStateCmd = &cobra.Command{
 }
 
 func init() {
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.Comment, "comment", nil, "备注")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.CreateAt, "create-at", nil, "告警时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		EditEventStateCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.ExecPath, "exec-path", nil, "执行路径")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.ExposedIp, "exposed-ip", nil, "主机外网 IP")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.Family, "family", nil, "恶意软件家族")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Gids, "gids", nil, "业务组 ID")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.GroupId, "group-id", nil, "业务组")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.GroupName, "group-name", nil, "业务组名")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostComment, "host-comment", nil, "主机备注")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostIp, "host-ip", nil, "主机IP")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostName, "host-name", nil, "主机名称")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostState, "host-state", nil, "主机状态")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostTags, "host-tags", nil, "主机标签")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Ids, "ids", nil, "事件 ID")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.InterceptionResult, "interception-result", nil, "阻断结果：0 未阻断，1 已阻断，2 阻断失败")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.IsolationResult, "isolation-result", nil, "隔离结果：0 未隔离，1 已隔离，2 隔离失败")
-		EditEventStateCmd.Flags().Float64Var(&editEventStateParams.NewState, "new-state", 0, "目标处置状态(1-有风险，2-已忽略，3-已处理)")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Oid, "oid", nil, "机构ID")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.ProcessName, "process-name", nil, "进程名")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.RuleName, "rule-name", nil, "规则名")
-		EditEventStateCmd.Flags().BoolVar(&editEventStateParams.SelectAll, "select-all", false, "是否选中所有")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.State, "state", nil, "状态：0 未处理，1 已处理")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.UpdatedAt, "updated-at", nil, "更新时间，范围筛选")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.Comment, "comment", nil, "备注")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.CreateAt, "create-at", nil, "告警时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	EditEventStateCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.ExecPath, "exec-path", nil, "执行路径")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.ExposedIp, "exposed-ip", nil, "主机外网 IP")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.Family, "family", nil, "恶意软件家族")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Gids, "gids", nil, "业务组 ID")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.GroupId, "group-id", nil, "业务组")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.GroupName, "group-name", nil, "业务组名")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostComment, "host-comment", nil, "主机备注")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostIp, "host-ip", nil, "主机IP")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostName, "host-name", nil, "主机名称")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostState, "host-state", nil, "主机状态")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostTags, "host-tags", nil, "主机标签")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Ids, "ids", nil, "事件 ID")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.InterceptionResult, "interception-result", nil, "阻断结果：0 未阻断，1 已阻断，2 阻断失败")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.IsolationResult, "isolation-result", nil, "隔离结果：0 未隔离，1 已隔离，2 隔离失败")
+	EditEventStateCmd.Flags().Float64Var(&editEventStateParams.NewState, "new-state", 0, "目标处置状态(1-有风险，2-已忽略，3-已处理)")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Oid, "oid", nil, "机构ID")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.ProcessName, "process-name", nil, "进程名")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.RuleName, "rule-name", nil, "规则名")
+	EditEventStateCmd.Flags().BoolVar(&editEventStateParams.SelectAll, "select-all", false, "是否选中所有")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.State, "state", nil, "状态：0 未处理，1 已处理")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.UpdatedAt, "updated-at", nil, "更新时间，范围筛选")
 }
-
 
 // EditEventStateParams 请求参数
 type EditEventStateParams struct {
-	Comment []string `json:"comment"` // 备注
-	CreateAt []string `json:"create_at"` // 告警时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	ExecPath []string `json:"exec_path"` // 执行路径
-	ExposedIp []string `json:"exposed_ip"` // 主机外网 IP
-	Family []string `json:"family"` // 恶意软件家族
-	Gids []float64 `json:"gids"` // 业务组 ID
-	GroupId []float64 `json:"group_id"` // 业务组
-	GroupName []string `json:"group_name"` // 业务组名
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID, 用于主机详情页面
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Ids []float64 `json:"ids"` // 事件 ID
-	InterceptionResult []float64 `json:"interception_result"` // 阻断结果：0 未阻断，1 已阻断，2 阻断失败
-	IsolationResult []float64 `json:"isolation_result"` // 隔离结果：0 未隔离，1 已隔离，2 隔离失败
-	NewState float64 `json:"new_state"` // 目标处置状态(1-有风险，2-已忽略，3-已处理)
-	Oid []float64 `json:"oid"` // 机构ID
-	ProcessName []string `json:"process_name"` // 进程名
-	RuleName []string `json:"rule_name"` // 规则名
-	SelectAll bool `json:"select_all"` // 是否选中所有
-	State []float64 `json:"state"` // 状态：0 未处理，1 已处理
-	UpdatedAt []string `json:"updated_at"` // 更新时间，范围筛选
+	Comment            []string                 `json:"comment"`             // 备注
+	CreateAt           []string                 `json:"create_at"`           // 告警时间
+	CustomAttr         []map[string]interface{} `json:"custom_attr"`         // 主机业务属性
+	ExecPath           []string                 `json:"exec_path"`           // 执行路径
+	ExposedIp          []string                 `json:"exposed_ip"`          // 主机外网 IP
+	Family             []string                 `json:"family"`              // 恶意软件家族
+	Gids               []float64                `json:"gids"`                // 业务组 ID
+	GroupId            []float64                `json:"group_id"`            // 业务组
+	GroupName          []string                 `json:"group_name"`          // 业务组名
+	HostComment        []string                 `json:"host_comment"`        // 主机备注
+	HostId             []float64                `json:"host_id"`             // 主机ID, 用于主机详情页面
+	HostIp             []string                 `json:"host_ip"`             // 主机IP
+	HostName           []string                 `json:"host_name"`           // 主机名称
+	HostState          []string                 `json:"host_state"`          // 主机状态
+	HostTags           []string                 `json:"host_tags"`           // 主机标签
+	Ids                []float64                `json:"ids"`                 // 事件 ID
+	InterceptionResult []float64                `json:"interception_result"` // 阻断结果：0 未阻断，1 已阻断，2 阻断失败
+	IsolationResult    []float64                `json:"isolation_result"`    // 隔离结果：0 未隔离，1 已隔离，2 隔离失败
+	NewState           float64                  `json:"new_state"`           // 目标处置状态(1-有风险，2-已忽略，3-已处理)
+	Oid                []float64                `json:"oid"`                 // 机构ID
+	ProcessName        []string                 `json:"process_name"`        // 进程名
+	RuleName           []string                 `json:"rule_name"`           // 规则名
+	SelectAll          bool                     `json:"select_all"`          // 是否选中所有
+	State              []float64                `json:"state"`               // 状态：0 未处理，1 已处理
+	UpdatedAt          []string                 `json:"updated_at"`          // 更新时间，范围筛选
 }
-

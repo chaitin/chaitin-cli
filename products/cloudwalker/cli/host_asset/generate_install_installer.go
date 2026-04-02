@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,38 +29,36 @@ var GenerateInstallInstallerCmd = &cobra.Command{
 }
 
 func init() {
-		GenerateInstallInstallerCmd.Flags().StringVar(&generateInstallInstallerParams.Architecture, "architecture", "", "architecture")
-		GenerateInstallInstallerCmd.Flags().BoolVar(&generateInstallInstallerParams.DisableAgentAfterInstall, "disable-agent-after-install", false, "安装后是否禁用探针")
-		GenerateInstallInstallerCmd.Flags().IntVar(&generateInstallInstallerParams.Gid, "gid", 0, "业务组 ID")
-		GenerateInstallInstallerCmd.Flags().StringVar(&generateInstallInstallerParams.InstallDir, "install-dir", "", "安装路径")
-		GenerateInstallInstallerCmd.Flags().StringVar(&generateInstallInstallerParams.InstallOption, "install-option", "", "重装选项")
-		GenerateInstallInstallerCmd.Flags().StringVar(&generateInstallInstallerParams.InstallUsername, "install-username", "", "探针运行用户")
-		GenerateInstallInstallerCmd.Flags().StringVar(&generateInstallInstallerParams.KernelSemver, "kernel-semver", "", "kernel_semver")
-		GenerateInstallInstallerCmd.Flags().BoolVar(&generateInstallInstallerParams.ManualDownload, "manual-download", false, "手动下载脚本")
-		// os_config is object type, use JSON string
-		var osConfigJSON string
-		GenerateInstallInstallerCmd.Flags().StringVar(&osConfigJSON, "os-config", "", "操作系统配置 (JSON, e.g. {\"linux_config\": {\"privilege_escape_method\": \"none\"}, \"os\": \"linux\", \"win_config\": {\"shell_type\": \"cmd\"}})")
-		// proxy_config is object type, use JSON string
-		var proxyConfigJSON string
-		GenerateInstallInstallerCmd.Flags().StringVar(&proxyConfigJSON, "proxy-config", "", "代理配置 (JSON, e.g. {\"host\": \"127.0.0.1\", \"password\": \"123456\", \"port\": 3306, \"type\": \"none\", \"username\": \"root\"})")
-		GenerateInstallInstallerCmd.Flags().StringVar(&generateInstallInstallerParams.RemoteHost, "remote-host", "", "远端服务器地址")
-		GenerateInstallInstallerCmd.Flags().IntVar(&generateInstallInstallerParams.TokenTtl, "token-ttl", 0, "token过期时间(秒)")
+	GenerateInstallInstallerCmd.Flags().StringVar(&generateInstallInstallerParams.Architecture, "architecture", "", "architecture")
+	GenerateInstallInstallerCmd.Flags().BoolVar(&generateInstallInstallerParams.DisableAgentAfterInstall, "disable-agent-after-install", false, "安装后是否禁用探针")
+	GenerateInstallInstallerCmd.Flags().IntVar(&generateInstallInstallerParams.Gid, "gid", 0, "业务组 ID")
+	GenerateInstallInstallerCmd.Flags().StringVar(&generateInstallInstallerParams.InstallDir, "install-dir", "", "安装路径")
+	GenerateInstallInstallerCmd.Flags().StringVar(&generateInstallInstallerParams.InstallOption, "install-option", "", "重装选项")
+	GenerateInstallInstallerCmd.Flags().StringVar(&generateInstallInstallerParams.InstallUsername, "install-username", "", "探针运行用户")
+	GenerateInstallInstallerCmd.Flags().StringVar(&generateInstallInstallerParams.KernelSemver, "kernel-semver", "", "kernel_semver")
+	GenerateInstallInstallerCmd.Flags().BoolVar(&generateInstallInstallerParams.ManualDownload, "manual-download", false, "手动下载脚本")
+	// os_config is object type, use JSON string
+	var osConfigJSON string
+	GenerateInstallInstallerCmd.Flags().StringVar(&osConfigJSON, "os-config", "", "操作系统配置 (JSON, e.g. {\"linux_config\": {\"privilege_escape_method\": \"none\"}, \"os\": \"linux\", \"win_config\": {\"shell_type\": \"cmd\"}})")
+	// proxy_config is object type, use JSON string
+	var proxyConfigJSON string
+	GenerateInstallInstallerCmd.Flags().StringVar(&proxyConfigJSON, "proxy-config", "", "代理配置 (JSON, e.g. {\"host\": \"127.0.0.1\", \"password\": \"123456\", \"port\": 3306, \"type\": \"none\", \"username\": \"root\"})")
+	GenerateInstallInstallerCmd.Flags().StringVar(&generateInstallInstallerParams.RemoteHost, "remote-host", "", "远端服务器地址")
+	GenerateInstallInstallerCmd.Flags().IntVar(&generateInstallInstallerParams.TokenTtl, "token-ttl", 0, "token过期时间(秒)")
 }
-
 
 // GenerateInstallInstallerParams 请求参数
 type GenerateInstallInstallerParams struct {
-	Architecture string `json:"architecture"` // architecture
-	DisableAgentAfterInstall bool `json:"disable_agent_after_install"` // 安装后是否禁用探针
-	Gid int `json:"gid"` // 业务组 ID
-	InstallDir string `json:"install_dir"` // 安装路径
-	InstallOption string `json:"install_option"` // 重装选项
-	InstallUsername string `json:"install_username"` // 探针运行用户
-	KernelSemver string `json:"kernel_semver"` // kernel_semver
-	ManualDownload bool `json:"manual_download"` // 手动下载脚本
-	OsConfig map[string]interface{} `json:"os_config"` // 操作系统配置
-	ProxyConfig map[string]interface{} `json:"proxy_config"` // 代理配置
-	RemoteHost string `json:"remote_host"` // 远端服务器地址
-	TokenTtl int `json:"token_ttl"` // token过期时间(秒)
+	Architecture             string                 `json:"architecture"`                // architecture
+	DisableAgentAfterInstall bool                   `json:"disable_agent_after_install"` // 安装后是否禁用探针
+	Gid                      int                    `json:"gid"`                         // 业务组 ID
+	InstallDir               string                 `json:"install_dir"`                 // 安装路径
+	InstallOption            string                 `json:"install_option"`              // 重装选项
+	InstallUsername          string                 `json:"install_username"`            // 探针运行用户
+	KernelSemver             string                 `json:"kernel_semver"`               // kernel_semver
+	ManualDownload           bool                   `json:"manual_download"`             // 手动下载脚本
+	OsConfig                 map[string]interface{} `json:"os_config"`                   // 操作系统配置
+	ProxyConfig              map[string]interface{} `json:"proxy_config"`                // 代理配置
+	RemoteHost               string                 `json:"remote_host"`                 // 远端服务器地址
+	TokenTtl                 int                    `json:"token_ttl"`                   // token过期时间(秒)
 }
-

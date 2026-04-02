@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var UpdateLogicCmd = &cobra.Command{
 }
 
 func init() {
-		// logics is complex type []map[string]interface{}, use JSON string
-		var logicsJSON string
-		UpdateLogicCmd.Flags().StringVar(&logicsJSON, "logics", "", "要修改的项目 (JSON, e.g. [{\"args\": \"\", \"id\": \"754821f3-06db-455f-9d58-89421216fcf2\"}])")
-		UpdateLogicCmd.Flags().StringVar(&updateLogicParams.PkgId, "pkg-id", "", "上传的核查项包, 不传则是修改数据库中已存在的")
+	// logics is complex type []map[string]interface{}, use JSON string
+	var logicsJSON string
+	UpdateLogicCmd.Flags().StringVar(&logicsJSON, "logics", "", "要修改的项目 (JSON, e.g. [{\"args\": \"\", \"id\": \"754821f3-06db-455f-9d58-89421216fcf2\"}])")
+	UpdateLogicCmd.Flags().StringVar(&updateLogicParams.PkgId, "pkg-id", "", "上传的核查项包, 不传则是修改数据库中已存在的")
 }
-
 
 // UpdateLogicParams 请求参数
 type UpdateLogicParams struct {
 	Logics []map[string]interface{} `json:"logics"` // 要修改的项目
-	PkgId string `json:"pkg_id"` // 上传的核查项包, 不传则是修改数据库中已存在的
+	PkgId  string                   `json:"pkg_id"` // 上传的核查项包, 不传则是修改数据库中已存在的
 }
-

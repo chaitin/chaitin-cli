@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetHoneypotRuleCmd = &cobra.Command{
 }
 
 func init() {
-		GetHoneypotRuleCmd.Flags().StringVar(&getHoneypotRuleParams.Id, "id", "", "规则ID")
+	GetHoneypotRuleCmd.Flags().StringVar(&getHoneypotRuleParams.Id, "id", "", "规则ID")
 }
-
 
 // GetHoneypotRuleParams 请求参数
 type GetHoneypotRuleParams struct {
 	Id string `json:"id"` // 规则ID
 }
-

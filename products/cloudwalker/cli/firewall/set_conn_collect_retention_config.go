@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var SetConnCollectRetentionConfigCmd = &cobra.Command{
 }
 
 func init() {
-		SetConnCollectRetentionConfigCmd.Flags().Float64Var(&setConnCollectRetentionConfigParams.DataRetentionDays, "data-retention-days", 0, "数据保留天数, 1-180天")
+	SetConnCollectRetentionConfigCmd.Flags().Float64Var(&setConnCollectRetentionConfigParams.DataRetentionDays, "data-retention-days", 0, "数据保留天数, 1-180天")
 }
-
 
 // SetConnCollectRetentionConfigParams 请求参数
 type SetConnCollectRetentionConfigParams struct {
 	DataRetentionDays float64 `json:"data_retention_days"` // 数据保留天数, 1-180天
 }
-

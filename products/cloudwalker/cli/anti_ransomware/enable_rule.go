@@ -3,8 +3,8 @@
 package anti_ransomware
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,48 +29,46 @@ var EnableRuleCmd = &cobra.Command{
 }
 
 func init() {
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		EnableRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		EnableRuleCmd.Flags().BoolVar(&enableRuleParams.Enable, "enable", false, "启用规则")
-		EnableRuleCmd.Flags().BoolVar(&enableRuleParams.Enabled, "enabled", false, "是否启用")
-		EnableRuleCmd.Flags().StringSliceVar(&enableRuleParams.ExposedIp, "exposed-ip", nil, "主机外网 IP")
-		EnableRuleCmd.Flags().Float64SliceVar(&enableRuleParams.Gids, "gids", nil, "业务组 ID")
-		EnableRuleCmd.Flags().Float64SliceVar(&enableRuleParams.GroupId, "group-id", nil, "业务组")
-		EnableRuleCmd.Flags().StringSliceVar(&enableRuleParams.GroupName, "group-name", nil, "业务组名")
-		EnableRuleCmd.Flags().StringSliceVar(&enableRuleParams.HostComment, "host-comment", nil, "主机备注")
-		EnableRuleCmd.Flags().Float64SliceVar(&enableRuleParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
-		EnableRuleCmd.Flags().StringSliceVar(&enableRuleParams.HostIp, "host-ip", nil, "主机IP")
-		EnableRuleCmd.Flags().StringSliceVar(&enableRuleParams.HostName, "host-name", nil, "主机名称")
-		EnableRuleCmd.Flags().StringSliceVar(&enableRuleParams.HostState, "host-state", nil, "主机状态")
-		EnableRuleCmd.Flags().StringSliceVar(&enableRuleParams.HostTags, "host-tags", nil, "主机标签")
-		EnableRuleCmd.Flags().Float64SliceVar(&enableRuleParams.Ids, "ids", nil, "规则ID")
-		EnableRuleCmd.Flags().Float64SliceVar(&enableRuleParams.Mode, "mode", nil, "防护模式，0 仅告警，1 告警并防护")
-		EnableRuleCmd.Flags().StringSliceVar(&enableRuleParams.Name, "name", nil, "规则名")
-		EnableRuleCmd.Flags().Float64SliceVar(&enableRuleParams.Oid, "oid", nil, "机构ID")
-		EnableRuleCmd.Flags().BoolVar(&enableRuleParams.SelectAll, "select-all", false, "是否选中所有")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	EnableRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	EnableRuleCmd.Flags().BoolVar(&enableRuleParams.Enable, "enable", false, "启用规则")
+	EnableRuleCmd.Flags().BoolVar(&enableRuleParams.Enabled, "enabled", false, "是否启用")
+	EnableRuleCmd.Flags().StringSliceVar(&enableRuleParams.ExposedIp, "exposed-ip", nil, "主机外网 IP")
+	EnableRuleCmd.Flags().Float64SliceVar(&enableRuleParams.Gids, "gids", nil, "业务组 ID")
+	EnableRuleCmd.Flags().Float64SliceVar(&enableRuleParams.GroupId, "group-id", nil, "业务组")
+	EnableRuleCmd.Flags().StringSliceVar(&enableRuleParams.GroupName, "group-name", nil, "业务组名")
+	EnableRuleCmd.Flags().StringSliceVar(&enableRuleParams.HostComment, "host-comment", nil, "主机备注")
+	EnableRuleCmd.Flags().Float64SliceVar(&enableRuleParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
+	EnableRuleCmd.Flags().StringSliceVar(&enableRuleParams.HostIp, "host-ip", nil, "主机IP")
+	EnableRuleCmd.Flags().StringSliceVar(&enableRuleParams.HostName, "host-name", nil, "主机名称")
+	EnableRuleCmd.Flags().StringSliceVar(&enableRuleParams.HostState, "host-state", nil, "主机状态")
+	EnableRuleCmd.Flags().StringSliceVar(&enableRuleParams.HostTags, "host-tags", nil, "主机标签")
+	EnableRuleCmd.Flags().Float64SliceVar(&enableRuleParams.Ids, "ids", nil, "规则ID")
+	EnableRuleCmd.Flags().Float64SliceVar(&enableRuleParams.Mode, "mode", nil, "防护模式，0 仅告警，1 告警并防护")
+	EnableRuleCmd.Flags().StringSliceVar(&enableRuleParams.Name, "name", nil, "规则名")
+	EnableRuleCmd.Flags().Float64SliceVar(&enableRuleParams.Oid, "oid", nil, "机构ID")
+	EnableRuleCmd.Flags().BoolVar(&enableRuleParams.SelectAll, "select-all", false, "是否选中所有")
 }
-
 
 // EnableRuleParams 请求参数
 type EnableRuleParams struct {
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Enable bool `json:"enable"` // 启用规则
-	Enabled bool `json:"enabled"` // 是否启用
-	ExposedIp []string `json:"exposed_ip"` // 主机外网 IP
-	Gids []float64 `json:"gids"` // 业务组 ID
-	GroupId []float64 `json:"group_id"` // 业务组
-	GroupName []string `json:"group_name"` // 业务组名
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID, 用于主机详情页面
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Ids []float64 `json:"ids"` // 规则ID
-	Mode []float64 `json:"mode"` // 防护模式，0 仅告警，1 告警并防护
-	Name []string `json:"name"` // 规则名
-	Oid []float64 `json:"oid"` // 机构ID
-	SelectAll bool `json:"select_all"` // 是否选中所有
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Enable      bool                     `json:"enable"`       // 启用规则
+	Enabled     bool                     `json:"enabled"`      // 是否启用
+	ExposedIp   []string                 `json:"exposed_ip"`   // 主机外网 IP
+	Gids        []float64                `json:"gids"`         // 业务组 ID
+	GroupId     []float64                `json:"group_id"`     // 业务组
+	GroupName   []string                 `json:"group_name"`   // 业务组名
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机ID, 用于主机详情页面
+	HostIp      []string                 `json:"host_ip"`      // 主机IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTags    []string                 `json:"host_tags"`    // 主机标签
+	Ids         []float64                `json:"ids"`          // 规则ID
+	Mode        []float64                `json:"mode"`         // 防护模式，0 仅告警，1 告警并防护
+	Name        []string                 `json:"name"`         // 规则名
+	Oid         []float64                `json:"oid"`          // 机构ID
+	SelectAll   bool                     `json:"select_all"`   // 是否选中所有
 }
-

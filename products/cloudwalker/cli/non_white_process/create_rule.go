@@ -3,8 +3,8 @@
 package non_white_process
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,22 +29,20 @@ var CreateRuleCmd = &cobra.Command{
 }
 
 func init() {
-		CreateRuleCmd.Flags().Float64SliceVar(&createRuleParams.AgentRange, "agent-range", nil, "主机范围")
-		CreateRuleCmd.Flags().Float64SliceVar(&createRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		CreateRuleCmd.Flags().StringSliceVar(&createRuleParams.CustomWhiteList, "custom-white-list", nil, "自定义白名单")
-		CreateRuleCmd.Flags().BoolVar(&createRuleParams.Global, "global", false, "是否绑定全局探针")
-		CreateRuleCmd.Flags().StringVar(&createRuleParams.RuleName, "rule-name", "", "规则名称")
-		CreateRuleCmd.Flags().StringVar(&createRuleParams.Status, "status", "", "检测模式")
+	CreateRuleCmd.Flags().Float64SliceVar(&createRuleParams.AgentRange, "agent-range", nil, "主机范围")
+	CreateRuleCmd.Flags().Float64SliceVar(&createRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	CreateRuleCmd.Flags().StringSliceVar(&createRuleParams.CustomWhiteList, "custom-white-list", nil, "自定义白名单")
+	CreateRuleCmd.Flags().BoolVar(&createRuleParams.Global, "global", false, "是否绑定全局探针")
+	CreateRuleCmd.Flags().StringVar(&createRuleParams.RuleName, "rule-name", "", "规则名称")
+	CreateRuleCmd.Flags().StringVar(&createRuleParams.Status, "status", "", "检测模式")
 }
-
 
 // CreateRuleParams 请求参数
 type CreateRuleParams struct {
-	AgentRange []float64 `json:"agent_range"` // 主机范围
+	AgentRange         []float64 `json:"agent_range"`          // 主机范围
 	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	CustomWhiteList []string `json:"custom_white_list"` // 自定义白名单
-	Global bool `json:"global"` // 是否绑定全局探针
-	RuleName string `json:"rule_name"` // 规则名称
-	Status string `json:"status"` // 检测模式
+	CustomWhiteList    []string  `json:"custom_white_list"`    // 自定义白名单
+	Global             bool      `json:"global"`               // 是否绑定全局探针
+	RuleName           string    `json:"rule_name"`            // 规则名称
+	Status             string    `json:"status"`               // 检测模式
 }
-

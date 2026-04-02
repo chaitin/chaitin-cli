@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var EnableHostIsolateRuleCmd = &cobra.Command{
 }
 
 func init() {
-		// filter is object type, use JSON string
-		var filterJSON string
-		EnableHostIsolateRuleCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"created_at\": [\"\"], \"enable\": true, \"host_group\": [1], \"...\": \"...\"})")
-		EnableHostIsolateRuleCmd.Flags().BoolVar(&enableHostIsolateRuleParams.NewEnable, "new-enable", false, "是否开启规则")
+	// filter is object type, use JSON string
+	var filterJSON string
+	EnableHostIsolateRuleCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"created_at\": [\"\"], \"enable\": true, \"host_group\": [1], \"...\": \"...\"})")
+	EnableHostIsolateRuleCmd.Flags().BoolVar(&enableHostIsolateRuleParams.NewEnable, "new-enable", false, "是否开启规则")
 }
-
 
 // EnableHostIsolateRuleParams 请求参数
 type EnableHostIsolateRuleParams struct {
-	Filter map[string]interface{} `json:"filter"` // 筛选器
-	NewEnable bool `json:"new_enable"` // 是否开启规则
+	Filter    map[string]interface{} `json:"filter"`     // 筛选器
+	NewEnable bool                   `json:"new_enable"` // 是否开启规则
 }
-

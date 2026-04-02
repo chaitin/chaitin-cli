@@ -8,8 +8,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/go-openapi/strfmt"
 	"github.com/chaitin/workspace-cli/products/xray/models"
+	"github.com/go-openapi/strfmt"
 )
 
 // Schema cli for ServiceResult

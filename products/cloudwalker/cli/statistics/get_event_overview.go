@@ -3,8 +3,8 @@
 package statistics
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetEventOverviewCmd = &cobra.Command{
 }
 
 func init() {
-		GetEventOverviewCmd.Flags().BoolVar(&getEventOverviewParams.FlushCache, "flush-cache", false, "禁用缓存")
+	GetEventOverviewCmd.Flags().BoolVar(&getEventOverviewParams.FlushCache, "flush-cache", false, "禁用缓存")
 }
-
 
 // GetEventOverviewParams 请求参数
 type GetEventOverviewParams struct {
 	FlushCache bool `json:"flush_cache"` // 禁用缓存
 }
-

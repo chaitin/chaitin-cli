@@ -3,8 +3,8 @@
 package crontab
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,30 +29,28 @@ var EditWeakPasswordPlanCmd = &cobra.Command{
 }
 
 func init() {
-		EditWeakPasswordPlanCmd.Flags().Float64SliceVar(&editWeakPasswordPlanParams.AgentRange, "agent-range", nil, "探针范围, 如果 null 证明不修改，如果是个空 [] 则清空本项")
-		EditWeakPasswordPlanCmd.Flags().Float64SliceVar(&editWeakPasswordPlanParams.BusinessGroupRange, "business-group-range", nil, "业务组范围, 如果 null 证明不修改，如果是个空 [] 则清空本项")
-		EditWeakPasswordPlanCmd.Flags().StringVar(&editWeakPasswordPlanParams.Comment, "comment", "", "test")
-		// cron is object type, use JSON string
-		var cronJSON string
-		EditWeakPasswordPlanCmd.Flags().StringVar(&cronJSON, "cron", "", "计划定时器 (JSON, e.g. {\"interval\": 1, \"now\": true, \"plan_time\": 1667461108.618155, \"trigger_method\": \"day\", \"week_selector\": [0]})")
-		EditWeakPasswordPlanCmd.Flags().StringSliceVar(&editWeakPasswordPlanParams.HostTagRange, "host-tag-range", nil, "主机标签范围")
-		EditWeakPasswordPlanCmd.Flags().IntVar(&editWeakPasswordPlanParams.Id, "id", 0, "计划 ID")
-		EditWeakPasswordPlanCmd.Flags().StringVar(&editWeakPasswordPlanParams.Name, "name", "", "计划名称")
-		// task is object type, use JSON string
-		var taskJSON string
-		EditWeakPasswordPlanCmd.Flags().StringVar(&taskJSON, "task", "", "弱口令任务信息 (JSON, e.g. {\"args\": {\"auto_tag\": true, \"check_container\": true, \"check_disabled_user\": false, \"check_empty_password\": true, \"service_configs\": [{\"service\": \"ssh\"}]}, \"timeout\": 3600})")
+	EditWeakPasswordPlanCmd.Flags().Float64SliceVar(&editWeakPasswordPlanParams.AgentRange, "agent-range", nil, "探针范围, 如果 null 证明不修改，如果是个空 [] 则清空本项")
+	EditWeakPasswordPlanCmd.Flags().Float64SliceVar(&editWeakPasswordPlanParams.BusinessGroupRange, "business-group-range", nil, "业务组范围, 如果 null 证明不修改，如果是个空 [] 则清空本项")
+	EditWeakPasswordPlanCmd.Flags().StringVar(&editWeakPasswordPlanParams.Comment, "comment", "", "test")
+	// cron is object type, use JSON string
+	var cronJSON string
+	EditWeakPasswordPlanCmd.Flags().StringVar(&cronJSON, "cron", "", "计划定时器 (JSON, e.g. {\"interval\": 1, \"now\": true, \"plan_time\": 1667461108.618155, \"trigger_method\": \"day\", \"week_selector\": [0]})")
+	EditWeakPasswordPlanCmd.Flags().StringSliceVar(&editWeakPasswordPlanParams.HostTagRange, "host-tag-range", nil, "主机标签范围")
+	EditWeakPasswordPlanCmd.Flags().IntVar(&editWeakPasswordPlanParams.Id, "id", 0, "计划 ID")
+	EditWeakPasswordPlanCmd.Flags().StringVar(&editWeakPasswordPlanParams.Name, "name", "", "计划名称")
+	// task is object type, use JSON string
+	var taskJSON string
+	EditWeakPasswordPlanCmd.Flags().StringVar(&taskJSON, "task", "", "弱口令任务信息 (JSON, e.g. {\"args\": {\"auto_tag\": true, \"check_container\": true, \"check_disabled_user\": false, \"check_empty_password\": true, \"service_configs\": [{\"service\": \"ssh\"}]}, \"timeout\": 3600})")
 }
-
 
 // EditWeakPasswordPlanParams 请求参数
 type EditWeakPasswordPlanParams struct {
-	AgentRange []float64 `json:"agent_range"` // 探针范围, 如果 null 证明不修改，如果是个空 [] 则清空本项
-	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围, 如果 null 证明不修改，如果是个空 [] 则清空本项
-	Comment string `json:"comment"` // test
-	Cron map[string]interface{} `json:"cron"` // 计划定时器
-	HostTagRange []string `json:"host_tag_range"` // 主机标签范围
-	Id int `json:"id"` // 计划 ID
-	Name string `json:"name"` // 计划名称
-	Task map[string]interface{} `json:"task"` // 弱口令任务信息
+	AgentRange         []float64              `json:"agent_range"`          // 探针范围, 如果 null 证明不修改，如果是个空 [] 则清空本项
+	BusinessGroupRange []float64              `json:"business_group_range"` // 业务组范围, 如果 null 证明不修改，如果是个空 [] 则清空本项
+	Comment            string                 `json:"comment"`              // test
+	Cron               map[string]interface{} `json:"cron"`                 // 计划定时器
+	HostTagRange       []string               `json:"host_tag_range"`       // 主机标签范围
+	Id                 int                    `json:"id"`                   // 计划 ID
+	Name               string                 `json:"name"`                 // 计划名称
+	Task               map[string]interface{} `json:"task"`                 // 弱口令任务信息
 }
-

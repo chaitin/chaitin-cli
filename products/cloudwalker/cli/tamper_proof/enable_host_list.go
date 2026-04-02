@@ -3,8 +3,8 @@
 package tamper_proof
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var EnableHostListCmd = &cobra.Command{
 }
 
 func init() {
-		EnableHostListCmd.Flags().IntSliceVar(&enableHostListParams.HostIds, "host-ids", nil, "要开启文件防篡改功能的主机 ID 列表")
+	EnableHostListCmd.Flags().IntSliceVar(&enableHostListParams.HostIds, "host-ids", nil, "要开启文件防篡改功能的主机 ID 列表")
 }
-
 
 // EnableHostListParams 请求参数
 type EnableHostListParams struct {
 	HostIds []int `json:"host_ids"` // 要开启文件防篡改功能的主机 ID 列表
 }
-

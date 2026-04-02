@@ -3,8 +3,8 @@
 package docker_container
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var GetContainerCmd = &cobra.Command{
 }
 
 func init() {
-		GetContainerCmd.Flags().StringVar(&getContainerParams.HashId, "hash-id", "", "容器ID")
-		GetContainerCmd.Flags().Float64Var(&getContainerParams.Id, "id", 0, "id")
+	GetContainerCmd.Flags().StringVar(&getContainerParams.HashId, "hash-id", "", "容器ID")
+	GetContainerCmd.Flags().Float64Var(&getContainerParams.Id, "id", 0, "id")
 }
-
 
 // GetContainerParams 请求参数
 type GetContainerParams struct {
-	HashId string `json:"hash_id"` // 容器ID
-	Id float64 `json:"id"` // id
+	HashId string  `json:"hash_id"` // 容器ID
+	Id     float64 `json:"id"`      // id
 }
-

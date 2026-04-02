@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,36 +29,34 @@ var UpdateRuleCmd = &cobra.Command{
 }
 
 func init() {
-		UpdateRuleCmd.Flags().StringVar(&updateRuleParams.Action, "action", "", "动作")
-		// dest is object type, use JSON string
-		var destJSON string
-		UpdateRuleCmd.Flags().StringVar(&destJSON, "dest", "", "被访问者 (JSON, e.g. {\"cidr\": [\"\"], \"domain\": [\"\"], \"group_id\": [0.0], \"group_name\": [\"\"], \"host_id\": [0.0], \"host_ip\": [\"\"], \"tags\": [\"\"], \"type\": 1})")
-		UpdateRuleCmd.Flags().BoolVar(&updateRuleParams.Enable, "enable", false, "是否开启规则")
-		// filter is object type, use JSON string
-		var filterJSON string
-		UpdateRuleCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"action\": [\"ACCEPT\"], \"cidr\": [\"\"], \"created_at\": [\"\"], \"...\": \"...\"})")
-		UpdateRuleCmd.Flags().BoolVar(&updateRuleParams.FilterSpecialAddress, "filter-special-address", false, "是否过滤特殊地址")
-		UpdateRuleCmd.Flags().StringVar(&updateRuleParams.Name, "name", "", "规则名")
-		UpdateRuleCmd.Flags().StringSliceVar(&updateRuleParams.Ports, "ports", nil, "端口范围")
-		UpdateRuleCmd.Flags().Float64Var(&updateRuleParams.Priority, "priority", 0, "优先级，数字越低优先级越高，优先级相同按修改时间倒序")
-		UpdateRuleCmd.Flags().StringVar(&updateRuleParams.Protocol, "protocol", "", "传输协议")
-		// source is object type, use JSON string
-		var sourceJSON string
-		UpdateRuleCmd.Flags().StringVar(&sourceJSON, "source", "", "访问者 (JSON, e.g. {\"cidr\": [\"\"], \"domain\": [\"\"], \"group_id\": [0.0], \"group_name\": [\"\"], \"host_id\": [0.0], \"host_ip\": [\"\"], \"tags\": [\"\"], \"type\": 1})")
+	UpdateRuleCmd.Flags().StringVar(&updateRuleParams.Action, "action", "", "动作")
+	// dest is object type, use JSON string
+	var destJSON string
+	UpdateRuleCmd.Flags().StringVar(&destJSON, "dest", "", "被访问者 (JSON, e.g. {\"cidr\": [\"\"], \"domain\": [\"\"], \"group_id\": [0.0], \"group_name\": [\"\"], \"host_id\": [0.0], \"host_ip\": [\"\"], \"tags\": [\"\"], \"type\": 1})")
+	UpdateRuleCmd.Flags().BoolVar(&updateRuleParams.Enable, "enable", false, "是否开启规则")
+	// filter is object type, use JSON string
+	var filterJSON string
+	UpdateRuleCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"action\": [\"ACCEPT\"], \"cidr\": [\"\"], \"created_at\": [\"\"], \"...\": \"...\"})")
+	UpdateRuleCmd.Flags().BoolVar(&updateRuleParams.FilterSpecialAddress, "filter-special-address", false, "是否过滤特殊地址")
+	UpdateRuleCmd.Flags().StringVar(&updateRuleParams.Name, "name", "", "规则名")
+	UpdateRuleCmd.Flags().StringSliceVar(&updateRuleParams.Ports, "ports", nil, "端口范围")
+	UpdateRuleCmd.Flags().Float64Var(&updateRuleParams.Priority, "priority", 0, "优先级，数字越低优先级越高，优先级相同按修改时间倒序")
+	UpdateRuleCmd.Flags().StringVar(&updateRuleParams.Protocol, "protocol", "", "传输协议")
+	// source is object type, use JSON string
+	var sourceJSON string
+	UpdateRuleCmd.Flags().StringVar(&sourceJSON, "source", "", "访问者 (JSON, e.g. {\"cidr\": [\"\"], \"domain\": [\"\"], \"group_id\": [0.0], \"group_name\": [\"\"], \"host_id\": [0.0], \"host_ip\": [\"\"], \"tags\": [\"\"], \"type\": 1})")
 }
-
 
 // UpdateRuleParams 请求参数
 type UpdateRuleParams struct {
-	Action string `json:"action"` // 动作
-	Dest map[string]interface{} `json:"dest"` // 被访问者
-	Enable bool `json:"enable"` // 是否开启规则
-	Filter map[string]interface{} `json:"filter"` // 筛选器
-	FilterSpecialAddress bool `json:"filter_special_address"` // 是否过滤特殊地址
-	Name string `json:"name"` // 规则名
-	Ports []string `json:"ports"` // 端口范围
-	Priority float64 `json:"priority"` // 优先级，数字越低优先级越高，优先级相同按修改时间倒序
-	Protocol string `json:"protocol"` // 传输协议
-	Source map[string]interface{} `json:"source"` // 访问者
+	Action               string                 `json:"action"`                 // 动作
+	Dest                 map[string]interface{} `json:"dest"`                   // 被访问者
+	Enable               bool                   `json:"enable"`                 // 是否开启规则
+	Filter               map[string]interface{} `json:"filter"`                 // 筛选器
+	FilterSpecialAddress bool                   `json:"filter_special_address"` // 是否过滤特殊地址
+	Name                 string                 `json:"name"`                   // 规则名
+	Ports                []string               `json:"ports"`                  // 端口范围
+	Priority             float64                `json:"priority"`               // 优先级，数字越低优先级越高，优先级相同按修改时间倒序
+	Protocol             string                 `json:"protocol"`               // 传输协议
+	Source               map[string]interface{} `json:"source"`                 // 访问者
 }
-

@@ -3,8 +3,8 @@
 package package_service
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var DeletePackageCmd = &cobra.Command{
 }
 
 func init() {
-		DeletePackageCmd.Flags().IntVar(&deletePackageParams.Id, "id", 0, "id")
+	DeletePackageCmd.Flags().IntVar(&deletePackageParams.Id, "id", 0, "id")
 }
-
 
 // DeletePackageParams 请求参数
 type DeletePackageParams struct {
 	Id int `json:"id"` // id
 }
-

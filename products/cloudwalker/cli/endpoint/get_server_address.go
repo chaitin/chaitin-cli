@@ -3,14 +3,12 @@
 package endpoint
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetServerAddressCmd = &cobra.Command{
 	Use:   "get_server_address",
@@ -31,5 +29,3 @@ var GetServerAddressCmd = &cobra.Command{
 func init() {
 
 }
-
-

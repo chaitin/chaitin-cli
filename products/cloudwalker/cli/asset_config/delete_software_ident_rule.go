@@ -3,8 +3,8 @@
 package asset_config
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var DeleteSoftwareIdentRuleCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteSoftwareIdentRuleCmd.Flags().StringSliceVar(&deleteSoftwareIdentRuleParams.Id, "id", nil, "软件识别规则 ID")
+	DeleteSoftwareIdentRuleCmd.Flags().StringSliceVar(&deleteSoftwareIdentRuleParams.Id, "id", nil, "软件识别规则 ID")
 }
-
 
 // DeleteSoftwareIdentRuleParams 请求参数
 type DeleteSoftwareIdentRuleParams struct {
 	Id []string `json:"id"` // 软件识别规则 ID
 }
-

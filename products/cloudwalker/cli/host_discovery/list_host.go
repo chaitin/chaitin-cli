@@ -3,8 +3,8 @@
 package host_discovery
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,36 +29,34 @@ var ListHostCmd = &cobra.Command{
 }
 
 func init() {
-		ListHostCmd.Flags().BoolSliceVar(&listHostParams.AgentInstalled, "agent-installed", nil, "探针安装情况")
-		ListHostCmd.Flags().IntVar(&listHostParams.Count, "count", 20, "数量")
-		ListHostCmd.Flags().StringSliceVar(&listHostParams.Ip, "ip", nil, "IP 地址")
-		ListHostCmd.Flags().StringSliceVar(&listHostParams.LatestScanTime, "latest-scan-time", nil, "最近扫描时间")
-		ListHostCmd.Flags().StringSliceVar(&listHostParams.Mac, "mac", nil, "mac 地址")
-		ListHostCmd.Flags().IntVar(&listHostParams.Offset, "offset", 0, "偏移量")
-		ListHostCmd.Flags().StringSliceVar(&listHostParams.Os, "os", nil, "操作系统")
-		ListHostCmd.Flags().Float64SliceVar(&listHostParams.PlanId, "plan-id", nil, "任务 id")
-		ListHostCmd.Flags().StringSliceVar(&listHostParams.ScanEnd, "scan-end", nil, "扫描端")
-		ListHostCmd.Flags().StringSliceVar(&listHostParams.ScanMethod, "scan-method", nil, "发现方式")
-		ListHostCmd.Flags().Float64SliceVar(&listHostParams.ScannerHostId, "scanner-host-id", nil, "扫描器主机 id")
-		ListHostCmd.Flags().StringSliceVar(&listHostParams.ScannerHostIp, "scanner-host-ip", nil, "扫描器主机 ip")
-		ListHostCmd.Flags().StringSliceVar(&listHostParams.ServerGroup, "server-group", nil, "扫描器所在接入的服务器地址")
+	ListHostCmd.Flags().BoolSliceVar(&listHostParams.AgentInstalled, "agent-installed", nil, "探针安装情况")
+	ListHostCmd.Flags().IntVar(&listHostParams.Count, "count", 20, "数量")
+	ListHostCmd.Flags().StringSliceVar(&listHostParams.Ip, "ip", nil, "IP 地址")
+	ListHostCmd.Flags().StringSliceVar(&listHostParams.LatestScanTime, "latest-scan-time", nil, "最近扫描时间")
+	ListHostCmd.Flags().StringSliceVar(&listHostParams.Mac, "mac", nil, "mac 地址")
+	ListHostCmd.Flags().IntVar(&listHostParams.Offset, "offset", 0, "偏移量")
+	ListHostCmd.Flags().StringSliceVar(&listHostParams.Os, "os", nil, "操作系统")
+	ListHostCmd.Flags().Float64SliceVar(&listHostParams.PlanId, "plan-id", nil, "任务 id")
+	ListHostCmd.Flags().StringSliceVar(&listHostParams.ScanEnd, "scan-end", nil, "扫描端")
+	ListHostCmd.Flags().StringSliceVar(&listHostParams.ScanMethod, "scan-method", nil, "发现方式")
+	ListHostCmd.Flags().Float64SliceVar(&listHostParams.ScannerHostId, "scanner-host-id", nil, "扫描器主机 id")
+	ListHostCmd.Flags().StringSliceVar(&listHostParams.ScannerHostIp, "scanner-host-ip", nil, "扫描器主机 ip")
+	ListHostCmd.Flags().StringSliceVar(&listHostParams.ServerGroup, "server-group", nil, "扫描器所在接入的服务器地址")
 }
-
 
 // ListHostParams 请求参数
 type ListHostParams struct {
-	AgentInstalled []bool `json:"agent_installed"` // 探针安装情况
-	Count int `json:"count"` // 数量
-	Ip []string `json:"ip"` // IP 地址
-	LatestScanTime []string `json:"latest_scan_time"` // 最近扫描时间
-	Mac []string `json:"mac"` // mac 地址
-	Offset int `json:"offset"` // 偏移量
-	Os []string `json:"os"` // 操作系统
-	PlanId []float64 `json:"plan_id"` // 任务 id
-	ScanEnd []string `json:"scan_end"` // 扫描端
-	ScanMethod []string `json:"scan_method"` // 发现方式
-	ScannerHostId []float64 `json:"scanner_host_id"` // 扫描器主机 id
-	ScannerHostIp []string `json:"scanner_host_ip"` // 扫描器主机 ip
-	ServerGroup []string `json:"server_group"` // 扫描器所在接入的服务器地址
+	AgentInstalled []bool    `json:"agent_installed"`  // 探针安装情况
+	Count          int       `json:"count"`            // 数量
+	Ip             []string  `json:"ip"`               // IP 地址
+	LatestScanTime []string  `json:"latest_scan_time"` // 最近扫描时间
+	Mac            []string  `json:"mac"`              // mac 地址
+	Offset         int       `json:"offset"`           // 偏移量
+	Os             []string  `json:"os"`               // 操作系统
+	PlanId         []float64 `json:"plan_id"`          // 任务 id
+	ScanEnd        []string  `json:"scan_end"`         // 扫描端
+	ScanMethod     []string  `json:"scan_method"`      // 发现方式
+	ScannerHostId  []float64 `json:"scanner_host_id"`  // 扫描器主机 id
+	ScannerHostIp  []string  `json:"scanner_host_ip"`  // 扫描器主机 ip
+	ServerGroup    []string  `json:"server_group"`     // 扫描器所在接入的服务器地址
 }
-

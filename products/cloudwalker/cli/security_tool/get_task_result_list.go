@@ -3,8 +3,8 @@
 package security_tool
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,30 +29,28 @@ var GetTaskResultListCmd = &cobra.Command{
 }
 
 func init() {
-		GetTaskResultListCmd.Flags().IntVar(&getTaskResultListParams.Count, "count", 20, "数量")
-		GetTaskResultListCmd.Flags().Float64SliceVar(&getTaskResultListParams.Gids, "gids", nil, "业务组 ID 列表")
-		GetTaskResultListCmd.Flags().IntSliceVar(&getTaskResultListParams.HostId, "host-id", nil, "主机ID")
-		GetTaskResultListCmd.Flags().StringSliceVar(&getTaskResultListParams.HostIp, "host-ip", nil, "主机 IP")
-		GetTaskResultListCmd.Flags().StringSliceVar(&getTaskResultListParams.HostName, "host-name", nil, "主机名称")
-		GetTaskResultListCmd.Flags().IntSliceVar(&getTaskResultListParams.Id, "id", nil, "记录ID")
-		GetTaskResultListCmd.Flags().IntVar(&getTaskResultListParams.Offset, "offset", 0, "偏移量")
-		GetTaskResultListCmd.Flags().IntVar(&getTaskResultListParams.PlanId, "plan-id", 0, "计划ID")
-		// result_filter is object type, use JSON string
-		var resultFilterJSON string
-		GetTaskResultListCmd.Flags().StringVar(&resultFilterJSON, "result-filter", "", "返回值过滤 (JSON, e.g. {})")
+	GetTaskResultListCmd.Flags().IntVar(&getTaskResultListParams.Count, "count", 20, "数量")
+	GetTaskResultListCmd.Flags().Float64SliceVar(&getTaskResultListParams.Gids, "gids", nil, "业务组 ID 列表")
+	GetTaskResultListCmd.Flags().IntSliceVar(&getTaskResultListParams.HostId, "host-id", nil, "主机ID")
+	GetTaskResultListCmd.Flags().StringSliceVar(&getTaskResultListParams.HostIp, "host-ip", nil, "主机 IP")
+	GetTaskResultListCmd.Flags().StringSliceVar(&getTaskResultListParams.HostName, "host-name", nil, "主机名称")
+	GetTaskResultListCmd.Flags().IntSliceVar(&getTaskResultListParams.Id, "id", nil, "记录ID")
+	GetTaskResultListCmd.Flags().IntVar(&getTaskResultListParams.Offset, "offset", 0, "偏移量")
+	GetTaskResultListCmd.Flags().IntVar(&getTaskResultListParams.PlanId, "plan-id", 0, "计划ID")
+	// result_filter is object type, use JSON string
+	var resultFilterJSON string
+	GetTaskResultListCmd.Flags().StringVar(&resultFilterJSON, "result-filter", "", "返回值过滤 (JSON, e.g. {})")
 }
-
 
 // GetTaskResultListParams 请求参数
 type GetTaskResultListParams struct {
-	Count int `json:"count"` // 数量
-	Gids []float64 `json:"gids"` // 业务组 ID 列表
-	HostId []int `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	Id []int `json:"id"` // 记录ID
-	Offset int `json:"offset"` // 偏移量
-	PlanId int `json:"plan_id"` // 计划ID
+	Count        int                    `json:"count"`         // 数量
+	Gids         []float64              `json:"gids"`          // 业务组 ID 列表
+	HostId       []int                  `json:"host_id"`       // 主机ID
+	HostIp       []string               `json:"host_ip"`       // 主机 IP
+	HostName     []string               `json:"host_name"`     // 主机名称
+	Id           []int                  `json:"id"`            // 记录ID
+	Offset       int                    `json:"offset"`        // 偏移量
+	PlanId       int                    `json:"plan_id"`       // 计划ID
 	ResultFilter map[string]interface{} `json:"result_filter"` // 返回值过滤
 }
-

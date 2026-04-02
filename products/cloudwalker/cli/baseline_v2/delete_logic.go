@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,34 +29,32 @@ var DeleteLogicCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteLogicCmd.Flags().StringSliceVar(&deleteLogicParams.CreatedAt, "created-at", nil, "创建时间")
-		DeleteLogicCmd.Flags().StringSliceVar(&deleteLogicParams.Description, "description", nil, "核查项描述")
-		DeleteLogicCmd.Flags().BoolVar(&deleteLogicParams.Force, "force", false, "级联强制删除")
-		DeleteLogicCmd.Flags().StringSliceVar(&deleteLogicParams.Id, "id", nil, "ID")
-		DeleteLogicCmd.Flags().BoolVar(&deleteLogicParams.IsEditable, "is-editable", false, "是否指定系统自带核查项")
-		DeleteLogicCmd.Flags().BoolVar(&deleteLogicParams.IsSystem, "is-system", false, "是否指定系统自带核查项")
-		DeleteLogicCmd.Flags().Float64SliceVar(&deleteLogicParams.Level, "level", nil, "风险级别(1-低危，2-中危，3-高危，4-严重)")
-		DeleteLogicCmd.Flags().StringSliceVar(&deleteLogicParams.Name, "name", nil, "核查项名称")
-		DeleteLogicCmd.Flags().BoolVar(&deleteLogicParams.SelectAll, "select-all", false, "是否选中所有")
-		DeleteLogicCmd.Flags().StringSliceVar(&deleteLogicParams.Tags, "tags", nil, "TAG")
-		DeleteLogicCmd.Flags().StringSliceVar(&deleteLogicParams.Type, "type", nil, "核查项类型")
-		DeleteLogicCmd.Flags().StringSliceVar(&deleteLogicParams.UpdatedAt, "updated-at", nil, "修改时间")
+	DeleteLogicCmd.Flags().StringSliceVar(&deleteLogicParams.CreatedAt, "created-at", nil, "创建时间")
+	DeleteLogicCmd.Flags().StringSliceVar(&deleteLogicParams.Description, "description", nil, "核查项描述")
+	DeleteLogicCmd.Flags().BoolVar(&deleteLogicParams.Force, "force", false, "级联强制删除")
+	DeleteLogicCmd.Flags().StringSliceVar(&deleteLogicParams.Id, "id", nil, "ID")
+	DeleteLogicCmd.Flags().BoolVar(&deleteLogicParams.IsEditable, "is-editable", false, "是否指定系统自带核查项")
+	DeleteLogicCmd.Flags().BoolVar(&deleteLogicParams.IsSystem, "is-system", false, "是否指定系统自带核查项")
+	DeleteLogicCmd.Flags().Float64SliceVar(&deleteLogicParams.Level, "level", nil, "风险级别(1-低危，2-中危，3-高危，4-严重)")
+	DeleteLogicCmd.Flags().StringSliceVar(&deleteLogicParams.Name, "name", nil, "核查项名称")
+	DeleteLogicCmd.Flags().BoolVar(&deleteLogicParams.SelectAll, "select-all", false, "是否选中所有")
+	DeleteLogicCmd.Flags().StringSliceVar(&deleteLogicParams.Tags, "tags", nil, "TAG")
+	DeleteLogicCmd.Flags().StringSliceVar(&deleteLogicParams.Type, "type", nil, "核查项类型")
+	DeleteLogicCmd.Flags().StringSliceVar(&deleteLogicParams.UpdatedAt, "updated-at", nil, "修改时间")
 }
-
 
 // DeleteLogicParams 请求参数
 type DeleteLogicParams struct {
-	CreatedAt []string `json:"created_at"` // 创建时间
-	Description []string `json:"description"` // 核查项描述
-	Force bool `json:"force"` // 级联强制删除
-	Id []string `json:"id"` // ID
-	IsEditable bool `json:"is_editable"` // 是否指定系统自带核查项
-	IsSystem bool `json:"is_system"` // 是否指定系统自带核查项
-	Level []float64 `json:"level"` // 风险级别(1-低危，2-中危，3-高危，4-严重)
-	Name []string `json:"name"` // 核查项名称
-	SelectAll bool `json:"select_all"` // 是否选中所有
-	Tags []string `json:"tags"` // TAG
-	Type []string `json:"type"` // 核查项类型
-	UpdatedAt []string `json:"updated_at"` // 修改时间
+	CreatedAt   []string  `json:"created_at"`  // 创建时间
+	Description []string  `json:"description"` // 核查项描述
+	Force       bool      `json:"force"`       // 级联强制删除
+	Id          []string  `json:"id"`          // ID
+	IsEditable  bool      `json:"is_editable"` // 是否指定系统自带核查项
+	IsSystem    bool      `json:"is_system"`   // 是否指定系统自带核查项
+	Level       []float64 `json:"level"`       // 风险级别(1-低危，2-中危，3-高危，4-严重)
+	Name        []string  `json:"name"`        // 核查项名称
+	SelectAll   bool      `json:"select_all"`  // 是否选中所有
+	Tags        []string  `json:"tags"`        // TAG
+	Type        []string  `json:"type"`        // 核查项类型
+	UpdatedAt   []string  `json:"updated_at"`  // 修改时间
 }
-

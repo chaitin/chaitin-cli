@@ -3,8 +3,8 @@
 package report
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetTemplateCmd = &cobra.Command{
 }
 
 func init() {
-		GetTemplateCmd.Flags().IntVar(&getTemplateParams.Id, "id", 0, "id")
+	GetTemplateCmd.Flags().IntVar(&getTemplateParams.Id, "id", 0, "id")
 }
-
 
 // GetTemplateParams 请求参数
 type GetTemplateParams struct {
 	Id int `json:"id"` // id
 }
-

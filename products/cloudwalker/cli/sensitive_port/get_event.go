@@ -3,8 +3,8 @@
 package sensitive_port
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetEventCmd = &cobra.Command{
 }
 
 func init() {
-		GetEventCmd.Flags().IntVar(&getEventParams.Id, "id", 0, "事件 ID")
+	GetEventCmd.Flags().IntVar(&getEventParams.Id, "id", 0, "事件 ID")
 }
-
 
 // GetEventParams 请求参数
 type GetEventParams struct {
 	Id int `json:"id"` // 事件 ID
 }
-

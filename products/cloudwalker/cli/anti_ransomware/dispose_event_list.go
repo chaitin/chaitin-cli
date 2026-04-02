@@ -3,8 +3,8 @@
 package anti_ransomware
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,64 +29,62 @@ var DisposeEventListCmd = &cobra.Command{
 }
 
 func init() {
-		DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.Comment, "comment", nil, "备注")
-		DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.CreateAt, "create-at", nil, "告警时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		DisposeEventListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.ExecPath, "exec-path", nil, "执行路径")
-		DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.ExposedIp, "exposed-ip", nil, "主机外网 IP")
-		DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.Family, "family", nil, "恶意软件家族")
-		DisposeEventListCmd.Flags().Float64SliceVar(&disposeEventListParams.Gids, "gids", nil, "业务组 ID")
-		DisposeEventListCmd.Flags().Float64SliceVar(&disposeEventListParams.GroupId, "group-id", nil, "业务组")
-		DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.GroupName, "group-name", nil, "业务组名")
-		DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.HostComment, "host-comment", nil, "主机备注")
-		DisposeEventListCmd.Flags().Float64SliceVar(&disposeEventListParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
-		DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.HostIp, "host-ip", nil, "主机IP")
-		DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.HostName, "host-name", nil, "主机名称")
-		DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.HostState, "host-state", nil, "主机状态")
-		DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.HostTags, "host-tags", nil, "主机标签")
-		DisposeEventListCmd.Flags().Float64SliceVar(&disposeEventListParams.Ids, "ids", nil, "事件 ID")
-		DisposeEventListCmd.Flags().BoolVar(&disposeEventListParams.InterceptProcess, "intercept-process", false, "阻断勒索进程")
-		DisposeEventListCmd.Flags().Float64SliceVar(&disposeEventListParams.InterceptionResult, "interception-result", nil, "阻断结果：0 未阻断，1 已阻断，2 阻断失败")
-		DisposeEventListCmd.Flags().BoolVar(&disposeEventListParams.IsolateFile, "isolate-file", false, "隔离勒索文件")
-		DisposeEventListCmd.Flags().Float64SliceVar(&disposeEventListParams.IsolationResult, "isolation-result", nil, "隔离结果：0 未隔离，1 已隔离，2 隔离失败")
-		DisposeEventListCmd.Flags().Float64SliceVar(&disposeEventListParams.Oid, "oid", nil, "机构ID")
-		DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.ProcessName, "process-name", nil, "进程名")
-		DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.RuleName, "rule-name", nil, "规则名")
-		DisposeEventListCmd.Flags().BoolVar(&disposeEventListParams.SelectAll, "select-all", false, "是否选中所有")
-		DisposeEventListCmd.Flags().Float64SliceVar(&disposeEventListParams.State, "state", nil, "状态：0 未处理，1 已处理")
-		DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.UpdatedAt, "updated-at", nil, "更新时间，范围筛选")
+	DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.Comment, "comment", nil, "备注")
+	DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.CreateAt, "create-at", nil, "告警时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	DisposeEventListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.ExecPath, "exec-path", nil, "执行路径")
+	DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.ExposedIp, "exposed-ip", nil, "主机外网 IP")
+	DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.Family, "family", nil, "恶意软件家族")
+	DisposeEventListCmd.Flags().Float64SliceVar(&disposeEventListParams.Gids, "gids", nil, "业务组 ID")
+	DisposeEventListCmd.Flags().Float64SliceVar(&disposeEventListParams.GroupId, "group-id", nil, "业务组")
+	DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.GroupName, "group-name", nil, "业务组名")
+	DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.HostComment, "host-comment", nil, "主机备注")
+	DisposeEventListCmd.Flags().Float64SliceVar(&disposeEventListParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
+	DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.HostIp, "host-ip", nil, "主机IP")
+	DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.HostName, "host-name", nil, "主机名称")
+	DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.HostState, "host-state", nil, "主机状态")
+	DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.HostTags, "host-tags", nil, "主机标签")
+	DisposeEventListCmd.Flags().Float64SliceVar(&disposeEventListParams.Ids, "ids", nil, "事件 ID")
+	DisposeEventListCmd.Flags().BoolVar(&disposeEventListParams.InterceptProcess, "intercept-process", false, "阻断勒索进程")
+	DisposeEventListCmd.Flags().Float64SliceVar(&disposeEventListParams.InterceptionResult, "interception-result", nil, "阻断结果：0 未阻断，1 已阻断，2 阻断失败")
+	DisposeEventListCmd.Flags().BoolVar(&disposeEventListParams.IsolateFile, "isolate-file", false, "隔离勒索文件")
+	DisposeEventListCmd.Flags().Float64SliceVar(&disposeEventListParams.IsolationResult, "isolation-result", nil, "隔离结果：0 未隔离，1 已隔离，2 隔离失败")
+	DisposeEventListCmd.Flags().Float64SliceVar(&disposeEventListParams.Oid, "oid", nil, "机构ID")
+	DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.ProcessName, "process-name", nil, "进程名")
+	DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.RuleName, "rule-name", nil, "规则名")
+	DisposeEventListCmd.Flags().BoolVar(&disposeEventListParams.SelectAll, "select-all", false, "是否选中所有")
+	DisposeEventListCmd.Flags().Float64SliceVar(&disposeEventListParams.State, "state", nil, "状态：0 未处理，1 已处理")
+	DisposeEventListCmd.Flags().StringSliceVar(&disposeEventListParams.UpdatedAt, "updated-at", nil, "更新时间，范围筛选")
 }
-
 
 // DisposeEventListParams 请求参数
 type DisposeEventListParams struct {
-	Comment []string `json:"comment"` // 备注
-	CreateAt []string `json:"create_at"` // 告警时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	ExecPath []string `json:"exec_path"` // 执行路径
-	ExposedIp []string `json:"exposed_ip"` // 主机外网 IP
-	Family []string `json:"family"` // 恶意软件家族
-	Gids []float64 `json:"gids"` // 业务组 ID
-	GroupId []float64 `json:"group_id"` // 业务组
-	GroupName []string `json:"group_name"` // 业务组名
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID, 用于主机详情页面
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Ids []float64 `json:"ids"` // 事件 ID
-	InterceptProcess bool `json:"intercept_process"` // 阻断勒索进程
-	InterceptionResult []float64 `json:"interception_result"` // 阻断结果：0 未阻断，1 已阻断，2 阻断失败
-	IsolateFile bool `json:"isolate_file"` // 隔离勒索文件
-	IsolationResult []float64 `json:"isolation_result"` // 隔离结果：0 未隔离，1 已隔离，2 隔离失败
-	Oid []float64 `json:"oid"` // 机构ID
-	ProcessName []string `json:"process_name"` // 进程名
-	RuleName []string `json:"rule_name"` // 规则名
-	SelectAll bool `json:"select_all"` // 是否选中所有
-	State []float64 `json:"state"` // 状态：0 未处理，1 已处理
-	UpdatedAt []string `json:"updated_at"` // 更新时间，范围筛选
+	Comment            []string                 `json:"comment"`             // 备注
+	CreateAt           []string                 `json:"create_at"`           // 告警时间
+	CustomAttr         []map[string]interface{} `json:"custom_attr"`         // 主机业务属性
+	ExecPath           []string                 `json:"exec_path"`           // 执行路径
+	ExposedIp          []string                 `json:"exposed_ip"`          // 主机外网 IP
+	Family             []string                 `json:"family"`              // 恶意软件家族
+	Gids               []float64                `json:"gids"`                // 业务组 ID
+	GroupId            []float64                `json:"group_id"`            // 业务组
+	GroupName          []string                 `json:"group_name"`          // 业务组名
+	HostComment        []string                 `json:"host_comment"`        // 主机备注
+	HostId             []float64                `json:"host_id"`             // 主机ID, 用于主机详情页面
+	HostIp             []string                 `json:"host_ip"`             // 主机IP
+	HostName           []string                 `json:"host_name"`           // 主机名称
+	HostState          []string                 `json:"host_state"`          // 主机状态
+	HostTags           []string                 `json:"host_tags"`           // 主机标签
+	Ids                []float64                `json:"ids"`                 // 事件 ID
+	InterceptProcess   bool                     `json:"intercept_process"`   // 阻断勒索进程
+	InterceptionResult []float64                `json:"interception_result"` // 阻断结果：0 未阻断，1 已阻断，2 阻断失败
+	IsolateFile        bool                     `json:"isolate_file"`        // 隔离勒索文件
+	IsolationResult    []float64                `json:"isolation_result"`    // 隔离结果：0 未隔离，1 已隔离，2 隔离失败
+	Oid                []float64                `json:"oid"`                 // 机构ID
+	ProcessName        []string                 `json:"process_name"`        // 进程名
+	RuleName           []string                 `json:"rule_name"`           // 规则名
+	SelectAll          bool                     `json:"select_all"`          // 是否选中所有
+	State              []float64                `json:"state"`               // 状态：0 未处理，1 已处理
+	UpdatedAt          []string                 `json:"updated_at"`          // 更新时间，范围筛选
 }
-

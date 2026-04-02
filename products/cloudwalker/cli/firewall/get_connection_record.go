@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,18 +29,16 @@ var GetConnectionRecordCmd = &cobra.Command{
 }
 
 func init() {
-		// filter is object type, use JSON string
-		var filterJSON string
-		GetConnectionRecordCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选条件 (JSON, e.g. {\"conn_type\": [0.0], \"dest_cidr\": [\"192.168.1.2\"], \"group_ids\": [100, 101], \"...\": \"...\"})")
-		// page is object type, use JSON string
-		var pageJSON string
-		GetConnectionRecordCmd.Flags().StringVar(&pageJSON, "page", "", "分页参数 (JSON, e.g. {\"count\": 20, \"offset\": 0, \"order\": {\"column\": \"level\", \"order\": \"ASC\"}})")
+	// filter is object type, use JSON string
+	var filterJSON string
+	GetConnectionRecordCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选条件 (JSON, e.g. {\"conn_type\": [0.0], \"dest_cidr\": [\"192.168.1.2\"], \"group_ids\": [100, 101], \"...\": \"...\"})")
+	// page is object type, use JSON string
+	var pageJSON string
+	GetConnectionRecordCmd.Flags().StringVar(&pageJSON, "page", "", "分页参数 (JSON, e.g. {\"count\": 20, \"offset\": 0, \"order\": {\"column\": \"level\", \"order\": \"ASC\"}})")
 }
-
 
 // GetConnectionRecordParams 请求参数
 type GetConnectionRecordParams struct {
 	Filter map[string]interface{} `json:"filter"` // 筛选条件
-	Page map[string]interface{} `json:"page"` // 分页参数
+	Page   map[string]interface{} `json:"page"`   // 分页参数
 }
-

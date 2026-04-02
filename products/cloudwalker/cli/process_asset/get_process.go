@@ -3,8 +3,8 @@
 package process_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetProcessCmd = &cobra.Command{
 }
 
 func init() {
-		GetProcessCmd.Flags().IntVar(&getProcessParams.Id, "id", 0, "ID")
+	GetProcessCmd.Flags().IntVar(&getProcessParams.Id, "id", 0, "ID")
 }
-
 
 // GetProcessParams 请求参数
 type GetProcessParams struct {
 	Id int `json:"id"` // ID
 }
-

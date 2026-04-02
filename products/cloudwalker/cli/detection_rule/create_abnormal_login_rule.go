@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,42 +29,40 @@ var CreateAbnormalLoginRuleCmd = &cobra.Command{
 }
 
 func init() {
-		CreateAbnormalLoginRuleCmd.Flags().Float64SliceVar(&createAbnormalLoginRuleParams.AgentRange, "agent-range", nil, "主机范围")
-		CreateAbnormalLoginRuleCmd.Flags().StringSliceVar(&createAbnormalLoginRuleParams.AuthType, "auth-type", nil, "认证类型")
-		CreateAbnormalLoginRuleCmd.Flags().Float64SliceVar(&createAbnormalLoginRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		CreateAbnormalLoginRuleCmd.Flags().StringVar(&createAbnormalLoginRuleParams.Category, "category", "", "规则类型")
-		CreateAbnormalLoginRuleCmd.Flags().BoolVar(&createAbnormalLoginRuleParams.Enable, "enable", false, "是否启用")
-		// geographical_location is complex type []map[string]interface{}, use JSON string
-		var geographicalLocationJSON string
-		CreateAbnormalLoginRuleCmd.Flags().StringVar(&geographicalLocationJSON, "geographical-location", "", "地理位置 (JSON, e.g. [{\"city\": [\"深圳市\"], \"country\": \"中国\", \"province\": \"广东省\"}])")
-		CreateAbnormalLoginRuleCmd.Flags().BoolVar(&createAbnormalLoginRuleParams.Global, "global", false, "是否绑定全局探针")
-		CreateAbnormalLoginRuleCmd.Flags().StringSliceVar(&createAbnormalLoginRuleParams.Ip, "ip", nil, "IP段")
-		CreateAbnormalLoginRuleCmd.Flags().IntVar(&createAbnormalLoginRuleParams.Level, "level", 0, "风险等级(1-低危，2-中危，3-高危，4-严重)")
-		CreateAbnormalLoginRuleCmd.Flags().StringVar(&createAbnormalLoginRuleParams.Method, "method", "", "匹配方式")
-		CreateAbnormalLoginRuleCmd.Flags().IntVar(&createAbnormalLoginRuleParams.Priority, "priority", 0, "优先级")
-		CreateAbnormalLoginRuleCmd.Flags().StringVar(&createAbnormalLoginRuleParams.RuleName, "rule-name", "", "规则名称")
-		// time is complex type []map[string]interface{}, use JSON string
-		var timeJSON string
-		CreateAbnormalLoginRuleCmd.Flags().StringVar(&timeJSON, "time", "", "时间段 (JSON, e.g. [{\"start_time\": \"00:00:00\", \"stop_time\": \"23:59:59\", \"weekdays\": [1, 2, 3, 4, 5, 6, 7]}])")
-		CreateAbnormalLoginRuleCmd.Flags().StringSliceVar(&createAbnormalLoginRuleParams.User, "user", nil, "用户")
+	CreateAbnormalLoginRuleCmd.Flags().Float64SliceVar(&createAbnormalLoginRuleParams.AgentRange, "agent-range", nil, "主机范围")
+	CreateAbnormalLoginRuleCmd.Flags().StringSliceVar(&createAbnormalLoginRuleParams.AuthType, "auth-type", nil, "认证类型")
+	CreateAbnormalLoginRuleCmd.Flags().Float64SliceVar(&createAbnormalLoginRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	CreateAbnormalLoginRuleCmd.Flags().StringVar(&createAbnormalLoginRuleParams.Category, "category", "", "规则类型")
+	CreateAbnormalLoginRuleCmd.Flags().BoolVar(&createAbnormalLoginRuleParams.Enable, "enable", false, "是否启用")
+	// geographical_location is complex type []map[string]interface{}, use JSON string
+	var geographicalLocationJSON string
+	CreateAbnormalLoginRuleCmd.Flags().StringVar(&geographicalLocationJSON, "geographical-location", "", "地理位置 (JSON, e.g. [{\"city\": [\"深圳市\"], \"country\": \"中国\", \"province\": \"广东省\"}])")
+	CreateAbnormalLoginRuleCmd.Flags().BoolVar(&createAbnormalLoginRuleParams.Global, "global", false, "是否绑定全局探针")
+	CreateAbnormalLoginRuleCmd.Flags().StringSliceVar(&createAbnormalLoginRuleParams.Ip, "ip", nil, "IP段")
+	CreateAbnormalLoginRuleCmd.Flags().IntVar(&createAbnormalLoginRuleParams.Level, "level", 0, "风险等级(1-低危，2-中危，3-高危，4-严重)")
+	CreateAbnormalLoginRuleCmd.Flags().StringVar(&createAbnormalLoginRuleParams.Method, "method", "", "匹配方式")
+	CreateAbnormalLoginRuleCmd.Flags().IntVar(&createAbnormalLoginRuleParams.Priority, "priority", 0, "优先级")
+	CreateAbnormalLoginRuleCmd.Flags().StringVar(&createAbnormalLoginRuleParams.RuleName, "rule-name", "", "规则名称")
+	// time is complex type []map[string]interface{}, use JSON string
+	var timeJSON string
+	CreateAbnormalLoginRuleCmd.Flags().StringVar(&timeJSON, "time", "", "时间段 (JSON, e.g. [{\"start_time\": \"00:00:00\", \"stop_time\": \"23:59:59\", \"weekdays\": [1, 2, 3, 4, 5, 6, 7]}])")
+	CreateAbnormalLoginRuleCmd.Flags().StringSliceVar(&createAbnormalLoginRuleParams.User, "user", nil, "用户")
 }
-
 
 // CreateAbnormalLoginRuleParams 请求参数
 type CreateAbnormalLoginRuleParams struct {
-	AgentRange []float64 `json:"agent_range"` // 主机范围
-	AuthType []string `json:"auth_type"` // 认证类型
-	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Category string `json:"category"` // 规则类型
-	Enable bool `json:"enable"` // 是否启用
+	AgentRange           []float64                `json:"agent_range"`           // 主机范围
+	AuthType             []string                 `json:"auth_type"`             // 认证类型
+	BusinessGroupRange   []float64                `json:"business_group_range"`  // 业务组范围
+	Category             string                   `json:"category"`              // 规则类型
+	Enable               bool                     `json:"enable"`                // 是否启用
 	GeographicalLocation []map[string]interface{} `json:"geographical_location"` // 地理位置
-	Global bool `json:"global"` // 是否绑定全局探针
-	Ip []string `json:"ip"` // IP段
-	Level int `json:"level"` // 风险等级(1-低危，2-中危，3-高危，4-严重)
-	Method string `json:"method"` // 匹配方式
-	Priority int `json:"priority"` // 优先级
-	RuleName string `json:"rule_name"` // 规则名称
-	Time []map[string]interface{} `json:"time"` // 时间段
-	User []string `json:"user"` // 用户
+	Global               bool                     `json:"global"`                // 是否绑定全局探针
+	Ip                   []string                 `json:"ip"`                    // IP段
+	Level                int                      `json:"level"`                 // 风险等级(1-低危，2-中危，3-高危，4-严重)
+	Method               string                   `json:"method"`                // 匹配方式
+	Priority             int                      `json:"priority"`              // 优先级
+	RuleName             string                   `json:"rule_name"`             // 规则名称
+	Time                 []map[string]interface{} `json:"time"`                  // 时间段
+	User                 []string                 `json:"user"`                  // 用户
 }
-

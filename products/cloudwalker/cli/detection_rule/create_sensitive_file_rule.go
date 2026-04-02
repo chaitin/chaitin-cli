@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,34 +29,32 @@ var CreateSensitiveFileRuleCmd = &cobra.Command{
 }
 
 func init() {
-		CreateSensitiveFileRuleCmd.Flags().StringSliceVar(&createSensitiveFileRuleParams.Action, "action", nil, "动作")
-		CreateSensitiveFileRuleCmd.Flags().Float64SliceVar(&createSensitiveFileRuleParams.AgentRange, "agent-range", nil, "主机范围")
-		CreateSensitiveFileRuleCmd.Flags().Float64SliceVar(&createSensitiveFileRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		CreateSensitiveFileRuleCmd.Flags().BoolVar(&createSensitiveFileRuleParams.Enable, "enable", false, "是否启用")
-		// exclude_rule is complex type []map[string]interface{}, use JSON string
-		var excludeRuleJSON string
-		CreateSensitiveFileRuleCmd.Flags().StringVar(&excludeRuleJSON, "exclude-rule", "", "排除规则 (JSON, e.g. [{\"method\": \"prefix\", \"rule\": \"/etc/passwd\"}])")
-		CreateSensitiveFileRuleCmd.Flags().BoolVar(&createSensitiveFileRuleParams.Global, "global", false, "是否绑定全局探针")
-		CreateSensitiveFileRuleCmd.Flags().IntVar(&createSensitiveFileRuleParams.Level, "level", 0, "事件级别")
-		CreateSensitiveFileRuleCmd.Flags().StringVar(&createSensitiveFileRuleParams.Method, "method", "", "监控方式")
-		CreateSensitiveFileRuleCmd.Flags().StringSliceVar(&createSensitiveFileRuleParams.Path, "path", nil, "路径")
-		CreateSensitiveFileRuleCmd.Flags().BoolVar(&createSensitiveFileRuleParams.Recursive, "recursive", false, "递归监控子目录")
-		CreateSensitiveFileRuleCmd.Flags().StringVar(&createSensitiveFileRuleParams.RuleName, "rule-name", "", "规则名称")
+	CreateSensitiveFileRuleCmd.Flags().StringSliceVar(&createSensitiveFileRuleParams.Action, "action", nil, "动作")
+	CreateSensitiveFileRuleCmd.Flags().Float64SliceVar(&createSensitiveFileRuleParams.AgentRange, "agent-range", nil, "主机范围")
+	CreateSensitiveFileRuleCmd.Flags().Float64SliceVar(&createSensitiveFileRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	CreateSensitiveFileRuleCmd.Flags().BoolVar(&createSensitiveFileRuleParams.Enable, "enable", false, "是否启用")
+	// exclude_rule is complex type []map[string]interface{}, use JSON string
+	var excludeRuleJSON string
+	CreateSensitiveFileRuleCmd.Flags().StringVar(&excludeRuleJSON, "exclude-rule", "", "排除规则 (JSON, e.g. [{\"method\": \"prefix\", \"rule\": \"/etc/passwd\"}])")
+	CreateSensitiveFileRuleCmd.Flags().BoolVar(&createSensitiveFileRuleParams.Global, "global", false, "是否绑定全局探针")
+	CreateSensitiveFileRuleCmd.Flags().IntVar(&createSensitiveFileRuleParams.Level, "level", 0, "事件级别")
+	CreateSensitiveFileRuleCmd.Flags().StringVar(&createSensitiveFileRuleParams.Method, "method", "", "监控方式")
+	CreateSensitiveFileRuleCmd.Flags().StringSliceVar(&createSensitiveFileRuleParams.Path, "path", nil, "路径")
+	CreateSensitiveFileRuleCmd.Flags().BoolVar(&createSensitiveFileRuleParams.Recursive, "recursive", false, "递归监控子目录")
+	CreateSensitiveFileRuleCmd.Flags().StringVar(&createSensitiveFileRuleParams.RuleName, "rule-name", "", "规则名称")
 }
-
 
 // CreateSensitiveFileRuleParams 请求参数
 type CreateSensitiveFileRuleParams struct {
-	Action []string `json:"action"` // 动作
-	AgentRange []float64 `json:"agent_range"` // 主机范围
-	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Enable bool `json:"enable"` // 是否启用
-	ExcludeRule []map[string]interface{} `json:"exclude_rule"` // 排除规则
-	Global bool `json:"global"` // 是否绑定全局探针
-	Level int `json:"level"` // 事件级别
-	Method string `json:"method"` // 监控方式
-	Path []string `json:"path"` // 路径
-	Recursive bool `json:"recursive"` // 递归监控子目录
-	RuleName string `json:"rule_name"` // 规则名称
+	Action             []string                 `json:"action"`               // 动作
+	AgentRange         []float64                `json:"agent_range"`          // 主机范围
+	BusinessGroupRange []float64                `json:"business_group_range"` // 业务组范围
+	Enable             bool                     `json:"enable"`               // 是否启用
+	ExcludeRule        []map[string]interface{} `json:"exclude_rule"`         // 排除规则
+	Global             bool                     `json:"global"`               // 是否绑定全局探针
+	Level              int                      `json:"level"`                // 事件级别
+	Method             string                   `json:"method"`               // 监控方式
+	Path               []string                 `json:"path"`                 // 路径
+	Recursive          bool                     `json:"recursive"`            // 递归监控子目录
+	RuleName           string                   `json:"rule_name"`            // 规则名称
 }
-

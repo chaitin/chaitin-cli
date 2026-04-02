@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var DeleteItemCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteItemCmd.Flags().StringSliceVar(&deleteItemParams.Id, "id", nil, "ID")
-		DeleteItemCmd.Flags().BoolVar(&deleteItemParams.SelectAll, "select-all", false, "是否选中所有")
-		DeleteItemCmd.Flags().StringSliceVar(&deleteItemParams.SetId, "set-id", nil, "自定义策略id")
+	DeleteItemCmd.Flags().StringSliceVar(&deleteItemParams.Id, "id", nil, "ID")
+	DeleteItemCmd.Flags().BoolVar(&deleteItemParams.SelectAll, "select-all", false, "是否选中所有")
+	DeleteItemCmd.Flags().StringSliceVar(&deleteItemParams.SetId, "set-id", nil, "自定义策略id")
 }
-
 
 // DeleteItemParams 请求参数
 type DeleteItemParams struct {
-	Id []string `json:"id"` // ID
-	SelectAll bool `json:"select_all"` // 是否选中所有
-	SetId []string `json:"set_id"` // 自定义策略id
+	Id        []string `json:"id"`         // ID
+	SelectAll bool     `json:"select_all"` // 是否选中所有
+	SetId     []string `json:"set_id"`     // 自定义策略id
 }
-

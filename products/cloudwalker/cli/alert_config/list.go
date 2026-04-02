@@ -3,14 +3,12 @@
 package alert_config
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var ListCmd = &cobra.Command{
 	Use:   "list",
@@ -31,5 +29,3 @@ var ListCmd = &cobra.Command{
 func init() {
 
 }
-
-

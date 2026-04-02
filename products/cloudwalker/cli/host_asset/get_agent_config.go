@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var GetAgentConfigCmd = &cobra.Command{
 }
 
 func init() {
-		GetAgentConfigCmd.Flags().IntVar(&getAgentConfigParams.AgentId, "agent-id", 0, "探针ID")
-		GetAgentConfigCmd.Flags().StringSliceVar(&getAgentConfigParams.Role, "role", nil, "模块名")
+	GetAgentConfigCmd.Flags().IntVar(&getAgentConfigParams.AgentId, "agent-id", 0, "探针ID")
+	GetAgentConfigCmd.Flags().StringSliceVar(&getAgentConfigParams.Role, "role", nil, "模块名")
 }
-
 
 // GetAgentConfigParams 请求参数
 type GetAgentConfigParams struct {
-	AgentId int `json:"agent_id"` // 探针ID
-	Role []string `json:"role"` // 模块名
+	AgentId int      `json:"agent_id"` // 探针ID
+	Role    []string `json:"role"`     // 模块名
 }
-

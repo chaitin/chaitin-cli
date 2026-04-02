@@ -3,8 +3,8 @@
 package sensitive_file_scan
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,18 +29,16 @@ var EnablementRuleCmd = &cobra.Command{
 }
 
 func init() {
-		EnablementRuleCmd.Flags().BoolVar(&enablementRuleParams.Enable, "enable", false, "是否启用")
-		// filter is object type, use JSON string
-		var filterJSON string
-		EnablementRuleCmd.Flags().StringVar(&filterJSON, "filter", "", "规则过滤器 (JSON, e.g. {\"action\": [\"\"], \"enable\": true, \"id\": [\"1\"], \"is_builtin\": true, \"level\": [2], \"path\": [\"/etc/passwd\"], \"rule_name\": [\"规则名称\"]})")
-		EnablementRuleCmd.Flags().BoolVar(&enablementRuleParams.Global, "global", false, "是否绑定全局探针")
+	EnablementRuleCmd.Flags().BoolVar(&enablementRuleParams.Enable, "enable", false, "是否启用")
+	// filter is object type, use JSON string
+	var filterJSON string
+	EnablementRuleCmd.Flags().StringVar(&filterJSON, "filter", "", "规则过滤器 (JSON, e.g. {\"action\": [\"\"], \"enable\": true, \"id\": [\"1\"], \"is_builtin\": true, \"level\": [2], \"path\": [\"/etc/passwd\"], \"rule_name\": [\"规则名称\"]})")
+	EnablementRuleCmd.Flags().BoolVar(&enablementRuleParams.Global, "global", false, "是否绑定全局探针")
 }
-
 
 // EnablementRuleParams 请求参数
 type EnablementRuleParams struct {
-	Enable bool `json:"enable"` // 是否启用
+	Enable bool                   `json:"enable"` // 是否启用
 	Filter map[string]interface{} `json:"filter"` // 规则过滤器
-	Global bool `json:"global"` // 是否绑定全局探针
+	Global bool                   `json:"global"` // 是否绑定全局探针
 }
-

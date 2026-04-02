@@ -3,8 +3,8 @@
 package threat_overview
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var ListGetRiskyHostInfoCmd = &cobra.Command{
 }
 
 func init() {
-		ListGetRiskyHostInfoCmd.Flags().Float64SliceVar(&listGetRiskyHostInfoParams.Gids, "gids", nil, "ID")
-		ListGetRiskyHostInfoCmd.Flags().Float64SliceVar(&listGetRiskyHostInfoParams.Level, "level", nil, "level")
-		ListGetRiskyHostInfoCmd.Flags().IntVar(&listGetRiskyHostInfoParams.Period, "period", 0, "统计周期")
+	ListGetRiskyHostInfoCmd.Flags().Float64SliceVar(&listGetRiskyHostInfoParams.Gids, "gids", nil, "ID")
+	ListGetRiskyHostInfoCmd.Flags().Float64SliceVar(&listGetRiskyHostInfoParams.Level, "level", nil, "level")
+	ListGetRiskyHostInfoCmd.Flags().IntVar(&listGetRiskyHostInfoParams.Period, "period", 0, "统计周期")
 }
-
 
 // ListGetRiskyHostInfoParams 请求参数
 type ListGetRiskyHostInfoParams struct {
-	Gids []float64 `json:"gids"` // ID
-	Level []float64 `json:"level"` // level
-	Period int `json:"period"` // 统计周期
+	Gids   []float64 `json:"gids"`   // ID
+	Level  []float64 `json:"level"`  // level
+	Period int       `json:"period"` // 统计周期
 }
-

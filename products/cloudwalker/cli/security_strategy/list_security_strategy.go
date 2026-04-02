@@ -3,8 +3,8 @@
 package security_strategy
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,18 +29,16 @@ var ListSecurityStrategyCmd = &cobra.Command{
 }
 
 func init() {
-		ListSecurityStrategyCmd.Flags().IntVar(&listSecurityStrategyParams.Count, "count", 20, "每页记录数量")
-		ListSecurityStrategyCmd.Flags().StringSliceVar(&listSecurityStrategyParams.Id, "id", nil, "策略 id")
-		ListSecurityStrategyCmd.Flags().StringSliceVar(&listSecurityStrategyParams.Name, "name", nil, "策略名称")
-		ListSecurityStrategyCmd.Flags().IntVar(&listSecurityStrategyParams.Offset, "offset", 0, "页偏移")
+	ListSecurityStrategyCmd.Flags().IntVar(&listSecurityStrategyParams.Count, "count", 20, "每页记录数量")
+	ListSecurityStrategyCmd.Flags().StringSliceVar(&listSecurityStrategyParams.Id, "id", nil, "策略 id")
+	ListSecurityStrategyCmd.Flags().StringSliceVar(&listSecurityStrategyParams.Name, "name", nil, "策略名称")
+	ListSecurityStrategyCmd.Flags().IntVar(&listSecurityStrategyParams.Offset, "offset", 0, "页偏移")
 }
-
 
 // ListSecurityStrategyParams 请求参数
 type ListSecurityStrategyParams struct {
-	Count int `json:"count"` // 每页记录数量
-	Id []string `json:"id"` // 策略 id
-	Name []string `json:"name"` // 策略名称
-	Offset int `json:"offset"` // 页偏移
+	Count  int      `json:"count"`  // 每页记录数量
+	Id     []string `json:"id"`     // 策略 id
+	Name   []string `json:"name"`   // 策略名称
+	Offset int      `json:"offset"` // 页偏移
 }
-

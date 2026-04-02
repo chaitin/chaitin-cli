@@ -3,14 +3,12 @@
 package audit_log
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetArchiveConfigCmd = &cobra.Command{
 	Use:   "get_archive_config",
@@ -31,5 +29,3 @@ var GetArchiveConfigCmd = &cobra.Command{
 func init() {
 
 }
-
-

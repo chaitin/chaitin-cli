@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,30 +29,28 @@ var CreateSensitivePortRuleCmd = &cobra.Command{
 }
 
 func init() {
-		CreateSensitivePortRuleCmd.Flags().Float64SliceVar(&createSensitivePortRuleParams.AgentRange, "agent-range", nil, "主机范围")
-		CreateSensitivePortRuleCmd.Flags().Float64SliceVar(&createSensitivePortRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		CreateSensitivePortRuleCmd.Flags().BoolVar(&createSensitivePortRuleParams.Enable, "enable", false, "是否启用")
-		CreateSensitivePortRuleCmd.Flags().BoolVar(&createSensitivePortRuleParams.Global, "global", false, "是否绑定全局探针")
-		CreateSensitivePortRuleCmd.Flags().BoolVar(&createSensitivePortRuleParams.IgnoreOnlyLocal, "ignore-only-local", false, "忽略仅监听本地的端口")
-		// items is complex type []map[string]interface{}, use JSON string
-		var itemsJSON string
-		CreateSensitivePortRuleCmd.Flags().StringVar(&itemsJSON, "items", "", "规则项 (JSON, e.g. [{\"cmdline_arg\": [\"-l\"], \"exe_file\": [\"/usr/bin/ls\"], \"port\": [80]}])")
-		CreateSensitivePortRuleCmd.Flags().IntVar(&createSensitivePortRuleParams.Level, "level", 0, "风险等级")
-		CreateSensitivePortRuleCmd.Flags().BoolVar(&createSensitivePortRuleParams.OnlyGlobalNetwork, "only-global-network", false, "仅上报监听全局网络的端口")
-		CreateSensitivePortRuleCmd.Flags().StringVar(&createSensitivePortRuleParams.RuleName, "rule-name", "", "规则名称")
+	CreateSensitivePortRuleCmd.Flags().Float64SliceVar(&createSensitivePortRuleParams.AgentRange, "agent-range", nil, "主机范围")
+	CreateSensitivePortRuleCmd.Flags().Float64SliceVar(&createSensitivePortRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	CreateSensitivePortRuleCmd.Flags().BoolVar(&createSensitivePortRuleParams.Enable, "enable", false, "是否启用")
+	CreateSensitivePortRuleCmd.Flags().BoolVar(&createSensitivePortRuleParams.Global, "global", false, "是否绑定全局探针")
+	CreateSensitivePortRuleCmd.Flags().BoolVar(&createSensitivePortRuleParams.IgnoreOnlyLocal, "ignore-only-local", false, "忽略仅监听本地的端口")
+	// items is complex type []map[string]interface{}, use JSON string
+	var itemsJSON string
+	CreateSensitivePortRuleCmd.Flags().StringVar(&itemsJSON, "items", "", "规则项 (JSON, e.g. [{\"cmdline_arg\": [\"-l\"], \"exe_file\": [\"/usr/bin/ls\"], \"port\": [80]}])")
+	CreateSensitivePortRuleCmd.Flags().IntVar(&createSensitivePortRuleParams.Level, "level", 0, "风险等级")
+	CreateSensitivePortRuleCmd.Flags().BoolVar(&createSensitivePortRuleParams.OnlyGlobalNetwork, "only-global-network", false, "仅上报监听全局网络的端口")
+	CreateSensitivePortRuleCmd.Flags().StringVar(&createSensitivePortRuleParams.RuleName, "rule-name", "", "规则名称")
 }
-
 
 // CreateSensitivePortRuleParams 请求参数
 type CreateSensitivePortRuleParams struct {
-	AgentRange []float64 `json:"agent_range"` // 主机范围
-	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Enable bool `json:"enable"` // 是否启用
-	Global bool `json:"global"` // 是否绑定全局探针
-	IgnoreOnlyLocal bool `json:"ignore_only_local"` // 忽略仅监听本地的端口
-	Items []map[string]interface{} `json:"items"` // 规则项
-	Level int `json:"level"` // 风险等级
-	OnlyGlobalNetwork bool `json:"only_global_network"` // 仅上报监听全局网络的端口
-	RuleName string `json:"rule_name"` // 规则名称
+	AgentRange         []float64                `json:"agent_range"`          // 主机范围
+	BusinessGroupRange []float64                `json:"business_group_range"` // 业务组范围
+	Enable             bool                     `json:"enable"`               // 是否启用
+	Global             bool                     `json:"global"`               // 是否绑定全局探针
+	IgnoreOnlyLocal    bool                     `json:"ignore_only_local"`    // 忽略仅监听本地的端口
+	Items              []map[string]interface{} `json:"items"`                // 规则项
+	Level              int                      `json:"level"`                // 风险等级
+	OnlyGlobalNetwork  bool                     `json:"only_global_network"`  // 仅上报监听全局网络的端口
+	RuleName           string                   `json:"rule_name"`            // 规则名称
 }
-

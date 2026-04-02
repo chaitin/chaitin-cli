@@ -3,8 +3,8 @@
 package crontab
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,28 +29,26 @@ var CreateSensitiveFilePlanCmd = &cobra.Command{
 }
 
 func init() {
-		CreateSensitiveFilePlanCmd.Flags().Float64SliceVar(&createSensitiveFilePlanParams.AgentRange, "agent-range", nil, "探针范围")
-		CreateSensitiveFilePlanCmd.Flags().Float64SliceVar(&createSensitiveFilePlanParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		CreateSensitiveFilePlanCmd.Flags().StringVar(&createSensitiveFilePlanParams.Comment, "comment", "", "计划备注")
-		// cron is object type, use JSON string
-		var cronJSON string
-		CreateSensitiveFilePlanCmd.Flags().StringVar(&cronJSON, "cron", "", "定时器, null 意为一次性任务 (JSON, e.g. {\"interval\": 1, \"now\": true, \"plan_time\": 1667461108.618155, \"trigger_method\": \"day\", \"week_selector\": [0]})")
-		CreateSensitiveFilePlanCmd.Flags().StringSliceVar(&createSensitiveFilePlanParams.HostTagRange, "host-tag-range", nil, "主机标签范围")
-		CreateSensitiveFilePlanCmd.Flags().StringVar(&createSensitiveFilePlanParams.Name, "name", "", "计划名称")
-		// task is object type, use JSON string
-		var taskJSON string
-		CreateSensitiveFilePlanCmd.Flags().StringVar(&taskJSON, "task", "", "文件完整性任务信息 (JSON, e.g. {\"args\": {\"plan_id\": 0.0, \"rule_ids\": [\"\"], \"select_all\": false, \"snapshot_mode\": \"\"}, \"timeout\": 3600})")
+	CreateSensitiveFilePlanCmd.Flags().Float64SliceVar(&createSensitiveFilePlanParams.AgentRange, "agent-range", nil, "探针范围")
+	CreateSensitiveFilePlanCmd.Flags().Float64SliceVar(&createSensitiveFilePlanParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	CreateSensitiveFilePlanCmd.Flags().StringVar(&createSensitiveFilePlanParams.Comment, "comment", "", "计划备注")
+	// cron is object type, use JSON string
+	var cronJSON string
+	CreateSensitiveFilePlanCmd.Flags().StringVar(&cronJSON, "cron", "", "定时器, null 意为一次性任务 (JSON, e.g. {\"interval\": 1, \"now\": true, \"plan_time\": 1667461108.618155, \"trigger_method\": \"day\", \"week_selector\": [0]})")
+	CreateSensitiveFilePlanCmd.Flags().StringSliceVar(&createSensitiveFilePlanParams.HostTagRange, "host-tag-range", nil, "主机标签范围")
+	CreateSensitiveFilePlanCmd.Flags().StringVar(&createSensitiveFilePlanParams.Name, "name", "", "计划名称")
+	// task is object type, use JSON string
+	var taskJSON string
+	CreateSensitiveFilePlanCmd.Flags().StringVar(&taskJSON, "task", "", "文件完整性任务信息 (JSON, e.g. {\"args\": {\"plan_id\": 0.0, \"rule_ids\": [\"\"], \"select_all\": false, \"snapshot_mode\": \"\"}, \"timeout\": 3600})")
 }
-
 
 // CreateSensitiveFilePlanParams 请求参数
 type CreateSensitiveFilePlanParams struct {
-	AgentRange []float64 `json:"agent_range"` // 探针范围
-	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Comment string `json:"comment"` // 计划备注
-	Cron map[string]interface{} `json:"cron"` // 定时器, null 意为一次性任务
-	HostTagRange []string `json:"host_tag_range"` // 主机标签范围
-	Name string `json:"name"` // 计划名称
-	Task map[string]interface{} `json:"task"` // 文件完整性任务信息
+	AgentRange         []float64              `json:"agent_range"`          // 探针范围
+	BusinessGroupRange []float64              `json:"business_group_range"` // 业务组范围
+	Comment            string                 `json:"comment"`              // 计划备注
+	Cron               map[string]interface{} `json:"cron"`                 // 定时器, null 意为一次性任务
+	HostTagRange       []string               `json:"host_tag_range"`       // 主机标签范围
+	Name               string                 `json:"name"`                 // 计划名称
+	Task               map[string]interface{} `json:"task"`                 // 文件完整性任务信息
 }
-

@@ -3,8 +3,8 @@
 package agent
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,36 +29,34 @@ var DeleteAgentIpCfgCmd = &cobra.Command{
 }
 
 func init() {
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		DeleteAgentIpCfgCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		DeleteAgentIpCfgCmd.Flags().BoolSliceVar(&deleteAgentIpCfgParams.Enable, "enable", nil, "是否启用")
-		DeleteAgentIpCfgCmd.Flags().StringSliceVar(&deleteAgentIpCfgParams.HostComment, "host-comment", nil, "主机备注")
-		DeleteAgentIpCfgCmd.Flags().Float64SliceVar(&deleteAgentIpCfgParams.HostId, "host-id", nil, "主机ID")
-		DeleteAgentIpCfgCmd.Flags().StringSliceVar(&deleteAgentIpCfgParams.HostIp, "host-ip", nil, "主机IP")
-		DeleteAgentIpCfgCmd.Flags().StringSliceVar(&deleteAgentIpCfgParams.HostName, "host-name", nil, "主机名称")
-		DeleteAgentIpCfgCmd.Flags().StringSliceVar(&deleteAgentIpCfgParams.HostState, "host-state", nil, "主机状态")
-		DeleteAgentIpCfgCmd.Flags().StringSliceVar(&deleteAgentIpCfgParams.HostTag, "host-tag", nil, "主机标签")
-		DeleteAgentIpCfgCmd.Flags().IntSliceVar(&deleteAgentIpCfgParams.Id, "id", nil, "规则 ID")
-		DeleteAgentIpCfgCmd.Flags().StringSliceVar(&deleteAgentIpCfgParams.Mode, "mode", nil, "匹配模式, ip_protocol || ip_range || interface")
-		DeleteAgentIpCfgCmd.Flags().IntSliceVar(&deleteAgentIpCfgParams.Oid, "oid", nil, "组织 ID")
-		DeleteAgentIpCfgCmd.Flags().StringSliceVar(&deleteAgentIpCfgParams.RuleName, "rule-name", nil, "规则名称")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	DeleteAgentIpCfgCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	DeleteAgentIpCfgCmd.Flags().BoolSliceVar(&deleteAgentIpCfgParams.Enable, "enable", nil, "是否启用")
+	DeleteAgentIpCfgCmd.Flags().StringSliceVar(&deleteAgentIpCfgParams.HostComment, "host-comment", nil, "主机备注")
+	DeleteAgentIpCfgCmd.Flags().Float64SliceVar(&deleteAgentIpCfgParams.HostId, "host-id", nil, "主机ID")
+	DeleteAgentIpCfgCmd.Flags().StringSliceVar(&deleteAgentIpCfgParams.HostIp, "host-ip", nil, "主机IP")
+	DeleteAgentIpCfgCmd.Flags().StringSliceVar(&deleteAgentIpCfgParams.HostName, "host-name", nil, "主机名称")
+	DeleteAgentIpCfgCmd.Flags().StringSliceVar(&deleteAgentIpCfgParams.HostState, "host-state", nil, "主机状态")
+	DeleteAgentIpCfgCmd.Flags().StringSliceVar(&deleteAgentIpCfgParams.HostTag, "host-tag", nil, "主机标签")
+	DeleteAgentIpCfgCmd.Flags().IntSliceVar(&deleteAgentIpCfgParams.Id, "id", nil, "规则 ID")
+	DeleteAgentIpCfgCmd.Flags().StringSliceVar(&deleteAgentIpCfgParams.Mode, "mode", nil, "匹配模式, ip_protocol || ip_range || interface")
+	DeleteAgentIpCfgCmd.Flags().IntSliceVar(&deleteAgentIpCfgParams.Oid, "oid", nil, "组织 ID")
+	DeleteAgentIpCfgCmd.Flags().StringSliceVar(&deleteAgentIpCfgParams.RuleName, "rule-name", nil, "规则名称")
 }
-
 
 // DeleteAgentIpCfgParams 请求参数
 type DeleteAgentIpCfgParams struct {
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Enable []bool `json:"enable"` // 是否启用
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTag []string `json:"host_tag"` // 主机标签
-	Id []int `json:"id"` // 规则 ID
-	Mode []string `json:"mode"` // 匹配模式, ip_protocol || ip_range || interface
-	Oid []int `json:"oid"` // 组织 ID
-	RuleName []string `json:"rule_name"` // 规则名称
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Enable      []bool                   `json:"enable"`       // 是否启用
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机ID
+	HostIp      []string                 `json:"host_ip"`      // 主机IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTag     []string                 `json:"host_tag"`     // 主机标签
+	Id          []int                    `json:"id"`           // 规则 ID
+	Mode        []string                 `json:"mode"`         // 匹配模式, ip_protocol || ip_range || interface
+	Oid         []int                    `json:"oid"`          // 组织 ID
+	RuleName    []string                 `json:"rule_name"`    // 规则名称
 }
-

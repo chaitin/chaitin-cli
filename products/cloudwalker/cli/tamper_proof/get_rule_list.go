@@ -3,8 +3,8 @@
 package tamper_proof
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,18 +29,16 @@ var GetRuleListCmd = &cobra.Command{
 }
 
 func init() {
-		GetRuleListCmd.Flags().IntVar(&getRuleListParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		// filter is object type, use JSON string
-		var filterJSON string
-		GetRuleListCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. {\"custom_attr\": [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}], \"enable\": false, \"exposed_ip\": [\"\"], \"...\": \"...\"})")
-		GetRuleListCmd.Flags().IntVar(&getRuleListParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	GetRuleListCmd.Flags().IntVar(&getRuleListParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	// filter is object type, use JSON string
+	var filterJSON string
+	GetRuleListCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. {\"custom_attr\": [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}], \"enable\": false, \"exposed_ip\": [\"\"], \"...\": \"...\"})")
+	GetRuleListCmd.Flags().IntVar(&getRuleListParams.Offset, "offset", 0, "页偏移, 默认为 0")
 }
-
 
 // GetRuleListParams 请求参数
 type GetRuleListParams struct {
-	Count int `json:"count"` // 每页记录数量, 默认为 20
+	Count  int                    `json:"count"`  // 每页记录数量, 默认为 20
 	Filter map[string]interface{} `json:"filter"` // filter
-	Offset int `json:"offset"` // 页偏移, 默认为 0
+	Offset int                    `json:"offset"` // 页偏移, 默认为 0
 }
-

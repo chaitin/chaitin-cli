@@ -3,8 +3,8 @@
 package revshell_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,72 +29,70 @@ var EditEventCommentCmd = &cobra.Command{
 }
 
 func init() {
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.AggHostId, "agg-host-id", nil, "主机id")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.AggId, "agg-id", nil, "事件id")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.AggRemoteAddress, "agg-remote-address", nil, "远程地址")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Comment, "comment", nil, "用户自定义备注")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.CreatedAt, "created-at", nil, "事件发现时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		EditEventCommentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Gids, "gids", nil, "gids")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostComment, "host-comment", nil, "主机备注")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.HostId, "host-id", nil, "主机 ID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostIp, "host-ip", nil, "主机 IP")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostName, "host-name", nil, "主机名称")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostState, "host-state", nil, "主机状态")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostTags, "host-tags", nil, "主机标签")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Ids, "ids", nil, "事件 ID")
-		EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.LocalAddr, "local-addr", nil, "本地 IP")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.LocationCode, "location-code", nil, "location_code")
-		EditEventCommentCmd.Flags().StringVar(&editEventCommentParams.NewComment, "new-comment", "", "新的事件备注")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Oid, "oid", nil, "机构 ID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.ParentCmdline, "parent-cmdline", nil, "父 Shell 命令行")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.ParentPid, "parent-pid", nil, "父进程 ID")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Pid, "pid", nil, "进程 ID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.RemoteAddr, "remote-addr", nil, "远程 IP")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
-		EditEventCommentCmd.Flags().BoolVar(&editEventCommentParams.SelectAll, "select-all", false, "是否选中所有")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.ShellCmdline, "shell-cmdline", nil, "Shell 命令行")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.StartTime, "start-time", nil, "Shell 开始时间")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
-		EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.AggHostId, "agg-host-id", nil, "主机id")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.AggId, "agg-id", nil, "事件id")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.AggRemoteAddress, "agg-remote-address", nil, "远程地址")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Comment, "comment", nil, "用户自定义备注")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.CreatedAt, "created-at", nil, "事件发现时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	EditEventCommentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Gids, "gids", nil, "gids")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostComment, "host-comment", nil, "主机备注")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.HostId, "host-id", nil, "主机 ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostIp, "host-ip", nil, "主机 IP")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostName, "host-name", nil, "主机名称")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostState, "host-state", nil, "主机状态")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostTags, "host-tags", nil, "主机标签")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Ids, "ids", nil, "事件 ID")
+	EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.LocalAddr, "local-addr", nil, "本地 IP")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.LocationCode, "location-code", nil, "location_code")
+	EditEventCommentCmd.Flags().StringVar(&editEventCommentParams.NewComment, "new-comment", "", "新的事件备注")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Oid, "oid", nil, "机构 ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.ParentCmdline, "parent-cmdline", nil, "父 Shell 命令行")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.ParentPid, "parent-pid", nil, "父进程 ID")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Pid, "pid", nil, "进程 ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.RemoteAddr, "remote-addr", nil, "远程 IP")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
+	EditEventCommentCmd.Flags().BoolVar(&editEventCommentParams.SelectAll, "select-all", false, "是否选中所有")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.ShellCmdline, "shell-cmdline", nil, "Shell 命令行")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.StartTime, "start-time", nil, "Shell 开始时间")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
+	EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // EditEventCommentParams 请求参数
 type EditEventCommentParams struct {
-	AggHostId []float64 `json:"agg_host_id"` // 主机id
-	AggId []float64 `json:"agg_id"` // 事件id
-	AggRemoteAddress []string `json:"agg_remote_address"` // 远程地址
-	Comment []string `json:"comment"` // 用户自定义备注
-	CreatedAt []string `json:"created_at"` // 事件发现时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // gids
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Ids []float64 `json:"ids"` // 事件 ID
-	Level []int `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	LocalAddr []string `json:"local_addr"` // 本地 IP
-	LocationCode []string `json:"location_code"` // location_code
-	NewComment string `json:"new_comment"` // 新的事件备注
-	Oid []float64 `json:"oid"` // 机构 ID
-	ParentCmdline []string `json:"parent_cmdline"` // 父 Shell 命令行
-	ParentPid []float64 `json:"parent_pid"` // 父进程 ID
-	Pid []float64 `json:"pid"` // 进程 ID
-	RemoteAddr []string `json:"remote_addr"` // 远程 IP
-	RemoteAddrType []string `json:"remote_addr_type"` // 远程IP类型，intranet(内网)、internet(外网)
-	SelectAll bool `json:"select_all"` // 是否选中所有
-	ShellCmdline []string `json:"shell_cmdline"` // Shell 命令行
-	StartTime []string `json:"start_time"` // Shell 开始时间
-	StatEventId []float64 `json:"stat_event_id"` // 事件统计 ID
-	State []int `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	AggHostId        []float64                `json:"agg_host_id"`        // 主机id
+	AggId            []float64                `json:"agg_id"`             // 事件id
+	AggRemoteAddress []string                 `json:"agg_remote_address"` // 远程地址
+	Comment          []string                 `json:"comment"`            // 用户自定义备注
+	CreatedAt        []string                 `json:"created_at"`         // 事件发现时间
+	CustomAttr       []map[string]interface{} `json:"custom_attr"`        // 主机业务属性
+	Gids             []float64                `json:"gids"`               // gids
+	HostComment      []string                 `json:"host_comment"`       // 主机备注
+	HostId           []float64                `json:"host_id"`            // 主机 ID
+	HostIp           []string                 `json:"host_ip"`            // 主机 IP
+	HostName         []string                 `json:"host_name"`          // 主机名称
+	HostState        []string                 `json:"host_state"`         // 主机状态
+	HostTags         []string                 `json:"host_tags"`          // 主机标签
+	Ids              []float64                `json:"ids"`                // 事件 ID
+	Level            []int                    `json:"level"`              // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	LocalAddr        []string                 `json:"local_addr"`         // 本地 IP
+	LocationCode     []string                 `json:"location_code"`      // location_code
+	NewComment       string                   `json:"new_comment"`        // 新的事件备注
+	Oid              []float64                `json:"oid"`                // 机构 ID
+	ParentCmdline    []string                 `json:"parent_cmdline"`     // 父 Shell 命令行
+	ParentPid        []float64                `json:"parent_pid"`         // 父进程 ID
+	Pid              []float64                `json:"pid"`                // 进程 ID
+	RemoteAddr       []string                 `json:"remote_addr"`        // 远程 IP
+	RemoteAddrType   []string                 `json:"remote_addr_type"`   // 远程IP类型，intranet(内网)、internet(外网)
+	SelectAll        bool                     `json:"select_all"`         // 是否选中所有
+	ShellCmdline     []string                 `json:"shell_cmdline"`      // Shell 命令行
+	StartTime        []string                 `json:"start_time"`         // Shell 开始时间
+	StatEventId      []float64                `json:"stat_event_id"`      // 事件统计 ID
+	State            []int                    `json:"state"`              // 事件状态(1-有风险，2-已忽略，3-已处理)
+	WhiteRuleId      []string                 `json:"white_rule_id"`      // 白名单规则 ID
 }
-

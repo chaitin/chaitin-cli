@@ -3,8 +3,8 @@
 package emergency_vuln_v1
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,18 +29,16 @@ var EditVulnStateCmd = &cobra.Command{
 }
 
 func init() {
-		EditVulnStateCmd.Flags().IntVar(&editVulnStateParams.NewState, "new-state", 0, "新的事件状态(1-有风险，2-已忽略，3-已处理)")
-		// select is complex type []map[string]interface{}, use JSON string
-		var selectJSON string
-		EditVulnStateCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"event_id\": 120, \"host_id\": 111, \"vuln_id\": 111}])")
-		EditVulnStateCmd.Flags().BoolVar(&editVulnStateParams.SelectAll, "select-all", false, "select_all")
+	EditVulnStateCmd.Flags().IntVar(&editVulnStateParams.NewState, "new-state", 0, "新的事件状态(1-有风险，2-已忽略，3-已处理)")
+	// select is complex type []map[string]interface{}, use JSON string
+	var selectJSON string
+	EditVulnStateCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"event_id\": 120, \"host_id\": 111, \"vuln_id\": 111}])")
+	EditVulnStateCmd.Flags().BoolVar(&editVulnStateParams.SelectAll, "select-all", false, "select_all")
 }
-
 
 // EditVulnStateParams 请求参数
 type EditVulnStateParams struct {
-	NewState int `json:"new_state"` // 新的事件状态(1-有风险，2-已忽略，3-已处理)
-	Select []map[string]interface{} `json:"select"` // select
-	SelectAll bool `json:"select_all"` // select_all
+	NewState  int                      `json:"new_state"`  // 新的事件状态(1-有风险，2-已忽略，3-已处理)
+	Select    []map[string]interface{} `json:"select"`     // select
+	SelectAll bool                     `json:"select_all"` // select_all
 }
-

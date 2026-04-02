@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetHostPhysicalInfoCmd = &cobra.Command{
 }
 
 func init() {
-		GetHostPhysicalInfoCmd.Flags().IntVar(&getHostPhysicalInfoParams.Id, "id", 0, "ID")
+	GetHostPhysicalInfoCmd.Flags().IntVar(&getHostPhysicalInfoParams.Id, "id", 0, "ID")
 }
-
 
 // GetHostPhysicalInfoParams 请求参数
 type GetHostPhysicalInfoParams struct {
 	Id int `json:"id"` // ID
 }
-

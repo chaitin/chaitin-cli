@@ -3,8 +3,8 @@
 package application_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,46 +29,44 @@ var StatApplicationByCategoryCmd = &cobra.Command{
 }
 
 func init() {
-		StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.App, "app", nil, "软件")
-		StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.Category, "category", nil, "分类")
-		StatApplicationByCategoryCmd.Flags().IntVar(&statApplicationByCategoryParams.Count, "count", 20, "数量")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		StatApplicationByCategoryCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		StatApplicationByCategoryCmd.Flags().Float64SliceVar(&statApplicationByCategoryParams.Gids, "gids", nil, "业务组 ID 列表")
-		StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.HostComment, "host-comment", nil, "主机备注")
-		StatApplicationByCategoryCmd.Flags().Float64SliceVar(&statApplicationByCategoryParams.HostId, "host-id", nil, "主机 ID")
-		StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.HostIp, "host-ip", nil, "主机 IP")
-		StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.HostName, "host-name", nil, "主机名称")
-		StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.HostState, "host-state", nil, "主机状态")
-		StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.HostTags, "host-tags", nil, "主机标签")
-		StatApplicationByCategoryCmd.Flags().Float64SliceVar(&statApplicationByCategoryParams.Oid, "oid", nil, "机构 ID")
-		StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.Path, "path", nil, "路径")
-		StatApplicationByCategoryCmd.Flags().BoolSliceVar(&statApplicationByCategoryParams.Running, "running", nil, "是否正在运行")
-		StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.UpdatedAt, "updated-at", nil, "最近发现时间")
-		StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.Vendor, "vendor", nil, "产商")
-		StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.Version, "version", nil, "版本号")
+	StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.App, "app", nil, "软件")
+	StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.Category, "category", nil, "分类")
+	StatApplicationByCategoryCmd.Flags().IntVar(&statApplicationByCategoryParams.Count, "count", 20, "数量")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	StatApplicationByCategoryCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	StatApplicationByCategoryCmd.Flags().Float64SliceVar(&statApplicationByCategoryParams.Gids, "gids", nil, "业务组 ID 列表")
+	StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.HostComment, "host-comment", nil, "主机备注")
+	StatApplicationByCategoryCmd.Flags().Float64SliceVar(&statApplicationByCategoryParams.HostId, "host-id", nil, "主机 ID")
+	StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.HostIp, "host-ip", nil, "主机 IP")
+	StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.HostName, "host-name", nil, "主机名称")
+	StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.HostState, "host-state", nil, "主机状态")
+	StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.HostTags, "host-tags", nil, "主机标签")
+	StatApplicationByCategoryCmd.Flags().Float64SliceVar(&statApplicationByCategoryParams.Oid, "oid", nil, "机构 ID")
+	StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.Path, "path", nil, "路径")
+	StatApplicationByCategoryCmd.Flags().BoolSliceVar(&statApplicationByCategoryParams.Running, "running", nil, "是否正在运行")
+	StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.UpdatedAt, "updated-at", nil, "最近发现时间")
+	StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.Vendor, "vendor", nil, "产商")
+	StatApplicationByCategoryCmd.Flags().StringSliceVar(&statApplicationByCategoryParams.Version, "version", nil, "版本号")
 }
-
 
 // StatApplicationByCategoryParams 请求参数
 type StatApplicationByCategoryParams struct {
-	App []string `json:"app"` // 软件
-	Category []string `json:"category"` // 分类
-	Count int `json:"count"` // 数量
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // 业务组 ID 列表
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Oid []float64 `json:"oid"` // 机构 ID
-	Path []string `json:"path"` // 路径
-	Running []bool `json:"running"` // 是否正在运行
-	UpdatedAt []string `json:"updated_at"` // 最近发现时间
-	Vendor []string `json:"vendor"` // 产商
-	Version []string `json:"version"` // 版本号
+	App         []string                 `json:"app"`          // 软件
+	Category    []string                 `json:"category"`     // 分类
+	Count       int                      `json:"count"`        // 数量
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Gids        []float64                `json:"gids"`         // 业务组 ID 列表
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机 ID
+	HostIp      []string                 `json:"host_ip"`      // 主机 IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTags    []string                 `json:"host_tags"`    // 主机标签
+	Oid         []float64                `json:"oid"`          // 机构 ID
+	Path        []string                 `json:"path"`         // 路径
+	Running     []bool                   `json:"running"`      // 是否正在运行
+	UpdatedAt   []string                 `json:"updated_at"`   // 最近发现时间
+	Vendor      []string                 `json:"vendor"`       // 产商
+	Version     []string                 `json:"version"`      // 版本号
 }
-

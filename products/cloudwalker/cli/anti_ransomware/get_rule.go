@@ -3,8 +3,8 @@
 package anti_ransomware
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetRuleCmd = &cobra.Command{
 }
 
 func init() {
-		GetRuleCmd.Flags().IntVar(&getRuleParams.Id, "id", 0, "规则ID")
+	GetRuleCmd.Flags().IntVar(&getRuleParams.Id, "id", 0, "规则ID")
 }
-
 
 // GetRuleParams 请求参数
 type GetRuleParams struct {
 	Id int `json:"id"` // 规则ID
 }
-

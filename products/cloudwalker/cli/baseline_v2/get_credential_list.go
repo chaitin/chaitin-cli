@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,46 +29,44 @@ var GetCredentialListCmd = &cobra.Command{
 }
 
 func init() {
-		GetCredentialListCmd.Flags().StringSliceVar(&getCredentialListParams.Address, "address", nil, "请求地址")
-		GetCredentialListCmd.Flags().IntVar(&getCredentialListParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		GetCredentialListCmd.Flags().StringSliceVar(&getCredentialListParams.CreatedAt, "created-at", nil, "创建时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetCredentialListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetCredentialListCmd.Flags().Float64SliceVar(&getCredentialListParams.Gids, "gids", nil, "业务组 ID")
-		GetCredentialListCmd.Flags().StringSliceVar(&getCredentialListParams.HostComment, "host-comment", nil, "主机备注")
-		GetCredentialListCmd.Flags().Float64SliceVar(&getCredentialListParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
-		GetCredentialListCmd.Flags().StringSliceVar(&getCredentialListParams.HostIp, "host-ip", nil, "主机IP")
-		GetCredentialListCmd.Flags().StringSliceVar(&getCredentialListParams.HostName, "host-name", nil, "主机名称")
-		GetCredentialListCmd.Flags().StringSliceVar(&getCredentialListParams.HostState, "host-state", nil, "主机状态")
-		GetCredentialListCmd.Flags().StringSliceVar(&getCredentialListParams.HostTags, "host-tags", nil, "主机标签")
-		GetCredentialListCmd.Flags().IntVar(&getCredentialListParams.Offset, "offset", 0, "页偏移, 默认为 0")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetCredentialListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetCredentialListCmd.Flags().StringSliceVar(&getCredentialListParams.Protocol, "protocol", nil, "监听的协议(TCP, UnixSocket)")
-		GetCredentialListCmd.Flags().StringSliceVar(&getCredentialListParams.Type, "type", nil, "凭证类型(mysql，postgresql，oracle, weblogic)")
-		GetCredentialListCmd.Flags().StringSliceVar(&getCredentialListParams.UpdatedAt, "updated-at", nil, "修改时间")
+	GetCredentialListCmd.Flags().StringSliceVar(&getCredentialListParams.Address, "address", nil, "请求地址")
+	GetCredentialListCmd.Flags().IntVar(&getCredentialListParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	GetCredentialListCmd.Flags().StringSliceVar(&getCredentialListParams.CreatedAt, "created-at", nil, "创建时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetCredentialListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetCredentialListCmd.Flags().Float64SliceVar(&getCredentialListParams.Gids, "gids", nil, "业务组 ID")
+	GetCredentialListCmd.Flags().StringSliceVar(&getCredentialListParams.HostComment, "host-comment", nil, "主机备注")
+	GetCredentialListCmd.Flags().Float64SliceVar(&getCredentialListParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
+	GetCredentialListCmd.Flags().StringSliceVar(&getCredentialListParams.HostIp, "host-ip", nil, "主机IP")
+	GetCredentialListCmd.Flags().StringSliceVar(&getCredentialListParams.HostName, "host-name", nil, "主机名称")
+	GetCredentialListCmd.Flags().StringSliceVar(&getCredentialListParams.HostState, "host-state", nil, "主机状态")
+	GetCredentialListCmd.Flags().StringSliceVar(&getCredentialListParams.HostTags, "host-tags", nil, "主机标签")
+	GetCredentialListCmd.Flags().IntVar(&getCredentialListParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetCredentialListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetCredentialListCmd.Flags().StringSliceVar(&getCredentialListParams.Protocol, "protocol", nil, "监听的协议(TCP, UnixSocket)")
+	GetCredentialListCmd.Flags().StringSliceVar(&getCredentialListParams.Type, "type", nil, "凭证类型(mysql，postgresql，oracle, weblogic)")
+	GetCredentialListCmd.Flags().StringSliceVar(&getCredentialListParams.UpdatedAt, "updated-at", nil, "修改时间")
 }
-
 
 // GetCredentialListParams 请求参数
 type GetCredentialListParams struct {
-	Address []string `json:"address"` // 请求地址
-	Count int `json:"count"` // 每页记录数量, 默认为 20
-	CreatedAt []string `json:"created_at"` // 创建时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID, 用于主机详情页面
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Offset int `json:"offset"` // 页偏移, 默认为 0
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	Protocol []string `json:"protocol"` // 监听的协议(TCP, UnixSocket)
-	Type []string `json:"type"` // 凭证类型(mysql，postgresql，oracle, weblogic)
-	UpdatedAt []string `json:"updated_at"` // 修改时间
+	Address     []string                 `json:"address"`      // 请求地址
+	Count       int                      `json:"count"`        // 每页记录数量, 默认为 20
+	CreatedAt   []string                 `json:"created_at"`   // 创建时间
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Gids        []float64                `json:"gids"`         // 业务组 ID
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机ID, 用于主机详情页面
+	HostIp      []string                 `json:"host_ip"`      // 主机IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTags    []string                 `json:"host_tags"`    // 主机标签
+	Offset      int                      `json:"offset"`       // 页偏移, 默认为 0
+	OrderBy     map[string]interface{}   `json:"order_by"`     // 排序规则
+	Protocol    []string                 `json:"protocol"`     // 监听的协议(TCP, UnixSocket)
+	Type        []string                 `json:"type"`         // 凭证类型(mysql，postgresql，oracle, weblogic)
+	UpdatedAt   []string                 `json:"updated_at"`   // 修改时间
 }
-

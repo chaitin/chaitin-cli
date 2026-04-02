@@ -3,8 +3,8 @@
 package security_tool
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var GetToolDetailCmd = &cobra.Command{
 }
 
 func init() {
-		GetToolDetailCmd.Flags().IntVar(&getToolDetailParams.Id, "id", 0, "工具ID")
-		GetToolDetailCmd.Flags().StringVar(&getToolDetailParams.ToolKey, "tool-key", "", "工具唯一标识")
+	GetToolDetailCmd.Flags().IntVar(&getToolDetailParams.Id, "id", 0, "工具ID")
+	GetToolDetailCmd.Flags().StringVar(&getToolDetailParams.ToolKey, "tool-key", "", "工具唯一标识")
 }
-
 
 // GetToolDetailParams 请求参数
 type GetToolDetailParams struct {
-	Id int `json:"id"` // 工具ID
+	Id      int    `json:"id"`       // 工具ID
 	ToolKey string `json:"tool_key"` // 工具唯一标识
 }
-

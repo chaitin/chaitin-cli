@@ -3,8 +3,8 @@
 package full_command
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,56 +29,54 @@ var DeleteCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteCmd.Flags().StringSliceVar(&deleteParams.Command, "command", nil, "命令")
-		DeleteCmd.Flags().StringSliceVar(&deleteParams.Comment, "comment", nil, "用户自定义备注")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		DeleteCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		// filter is complex type []map[string]interface{}, use JSON string
-		var filterJSON string
-		DeleteCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. [{\"host_id\": 122, \"id\": 222, \"net_app\": \"net_app\", \"ssh_client_ip\": \"10.2.17.218\", \"ssh_user\": \"user\"}])")
-		DeleteCmd.Flags().Float64SliceVar(&deleteParams.Gids, "gids", nil, "业务组 ID")
-		DeleteCmd.Flags().StringSliceVar(&deleteParams.HostComment, "host-comment", nil, "主机备注")
-		DeleteCmd.Flags().Float64SliceVar(&deleteParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
-		DeleteCmd.Flags().StringSliceVar(&deleteParams.HostIp, "host-ip", nil, "主机IP")
-		DeleteCmd.Flags().StringSliceVar(&deleteParams.HostName, "host-name", nil, "主机名称")
-		DeleteCmd.Flags().StringSliceVar(&deleteParams.HostState, "host-state", nil, "主机状态")
-		DeleteCmd.Flags().StringSliceVar(&deleteParams.HostTags, "host-tags", nil, "主机标签")
-		DeleteCmd.Flags().StringSliceVar(&deleteParams.NetApp, "net-app", nil, "网络应用名称")
-		DeleteCmd.Flags().Float64SliceVar(&deleteParams.Oid, "oid", nil, "机构 ID")
-		DeleteCmd.Flags().BoolVar(&deleteParams.SelectAll, "select-all", false, "是否全选")
-		DeleteCmd.Flags().StringSliceVar(&deleteParams.SessionId, "session-id", nil, "会话id")
-		DeleteCmd.Flags().StringSliceVar(&deleteParams.ShellDuration, "shell-duration", nil, "会话持续时间")
-		DeleteCmd.Flags().StringSliceVar(&deleteParams.ShellStartedAt, "shell-started-at", nil, "会话启动时间")
-		DeleteCmd.Flags().StringSliceVar(&deleteParams.SshClientIp, "ssh-client-ip", nil, "ssh登陆地址")
-		DeleteCmd.Flags().StringSliceVar(&deleteParams.SshUser, "ssh-user", nil, "ssh登录用户")
-		DeleteCmd.Flags().Float64SliceVar(&deleteParams.Uid, "uid", nil, "用户id")
-		DeleteCmd.Flags().StringSliceVar(&deleteParams.Uname, "uname", nil, "用户名")
+	DeleteCmd.Flags().StringSliceVar(&deleteParams.Command, "command", nil, "命令")
+	DeleteCmd.Flags().StringSliceVar(&deleteParams.Comment, "comment", nil, "用户自定义备注")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	DeleteCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	// filter is complex type []map[string]interface{}, use JSON string
+	var filterJSON string
+	DeleteCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. [{\"host_id\": 122, \"id\": 222, \"net_app\": \"net_app\", \"ssh_client_ip\": \"10.2.17.218\", \"ssh_user\": \"user\"}])")
+	DeleteCmd.Flags().Float64SliceVar(&deleteParams.Gids, "gids", nil, "业务组 ID")
+	DeleteCmd.Flags().StringSliceVar(&deleteParams.HostComment, "host-comment", nil, "主机备注")
+	DeleteCmd.Flags().Float64SliceVar(&deleteParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
+	DeleteCmd.Flags().StringSliceVar(&deleteParams.HostIp, "host-ip", nil, "主机IP")
+	DeleteCmd.Flags().StringSliceVar(&deleteParams.HostName, "host-name", nil, "主机名称")
+	DeleteCmd.Flags().StringSliceVar(&deleteParams.HostState, "host-state", nil, "主机状态")
+	DeleteCmd.Flags().StringSliceVar(&deleteParams.HostTags, "host-tags", nil, "主机标签")
+	DeleteCmd.Flags().StringSliceVar(&deleteParams.NetApp, "net-app", nil, "网络应用名称")
+	DeleteCmd.Flags().Float64SliceVar(&deleteParams.Oid, "oid", nil, "机构 ID")
+	DeleteCmd.Flags().BoolVar(&deleteParams.SelectAll, "select-all", false, "是否全选")
+	DeleteCmd.Flags().StringSliceVar(&deleteParams.SessionId, "session-id", nil, "会话id")
+	DeleteCmd.Flags().StringSliceVar(&deleteParams.ShellDuration, "shell-duration", nil, "会话持续时间")
+	DeleteCmd.Flags().StringSliceVar(&deleteParams.ShellStartedAt, "shell-started-at", nil, "会话启动时间")
+	DeleteCmd.Flags().StringSliceVar(&deleteParams.SshClientIp, "ssh-client-ip", nil, "ssh登陆地址")
+	DeleteCmd.Flags().StringSliceVar(&deleteParams.SshUser, "ssh-user", nil, "ssh登录用户")
+	DeleteCmd.Flags().Float64SliceVar(&deleteParams.Uid, "uid", nil, "用户id")
+	DeleteCmd.Flags().StringSliceVar(&deleteParams.Uname, "uname", nil, "用户名")
 }
-
 
 // DeleteParams 请求参数
 type DeleteParams struct {
-	Command []string `json:"command"` // 命令
-	Comment []string `json:"comment"` // 用户自定义备注
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Filter []map[string]interface{} `json:"filter"` // filter
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID, 用于主机详情页面
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	NetApp []string `json:"net_app"` // 网络应用名称
-	Oid []float64 `json:"oid"` // 机构 ID
-	SelectAll bool `json:"select_all"` // 是否全选
-	SessionId []string `json:"session_id"` // 会话id
-	ShellDuration []string `json:"shell_duration"` // 会话持续时间
-	ShellStartedAt []string `json:"shell_started_at"` // 会话启动时间
-	SshClientIp []string `json:"ssh_client_ip"` // ssh登陆地址
-	SshUser []string `json:"ssh_user"` // ssh登录用户
-	Uid []float64 `json:"uid"` // 用户id
-	Uname []string `json:"uname"` // 用户名
+	Command        []string                 `json:"command"`          // 命令
+	Comment        []string                 `json:"comment"`          // 用户自定义备注
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	Filter         []map[string]interface{} `json:"filter"`           // filter
+	Gids           []float64                `json:"gids"`             // 业务组 ID
+	HostComment    []string                 `json:"host_comment"`     // 主机备注
+	HostId         []float64                `json:"host_id"`          // 主机ID, 用于主机详情页面
+	HostIp         []string                 `json:"host_ip"`          // 主机IP
+	HostName       []string                 `json:"host_name"`        // 主机名称
+	HostState      []string                 `json:"host_state"`       // 主机状态
+	HostTags       []string                 `json:"host_tags"`        // 主机标签
+	NetApp         []string                 `json:"net_app"`          // 网络应用名称
+	Oid            []float64                `json:"oid"`              // 机构 ID
+	SelectAll      bool                     `json:"select_all"`       // 是否全选
+	SessionId      []string                 `json:"session_id"`       // 会话id
+	ShellDuration  []string                 `json:"shell_duration"`   // 会话持续时间
+	ShellStartedAt []string                 `json:"shell_started_at"` // 会话启动时间
+	SshClientIp    []string                 `json:"ssh_client_ip"`    // ssh登陆地址
+	SshUser        []string                 `json:"ssh_user"`         // ssh登录用户
+	Uid            []float64                `json:"uid"`              // 用户id
+	Uname          []string                 `json:"uname"`            // 用户名
 }
-

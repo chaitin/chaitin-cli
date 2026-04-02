@@ -3,14 +3,12 @@
 package tamper_proof
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetMaxNumCmd = &cobra.Command{
 	Use:   "get_max_num",
@@ -31,5 +29,3 @@ var GetMaxNumCmd = &cobra.Command{
 func init() {
 
 }
-
-

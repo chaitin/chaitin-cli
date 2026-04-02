@@ -3,8 +3,8 @@
 package brute_force
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,70 +29,68 @@ var EditEventCommentCmd = &cobra.Command{
 }
 
 func init() {
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.AuthMethod, "auth-method", nil, "auth_method")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Category, "category", nil, "爆破类型")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Comment, "comment", nil, "comment")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.CreatedAt, "created-at", nil, "爆破开始时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		EditEventCommentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Description, "description", nil, "爆破描述")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.FailureCount, "failure-count", nil, "failure_count")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.FinishedAt, "finished-at", nil, "finished_at")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Gids, "gids", nil, "gids")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostComment, "host-comment", nil, "主机备注")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.HostId, "host-id", nil, "主机 ID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostIp, "host-ip", nil, "主机 IP")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostName, "host-name", nil, "主机名称")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostState, "host-state", nil, "主机状态")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostTags, "host-tags", nil, "主机标签")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Ids, "ids", nil, "事件 ID")
-		EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.Level, "level", nil, "风险等级(1-低危，2-中危，3-高危，4-严重)")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.LocationCode, "location-code", nil, "location_code")
-		EditEventCommentCmd.Flags().StringVar(&editEventCommentParams.NewComment, "new-comment", "", "新的事件备注")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Oid, "oid", nil, "机构 ID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
-		EditEventCommentCmd.Flags().BoolVar(&editEventCommentParams.SelectAll, "select-all", false, "是否选中所有")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.SourceIp, "source-ip", nil, "source_ip")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.StartedAt, "started-at", nil, "started_at")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
-		EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.State, "state", nil, "处置状态(1-有风险，2-已忽略，3-已处理)")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.SuccessCount, "success-count", nil, "success_count")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.UserName, "user-name", nil, "user_name")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.AuthMethod, "auth-method", nil, "auth_method")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Category, "category", nil, "爆破类型")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Comment, "comment", nil, "comment")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.CreatedAt, "created-at", nil, "爆破开始时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	EditEventCommentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Description, "description", nil, "爆破描述")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.FailureCount, "failure-count", nil, "failure_count")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.FinishedAt, "finished-at", nil, "finished_at")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Gids, "gids", nil, "gids")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostComment, "host-comment", nil, "主机备注")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.HostId, "host-id", nil, "主机 ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostIp, "host-ip", nil, "主机 IP")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostName, "host-name", nil, "主机名称")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostState, "host-state", nil, "主机状态")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostTags, "host-tags", nil, "主机标签")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Ids, "ids", nil, "事件 ID")
+	EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.Level, "level", nil, "风险等级(1-低危，2-中危，3-高危，4-严重)")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.LocationCode, "location-code", nil, "location_code")
+	EditEventCommentCmd.Flags().StringVar(&editEventCommentParams.NewComment, "new-comment", "", "新的事件备注")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Oid, "oid", nil, "机构 ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
+	EditEventCommentCmd.Flags().BoolVar(&editEventCommentParams.SelectAll, "select-all", false, "是否选中所有")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.SourceIp, "source-ip", nil, "source_ip")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.StartedAt, "started-at", nil, "started_at")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
+	EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.State, "state", nil, "处置状态(1-有风险，2-已忽略，3-已处理)")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.SuccessCount, "success-count", nil, "success_count")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.UserName, "user-name", nil, "user_name")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // EditEventCommentParams 请求参数
 type EditEventCommentParams struct {
-	AuthMethod []string `json:"auth_method"` // auth_method
-	Category []string `json:"category"` // 爆破类型
-	Comment []string `json:"comment"` // comment
-	CreatedAt []string `json:"created_at"` // 爆破开始时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Description []string `json:"description"` // 爆破描述
-	FailureCount []string `json:"failure_count"` // failure_count
-	FinishedAt []string `json:"finished_at"` // finished_at
-	Gids []float64 `json:"gids"` // gids
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Ids []float64 `json:"ids"` // 事件 ID
-	Level []int `json:"level"` // 风险等级(1-低危，2-中危，3-高危，4-严重)
-	LocationCode []string `json:"location_code"` // location_code
-	NewComment string `json:"new_comment"` // 新的事件备注
-	Oid []float64 `json:"oid"` // 机构 ID
-	RemoteAddrType []string `json:"remote_addr_type"` // 远程IP类型，intranet(内网)、internet(外网)
-	SelectAll bool `json:"select_all"` // 是否选中所有
-	SourceIp []string `json:"source_ip"` // source_ip
-	StartedAt []string `json:"started_at"` // started_at
-	StatEventId []float64 `json:"stat_event_id"` // 事件统计 ID
-	State []int `json:"state"` // 处置状态(1-有风险，2-已忽略，3-已处理)
-	SuccessCount []string `json:"success_count"` // success_count
-	UserName []string `json:"user_name"` // user_name
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	AuthMethod     []string                 `json:"auth_method"`      // auth_method
+	Category       []string                 `json:"category"`         // 爆破类型
+	Comment        []string                 `json:"comment"`          // comment
+	CreatedAt      []string                 `json:"created_at"`       // 爆破开始时间
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	Description    []string                 `json:"description"`      // 爆破描述
+	FailureCount   []string                 `json:"failure_count"`    // failure_count
+	FinishedAt     []string                 `json:"finished_at"`      // finished_at
+	Gids           []float64                `json:"gids"`             // gids
+	HostComment    []string                 `json:"host_comment"`     // 主机备注
+	HostId         []float64                `json:"host_id"`          // 主机 ID
+	HostIp         []string                 `json:"host_ip"`          // 主机 IP
+	HostName       []string                 `json:"host_name"`        // 主机名称
+	HostState      []string                 `json:"host_state"`       // 主机状态
+	HostTags       []string                 `json:"host_tags"`        // 主机标签
+	Ids            []float64                `json:"ids"`              // 事件 ID
+	Level          []int                    `json:"level"`            // 风险等级(1-低危，2-中危，3-高危，4-严重)
+	LocationCode   []string                 `json:"location_code"`    // location_code
+	NewComment     string                   `json:"new_comment"`      // 新的事件备注
+	Oid            []float64                `json:"oid"`              // 机构 ID
+	RemoteAddrType []string                 `json:"remote_addr_type"` // 远程IP类型，intranet(内网)、internet(外网)
+	SelectAll      bool                     `json:"select_all"`       // 是否选中所有
+	SourceIp       []string                 `json:"source_ip"`        // source_ip
+	StartedAt      []string                 `json:"started_at"`       // started_at
+	StatEventId    []float64                `json:"stat_event_id"`    // 事件统计 ID
+	State          []int                    `json:"state"`            // 处置状态(1-有风险，2-已忽略，3-已处理)
+	SuccessCount   []string                 `json:"success_count"`    // success_count
+	UserName       []string                 `json:"user_name"`        // user_name
+	WhiteRuleId    []string                 `json:"white_rule_id"`    // 白名单规则 ID
 }
-

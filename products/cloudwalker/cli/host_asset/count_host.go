@@ -3,14 +3,12 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var CountHostCmd = &cobra.Command{
 	Use:   "count_host",
@@ -31,5 +29,3 @@ var CountHostCmd = &cobra.Command{
 func init() {
 
 }
-
-

@@ -3,8 +3,8 @@
 package docker_network
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,42 +29,40 @@ var StatNetworkCmd = &cobra.Command{
 }
 
 func init() {
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		StatNetworkCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		StatNetworkCmd.Flags().Float64SliceVar(&statNetworkParams.Gids, "gids", nil, "gids")
-		StatNetworkCmd.Flags().StringSliceVar(&statNetworkParams.HostComment, "host-comment", nil, "主机备注")
-		StatNetworkCmd.Flags().Float64SliceVar(&statNetworkParams.HostId, "host-id", nil, "主机 ID")
-		StatNetworkCmd.Flags().StringSliceVar(&statNetworkParams.HostIp, "host-ip", nil, "主机 IP")
-		StatNetworkCmd.Flags().StringSliceVar(&statNetworkParams.HostName, "host-name", nil, "主机名称")
-		StatNetworkCmd.Flags().StringSliceVar(&statNetworkParams.HostState, "host-state", nil, "主机状态")
-		StatNetworkCmd.Flags().StringSliceVar(&statNetworkParams.HostTags, "host-tags", nil, "主机标签")
-		StatNetworkCmd.Flags().StringSliceVar(&statNetworkParams.NetworkCreatedAt, "network-created-at", nil, "网络创建时间")
-		StatNetworkCmd.Flags().StringSliceVar(&statNetworkParams.NetworkDriver, "network-driver", nil, "网络模式")
-		StatNetworkCmd.Flags().BoolSliceVar(&statNetworkParams.NetworkEnableIpv6, "network-enable-ipv6", nil, "是否允许ipv6")
-		StatNetworkCmd.Flags().StringSliceVar(&statNetworkParams.NetworkId, "network-id", nil, "网络ID")
-		StatNetworkCmd.Flags().StringSliceVar(&statNetworkParams.NetworkName, "network-name", nil, "网络名称")
-		StatNetworkCmd.Flags().StringSliceVar(&statNetworkParams.NetworkScope, "network-scope", nil, "网络范围")
-		StatNetworkCmd.Flags().Float64SliceVar(&statNetworkParams.Oid, "oid", nil, "机构 ID")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	StatNetworkCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	StatNetworkCmd.Flags().Float64SliceVar(&statNetworkParams.Gids, "gids", nil, "gids")
+	StatNetworkCmd.Flags().StringSliceVar(&statNetworkParams.HostComment, "host-comment", nil, "主机备注")
+	StatNetworkCmd.Flags().Float64SliceVar(&statNetworkParams.HostId, "host-id", nil, "主机 ID")
+	StatNetworkCmd.Flags().StringSliceVar(&statNetworkParams.HostIp, "host-ip", nil, "主机 IP")
+	StatNetworkCmd.Flags().StringSliceVar(&statNetworkParams.HostName, "host-name", nil, "主机名称")
+	StatNetworkCmd.Flags().StringSliceVar(&statNetworkParams.HostState, "host-state", nil, "主机状态")
+	StatNetworkCmd.Flags().StringSliceVar(&statNetworkParams.HostTags, "host-tags", nil, "主机标签")
+	StatNetworkCmd.Flags().StringSliceVar(&statNetworkParams.NetworkCreatedAt, "network-created-at", nil, "网络创建时间")
+	StatNetworkCmd.Flags().StringSliceVar(&statNetworkParams.NetworkDriver, "network-driver", nil, "网络模式")
+	StatNetworkCmd.Flags().BoolSliceVar(&statNetworkParams.NetworkEnableIpv6, "network-enable-ipv6", nil, "是否允许ipv6")
+	StatNetworkCmd.Flags().StringSliceVar(&statNetworkParams.NetworkId, "network-id", nil, "网络ID")
+	StatNetworkCmd.Flags().StringSliceVar(&statNetworkParams.NetworkName, "network-name", nil, "网络名称")
+	StatNetworkCmd.Flags().StringSliceVar(&statNetworkParams.NetworkScope, "network-scope", nil, "网络范围")
+	StatNetworkCmd.Flags().Float64SliceVar(&statNetworkParams.Oid, "oid", nil, "机构 ID")
 }
-
 
 // StatNetworkParams 请求参数
 type StatNetworkParams struct {
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // gids
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	NetworkCreatedAt []string `json:"network_created_at"` // 网络创建时间
-	NetworkDriver []string `json:"network_driver"` // 网络模式
-	NetworkEnableIpv6 []bool `json:"network_enable_ipv6"` // 是否允许ipv6
-	NetworkId []string `json:"network_id"` // 网络ID
-	NetworkName []string `json:"network_name"` // 网络名称
-	NetworkScope []string `json:"network_scope"` // 网络范围
-	Oid []float64 `json:"oid"` // 机构 ID
+	CustomAttr        []map[string]interface{} `json:"custom_attr"`         // 主机业务属性
+	Gids              []float64                `json:"gids"`                // gids
+	HostComment       []string                 `json:"host_comment"`        // 主机备注
+	HostId            []float64                `json:"host_id"`             // 主机 ID
+	HostIp            []string                 `json:"host_ip"`             // 主机 IP
+	HostName          []string                 `json:"host_name"`           // 主机名称
+	HostState         []string                 `json:"host_state"`          // 主机状态
+	HostTags          []string                 `json:"host_tags"`           // 主机标签
+	NetworkCreatedAt  []string                 `json:"network_created_at"`  // 网络创建时间
+	NetworkDriver     []string                 `json:"network_driver"`      // 网络模式
+	NetworkEnableIpv6 []bool                   `json:"network_enable_ipv6"` // 是否允许ipv6
+	NetworkId         []string                 `json:"network_id"`          // 网络ID
+	NetworkName       []string                 `json:"network_name"`        // 网络名称
+	NetworkScope      []string                 `json:"network_scope"`       // 网络范围
+	Oid               []float64                `json:"oid"`                 // 机构 ID
 }
-

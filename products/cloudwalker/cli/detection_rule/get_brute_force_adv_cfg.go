@@ -3,14 +3,12 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetBruteForceAdvCfgCmd = &cobra.Command{
 	Use:   "get_brute_force_adv_cfg",
@@ -31,5 +29,3 @@ var GetBruteForceAdvCfgCmd = &cobra.Command{
 func init() {
 
 }
-
-

@@ -3,8 +3,8 @@
 package sensitive_file_scan
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var DeleteRuleCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteRuleCmd.Flags().StringSliceVar(&deleteRuleParams.Id, "id", nil, "规则 ID")
+	DeleteRuleCmd.Flags().StringSliceVar(&deleteRuleParams.Id, "id", nil, "规则 ID")
 }
-
 
 // DeleteRuleParams 请求参数
 type DeleteRuleParams struct {
 	Id []string `json:"id"` // 规则 ID
 }
-

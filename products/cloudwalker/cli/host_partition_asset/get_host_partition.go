@@ -3,8 +3,8 @@
 package host_partition_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,20 +29,18 @@ var GetHostPartitionCmd = &cobra.Command{
 }
 
 func init() {
-		GetHostPartitionCmd.Flags().IntVar(&getHostPartitionParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		GetHostPartitionCmd.Flags().IntVar(&getHostPartitionParams.HostId, "host-id", 0, "主机 ID")
-		GetHostPartitionCmd.Flags().IntVar(&getHostPartitionParams.Offset, "offset", 0, "页偏移, 默认为 0")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetHostPartitionCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetHostPartitionCmd.Flags().IntVar(&getHostPartitionParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	GetHostPartitionCmd.Flags().IntVar(&getHostPartitionParams.HostId, "host-id", 0, "主机 ID")
+	GetHostPartitionCmd.Flags().IntVar(&getHostPartitionParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetHostPartitionCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
 }
-
 
 // GetHostPartitionParams 请求参数
 type GetHostPartitionParams struct {
-	Count int `json:"count"` // 每页记录数量, 默认为 20
-	HostId int `json:"host_id"` // 主机 ID
-	Offset int `json:"offset"` // 页偏移, 默认为 0
+	Count   int                    `json:"count"`    // 每页记录数量, 默认为 20
+	HostId  int                    `json:"host_id"`  // 主机 ID
+	Offset  int                    `json:"offset"`   // 页偏移, 默认为 0
 	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
 }
-

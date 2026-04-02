@@ -3,8 +3,8 @@
 package abnormal_login_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,58 +29,56 @@ var DeleteEventByHostCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.AuthType, "auth-type", nil, "认证类型")
-		DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.Comment, "comment", nil, "用户自定义备注")
-		DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.CreatedAt, "created-at", nil, "事件发现时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		DeleteEventByHostCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		DeleteEventByHostCmd.Flags().Float64SliceVar(&deleteEventByHostParams.Gids, "gids", nil, "业务组 ID")
-		DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.HostComment, "host-comment", nil, "主机备注")
-		DeleteEventByHostCmd.Flags().Float64SliceVar(&deleteEventByHostParams.HostId, "host-id", nil, "主机 ID")
-		DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.HostIp, "host-ip", nil, "主机 IP")
-		DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.HostName, "host-name", nil, "主机名称")
-		DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.HostState, "host-state", nil, "主机状态")
-		DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.HostTags, "host-tags", nil, "主机标签")
-		DeleteEventByHostCmd.Flags().Float64SliceVar(&deleteEventByHostParams.Ids, "ids", nil, "主机 ID")
-		DeleteEventByHostCmd.Flags().IntSliceVar(&deleteEventByHostParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.LocationCode, "location-code", nil, "location_code")
-		DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.LoginIp, "login-ip", nil, "登录IP")
-		DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.LoginTime, "login-time", nil, "登录时间")
-		DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.LoginUsername, "login-username", nil, "登录用户名")
-		DeleteEventByHostCmd.Flags().Float64SliceVar(&deleteEventByHostParams.Oid, "oid", nil, "机构 ID")
-		DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
-		DeleteEventByHostCmd.Flags().BoolVar(&deleteEventByHostParams.SelectAll, "select-all", false, "是否选中所有")
-		DeleteEventByHostCmd.Flags().Float64SliceVar(&deleteEventByHostParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
-		DeleteEventByHostCmd.Flags().IntSliceVar(&deleteEventByHostParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
-		DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.AuthType, "auth-type", nil, "认证类型")
+	DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.Comment, "comment", nil, "用户自定义备注")
+	DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.CreatedAt, "created-at", nil, "事件发现时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	DeleteEventByHostCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	DeleteEventByHostCmd.Flags().Float64SliceVar(&deleteEventByHostParams.Gids, "gids", nil, "业务组 ID")
+	DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.HostComment, "host-comment", nil, "主机备注")
+	DeleteEventByHostCmd.Flags().Float64SliceVar(&deleteEventByHostParams.HostId, "host-id", nil, "主机 ID")
+	DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.HostIp, "host-ip", nil, "主机 IP")
+	DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.HostName, "host-name", nil, "主机名称")
+	DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.HostState, "host-state", nil, "主机状态")
+	DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.HostTags, "host-tags", nil, "主机标签")
+	DeleteEventByHostCmd.Flags().Float64SliceVar(&deleteEventByHostParams.Ids, "ids", nil, "主机 ID")
+	DeleteEventByHostCmd.Flags().IntSliceVar(&deleteEventByHostParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.LocationCode, "location-code", nil, "location_code")
+	DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.LoginIp, "login-ip", nil, "登录IP")
+	DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.LoginTime, "login-time", nil, "登录时间")
+	DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.LoginUsername, "login-username", nil, "登录用户名")
+	DeleteEventByHostCmd.Flags().Float64SliceVar(&deleteEventByHostParams.Oid, "oid", nil, "机构 ID")
+	DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
+	DeleteEventByHostCmd.Flags().BoolVar(&deleteEventByHostParams.SelectAll, "select-all", false, "是否选中所有")
+	DeleteEventByHostCmd.Flags().Float64SliceVar(&deleteEventByHostParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
+	DeleteEventByHostCmd.Flags().IntSliceVar(&deleteEventByHostParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	DeleteEventByHostCmd.Flags().StringSliceVar(&deleteEventByHostParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // DeleteEventByHostParams 请求参数
 type DeleteEventByHostParams struct {
-	AuthType []string `json:"auth_type"` // 认证类型
-	Comment []string `json:"comment"` // 用户自定义备注
-	CreatedAt []string `json:"created_at"` // 事件发现时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Ids []float64 `json:"ids"` // 主机 ID
-	Level []int `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	LocationCode []string `json:"location_code"` // location_code
-	LoginIp []string `json:"login_ip"` // 登录IP
-	LoginTime []string `json:"login_time"` // 登录时间
-	LoginUsername []string `json:"login_username"` // 登录用户名
-	Oid []float64 `json:"oid"` // 机构 ID
-	RemoteAddrType []string `json:"remote_addr_type"` // 远程IP类型，intranet(内网)、internet(外网)
-	SelectAll bool `json:"select_all"` // 是否选中所有
-	StatEventId []float64 `json:"stat_event_id"` // 事件统计 ID
-	State []int `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	AuthType       []string                 `json:"auth_type"`        // 认证类型
+	Comment        []string                 `json:"comment"`          // 用户自定义备注
+	CreatedAt      []string                 `json:"created_at"`       // 事件发现时间
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	Gids           []float64                `json:"gids"`             // 业务组 ID
+	HostComment    []string                 `json:"host_comment"`     // 主机备注
+	HostId         []float64                `json:"host_id"`          // 主机 ID
+	HostIp         []string                 `json:"host_ip"`          // 主机 IP
+	HostName       []string                 `json:"host_name"`        // 主机名称
+	HostState      []string                 `json:"host_state"`       // 主机状态
+	HostTags       []string                 `json:"host_tags"`        // 主机标签
+	Ids            []float64                `json:"ids"`              // 主机 ID
+	Level          []int                    `json:"level"`            // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	LocationCode   []string                 `json:"location_code"`    // location_code
+	LoginIp        []string                 `json:"login_ip"`         // 登录IP
+	LoginTime      []string                 `json:"login_time"`       // 登录时间
+	LoginUsername  []string                 `json:"login_username"`   // 登录用户名
+	Oid            []float64                `json:"oid"`              // 机构 ID
+	RemoteAddrType []string                 `json:"remote_addr_type"` // 远程IP类型，intranet(内网)、internet(外网)
+	SelectAll      bool                     `json:"select_all"`       // 是否选中所有
+	StatEventId    []float64                `json:"stat_event_id"`    // 事件统计 ID
+	State          []int                    `json:"state"`            // 事件状态(1-有风险，2-已忽略，3-已处理)
+	WhiteRuleId    []string                 `json:"white_rule_id"`    // 白名单规则 ID
 }
-

@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var GetEventListCmd = &cobra.Command{
 }
 
 func init() {
-		GetEventListCmd.Flags().IntVar(&getEventListParams.Count, "count", 20, "数量")
-		GetEventListCmd.Flags().IntVar(&getEventListParams.HostId, "host-id", 0, "主机 ID")
-		GetEventListCmd.Flags().IntVar(&getEventListParams.Offset, "offset", 0, "偏移量")
+	GetEventListCmd.Flags().IntVar(&getEventListParams.Count, "count", 20, "数量")
+	GetEventListCmd.Flags().IntVar(&getEventListParams.HostId, "host-id", 0, "主机 ID")
+	GetEventListCmd.Flags().IntVar(&getEventListParams.Offset, "offset", 0, "偏移量")
 }
-
 
 // GetEventListParams 请求参数
 type GetEventListParams struct {
-	Count int `json:"count"` // 数量
+	Count  int `json:"count"`   // 数量
 	HostId int `json:"host_id"` // 主机 ID
-	Offset int `json:"offset"` // 偏移量
+	Offset int `json:"offset"`  // 偏移量
 }
-

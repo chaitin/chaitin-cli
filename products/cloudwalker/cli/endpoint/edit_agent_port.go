@@ -3,8 +3,8 @@
 package endpoint
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var EditAgentPortCmd = &cobra.Command{
 }
 
 func init() {
-		EditAgentPortCmd.Flags().IntVar(&editAgentPortParams.AgentAssetPort, "agent-asset-port", 0, "探针资源端口/升级端口")
-		EditAgentPortCmd.Flags().StringVar(&editAgentPortParams.AgentAssetProtocol, "agent-asset-protocol", "", "探针资源端口/升级协议")
-		EditAgentPortCmd.Flags().IntVar(&editAgentPortParams.AgentConnectionPort, "agent-connection-port", 0, "探针通信端口")
+	EditAgentPortCmd.Flags().IntVar(&editAgentPortParams.AgentAssetPort, "agent-asset-port", 0, "探针资源端口/升级端口")
+	EditAgentPortCmd.Flags().StringVar(&editAgentPortParams.AgentAssetProtocol, "agent-asset-protocol", "", "探针资源端口/升级协议")
+	EditAgentPortCmd.Flags().IntVar(&editAgentPortParams.AgentConnectionPort, "agent-connection-port", 0, "探针通信端口")
 }
-
 
 // EditAgentPortParams 请求参数
 type EditAgentPortParams struct {
-	AgentAssetPort int `json:"agent_asset_port"` // 探针资源端口/升级端口
-	AgentAssetProtocol string `json:"agent_asset_protocol"` // 探针资源端口/升级协议
-	AgentConnectionPort int `json:"agent_connection_port"` // 探针通信端口
+	AgentAssetPort      int    `json:"agent_asset_port"`      // 探针资源端口/升级端口
+	AgentAssetProtocol  string `json:"agent_asset_protocol"`  // 探针资源端口/升级协议
+	AgentConnectionPort int    `json:"agent_connection_port"` // 探针通信端口
 }
-

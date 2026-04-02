@@ -3,8 +3,8 @@
 package endpoint
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var EditWebPortCmd = &cobra.Command{
 }
 
 func init() {
-		EditWebPortCmd.Flags().BoolVar(&editWebPortParams.HttpEnabled, "http-enabled", false, "是否启用http访问, true:代表开启http访问，false:代表关闭http访问")
-		EditWebPortCmd.Flags().IntVar(&editWebPortParams.HttpPort, "http-port", 0, "http访问端口")
-		EditWebPortCmd.Flags().IntVar(&editWebPortParams.HttpsPort, "https-port", 0, "https访问端口")
+	EditWebPortCmd.Flags().BoolVar(&editWebPortParams.HttpEnabled, "http-enabled", false, "是否启用http访问, true:代表开启http访问，false:代表关闭http访问")
+	EditWebPortCmd.Flags().IntVar(&editWebPortParams.HttpPort, "http-port", 0, "http访问端口")
+	EditWebPortCmd.Flags().IntVar(&editWebPortParams.HttpsPort, "https-port", 0, "https访问端口")
 }
-
 
 // EditWebPortParams 请求参数
 type EditWebPortParams struct {
 	HttpEnabled bool `json:"http_enabled"` // 是否启用http访问, true:代表开启http访问，false:代表关闭http访问
-	HttpPort int `json:"http_port"` // http访问端口
-	HttpsPort int `json:"https_port"` // https访问端口
+	HttpPort    int  `json:"http_port"`    // http访问端口
+	HttpsPort   int  `json:"https_port"`   // https访问端口
 }
-

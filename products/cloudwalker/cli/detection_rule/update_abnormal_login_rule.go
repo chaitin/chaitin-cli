@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,44 +29,42 @@ var UpdateAbnormalLoginRuleCmd = &cobra.Command{
 }
 
 func init() {
-		UpdateAbnormalLoginRuleCmd.Flags().Float64SliceVar(&updateAbnormalLoginRuleParams.AgentRange, "agent-range", nil, "主机范围")
-		UpdateAbnormalLoginRuleCmd.Flags().StringSliceVar(&updateAbnormalLoginRuleParams.AuthType, "auth-type", nil, "认证类型")
-		UpdateAbnormalLoginRuleCmd.Flags().Float64SliceVar(&updateAbnormalLoginRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		UpdateAbnormalLoginRuleCmd.Flags().StringVar(&updateAbnormalLoginRuleParams.Category, "category", "", "规则类型")
-		UpdateAbnormalLoginRuleCmd.Flags().BoolVar(&updateAbnormalLoginRuleParams.Enable, "enable", false, "是否启用")
-		// geographical_location is complex type []map[string]interface{}, use JSON string
-		var geographicalLocationJSON string
-		UpdateAbnormalLoginRuleCmd.Flags().StringVar(&geographicalLocationJSON, "geographical-location", "", "地理位置 (JSON, e.g. [{\"city\": [\"深圳市\"], \"country\": \"中国\", \"province\": \"广东省\"}])")
-		UpdateAbnormalLoginRuleCmd.Flags().BoolVar(&updateAbnormalLoginRuleParams.Global, "global", false, "是否绑定全局探针")
-		UpdateAbnormalLoginRuleCmd.Flags().StringVar(&updateAbnormalLoginRuleParams.Id, "id", "", "规则ID")
-		UpdateAbnormalLoginRuleCmd.Flags().StringSliceVar(&updateAbnormalLoginRuleParams.Ip, "ip", nil, "IP段")
-		UpdateAbnormalLoginRuleCmd.Flags().IntVar(&updateAbnormalLoginRuleParams.Level, "level", 0, "风险等级(1-低危，2-中危，3-高危，4-严重)")
-		UpdateAbnormalLoginRuleCmd.Flags().StringVar(&updateAbnormalLoginRuleParams.Method, "method", "", "匹配方式")
-		UpdateAbnormalLoginRuleCmd.Flags().Float64Var(&updateAbnormalLoginRuleParams.Priority, "priority", 0, "优先级")
-		UpdateAbnormalLoginRuleCmd.Flags().StringVar(&updateAbnormalLoginRuleParams.RuleName, "rule-name", "", "规则名称")
-		// time is complex type []map[string]interface{}, use JSON string
-		var timeJSON string
-		UpdateAbnormalLoginRuleCmd.Flags().StringVar(&timeJSON, "time", "", "时间段 (JSON, e.g. [{\"start_time\": \"00:00:00\", \"stop_time\": \"23:59:59\", \"weekdays\": [1, 2, 3, 4, 5, 6, 7]}])")
-		UpdateAbnormalLoginRuleCmd.Flags().StringSliceVar(&updateAbnormalLoginRuleParams.User, "user", nil, "用户")
+	UpdateAbnormalLoginRuleCmd.Flags().Float64SliceVar(&updateAbnormalLoginRuleParams.AgentRange, "agent-range", nil, "主机范围")
+	UpdateAbnormalLoginRuleCmd.Flags().StringSliceVar(&updateAbnormalLoginRuleParams.AuthType, "auth-type", nil, "认证类型")
+	UpdateAbnormalLoginRuleCmd.Flags().Float64SliceVar(&updateAbnormalLoginRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	UpdateAbnormalLoginRuleCmd.Flags().StringVar(&updateAbnormalLoginRuleParams.Category, "category", "", "规则类型")
+	UpdateAbnormalLoginRuleCmd.Flags().BoolVar(&updateAbnormalLoginRuleParams.Enable, "enable", false, "是否启用")
+	// geographical_location is complex type []map[string]interface{}, use JSON string
+	var geographicalLocationJSON string
+	UpdateAbnormalLoginRuleCmd.Flags().StringVar(&geographicalLocationJSON, "geographical-location", "", "地理位置 (JSON, e.g. [{\"city\": [\"深圳市\"], \"country\": \"中国\", \"province\": \"广东省\"}])")
+	UpdateAbnormalLoginRuleCmd.Flags().BoolVar(&updateAbnormalLoginRuleParams.Global, "global", false, "是否绑定全局探针")
+	UpdateAbnormalLoginRuleCmd.Flags().StringVar(&updateAbnormalLoginRuleParams.Id, "id", "", "规则ID")
+	UpdateAbnormalLoginRuleCmd.Flags().StringSliceVar(&updateAbnormalLoginRuleParams.Ip, "ip", nil, "IP段")
+	UpdateAbnormalLoginRuleCmd.Flags().IntVar(&updateAbnormalLoginRuleParams.Level, "level", 0, "风险等级(1-低危，2-中危，3-高危，4-严重)")
+	UpdateAbnormalLoginRuleCmd.Flags().StringVar(&updateAbnormalLoginRuleParams.Method, "method", "", "匹配方式")
+	UpdateAbnormalLoginRuleCmd.Flags().Float64Var(&updateAbnormalLoginRuleParams.Priority, "priority", 0, "优先级")
+	UpdateAbnormalLoginRuleCmd.Flags().StringVar(&updateAbnormalLoginRuleParams.RuleName, "rule-name", "", "规则名称")
+	// time is complex type []map[string]interface{}, use JSON string
+	var timeJSON string
+	UpdateAbnormalLoginRuleCmd.Flags().StringVar(&timeJSON, "time", "", "时间段 (JSON, e.g. [{\"start_time\": \"00:00:00\", \"stop_time\": \"23:59:59\", \"weekdays\": [1, 2, 3, 4, 5, 6, 7]}])")
+	UpdateAbnormalLoginRuleCmd.Flags().StringSliceVar(&updateAbnormalLoginRuleParams.User, "user", nil, "用户")
 }
-
 
 // UpdateAbnormalLoginRuleParams 请求参数
 type UpdateAbnormalLoginRuleParams struct {
-	AgentRange []float64 `json:"agent_range"` // 主机范围
-	AuthType []string `json:"auth_type"` // 认证类型
-	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Category string `json:"category"` // 规则类型
-	Enable bool `json:"enable"` // 是否启用
+	AgentRange           []float64                `json:"agent_range"`           // 主机范围
+	AuthType             []string                 `json:"auth_type"`             // 认证类型
+	BusinessGroupRange   []float64                `json:"business_group_range"`  // 业务组范围
+	Category             string                   `json:"category"`              // 规则类型
+	Enable               bool                     `json:"enable"`                // 是否启用
 	GeographicalLocation []map[string]interface{} `json:"geographical_location"` // 地理位置
-	Global bool `json:"global"` // 是否绑定全局探针
-	Id string `json:"id"` // 规则ID
-	Ip []string `json:"ip"` // IP段
-	Level int `json:"level"` // 风险等级(1-低危，2-中危，3-高危，4-严重)
-	Method string `json:"method"` // 匹配方式
-	Priority float64 `json:"priority"` // 优先级
-	RuleName string `json:"rule_name"` // 规则名称
-	Time []map[string]interface{} `json:"time"` // 时间段
-	User []string `json:"user"` // 用户
+	Global               bool                     `json:"global"`                // 是否绑定全局探针
+	Id                   string                   `json:"id"`                    // 规则ID
+	Ip                   []string                 `json:"ip"`                    // IP段
+	Level                int                      `json:"level"`                 // 风险等级(1-低危，2-中危，3-高危，4-严重)
+	Method               string                   `json:"method"`                // 匹配方式
+	Priority             float64                  `json:"priority"`              // 优先级
+	RuleName             string                   `json:"rule_name"`             // 规则名称
+	Time                 []map[string]interface{} `json:"time"`                  // 时间段
+	User                 []string                 `json:"user"`                  // 用户
 }
-

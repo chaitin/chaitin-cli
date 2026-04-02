@@ -3,14 +3,12 @@
 package admin_strategy
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetRadiusCmd = &cobra.Command{
 	Use:   "get_radius",
@@ -31,5 +29,3 @@ var GetRadiusCmd = &cobra.Command{
 func init() {
 
 }
-
-

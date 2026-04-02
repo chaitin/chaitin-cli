@@ -3,8 +3,8 @@
 package website_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,52 +29,50 @@ var GetWebsiteListCmd = &cobra.Command{
 }
 
 func init() {
-		GetWebsiteListCmd.Flags().IntVar(&getWebsiteListParams.Count, "count", 20, "数据量")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetWebsiteListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.Dir, "dir", nil, "路径")
-		GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.Domain, "domain", nil, "域名")
-		GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.Engine, "engine", nil, "服务")
-		GetWebsiteListCmd.Flags().Float64SliceVar(&getWebsiteListParams.Gids, "gids", nil, "业务组 ID 列表")
-		GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.HostComment, "host-comment", nil, "主机备注")
-		GetWebsiteListCmd.Flags().Float64SliceVar(&getWebsiteListParams.HostId, "host-id", nil, "主机 ID")
-		GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.HostIp, "host-ip", nil, "主机 IP")
-		GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.HostName, "host-name", nil, "主机名称")
-		GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.HostState, "host-state", nil, "主机状态")
-		GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.HostTags, "host-tags", nil, "主机标签")
-		GetWebsiteListCmd.Flags().IntVar(&getWebsiteListParams.Offset, "offset", 0, "偏移量")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetWebsiteListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetWebsiteListCmd.Flags().Float64SliceVar(&getWebsiteListParams.Pid, "pid", nil, "进程 id")
-		GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.Pname, "pname", nil, "进程名")
-		GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.Port, "port", nil, "端口数字范围")
-		GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.Protocol, "protocol", nil, "协议")
-		GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.Title, "title", nil, "站点标题")
+	GetWebsiteListCmd.Flags().IntVar(&getWebsiteListParams.Count, "count", 20, "数据量")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetWebsiteListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.Dir, "dir", nil, "路径")
+	GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.Domain, "domain", nil, "域名")
+	GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.Engine, "engine", nil, "服务")
+	GetWebsiteListCmd.Flags().Float64SliceVar(&getWebsiteListParams.Gids, "gids", nil, "业务组 ID 列表")
+	GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.HostComment, "host-comment", nil, "主机备注")
+	GetWebsiteListCmd.Flags().Float64SliceVar(&getWebsiteListParams.HostId, "host-id", nil, "主机 ID")
+	GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.HostIp, "host-ip", nil, "主机 IP")
+	GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.HostName, "host-name", nil, "主机名称")
+	GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.HostState, "host-state", nil, "主机状态")
+	GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.HostTags, "host-tags", nil, "主机标签")
+	GetWebsiteListCmd.Flags().IntVar(&getWebsiteListParams.Offset, "offset", 0, "偏移量")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetWebsiteListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetWebsiteListCmd.Flags().Float64SliceVar(&getWebsiteListParams.Pid, "pid", nil, "进程 id")
+	GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.Pname, "pname", nil, "进程名")
+	GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.Port, "port", nil, "端口数字范围")
+	GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.Protocol, "protocol", nil, "协议")
+	GetWebsiteListCmd.Flags().StringSliceVar(&getWebsiteListParams.Title, "title", nil, "站点标题")
 }
-
 
 // GetWebsiteListParams 请求参数
 type GetWebsiteListParams struct {
-	Count int `json:"count"` // 数据量
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Dir []string `json:"dir"` // 路径
-	Domain []string `json:"domain"` // 域名
-	Engine []string `json:"engine"` // 服务
-	Gids []float64 `json:"gids"` // 业务组 ID 列表
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Offset int `json:"offset"` // 偏移量
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	Pid []float64 `json:"pid"` // 进程 id
-	Pname []string `json:"pname"` // 进程名
-	Port []string `json:"port"` // 端口数字范围
-	Protocol []string `json:"protocol"` // 协议
-	Title []string `json:"title"` // 站点标题
+	Count       int                      `json:"count"`        // 数据量
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Dir         []string                 `json:"dir"`          // 路径
+	Domain      []string                 `json:"domain"`       // 域名
+	Engine      []string                 `json:"engine"`       // 服务
+	Gids        []float64                `json:"gids"`         // 业务组 ID 列表
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机 ID
+	HostIp      []string                 `json:"host_ip"`      // 主机 IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTags    []string                 `json:"host_tags"`    // 主机标签
+	Offset      int                      `json:"offset"`       // 偏移量
+	OrderBy     map[string]interface{}   `json:"order_by"`     // 排序规则
+	Pid         []float64                `json:"pid"`          // 进程 id
+	Pname       []string                 `json:"pname"`        // 进程名
+	Port        []string                 `json:"port"`         // 端口数字范围
+	Protocol    []string                 `json:"protocol"`     // 协议
+	Title       []string                 `json:"title"`        // 站点标题
 }
-

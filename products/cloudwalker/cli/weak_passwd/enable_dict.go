@@ -3,8 +3,8 @@
 package weak_passwd
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var EnableDictCmd = &cobra.Command{
 }
 
 func init() {
-		EnableDictCmd.Flags().IntVar(&enableDictParams.Id, "id", 0, "字典 ID")
+	EnableDictCmd.Flags().IntVar(&enableDictParams.Id, "id", 0, "字典 ID")
 }
-
 
 // EnableDictParams 请求参数
 type EnableDictParams struct {
 	Id int `json:"id"` // 字典 ID
 }
-

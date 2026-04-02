@@ -3,8 +3,8 @@
 package security_strategy
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,24 +29,22 @@ var UpdateSecurityStrategyCmd = &cobra.Command{
 }
 
 func init() {
-		UpdateSecurityStrategyCmd.Flags().IntSliceVar(&updateSecurityStrategyParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		// content is object type, use JSON string
-		var contentJSON string
-		UpdateSecurityStrategyCmd.Flags().StringVar(&contentJSON, "content", "", "安全策略内容 (JSON, e.g. {\"abnormal_login\": {\"ap_dur_critical\": 100, \"ap_dur_high\": 100, \"ap_dur_low\": 100, \"ap_dur_medium\": 100, \"ap_enable\": true, \"enable\": true, \"protect_time\": [{\"start_time\": \"...\", \"stop_time\": \"...\", \"weekdays\": \"...\"}], \"protect_time_strategy\": \"\"}, \"bruteforce\": {\"ap_dur_critical\": 100, \"ap_dur_high\": 100, \"ap_dur_low\": 100, \"ap_dur_medium\": 100, \"ap_enable\": true, \"enable\": true, \"ftp_enable\": true, \"protect_time\": [{\"start_time\": \"...\", \"stop_time\": \"...\", \"weekdays\": \"...\"}], \"protect_time_strategy\": \"\", \"rdp_enable\": true, \"smb_enable\": true, \"ssh_enable\": true, \"winrm_enable\": true}, \"elevation_process\": {\"enable\": true, \"process_kill_enable\": false, \"process_kill_event_level\": [\"\"], \"protect_time\": [{\"start_time\": \"...\", \"stop_time\": \"...\", \"weekdays\": \"...\"}], \"protect_time_strategy\": \"\"}, \"...\": \"...\"})")
-		UpdateSecurityStrategyCmd.Flags().StringVar(&updateSecurityStrategyParams.Id, "id", "", "安全策略ID")
-		UpdateSecurityStrategyCmd.Flags().StringVar(&updateSecurityStrategyParams.Name, "name", "", "安全策略名称")
-		UpdateSecurityStrategyCmd.Flags().StringVar(&updateSecurityStrategyParams.Remark, "remark", "", "安全策略备注")
-		UpdateSecurityStrategyCmd.Flags().StringVar(&updateSecurityStrategyParams.SourceId, "source-id", "", "来源策略ID")
+	UpdateSecurityStrategyCmd.Flags().IntSliceVar(&updateSecurityStrategyParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	// content is object type, use JSON string
+	var contentJSON string
+	UpdateSecurityStrategyCmd.Flags().StringVar(&contentJSON, "content", "", "安全策略内容 (JSON, e.g. {\"abnormal_login\": {\"ap_dur_critical\": 100, \"ap_dur_high\": 100, \"ap_dur_low\": 100, \"ap_dur_medium\": 100, \"ap_enable\": true, \"enable\": true, \"protect_time\": [{\"start_time\": \"...\", \"stop_time\": \"...\", \"weekdays\": \"...\"}], \"protect_time_strategy\": \"\"}, \"bruteforce\": {\"ap_dur_critical\": 100, \"ap_dur_high\": 100, \"ap_dur_low\": 100, \"ap_dur_medium\": 100, \"ap_enable\": true, \"enable\": true, \"ftp_enable\": true, \"protect_time\": [{\"start_time\": \"...\", \"stop_time\": \"...\", \"weekdays\": \"...\"}], \"protect_time_strategy\": \"\", \"rdp_enable\": true, \"smb_enable\": true, \"ssh_enable\": true, \"winrm_enable\": true}, \"elevation_process\": {\"enable\": true, \"process_kill_enable\": false, \"process_kill_event_level\": [\"\"], \"protect_time\": [{\"start_time\": \"...\", \"stop_time\": \"...\", \"weekdays\": \"...\"}], \"protect_time_strategy\": \"\"}, \"...\": \"...\"})")
+	UpdateSecurityStrategyCmd.Flags().StringVar(&updateSecurityStrategyParams.Id, "id", "", "安全策略ID")
+	UpdateSecurityStrategyCmd.Flags().StringVar(&updateSecurityStrategyParams.Name, "name", "", "安全策略名称")
+	UpdateSecurityStrategyCmd.Flags().StringVar(&updateSecurityStrategyParams.Remark, "remark", "", "安全策略备注")
+	UpdateSecurityStrategyCmd.Flags().StringVar(&updateSecurityStrategyParams.SourceId, "source-id", "", "来源策略ID")
 }
-
 
 // UpdateSecurityStrategyParams 请求参数
 type UpdateSecurityStrategyParams struct {
-	BusinessGroupRange []int `json:"business_group_range"` // 业务组范围
-	Content map[string]interface{} `json:"content"` // 安全策略内容
-	Id string `json:"id"` // 安全策略ID
-	Name string `json:"name"` // 安全策略名称
-	Remark string `json:"remark"` // 安全策略备注
-	SourceId string `json:"source_id"` // 来源策略ID
+	BusinessGroupRange []int                  `json:"business_group_range"` // 业务组范围
+	Content            map[string]interface{} `json:"content"`              // 安全策略内容
+	Id                 string                 `json:"id"`                   // 安全策略ID
+	Name               string                 `json:"name"`                 // 安全策略名称
+	Remark             string                 `json:"remark"`               // 安全策略备注
+	SourceId           string                 `json:"source_id"`            // 来源策略ID
 }
-

@@ -3,8 +3,8 @@
 package sensitive_user
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,50 +29,48 @@ var EditCommentCmd = &cobra.Command{
 }
 
 func init() {
-		EditCommentCmd.Flags().StringSliceVar(&editCommentParams.CreatedAt, "created-at", nil, "创建时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		EditCommentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		EditCommentCmd.Flags().StringSliceVar(&editCommentParams.EventComment, "event-comment", nil, "事件备注")
-		EditCommentCmd.Flags().Float64SliceVar(&editCommentParams.EventId, "event-id", nil, "事件 ID")
-		EditCommentCmd.Flags().StringSliceVar(&editCommentParams.EventType, "event-type", nil, "事件类型")
-		EditCommentCmd.Flags().Float64SliceVar(&editCommentParams.Gid, "gid", nil, "GID")
-		EditCommentCmd.Flags().Float64SliceVar(&editCommentParams.Gids, "gids", nil, "业务组 ID 列表")
-		EditCommentCmd.Flags().StringSliceVar(&editCommentParams.HostComment, "host-comment", nil, "主机备注")
-		EditCommentCmd.Flags().Float64SliceVar(&editCommentParams.HostId, "host-id", nil, "主机 ID")
-		EditCommentCmd.Flags().StringSliceVar(&editCommentParams.HostIp, "host-ip", nil, "主机 IP")
-		EditCommentCmd.Flags().StringSliceVar(&editCommentParams.HostName, "host-name", nil, "主机名称")
-		EditCommentCmd.Flags().StringSliceVar(&editCommentParams.HostState, "host-state", nil, "主机状态")
-		EditCommentCmd.Flags().StringSliceVar(&editCommentParams.HostTags, "host-tags", nil, "主机标签")
-		EditCommentCmd.Flags().StringVar(&editCommentParams.NewComment, "new-comment", "", "新备注")
-		EditCommentCmd.Flags().Float64SliceVar(&editCommentParams.Oid, "oid", nil, "机构 ID")
-		EditCommentCmd.Flags().StringSliceVar(&editCommentParams.Sid, "sid", nil, "SID")
-		EditCommentCmd.Flags().Float64SliceVar(&editCommentParams.Uid, "uid", nil, "UID")
-		EditCommentCmd.Flags().StringSliceVar(&editCommentParams.User, "user", nil, "用户名")
-		EditCommentCmd.Flags().StringSliceVar(&editCommentParams.UserGroup, "user-group", nil, "用户组名")
+	EditCommentCmd.Flags().StringSliceVar(&editCommentParams.CreatedAt, "created-at", nil, "创建时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	EditCommentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	EditCommentCmd.Flags().StringSliceVar(&editCommentParams.EventComment, "event-comment", nil, "事件备注")
+	EditCommentCmd.Flags().Float64SliceVar(&editCommentParams.EventId, "event-id", nil, "事件 ID")
+	EditCommentCmd.Flags().StringSliceVar(&editCommentParams.EventType, "event-type", nil, "事件类型")
+	EditCommentCmd.Flags().Float64SliceVar(&editCommentParams.Gid, "gid", nil, "GID")
+	EditCommentCmd.Flags().Float64SliceVar(&editCommentParams.Gids, "gids", nil, "业务组 ID 列表")
+	EditCommentCmd.Flags().StringSliceVar(&editCommentParams.HostComment, "host-comment", nil, "主机备注")
+	EditCommentCmd.Flags().Float64SliceVar(&editCommentParams.HostId, "host-id", nil, "主机 ID")
+	EditCommentCmd.Flags().StringSliceVar(&editCommentParams.HostIp, "host-ip", nil, "主机 IP")
+	EditCommentCmd.Flags().StringSliceVar(&editCommentParams.HostName, "host-name", nil, "主机名称")
+	EditCommentCmd.Flags().StringSliceVar(&editCommentParams.HostState, "host-state", nil, "主机状态")
+	EditCommentCmd.Flags().StringSliceVar(&editCommentParams.HostTags, "host-tags", nil, "主机标签")
+	EditCommentCmd.Flags().StringVar(&editCommentParams.NewComment, "new-comment", "", "新备注")
+	EditCommentCmd.Flags().Float64SliceVar(&editCommentParams.Oid, "oid", nil, "机构 ID")
+	EditCommentCmd.Flags().StringSliceVar(&editCommentParams.Sid, "sid", nil, "SID")
+	EditCommentCmd.Flags().Float64SliceVar(&editCommentParams.Uid, "uid", nil, "UID")
+	EditCommentCmd.Flags().StringSliceVar(&editCommentParams.User, "user", nil, "用户名")
+	EditCommentCmd.Flags().StringSliceVar(&editCommentParams.UserGroup, "user-group", nil, "用户组名")
 }
-
 
 // EditCommentParams 请求参数
 type EditCommentParams struct {
-	CreatedAt []string `json:"created_at"` // 创建时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	EventComment []string `json:"event_comment"` // 事件备注
-	EventId []float64 `json:"event_id"` // 事件 ID
-	EventType []string `json:"event_type"` // 事件类型
-	Gid []float64 `json:"gid"` // GID
-	Gids []float64 `json:"gids"` // 业务组 ID 列表
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	NewComment string `json:"new_comment"` // 新备注
-	Oid []float64 `json:"oid"` // 机构 ID
-	Sid []string `json:"sid"` // SID
-	Uid []float64 `json:"uid"` // UID
-	User []string `json:"user"` // 用户名
-	UserGroup []string `json:"user_group"` // 用户组名
+	CreatedAt    []string                 `json:"created_at"`    // 创建时间
+	CustomAttr   []map[string]interface{} `json:"custom_attr"`   // 主机业务属性
+	EventComment []string                 `json:"event_comment"` // 事件备注
+	EventId      []float64                `json:"event_id"`      // 事件 ID
+	EventType    []string                 `json:"event_type"`    // 事件类型
+	Gid          []float64                `json:"gid"`           // GID
+	Gids         []float64                `json:"gids"`          // 业务组 ID 列表
+	HostComment  []string                 `json:"host_comment"`  // 主机备注
+	HostId       []float64                `json:"host_id"`       // 主机 ID
+	HostIp       []string                 `json:"host_ip"`       // 主机 IP
+	HostName     []string                 `json:"host_name"`     // 主机名称
+	HostState    []string                 `json:"host_state"`    // 主机状态
+	HostTags     []string                 `json:"host_tags"`     // 主机标签
+	NewComment   string                   `json:"new_comment"`   // 新备注
+	Oid          []float64                `json:"oid"`           // 机构 ID
+	Sid          []string                 `json:"sid"`           // SID
+	Uid          []float64                `json:"uid"`           // UID
+	User         []string                 `json:"user"`          // 用户名
+	UserGroup    []string                 `json:"user_group"`    // 用户组名
 }
-

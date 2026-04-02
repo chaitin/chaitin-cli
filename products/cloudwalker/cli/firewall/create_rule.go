@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,32 +29,30 @@ var CreateRuleCmd = &cobra.Command{
 }
 
 func init() {
-		CreateRuleCmd.Flags().StringVar(&createRuleParams.Action, "action", "", "动作")
-		// dest is object type, use JSON string
-		var destJSON string
-		CreateRuleCmd.Flags().StringVar(&destJSON, "dest", "", "被访问者 (JSON, e.g. {\"cidr\": [\"\"], \"domain\": [\"\"], \"group_id\": [0.0], \"group_name\": [\"\"], \"host_id\": [0.0], \"host_ip\": [\"\"], \"tags\": [\"\"], \"type\": 1})")
-		CreateRuleCmd.Flags().BoolVar(&createRuleParams.Enable, "enable", false, "是否开启规则")
-		CreateRuleCmd.Flags().BoolVar(&createRuleParams.FilterSpecialAddress, "filter-special-address", false, "是否过滤特殊地址")
-		CreateRuleCmd.Flags().StringVar(&createRuleParams.Name, "name", "", "规则名")
-		CreateRuleCmd.Flags().StringSliceVar(&createRuleParams.Ports, "ports", nil, "端口范围")
-		CreateRuleCmd.Flags().IntVar(&createRuleParams.Priority, "priority", 0, "优先级，数字越低优先级越高，优先级相同按修改时间倒序")
-		CreateRuleCmd.Flags().StringVar(&createRuleParams.Protocol, "protocol", "", "传输协议")
-		// source is object type, use JSON string
-		var sourceJSON string
-		CreateRuleCmd.Flags().StringVar(&sourceJSON, "source", "", "访问者 (JSON, e.g. {\"cidr\": [\"\"], \"domain\": [\"\"], \"group_id\": [0.0], \"group_name\": [\"\"], \"host_id\": [0.0], \"host_ip\": [\"\"], \"tags\": [\"\"], \"type\": 1})")
+	CreateRuleCmd.Flags().StringVar(&createRuleParams.Action, "action", "", "动作")
+	// dest is object type, use JSON string
+	var destJSON string
+	CreateRuleCmd.Flags().StringVar(&destJSON, "dest", "", "被访问者 (JSON, e.g. {\"cidr\": [\"\"], \"domain\": [\"\"], \"group_id\": [0.0], \"group_name\": [\"\"], \"host_id\": [0.0], \"host_ip\": [\"\"], \"tags\": [\"\"], \"type\": 1})")
+	CreateRuleCmd.Flags().BoolVar(&createRuleParams.Enable, "enable", false, "是否开启规则")
+	CreateRuleCmd.Flags().BoolVar(&createRuleParams.FilterSpecialAddress, "filter-special-address", false, "是否过滤特殊地址")
+	CreateRuleCmd.Flags().StringVar(&createRuleParams.Name, "name", "", "规则名")
+	CreateRuleCmd.Flags().StringSliceVar(&createRuleParams.Ports, "ports", nil, "端口范围")
+	CreateRuleCmd.Flags().IntVar(&createRuleParams.Priority, "priority", 0, "优先级，数字越低优先级越高，优先级相同按修改时间倒序")
+	CreateRuleCmd.Flags().StringVar(&createRuleParams.Protocol, "protocol", "", "传输协议")
+	// source is object type, use JSON string
+	var sourceJSON string
+	CreateRuleCmd.Flags().StringVar(&sourceJSON, "source", "", "访问者 (JSON, e.g. {\"cidr\": [\"\"], \"domain\": [\"\"], \"group_id\": [0.0], \"group_name\": [\"\"], \"host_id\": [0.0], \"host_ip\": [\"\"], \"tags\": [\"\"], \"type\": 1})")
 }
-
 
 // CreateRuleParams 请求参数
 type CreateRuleParams struct {
-	Action string `json:"action"` // 动作
-	Dest map[string]interface{} `json:"dest"` // 被访问者
-	Enable bool `json:"enable"` // 是否开启规则
-	FilterSpecialAddress bool `json:"filter_special_address"` // 是否过滤特殊地址
-	Name string `json:"name"` // 规则名
-	Ports []string `json:"ports"` // 端口范围
-	Priority int `json:"priority"` // 优先级，数字越低优先级越高，优先级相同按修改时间倒序
-	Protocol string `json:"protocol"` // 传输协议
-	Source map[string]interface{} `json:"source"` // 访问者
+	Action               string                 `json:"action"`                 // 动作
+	Dest                 map[string]interface{} `json:"dest"`                   // 被访问者
+	Enable               bool                   `json:"enable"`                 // 是否开启规则
+	FilterSpecialAddress bool                   `json:"filter_special_address"` // 是否过滤特殊地址
+	Name                 string                 `json:"name"`                   // 规则名
+	Ports                []string               `json:"ports"`                  // 端口范围
+	Priority             int                    `json:"priority"`               // 优先级，数字越低优先级越高，优先级相同按修改时间倒序
+	Protocol             string                 `json:"protocol"`               // 传输协议
+	Source               map[string]interface{} `json:"source"`                 // 访问者
 }
-

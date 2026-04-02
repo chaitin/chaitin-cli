@@ -3,8 +3,8 @@
 package whitelist
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,46 +29,44 @@ var ListWhitelistCmd = &cobra.Command{
 }
 
 func init() {
-		ListWhitelistCmd.Flags().IntVar(&listWhitelistParams.Count, "count", 20, "每页记录数量")
-		ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.CreatedAt, "created-at", nil, "创建时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		ListWhitelistCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		ListWhitelistCmd.Flags().BoolVar(&listWhitelistParams.Enable, "enable", false, "是否启用")
-		ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.HostComment, "host-comment", nil, "主机备注")
-		ListWhitelistCmd.Flags().Float64SliceVar(&listWhitelistParams.HostId, "host-id", nil, "主机ID")
-		ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.HostIp, "host-ip", nil, "主机IP")
-		ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.HostName, "host-name", nil, "主机名称")
-		ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.HostState, "host-state", nil, "主机状态")
-		ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.HostTag, "host-tag", nil, "主机标签")
-		ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.Id, "id", nil, "规则 ID")
-		ListWhitelistCmd.Flags().IntVar(&listWhitelistParams.Offset, "offset", 0, "页偏移")
-		ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.Remark, "remark", nil, "备注")
-		ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.Rule, "rule", nil, "匹配规则")
-		ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.RuleName, "rule-name", nil, "规则名称")
-		ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.Type, "type", nil, "规则类型")
-		ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.UpdatedAt, "updated-at", nil, "更新时间")
+	ListWhitelistCmd.Flags().IntVar(&listWhitelistParams.Count, "count", 20, "每页记录数量")
+	ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.CreatedAt, "created-at", nil, "创建时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	ListWhitelistCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	ListWhitelistCmd.Flags().BoolVar(&listWhitelistParams.Enable, "enable", false, "是否启用")
+	ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.HostComment, "host-comment", nil, "主机备注")
+	ListWhitelistCmd.Flags().Float64SliceVar(&listWhitelistParams.HostId, "host-id", nil, "主机ID")
+	ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.HostIp, "host-ip", nil, "主机IP")
+	ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.HostName, "host-name", nil, "主机名称")
+	ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.HostState, "host-state", nil, "主机状态")
+	ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.HostTag, "host-tag", nil, "主机标签")
+	ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.Id, "id", nil, "规则 ID")
+	ListWhitelistCmd.Flags().IntVar(&listWhitelistParams.Offset, "offset", 0, "页偏移")
+	ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.Remark, "remark", nil, "备注")
+	ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.Rule, "rule", nil, "匹配规则")
+	ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.RuleName, "rule-name", nil, "规则名称")
+	ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.Type, "type", nil, "规则类型")
+	ListWhitelistCmd.Flags().StringSliceVar(&listWhitelistParams.UpdatedAt, "updated-at", nil, "更新时间")
 }
-
 
 // ListWhitelistParams 请求参数
 type ListWhitelistParams struct {
-	Count int `json:"count"` // 每页记录数量
-	CreatedAt []string `json:"created_at"` // 创建时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Enable bool `json:"enable"` // 是否启用
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTag []string `json:"host_tag"` // 主机标签
-	Id []string `json:"id"` // 规则 ID
-	Offset int `json:"offset"` // 页偏移
-	Remark []string `json:"remark"` // 备注
-	Rule []string `json:"rule"` // 匹配规则
-	RuleName []string `json:"rule_name"` // 规则名称
-	Type []string `json:"type"` // 规则类型
-	UpdatedAt []string `json:"updated_at"` // 更新时间
+	Count       int                      `json:"count"`        // 每页记录数量
+	CreatedAt   []string                 `json:"created_at"`   // 创建时间
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Enable      bool                     `json:"enable"`       // 是否启用
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机ID
+	HostIp      []string                 `json:"host_ip"`      // 主机IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTag     []string                 `json:"host_tag"`     // 主机标签
+	Id          []string                 `json:"id"`           // 规则 ID
+	Offset      int                      `json:"offset"`       // 页偏移
+	Remark      []string                 `json:"remark"`       // 备注
+	Rule        []string                 `json:"rule"`         // 匹配规则
+	RuleName    []string                 `json:"rule_name"`    // 规则名称
+	Type        []string                 `json:"type"`         // 规则类型
+	UpdatedAt   []string                 `json:"updated_at"`   // 更新时间
 }
-

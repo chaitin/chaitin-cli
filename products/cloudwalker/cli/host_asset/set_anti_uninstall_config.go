@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var SetAntiUninstallConfigCmd = &cobra.Command{
 }
 
 func init() {
-		SetAntiUninstallConfigCmd.Flags().StringVar(&setAntiUninstallConfigParams.AntiUninstallStatus, "anti-uninstall-status", "", "防卸载状态，enable:防卸载开启，disable:防卸载关闭")
-		SetAntiUninstallConfigCmd.Flags().StringVar(&setAntiUninstallConfigParams.Totp, "totp", "", "双因子认证口令")
+	SetAntiUninstallConfigCmd.Flags().StringVar(&setAntiUninstallConfigParams.AntiUninstallStatus, "anti-uninstall-status", "", "防卸载状态，enable:防卸载开启，disable:防卸载关闭")
+	SetAntiUninstallConfigCmd.Flags().StringVar(&setAntiUninstallConfigParams.Totp, "totp", "", "双因子认证口令")
 }
-
 
 // SetAntiUninstallConfigParams 请求参数
 type SetAntiUninstallConfigParams struct {
 	AntiUninstallStatus string `json:"anti_uninstall_status"` // 防卸载状态，enable:防卸载开启，disable:防卸载关闭
-	Totp string `json:"totp"` // 双因子认证口令
+	Totp                string `json:"totp"`                  // 双因子认证口令
 }
-

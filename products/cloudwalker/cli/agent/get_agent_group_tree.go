@@ -3,14 +3,12 @@
 package agent
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetAgentGroupTreeCmd = &cobra.Command{
 	Use:   "get_agent_group_tree",
@@ -31,5 +29,3 @@ var GetAgentGroupTreeCmd = &cobra.Command{
 func init() {
 
 }
-
-

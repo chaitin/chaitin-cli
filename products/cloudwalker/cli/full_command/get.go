@@ -3,8 +3,8 @@
 package full_command
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var GetCmd = &cobra.Command{
 }
 
 func init() {
-		GetCmd.Flags().IntVar(&getParams.Id, "id", 0, "id")
-		GetCmd.Flags().StringVar(&getParams.SessionId, "session-id", "", "会话id")
+	GetCmd.Flags().IntVar(&getParams.Id, "id", 0, "id")
+	GetCmd.Flags().StringVar(&getParams.SessionId, "session-id", "", "会话id")
 }
-
 
 // GetParams 请求参数
 type GetParams struct {
-	Id int `json:"id"` // id
+	Id        int    `json:"id"`         // id
 	SessionId string `json:"session_id"` // 会话id
 }
-

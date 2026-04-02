@@ -3,8 +3,8 @@
 package mimicry
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,52 +29,50 @@ var ListEventCmd = &cobra.Command{
 }
 
 func init() {
-		ListEventCmd.Flags().IntVar(&listEventParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		ListEventCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		ListEventCmd.Flags().StringSliceVar(&listEventParams.ExposedIp, "exposed-ip", nil, "主机外网 IP")
-		ListEventCmd.Flags().StringSliceVar(&listEventParams.FilePath, "file-path", nil, "文件路径")
-		ListEventCmd.Flags().Float64SliceVar(&listEventParams.Gids, "gids", nil, "主机业务组 ID")
-		ListEventCmd.Flags().StringSliceVar(&listEventParams.HostComment, "host-comment", nil, "主机备注")
-		ListEventCmd.Flags().StringSliceVar(&listEventParams.HostIp, "host-ip", nil, "主机 IP")
-		ListEventCmd.Flags().StringSliceVar(&listEventParams.HostTags, "host-tags", nil, "主机标签")
-		ListEventCmd.Flags().Float64SliceVar(&listEventParams.Id, "id", nil, "防护事件ID")
-		ListEventCmd.Flags().StringSliceVar(&listEventParams.InternalIp, "internal-ip", nil, "主机内网 IP")
-		ListEventCmd.Flags().Float64SliceVar(&listEventParams.IntrusionId, "intrusion-id", nil, "入侵事件ID")
-		ListEventCmd.Flags().Float64SliceVar(&listEventParams.IntrusionType, "intrusion-type", nil, "事件类型, 1webshell, 2恶意文件")
-		ListEventCmd.Flags().StringSliceVar(&listEventParams.LastModifyTime, "last-modify-time", nil, "最近操作事件，长度必须为2")
-		ListEventCmd.Flags().StringSliceVar(&listEventParams.Md5, "md5", nil, "文件MD5")
-		ListEventCmd.Flags().IntVar(&listEventParams.Offset, "offset", 0, "页偏移, 默认为 0")
-		ListEventCmd.Flags().Float64SliceVar(&listEventParams.Oid, "oid", nil, "组织ID")
-		ListEventCmd.Flags().StringSliceVar(&listEventParams.Operator, "operator", nil, "处理人")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		ListEventCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		ListEventCmd.Flags().Float64SliceVar(&listEventParams.Status, "status", nil, "防护状态，1拟态防护中，2拟态防护结束")
+	ListEventCmd.Flags().IntVar(&listEventParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	ListEventCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	ListEventCmd.Flags().StringSliceVar(&listEventParams.ExposedIp, "exposed-ip", nil, "主机外网 IP")
+	ListEventCmd.Flags().StringSliceVar(&listEventParams.FilePath, "file-path", nil, "文件路径")
+	ListEventCmd.Flags().Float64SliceVar(&listEventParams.Gids, "gids", nil, "主机业务组 ID")
+	ListEventCmd.Flags().StringSliceVar(&listEventParams.HostComment, "host-comment", nil, "主机备注")
+	ListEventCmd.Flags().StringSliceVar(&listEventParams.HostIp, "host-ip", nil, "主机 IP")
+	ListEventCmd.Flags().StringSliceVar(&listEventParams.HostTags, "host-tags", nil, "主机标签")
+	ListEventCmd.Flags().Float64SliceVar(&listEventParams.Id, "id", nil, "防护事件ID")
+	ListEventCmd.Flags().StringSliceVar(&listEventParams.InternalIp, "internal-ip", nil, "主机内网 IP")
+	ListEventCmd.Flags().Float64SliceVar(&listEventParams.IntrusionId, "intrusion-id", nil, "入侵事件ID")
+	ListEventCmd.Flags().Float64SliceVar(&listEventParams.IntrusionType, "intrusion-type", nil, "事件类型, 1webshell, 2恶意文件")
+	ListEventCmd.Flags().StringSliceVar(&listEventParams.LastModifyTime, "last-modify-time", nil, "最近操作事件，长度必须为2")
+	ListEventCmd.Flags().StringSliceVar(&listEventParams.Md5, "md5", nil, "文件MD5")
+	ListEventCmd.Flags().IntVar(&listEventParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	ListEventCmd.Flags().Float64SliceVar(&listEventParams.Oid, "oid", nil, "组织ID")
+	ListEventCmd.Flags().StringSliceVar(&listEventParams.Operator, "operator", nil, "处理人")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	ListEventCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	ListEventCmd.Flags().Float64SliceVar(&listEventParams.Status, "status", nil, "防护状态，1拟态防护中，2拟态防护结束")
 }
-
 
 // ListEventParams 请求参数
 type ListEventParams struct {
-	Count int `json:"count"` // 每页记录数量, 默认为 20
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	ExposedIp []string `json:"exposed_ip"` // 主机外网 IP
-	FilePath []string `json:"file_path"` // 文件路径
-	Gids []float64 `json:"gids"` // 主机业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostTags []string `json:"host_tags"` // 主机标签
-	Id []float64 `json:"id"` // 防护事件ID
-	InternalIp []string `json:"internal_ip"` // 主机内网 IP
-	IntrusionId []float64 `json:"intrusion_id"` // 入侵事件ID
-	IntrusionType []float64 `json:"intrusion_type"` // 事件类型, 1webshell, 2恶意文件
-	LastModifyTime []string `json:"last_modify_time"` // 最近操作事件，长度必须为2
-	Md5 []string `json:"md5"` // 文件MD5
-	Offset int `json:"offset"` // 页偏移, 默认为 0
-	Oid []float64 `json:"oid"` // 组织ID
-	Operator []string `json:"operator"` // 处理人
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	Status []float64 `json:"status"` // 防护状态，1拟态防护中，2拟态防护结束
+	Count          int                      `json:"count"`            // 每页记录数量, 默认为 20
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	ExposedIp      []string                 `json:"exposed_ip"`       // 主机外网 IP
+	FilePath       []string                 `json:"file_path"`        // 文件路径
+	Gids           []float64                `json:"gids"`             // 主机业务组 ID
+	HostComment    []string                 `json:"host_comment"`     // 主机备注
+	HostIp         []string                 `json:"host_ip"`          // 主机 IP
+	HostTags       []string                 `json:"host_tags"`        // 主机标签
+	Id             []float64                `json:"id"`               // 防护事件ID
+	InternalIp     []string                 `json:"internal_ip"`      // 主机内网 IP
+	IntrusionId    []float64                `json:"intrusion_id"`     // 入侵事件ID
+	IntrusionType  []float64                `json:"intrusion_type"`   // 事件类型, 1webshell, 2恶意文件
+	LastModifyTime []string                 `json:"last_modify_time"` // 最近操作事件，长度必须为2
+	Md5            []string                 `json:"md5"`              // 文件MD5
+	Offset         int                      `json:"offset"`           // 页偏移, 默认为 0
+	Oid            []float64                `json:"oid"`              // 组织ID
+	Operator       []string                 `json:"operator"`         // 处理人
+	OrderBy        map[string]interface{}   `json:"order_by"`         // 排序规则
+	Status         []float64                `json:"status"`           // 防护状态，1拟态防护中，2拟态防护结束
 }
-

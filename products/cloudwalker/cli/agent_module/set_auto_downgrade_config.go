@@ -3,8 +3,8 @@
 package agent_module
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,24 +29,22 @@ var SetAutoDowngradeConfigCmd = &cobra.Command{
 }
 
 func init() {
-		// auto_downgrade_config is object type, use JSON string
-		var autoDowngradeConfigJSON string
-		SetAutoDowngradeConfigCmd.Flags().StringVar(&autoDowngradeConfigJSON, "auto-downgrade-config", "", "auto_downgrade_config (JSON, e.g. {\"action\": \"\", \"resource_occupy\": {\"overload_cpu\": 0, \"overload_memory\": 0}, \"time_slot\": [{\"end\": {\"hour\": \"...\", \"minute\": \"...\", \"second\": \"...\"}, \"start\": {\"hour\": \"...\", \"minute\": \"...\", \"second\": \"...\"}, \"weekdays\": [\"...\"]}], \"...\": \"...\"})")
-		SetAutoDowngradeConfigCmd.Flags().BoolVar(&setAutoDowngradeConfigParams.EnableAutoDowngrade, "enable-auto-downgrade", false, "enable_auto_downgrade")
-		// filter is object type, use JSON string
-		var filterJSON string
-		SetAutoDowngradeConfigCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"agent_install_plan_id\": [1, 2], \"agent_mem_size\": [\"1GB\"], \"agent_memory_rate\": [\"0.03298633\"], \"...\": \"...\"})")
-		// select_filter is object type, use JSON string
-		var selectFilterJSON string
-		SetAutoDowngradeConfigCmd.Flags().StringVar(&selectFilterJSON, "select-filter", "", "是否全选&主机ID (JSON, e.g. {\"select\": [{\"id\": 196}], \"select_all\": true})")
+	// auto_downgrade_config is object type, use JSON string
+	var autoDowngradeConfigJSON string
+	SetAutoDowngradeConfigCmd.Flags().StringVar(&autoDowngradeConfigJSON, "auto-downgrade-config", "", "auto_downgrade_config (JSON, e.g. {\"action\": \"\", \"resource_occupy\": {\"overload_cpu\": 0, \"overload_memory\": 0}, \"time_slot\": [{\"end\": {\"hour\": \"...\", \"minute\": \"...\", \"second\": \"...\"}, \"start\": {\"hour\": \"...\", \"minute\": \"...\", \"second\": \"...\"}, \"weekdays\": [\"...\"]}], \"...\": \"...\"})")
+	SetAutoDowngradeConfigCmd.Flags().BoolVar(&setAutoDowngradeConfigParams.EnableAutoDowngrade, "enable-auto-downgrade", false, "enable_auto_downgrade")
+	// filter is object type, use JSON string
+	var filterJSON string
+	SetAutoDowngradeConfigCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"agent_install_plan_id\": [1, 2], \"agent_mem_size\": [\"1GB\"], \"agent_memory_rate\": [\"0.03298633\"], \"...\": \"...\"})")
+	// select_filter is object type, use JSON string
+	var selectFilterJSON string
+	SetAutoDowngradeConfigCmd.Flags().StringVar(&selectFilterJSON, "select-filter", "", "是否全选&主机ID (JSON, e.g. {\"select\": [{\"id\": 196}], \"select_all\": true})")
 }
-
 
 // SetAutoDowngradeConfigParams 请求参数
 type SetAutoDowngradeConfigParams struct {
 	AutoDowngradeConfig map[string]interface{} `json:"auto_downgrade_config"` // auto_downgrade_config
-	EnableAutoDowngrade bool `json:"enable_auto_downgrade"` // enable_auto_downgrade
-	Filter map[string]interface{} `json:"filter"` // 筛选器
-	SelectFilter map[string]interface{} `json:"select_filter"` // 是否全选&主机ID
+	EnableAutoDowngrade bool                   `json:"enable_auto_downgrade"` // enable_auto_downgrade
+	Filter              map[string]interface{} `json:"filter"`                // 筛选器
+	SelectFilter        map[string]interface{} `json:"select_filter"`         // 是否全选&主机ID
 }
-

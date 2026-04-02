@@ -3,8 +3,8 @@
 package sensitive_port
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,72 +29,70 @@ var GetPortViewEventListCmd = &cobra.Command{
 }
 
 func init() {
-		GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.Cmdline, "cmdline", nil, "命令行")
-		GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.Comment, "comment", nil, "用户自定义备注")
-		GetPortViewEventListCmd.Flags().Float64Var(&getPortViewEventListParams.Count, "count", 20, "数量")
-		GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.CreatedAt, "created-at", nil, "创建时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetPortViewEventListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.Exepath, "exepath", nil, "可执行文件路径")
-		GetPortViewEventListCmd.Flags().Float64SliceVar(&getPortViewEventListParams.Gids, "gids", nil, "业务组 ID 列表")
-		GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.HostComment, "host-comment", nil, "主机备注")
-		GetPortViewEventListCmd.Flags().Float64SliceVar(&getPortViewEventListParams.HostId, "host-id", nil, "主机 ID")
-		GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.HostIp, "host-ip", nil, "主机 IP")
-		GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.HostName, "host-name", nil, "主机名称")
-		GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.HostState, "host-state", nil, "主机状态")
-		GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.HostTags, "host-tags", nil, "主机标签")
-		GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.Ip, "ip", nil, "IP")
-		GetPortViewEventListCmd.Flags().IntSliceVar(&getPortViewEventListParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		GetPortViewEventListCmd.Flags().Float64Var(&getPortViewEventListParams.Offset, "offset", 0, "偏移量")
-		GetPortViewEventListCmd.Flags().Float64SliceVar(&getPortViewEventListParams.Oid, "oid", nil, "机构 ID")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetPortViewEventListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetPortViewEventListCmd.Flags().Float64SliceVar(&getPortViewEventListParams.Pid, "pid", nil, "PID")
-		GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.Pname, "pname", nil, "进程名")
-		GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.Port, "port", nil, "端口")
-		GetPortViewEventListCmd.Flags().Float64SliceVar(&getPortViewEventListParams.PortState, "port-state", nil, "端口状态")
-		GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.Protocol, "protocol", nil, "协议")
-		// select is complex type []map[string]interface{}, use JSON string
-		var selectJSON string
-		GetPortViewEventListCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"host_id\": 165, \"id\": 192, \"pname\": \"unknown\", \"port\": 22, \"protocol\": \"tcp\"}])")
-		GetPortViewEventListCmd.Flags().BoolVar(&getPortViewEventListParams.SelectAll, "select-all", false, "是否全选")
-		GetPortViewEventListCmd.Flags().IntSliceVar(&getPortViewEventListParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
-		GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.UpdatedAt, "updated-at", nil, "事件更新时间")
-		GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.Cmdline, "cmdline", nil, "命令行")
+	GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.Comment, "comment", nil, "用户自定义备注")
+	GetPortViewEventListCmd.Flags().Float64Var(&getPortViewEventListParams.Count, "count", 20, "数量")
+	GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.CreatedAt, "created-at", nil, "创建时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetPortViewEventListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.Exepath, "exepath", nil, "可执行文件路径")
+	GetPortViewEventListCmd.Flags().Float64SliceVar(&getPortViewEventListParams.Gids, "gids", nil, "业务组 ID 列表")
+	GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.HostComment, "host-comment", nil, "主机备注")
+	GetPortViewEventListCmd.Flags().Float64SliceVar(&getPortViewEventListParams.HostId, "host-id", nil, "主机 ID")
+	GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.HostIp, "host-ip", nil, "主机 IP")
+	GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.HostName, "host-name", nil, "主机名称")
+	GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.HostState, "host-state", nil, "主机状态")
+	GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.HostTags, "host-tags", nil, "主机标签")
+	GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.Ip, "ip", nil, "IP")
+	GetPortViewEventListCmd.Flags().IntSliceVar(&getPortViewEventListParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	GetPortViewEventListCmd.Flags().Float64Var(&getPortViewEventListParams.Offset, "offset", 0, "偏移量")
+	GetPortViewEventListCmd.Flags().Float64SliceVar(&getPortViewEventListParams.Oid, "oid", nil, "机构 ID")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetPortViewEventListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetPortViewEventListCmd.Flags().Float64SliceVar(&getPortViewEventListParams.Pid, "pid", nil, "PID")
+	GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.Pname, "pname", nil, "进程名")
+	GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.Port, "port", nil, "端口")
+	GetPortViewEventListCmd.Flags().Float64SliceVar(&getPortViewEventListParams.PortState, "port-state", nil, "端口状态")
+	GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.Protocol, "protocol", nil, "协议")
+	// select is complex type []map[string]interface{}, use JSON string
+	var selectJSON string
+	GetPortViewEventListCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"host_id\": 165, \"id\": 192, \"pname\": \"unknown\", \"port\": 22, \"protocol\": \"tcp\"}])")
+	GetPortViewEventListCmd.Flags().BoolVar(&getPortViewEventListParams.SelectAll, "select-all", false, "是否全选")
+	GetPortViewEventListCmd.Flags().IntSliceVar(&getPortViewEventListParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.UpdatedAt, "updated-at", nil, "事件更新时间")
+	GetPortViewEventListCmd.Flags().StringSliceVar(&getPortViewEventListParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // GetPortViewEventListParams 请求参数
 type GetPortViewEventListParams struct {
-	Cmdline []string `json:"cmdline"` // 命令行
-	Comment []string `json:"comment"` // 用户自定义备注
-	Count float64 `json:"count"` // 数量
-	CreatedAt []string `json:"created_at"` // 创建时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Exepath []string `json:"exepath"` // 可执行文件路径
-	Gids []float64 `json:"gids"` // 业务组 ID 列表
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Ip []string `json:"ip"` // IP
-	Level []int `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	Offset float64 `json:"offset"` // 偏移量
-	Oid []float64 `json:"oid"` // 机构 ID
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	Pid []float64 `json:"pid"` // PID
-	Pname []string `json:"pname"` // 进程名
-	Port []string `json:"port"` // 端口
-	PortState []float64 `json:"port_state"` // 端口状态
-	Protocol []string `json:"protocol"` // 协议
-	Select []map[string]interface{} `json:"select"` // select
-	SelectAll bool `json:"select_all"` // 是否全选
-	State []int `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
-	UpdatedAt []string `json:"updated_at"` // 事件更新时间
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	Cmdline     []string                 `json:"cmdline"`       // 命令行
+	Comment     []string                 `json:"comment"`       // 用户自定义备注
+	Count       float64                  `json:"count"`         // 数量
+	CreatedAt   []string                 `json:"created_at"`    // 创建时间
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`   // 主机业务属性
+	Exepath     []string                 `json:"exepath"`       // 可执行文件路径
+	Gids        []float64                `json:"gids"`          // 业务组 ID 列表
+	HostComment []string                 `json:"host_comment"`  // 主机备注
+	HostId      []float64                `json:"host_id"`       // 主机 ID
+	HostIp      []string                 `json:"host_ip"`       // 主机 IP
+	HostName    []string                 `json:"host_name"`     // 主机名称
+	HostState   []string                 `json:"host_state"`    // 主机状态
+	HostTags    []string                 `json:"host_tags"`     // 主机标签
+	Ip          []string                 `json:"ip"`            // IP
+	Level       []int                    `json:"level"`         // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	Offset      float64                  `json:"offset"`        // 偏移量
+	Oid         []float64                `json:"oid"`           // 机构 ID
+	OrderBy     map[string]interface{}   `json:"order_by"`      // 排序规则
+	Pid         []float64                `json:"pid"`           // PID
+	Pname       []string                 `json:"pname"`         // 进程名
+	Port        []string                 `json:"port"`          // 端口
+	PortState   []float64                `json:"port_state"`    // 端口状态
+	Protocol    []string                 `json:"protocol"`      // 协议
+	Select      []map[string]interface{} `json:"select"`        // select
+	SelectAll   bool                     `json:"select_all"`    // 是否全选
+	State       []int                    `json:"state"`         // 事件状态(1-有风险，2-已忽略，3-已处理)
+	UpdatedAt   []string                 `json:"updated_at"`    // 事件更新时间
+	WhiteRuleId []string                 `json:"white_rule_id"` // 白名单规则 ID
 }
-

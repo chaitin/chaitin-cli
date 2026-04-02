@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,56 +29,54 @@ var DeleteTaskCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.CreatedAt, "created-at", nil, "任务创建时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		DeleteTaskCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		DeleteTaskCmd.Flags().BoolVar(&deleteTaskParams.Enable, "enable", false, "是否启用")
-		DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.FinishedAt, "finished-at", nil, "任务结束时间")
-		DeleteTaskCmd.Flags().Float64SliceVar(&deleteTaskParams.Gids, "gids", nil, "业务组 ID")
-		DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.HostComment, "host-comment", nil, "主机备注")
-		DeleteTaskCmd.Flags().Float64SliceVar(&deleteTaskParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
-		DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.HostIp, "host-ip", nil, "主机IP")
-		DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.HostName, "host-name", nil, "主机名称")
-		DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.HostState, "host-state", nil, "主机状态")
-		DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.HostTags, "host-tags", nil, "主机标签")
-		DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.ItemName, "item-name", nil, "核查项名称")
-		// select is complex type []map[string]interface{}, use JSON string
-		var selectJSON string
-		DeleteTaskCmd.Flags().StringVar(&selectJSON, "select", "", "选择内容 (JSON, e.g. [{\"id\": 1}])")
-		DeleteTaskCmd.Flags().BoolVar(&deleteTaskParams.SelectAll, "select-all", false, "选择所有")
-		DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.SetName, "set-name", nil, "核查策略名称")
-		DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.StartedAt, "started-at", nil, "任务运行时间")
-		DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.Tag, "tag", nil, "TAG")
-		DeleteTaskCmd.Flags().Float64SliceVar(&deleteTaskParams.TaskIds, "task-ids", nil, "任务 ID")
-		DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.TaskName, "task-name", nil, "核查任务名称")
-		DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.TaskState, "task-state", nil, "核查任务状态")
-		DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.TriggerMethod, "trigger-method", nil, "触发方式：多选")
+	DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.CreatedAt, "created-at", nil, "任务创建时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	DeleteTaskCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	DeleteTaskCmd.Flags().BoolVar(&deleteTaskParams.Enable, "enable", false, "是否启用")
+	DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.FinishedAt, "finished-at", nil, "任务结束时间")
+	DeleteTaskCmd.Flags().Float64SliceVar(&deleteTaskParams.Gids, "gids", nil, "业务组 ID")
+	DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.HostComment, "host-comment", nil, "主机备注")
+	DeleteTaskCmd.Flags().Float64SliceVar(&deleteTaskParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
+	DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.HostIp, "host-ip", nil, "主机IP")
+	DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.HostName, "host-name", nil, "主机名称")
+	DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.HostState, "host-state", nil, "主机状态")
+	DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.HostTags, "host-tags", nil, "主机标签")
+	DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.ItemName, "item-name", nil, "核查项名称")
+	// select is complex type []map[string]interface{}, use JSON string
+	var selectJSON string
+	DeleteTaskCmd.Flags().StringVar(&selectJSON, "select", "", "选择内容 (JSON, e.g. [{\"id\": 1}])")
+	DeleteTaskCmd.Flags().BoolVar(&deleteTaskParams.SelectAll, "select-all", false, "选择所有")
+	DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.SetName, "set-name", nil, "核查策略名称")
+	DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.StartedAt, "started-at", nil, "任务运行时间")
+	DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.Tag, "tag", nil, "TAG")
+	DeleteTaskCmd.Flags().Float64SliceVar(&deleteTaskParams.TaskIds, "task-ids", nil, "任务 ID")
+	DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.TaskName, "task-name", nil, "核查任务名称")
+	DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.TaskState, "task-state", nil, "核查任务状态")
+	DeleteTaskCmd.Flags().StringSliceVar(&deleteTaskParams.TriggerMethod, "trigger-method", nil, "触发方式：多选")
 }
-
 
 // DeleteTaskParams 请求参数
 type DeleteTaskParams struct {
-	CreatedAt []string `json:"created_at"` // 任务创建时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Enable bool `json:"enable"` // 是否启用
-	FinishedAt []string `json:"finished_at"` // 任务结束时间
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID, 用于主机详情页面
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	ItemName []string `json:"item_name"` // 核查项名称
-	Select []map[string]interface{} `json:"select"` // 选择内容
-	SelectAll bool `json:"select_all"` // 选择所有
-	SetName []string `json:"set_name"` // 核查策略名称
-	StartedAt []string `json:"started_at"` // 任务运行时间
-	Tag []string `json:"tag"` // TAG
-	TaskIds []float64 `json:"task_ids"` // 任务 ID
-	TaskName []string `json:"task_name"` // 核查任务名称
-	TaskState []string `json:"task_state"` // 核查任务状态
-	TriggerMethod []string `json:"trigger_method"` // 触发方式：多选
+	CreatedAt     []string                 `json:"created_at"`     // 任务创建时间
+	CustomAttr    []map[string]interface{} `json:"custom_attr"`    // 主机业务属性
+	Enable        bool                     `json:"enable"`         // 是否启用
+	FinishedAt    []string                 `json:"finished_at"`    // 任务结束时间
+	Gids          []float64                `json:"gids"`           // 业务组 ID
+	HostComment   []string                 `json:"host_comment"`   // 主机备注
+	HostId        []float64                `json:"host_id"`        // 主机ID, 用于主机详情页面
+	HostIp        []string                 `json:"host_ip"`        // 主机IP
+	HostName      []string                 `json:"host_name"`      // 主机名称
+	HostState     []string                 `json:"host_state"`     // 主机状态
+	HostTags      []string                 `json:"host_tags"`      // 主机标签
+	ItemName      []string                 `json:"item_name"`      // 核查项名称
+	Select        []map[string]interface{} `json:"select"`         // 选择内容
+	SelectAll     bool                     `json:"select_all"`     // 选择所有
+	SetName       []string                 `json:"set_name"`       // 核查策略名称
+	StartedAt     []string                 `json:"started_at"`     // 任务运行时间
+	Tag           []string                 `json:"tag"`            // TAG
+	TaskIds       []float64                `json:"task_ids"`       // 任务 ID
+	TaskName      []string                 `json:"task_name"`      // 核查任务名称
+	TaskState     []string                 `json:"task_state"`     // 核查任务状态
+	TriggerMethod []string                 `json:"trigger_method"` // 触发方式：多选
 }
-

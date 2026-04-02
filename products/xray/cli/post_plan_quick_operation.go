@@ -92,13 +92,13 @@ func runOperationPlanQuick(cmd *cobra.Command, args []string) error {
 
 	// Build basic_setting
 	basicSetting := map[string]interface{}{
-		"remark":         "",
+		"remark": "",
 		"taskTarget": map[string]interface{}{
 			"targetType": "MANUAL",
 			"target":     targets,
 		},
-		"globalWhiteList":  []interface{}{},
-		"templateSync":     false,
+		"globalWhiteList": []interface{}{},
+		"templateSync":    false,
 		"executionSetting": map[string]interface{}{
 			"enabled":    false,
 			"rule":       "ALLOW",
@@ -117,13 +117,13 @@ func runOperationPlanQuick(cmd *cobra.Command, args []string) error {
 	execRightNow := true
 
 	body := &models.CreatePlanBody{
-		Active:                &active,
-		BasicSetting:          basicSetting,
-		DisabledWhitelistIds:  []int64{}, // empty array instead of nil to satisfy API validation
-		ExecRightNow:          execRightNow,
-		ProjectID:             projectID,
-		TaskSetting:           taskSetting,
-		TaskTemplateID:        &templateID,
+		Active:               &active,
+		BasicSetting:         basicSetting,
+		DisabledWhitelistIds: []int64{}, // empty array instead of nil to satisfy API validation
+		ExecRightNow:         execRightNow,
+		ProjectID:            projectID,
+		TaskSetting:          taskSetting,
+		TaskTemplateID:       &templateID,
 	}
 
 	params := plan.NewPostPlanCreateParams()

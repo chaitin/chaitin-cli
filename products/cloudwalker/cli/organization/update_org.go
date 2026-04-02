@@ -3,8 +3,8 @@
 package organization
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,20 +29,18 @@ var UpdateOrgCmd = &cobra.Command{
 }
 
 func init() {
-		UpdateOrgCmd.Flags().StringVar(&updateOrgParams.AdminName, "admin-name", "", "管理员名称")
-		UpdateOrgCmd.Flags().BoolVar(&updateOrgParams.Enable, "enable", false, "是否启用")
-		UpdateOrgCmd.Flags().IntVar(&updateOrgParams.Id, "id", 0, "机构 ID")
-		UpdateOrgCmd.Flags().StringVar(&updateOrgParams.Name, "name", "", "机构名称")
-		UpdateOrgCmd.Flags().StringVar(&updateOrgParams.Remark, "remark", "", "机构备注")
+	UpdateOrgCmd.Flags().StringVar(&updateOrgParams.AdminName, "admin-name", "", "管理员名称")
+	UpdateOrgCmd.Flags().BoolVar(&updateOrgParams.Enable, "enable", false, "是否启用")
+	UpdateOrgCmd.Flags().IntVar(&updateOrgParams.Id, "id", 0, "机构 ID")
+	UpdateOrgCmd.Flags().StringVar(&updateOrgParams.Name, "name", "", "机构名称")
+	UpdateOrgCmd.Flags().StringVar(&updateOrgParams.Remark, "remark", "", "机构备注")
 }
-
 
 // UpdateOrgParams 请求参数
 type UpdateOrgParams struct {
 	AdminName string `json:"admin_name"` // 管理员名称
-	Enable bool `json:"enable"` // 是否启用
-	Id int `json:"id"` // 机构 ID
-	Name string `json:"name"` // 机构名称
-	Remark string `json:"remark"` // 机构备注
+	Enable    bool   `json:"enable"`     // 是否启用
+	Id        int    `json:"id"`         // 机构 ID
+	Name      string `json:"name"`       // 机构名称
+	Remark    string `json:"remark"`     // 机构备注
 }
-

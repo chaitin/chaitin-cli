@@ -3,8 +3,8 @@
 package anti_ransomware
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,34 +29,32 @@ var AddRuleCmd = &cobra.Command{
 }
 
 func init() {
-		AddRuleCmd.Flags().IntSliceVar(&addRuleParams.AgentRange, "agent-range", nil, "应用的主机列表")
-		AddRuleCmd.Flags().IntSliceVar(&addRuleParams.BusinessGroupRange, "business-group-range", nil, "应用的业务组列表")
-		// custom_decoy_file_conf is complex type []map[string]interface{}, use JSON string
-		var customDecoyFileConfJSON string
-		AddRuleCmd.Flags().StringVar(&customDecoyFileConfJSON, "custom-decoy-file-conf", "", "自定义诱饵配置 (JSON, e.g. [{\"files\": [\"/tmp/1.txt\"], \"size\": {\"max\": 1, \"min\": 1, \"unit\": \"KB\"}}])")
-		AddRuleCmd.Flags().IntVar(&addRuleParams.DecoyFileMode, "decoy-file-mode", 0, "诱饵文件模式 0: 系统默认配置 1: 自定义配置")
-		AddRuleCmd.Flags().StringSliceVar(&addRuleParams.Dir, "dir", nil, "诱饵目录")
-		AddRuleCmd.Flags().BoolVar(&addRuleParams.Enabled, "enabled", false, "是否启用")
-		AddRuleCmd.Flags().StringSliceVar(&addRuleParams.ExcludedDir, "excluded-dir", nil, "排除目录")
-		AddRuleCmd.Flags().IntVar(&addRuleParams.Mode, "mode", 0, "防护模式，0 仅告警，1 告警并防护")
-		AddRuleCmd.Flags().StringVar(&addRuleParams.Name, "name", "", "规则名")
-		AddRuleCmd.Flags().StringSliceVar(&addRuleParams.ProcessWhitelist, "process-whitelist", nil, "进程白名单")
-		AddRuleCmd.Flags().StringSliceVar(&addRuleParams.UserWhitelist, "user-whitelist", nil, "用户白名单")
+	AddRuleCmd.Flags().IntSliceVar(&addRuleParams.AgentRange, "agent-range", nil, "应用的主机列表")
+	AddRuleCmd.Flags().IntSliceVar(&addRuleParams.BusinessGroupRange, "business-group-range", nil, "应用的业务组列表")
+	// custom_decoy_file_conf is complex type []map[string]interface{}, use JSON string
+	var customDecoyFileConfJSON string
+	AddRuleCmd.Flags().StringVar(&customDecoyFileConfJSON, "custom-decoy-file-conf", "", "自定义诱饵配置 (JSON, e.g. [{\"files\": [\"/tmp/1.txt\"], \"size\": {\"max\": 1, \"min\": 1, \"unit\": \"KB\"}}])")
+	AddRuleCmd.Flags().IntVar(&addRuleParams.DecoyFileMode, "decoy-file-mode", 0, "诱饵文件模式 0: 系统默认配置 1: 自定义配置")
+	AddRuleCmd.Flags().StringSliceVar(&addRuleParams.Dir, "dir", nil, "诱饵目录")
+	AddRuleCmd.Flags().BoolVar(&addRuleParams.Enabled, "enabled", false, "是否启用")
+	AddRuleCmd.Flags().StringSliceVar(&addRuleParams.ExcludedDir, "excluded-dir", nil, "排除目录")
+	AddRuleCmd.Flags().IntVar(&addRuleParams.Mode, "mode", 0, "防护模式，0 仅告警，1 告警并防护")
+	AddRuleCmd.Flags().StringVar(&addRuleParams.Name, "name", "", "规则名")
+	AddRuleCmd.Flags().StringSliceVar(&addRuleParams.ProcessWhitelist, "process-whitelist", nil, "进程白名单")
+	AddRuleCmd.Flags().StringSliceVar(&addRuleParams.UserWhitelist, "user-whitelist", nil, "用户白名单")
 }
-
 
 // AddRuleParams 请求参数
 type AddRuleParams struct {
-	AgentRange []int `json:"agent_range"` // 应用的主机列表
-	BusinessGroupRange []int `json:"business_group_range"` // 应用的业务组列表
+	AgentRange          []int                    `json:"agent_range"`            // 应用的主机列表
+	BusinessGroupRange  []int                    `json:"business_group_range"`   // 应用的业务组列表
 	CustomDecoyFileConf []map[string]interface{} `json:"custom_decoy_file_conf"` // 自定义诱饵配置
-	DecoyFileMode int `json:"decoy_file_mode"` // 诱饵文件模式 0: 系统默认配置 1: 自定义配置
-	Dir []string `json:"dir"` // 诱饵目录
-	Enabled bool `json:"enabled"` // 是否启用
-	ExcludedDir []string `json:"excluded_dir"` // 排除目录
-	Mode int `json:"mode"` // 防护模式，0 仅告警，1 告警并防护
-	Name string `json:"name"` // 规则名
-	ProcessWhitelist []string `json:"process_whitelist"` // 进程白名单
-	UserWhitelist []string `json:"user_whitelist"` // 用户白名单
+	DecoyFileMode       int                      `json:"decoy_file_mode"`        // 诱饵文件模式 0: 系统默认配置 1: 自定义配置
+	Dir                 []string                 `json:"dir"`                    // 诱饵目录
+	Enabled             bool                     `json:"enabled"`                // 是否启用
+	ExcludedDir         []string                 `json:"excluded_dir"`           // 排除目录
+	Mode                int                      `json:"mode"`                   // 防护模式，0 仅告警，1 告警并防护
+	Name                string                   `json:"name"`                   // 规则名
+	ProcessWhitelist    []string                 `json:"process_whitelist"`      // 进程白名单
+	UserWhitelist       []string                 `json:"user_whitelist"`         // 用户白名单
 }
-

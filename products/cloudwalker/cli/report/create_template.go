@@ -3,8 +3,8 @@
 package report
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,20 +29,18 @@ var CreateTemplateCmd = &cobra.Command{
 }
 
 func init() {
-		CreateTemplateCmd.Flags().StringSliceVar(&createTemplateParams.Chapters, "chapters", nil, "报告章节")
-		CreateTemplateCmd.Flags().StringVar(&createTemplateParams.Description, "description", "", "模板描述")
-		CreateTemplateCmd.Flags().StringVar(&createTemplateParams.Name, "name", "", "模板名称")
-		CreateTemplateCmd.Flags().StringVar(&createTemplateParams.Tag, "tag", "", "标签")
-		CreateTemplateCmd.Flags().StringVar(&createTemplateParams.Type, "type", "", "报告类型")
+	CreateTemplateCmd.Flags().StringSliceVar(&createTemplateParams.Chapters, "chapters", nil, "报告章节")
+	CreateTemplateCmd.Flags().StringVar(&createTemplateParams.Description, "description", "", "模板描述")
+	CreateTemplateCmd.Flags().StringVar(&createTemplateParams.Name, "name", "", "模板名称")
+	CreateTemplateCmd.Flags().StringVar(&createTemplateParams.Tag, "tag", "", "标签")
+	CreateTemplateCmd.Flags().StringVar(&createTemplateParams.Type, "type", "", "报告类型")
 }
-
 
 // CreateTemplateParams 请求参数
 type CreateTemplateParams struct {
-	Chapters []string `json:"chapters"` // 报告章节
-	Description string `json:"description"` // 模板描述
-	Name string `json:"name"` // 模板名称
-	Tag string `json:"tag"` // 标签
-	Type string `json:"type"` // 报告类型
+	Chapters    []string `json:"chapters"`    // 报告章节
+	Description string   `json:"description"` // 模板描述
+	Name        string   `json:"name"`        // 模板名称
+	Tag         string   `json:"tag"`         // 标签
+	Type        string   `json:"type"`        // 报告类型
 }
-

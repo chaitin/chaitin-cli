@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var AddAttributesCmd = &cobra.Command{
 }
 
 func init() {
-		// attributes is complex type []map[string]interface{}, use JSON string
-		var attributesJSON string
-		AddAttributesCmd.Flags().StringVar(&attributesJSON, "attributes", "", "增加的属性字段 (JSON, e.g. [{\"name\": \"部门\"}])")
+	// attributes is complex type []map[string]interface{}, use JSON string
+	var attributesJSON string
+	AddAttributesCmd.Flags().StringVar(&attributesJSON, "attributes", "", "增加的属性字段 (JSON, e.g. [{\"name\": \"部门\"}])")
 }
-
 
 // AddAttributesParams 请求参数
 type AddAttributesParams struct {
 	Attributes []map[string]interface{} `json:"attributes"` // 增加的属性字段
 }
-

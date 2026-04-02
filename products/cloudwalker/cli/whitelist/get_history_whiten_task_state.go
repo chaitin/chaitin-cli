@@ -3,8 +3,8 @@
 package whitelist
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetHistoryWhitenTaskStateCmd = &cobra.Command{
 }
 
 func init() {
-		GetHistoryWhitenTaskStateCmd.Flags().StringVar(&getHistoryWhitenTaskStateParams.Type, "type", "", "事件类型")
+	GetHistoryWhitenTaskStateCmd.Flags().StringVar(&getHistoryWhitenTaskStateParams.Type, "type", "", "事件类型")
 }
-
 
 // GetHistoryWhitenTaskStateParams 请求参数
 type GetHistoryWhitenTaskStateParams struct {
 	Type string `json:"type"` // 事件类型
 }
-

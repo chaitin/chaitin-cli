@@ -3,8 +3,8 @@
 package process_kill
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,42 +29,40 @@ var DeleteEventCmd = &cobra.Command{
 }
 
 func init() {
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		DeleteEventCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.EventId, "event-id", nil, "事件 ID")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.EventType, "event-type", nil, "事件类型")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Gids, "gids", nil, "主机业务组 ID")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostComment, "host-comment", nil, "主机备注")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.HostId, "host-id", nil, "主机 ID")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostIp, "host-ip", nil, "主机 IP")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostTags, "host-tags", nil, "主机标签")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Id, "id", nil, "防护事件 ID")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Oid, "oid", nil, "组织 ID")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.OperateTime, "operate-time", nil, "阻断执行时间")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.Operator, "operator", nil, "处理人")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.ProcessName, "process-name", nil, "进程名称")
-		DeleteEventCmd.Flags().BoolVar(&deleteEventParams.SelectAll, "select-all", false, "是否全选")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.Status, "status", nil, "阻断状态")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	DeleteEventCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.EventId, "event-id", nil, "事件 ID")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.EventType, "event-type", nil, "事件类型")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Gids, "gids", nil, "主机业务组 ID")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostComment, "host-comment", nil, "主机备注")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.HostId, "host-id", nil, "主机 ID")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostIp, "host-ip", nil, "主机 IP")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostTags, "host-tags", nil, "主机标签")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Id, "id", nil, "防护事件 ID")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Oid, "oid", nil, "组织 ID")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.OperateTime, "operate-time", nil, "阻断执行时间")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.Operator, "operator", nil, "处理人")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.ProcessName, "process-name", nil, "进程名称")
+	DeleteEventCmd.Flags().BoolVar(&deleteEventParams.SelectAll, "select-all", false, "是否全选")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.Status, "status", nil, "阻断状态")
 }
-
 
 // DeleteEventParams 请求参数
 type DeleteEventParams struct {
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	EventId []float64 `json:"event_id"` // 事件 ID
-	EventType []float64 `json:"event_type"` // 事件类型
-	Gids []float64 `json:"gids"` // 主机业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostTags []string `json:"host_tags"` // 主机标签
-	Id []float64 `json:"id"` // 防护事件 ID
-	Oid []float64 `json:"oid"` // 组织 ID
-	OperateTime []string `json:"operate_time"` // 阻断执行时间
-	Operator []string `json:"operator"` // 处理人
-	ProcessName []string `json:"process_name"` // 进程名称
-	SelectAll bool `json:"select_all"` // 是否全选
-	Status []string `json:"status"` // 阻断状态
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	EventId     []float64                `json:"event_id"`     // 事件 ID
+	EventType   []float64                `json:"event_type"`   // 事件类型
+	Gids        []float64                `json:"gids"`         // 主机业务组 ID
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机 ID
+	HostIp      []string                 `json:"host_ip"`      // 主机 IP
+	HostTags    []string                 `json:"host_tags"`    // 主机标签
+	Id          []float64                `json:"id"`           // 防护事件 ID
+	Oid         []float64                `json:"oid"`          // 组织 ID
+	OperateTime []string                 `json:"operate_time"` // 阻断执行时间
+	Operator    []string                 `json:"operator"`     // 处理人
+	ProcessName []string                 `json:"process_name"` // 进程名称
+	SelectAll   bool                     `json:"select_all"`   // 是否全选
+	Status      []string                 `json:"status"`       // 阻断状态
 }
-

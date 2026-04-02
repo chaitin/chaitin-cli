@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var SetNetworkAuditAdvCfgCmd = &cobra.Command{
 }
 
 func init() {
-		// engine is object type, use JSON string
-		var engineJSON string
-		SetNetworkAuditAdvCfgCmd.Flags().StringVar(&engineJSON, "engine", "", "智能检测引擎 (JSON, e.g. {\"dns_detection\": false, \"ip_detection\": false, \"process_detection\": false})")
+	// engine is object type, use JSON string
+	var engineJSON string
+	SetNetworkAuditAdvCfgCmd.Flags().StringVar(&engineJSON, "engine", "", "智能检测引擎 (JSON, e.g. {\"dns_detection\": false, \"ip_detection\": false, \"process_detection\": false})")
 }
-
 
 // SetNetworkAuditAdvCfgParams 请求参数
 type SetNetworkAuditAdvCfgParams struct {
 	Engine map[string]interface{} `json:"engine"` // 智能检测引擎
 }
-

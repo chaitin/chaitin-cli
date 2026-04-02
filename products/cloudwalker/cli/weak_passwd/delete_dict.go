@@ -3,8 +3,8 @@
 package weak_passwd
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,22 +29,20 @@ var DeleteDictCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteDictCmd.Flags().StringSliceVar(&deleteDictParams.Comment, "comment", nil, "用户自定义备注")
-		DeleteDictCmd.Flags().StringSliceVar(&deleteDictParams.CreatedAt, "created-at", nil, "创建时间")
-		DeleteDictCmd.Flags().IntSliceVar(&deleteDictParams.Id, "id", nil, "字典 ID")
-		DeleteDictCmd.Flags().StringSliceVar(&deleteDictParams.Name, "name", nil, "字典名称")
-		DeleteDictCmd.Flags().BoolVar(&deleteDictParams.SelectAll, "select-all", false, "是否全删筛选器内容")
-		DeleteDictCmd.Flags().StringSliceVar(&deleteDictParams.UpdatedAt, "updated-at", nil, "最后发现时间")
+	DeleteDictCmd.Flags().StringSliceVar(&deleteDictParams.Comment, "comment", nil, "用户自定义备注")
+	DeleteDictCmd.Flags().StringSliceVar(&deleteDictParams.CreatedAt, "created-at", nil, "创建时间")
+	DeleteDictCmd.Flags().IntSliceVar(&deleteDictParams.Id, "id", nil, "字典 ID")
+	DeleteDictCmd.Flags().StringSliceVar(&deleteDictParams.Name, "name", nil, "字典名称")
+	DeleteDictCmd.Flags().BoolVar(&deleteDictParams.SelectAll, "select-all", false, "是否全删筛选器内容")
+	DeleteDictCmd.Flags().StringSliceVar(&deleteDictParams.UpdatedAt, "updated-at", nil, "最后发现时间")
 }
-
 
 // DeleteDictParams 请求参数
 type DeleteDictParams struct {
-	Comment []string `json:"comment"` // 用户自定义备注
+	Comment   []string `json:"comment"`    // 用户自定义备注
 	CreatedAt []string `json:"created_at"` // 创建时间
-	Id []int `json:"id"` // 字典 ID
-	Name []string `json:"name"` // 字典名称
-	SelectAll bool `json:"select_all"` // 是否全删筛选器内容
+	Id        []int    `json:"id"`         // 字典 ID
+	Name      []string `json:"name"`       // 字典名称
+	SelectAll bool     `json:"select_all"` // 是否全删筛选器内容
 	UpdatedAt []string `json:"updated_at"` // 最后发现时间
 }
-

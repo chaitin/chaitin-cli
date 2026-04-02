@@ -3,8 +3,8 @@
 package agent_detector
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,38 +29,36 @@ var RebootDetectorAgentCmd = &cobra.Command{
 }
 
 func init() {
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		RebootDetectorAgentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		RebootDetectorAgentCmd.Flags().Float64SliceVar(&rebootDetectorAgentParams.GroupId, "group-id", nil, "业务组 ID")
-		RebootDetectorAgentCmd.Flags().StringSliceVar(&rebootDetectorAgentParams.HostComment, "host-comment", nil, "主机备注")
-		RebootDetectorAgentCmd.Flags().Float64SliceVar(&rebootDetectorAgentParams.HostId, "host-id", nil, "主机 ID")
-		RebootDetectorAgentCmd.Flags().StringSliceVar(&rebootDetectorAgentParams.HostIp, "host-ip", nil, "主机 IP")
-		RebootDetectorAgentCmd.Flags().StringSliceVar(&rebootDetectorAgentParams.HostName, "host-name", nil, "主机名称")
-		RebootDetectorAgentCmd.Flags().StringSliceVar(&rebootDetectorAgentParams.HostOsName, "host-os-name", nil, "主机操作系统名称")
-		RebootDetectorAgentCmd.Flags().StringSliceVar(&rebootDetectorAgentParams.HostState, "host-state", nil, "主机状态")
-		RebootDetectorAgentCmd.Flags().StringSliceVar(&rebootDetectorAgentParams.HostTags, "host-tags", nil, "主机标签")
-		RebootDetectorAgentCmd.Flags().StringSliceVar(&rebootDetectorAgentParams.InstalledAt, "installed-at", nil, "安装时间")
-		RebootDetectorAgentCmd.Flags().BoolVar(&rebootDetectorAgentParams.Newest, "newest", false, "是否是最新版本")
-		RebootDetectorAgentCmd.Flags().StringSliceVar(&rebootDetectorAgentParams.State, "state", nil, "探针状态")
-		RebootDetectorAgentCmd.Flags().StringSliceVar(&rebootDetectorAgentParams.UpgradedAt, "upgraded-at", nil, "升级时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	RebootDetectorAgentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	RebootDetectorAgentCmd.Flags().Float64SliceVar(&rebootDetectorAgentParams.GroupId, "group-id", nil, "业务组 ID")
+	RebootDetectorAgentCmd.Flags().StringSliceVar(&rebootDetectorAgentParams.HostComment, "host-comment", nil, "主机备注")
+	RebootDetectorAgentCmd.Flags().Float64SliceVar(&rebootDetectorAgentParams.HostId, "host-id", nil, "主机 ID")
+	RebootDetectorAgentCmd.Flags().StringSliceVar(&rebootDetectorAgentParams.HostIp, "host-ip", nil, "主机 IP")
+	RebootDetectorAgentCmd.Flags().StringSliceVar(&rebootDetectorAgentParams.HostName, "host-name", nil, "主机名称")
+	RebootDetectorAgentCmd.Flags().StringSliceVar(&rebootDetectorAgentParams.HostOsName, "host-os-name", nil, "主机操作系统名称")
+	RebootDetectorAgentCmd.Flags().StringSliceVar(&rebootDetectorAgentParams.HostState, "host-state", nil, "主机状态")
+	RebootDetectorAgentCmd.Flags().StringSliceVar(&rebootDetectorAgentParams.HostTags, "host-tags", nil, "主机标签")
+	RebootDetectorAgentCmd.Flags().StringSliceVar(&rebootDetectorAgentParams.InstalledAt, "installed-at", nil, "安装时间")
+	RebootDetectorAgentCmd.Flags().BoolVar(&rebootDetectorAgentParams.Newest, "newest", false, "是否是最新版本")
+	RebootDetectorAgentCmd.Flags().StringSliceVar(&rebootDetectorAgentParams.State, "state", nil, "探针状态")
+	RebootDetectorAgentCmd.Flags().StringSliceVar(&rebootDetectorAgentParams.UpgradedAt, "upgraded-at", nil, "升级时间")
 }
-
 
 // RebootDetectorAgentParams 请求参数
 type RebootDetectorAgentParams struct {
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	GroupId []float64 `json:"group_id"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostOsName []string `json:"host_os_name"` // 主机操作系统名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	InstalledAt []string `json:"installed_at"` // 安装时间
-	Newest bool `json:"newest"` // 是否是最新版本
-	State []string `json:"state"` // 探针状态
-	UpgradedAt []string `json:"upgraded_at"` // 升级时间
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	GroupId     []float64                `json:"group_id"`     // 业务组 ID
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机 ID
+	HostIp      []string                 `json:"host_ip"`      // 主机 IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostOsName  []string                 `json:"host_os_name"` // 主机操作系统名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTags    []string                 `json:"host_tags"`    // 主机标签
+	InstalledAt []string                 `json:"installed_at"` // 安装时间
+	Newest      bool                     `json:"newest"`       // 是否是最新版本
+	State       []string                 `json:"state"`        // 探针状态
+	UpgradedAt  []string                 `json:"upgraded_at"`  // 升级时间
 }
-

@@ -3,8 +3,8 @@
 package port_scan
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var DeleteRuleCmd = &cobra.Command{
 }
 
 func init() {
-		// filter is object type, use JSON string
-		var filterJSON string
-		DeleteRuleCmd.Flags().StringVar(&filterJSON, "filter", "", "规则过滤条件 (JSON, e.g. {\"custom_attr\": [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}], \"enable\": [true], \"host_comment\": [\"主机备注\"], \"...\": \"...\"})")
+	// filter is object type, use JSON string
+	var filterJSON string
+	DeleteRuleCmd.Flags().StringVar(&filterJSON, "filter", "", "规则过滤条件 (JSON, e.g. {\"custom_attr\": [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}], \"enable\": [true], \"host_comment\": [\"主机备注\"], \"...\": \"...\"})")
 }
-
 
 // DeleteRuleParams 请求参数
 type DeleteRuleParams struct {
 	Filter map[string]interface{} `json:"filter"` // 规则过滤条件
 }
-

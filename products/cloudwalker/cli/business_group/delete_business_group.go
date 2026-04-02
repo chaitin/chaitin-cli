@@ -3,8 +3,8 @@
 package business_group
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var DeleteBusinessGroupCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteBusinessGroupCmd.Flags().Float64SliceVar(&deleteBusinessGroupParams.Ids, "ids", nil, "ID")
+	DeleteBusinessGroupCmd.Flags().Float64SliceVar(&deleteBusinessGroupParams.Ids, "ids", nil, "ID")
 }
-
 
 // DeleteBusinessGroupParams 请求参数
 type DeleteBusinessGroupParams struct {
 	Ids []float64 `json:"ids"` // ID
 }
-

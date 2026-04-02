@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var GetItemListCmd = &cobra.Command{
 }
 
 func init() {
-		GetItemListCmd.Flags().IntVar(&getItemListParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		GetItemListCmd.Flags().IntVar(&getItemListParams.Offset, "offset", 0, "页偏移, 默认为 0")
-		GetItemListCmd.Flags().StringVar(&getItemListParams.SetId, "set-id", "", "核查策略的 ID")
+	GetItemListCmd.Flags().IntVar(&getItemListParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	GetItemListCmd.Flags().IntVar(&getItemListParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	GetItemListCmd.Flags().StringVar(&getItemListParams.SetId, "set-id", "", "核查策略的 ID")
 }
-
 
 // GetItemListParams 请求参数
 type GetItemListParams struct {
-	Count int `json:"count"` // 每页记录数量, 默认为 20
-	Offset int `json:"offset"` // 页偏移, 默认为 0
-	SetId string `json:"set_id"` // 核查策略的 ID
+	Count  int    `json:"count"`  // 每页记录数量, 默认为 20
+	Offset int    `json:"offset"` // 页偏移, 默认为 0
+	SetId  string `json:"set_id"` // 核查策略的 ID
 }
-

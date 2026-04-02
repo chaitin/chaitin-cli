@@ -3,8 +3,8 @@
 package mimicry
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,46 +29,44 @@ var DeleteEventCmd = &cobra.Command{
 }
 
 func init() {
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		DeleteEventCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.ExposedIp, "exposed-ip", nil, "主机外网 IP")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.FilePath, "file-path", nil, "文件路径")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Gids, "gids", nil, "主机业务组 ID")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostComment, "host-comment", nil, "主机备注")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostIp, "host-ip", nil, "主机 IP")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostTags, "host-tags", nil, "主机标签")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Id, "id", nil, "防护事件ID")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.InternalIp, "internal-ip", nil, "主机内网 IP")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.IntrusionId, "intrusion-id", nil, "入侵事件ID")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.IntrusionType, "intrusion-type", nil, "事件类型, 1webshell, 2恶意文件")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.LastModifyTime, "last-modify-time", nil, "最近操作事件，长度必须为2")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.Md5, "md5", nil, "文件MD5")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Oid, "oid", nil, "组织ID")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.Operator, "operator", nil, "处理人")
-		DeleteEventCmd.Flags().BoolVar(&deleteEventParams.SelectAll, "select-all", false, "是否全选")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Status, "status", nil, "防护状态，1拟态防护中，2拟态防护结束")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	DeleteEventCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.ExposedIp, "exposed-ip", nil, "主机外网 IP")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.FilePath, "file-path", nil, "文件路径")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Gids, "gids", nil, "主机业务组 ID")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostComment, "host-comment", nil, "主机备注")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostIp, "host-ip", nil, "主机 IP")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostTags, "host-tags", nil, "主机标签")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Id, "id", nil, "防护事件ID")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.InternalIp, "internal-ip", nil, "主机内网 IP")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.IntrusionId, "intrusion-id", nil, "入侵事件ID")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.IntrusionType, "intrusion-type", nil, "事件类型, 1webshell, 2恶意文件")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.LastModifyTime, "last-modify-time", nil, "最近操作事件，长度必须为2")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.Md5, "md5", nil, "文件MD5")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Oid, "oid", nil, "组织ID")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.Operator, "operator", nil, "处理人")
+	DeleteEventCmd.Flags().BoolVar(&deleteEventParams.SelectAll, "select-all", false, "是否全选")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Status, "status", nil, "防护状态，1拟态防护中，2拟态防护结束")
 }
-
 
 // DeleteEventParams 请求参数
 type DeleteEventParams struct {
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	ExposedIp []string `json:"exposed_ip"` // 主机外网 IP
-	FilePath []string `json:"file_path"` // 文件路径
-	Gids []float64 `json:"gids"` // 主机业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostTags []string `json:"host_tags"` // 主机标签
-	Id []float64 `json:"id"` // 防护事件ID
-	InternalIp []string `json:"internal_ip"` // 主机内网 IP
-	IntrusionId []float64 `json:"intrusion_id"` // 入侵事件ID
-	IntrusionType []float64 `json:"intrusion_type"` // 事件类型, 1webshell, 2恶意文件
-	LastModifyTime []string `json:"last_modify_time"` // 最近操作事件，长度必须为2
-	Md5 []string `json:"md5"` // 文件MD5
-	Oid []float64 `json:"oid"` // 组织ID
-	Operator []string `json:"operator"` // 处理人
-	SelectAll bool `json:"select_all"` // 是否全选
-	Status []float64 `json:"status"` // 防护状态，1拟态防护中，2拟态防护结束
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	ExposedIp      []string                 `json:"exposed_ip"`       // 主机外网 IP
+	FilePath       []string                 `json:"file_path"`        // 文件路径
+	Gids           []float64                `json:"gids"`             // 主机业务组 ID
+	HostComment    []string                 `json:"host_comment"`     // 主机备注
+	HostIp         []string                 `json:"host_ip"`          // 主机 IP
+	HostTags       []string                 `json:"host_tags"`        // 主机标签
+	Id             []float64                `json:"id"`               // 防护事件ID
+	InternalIp     []string                 `json:"internal_ip"`      // 主机内网 IP
+	IntrusionId    []float64                `json:"intrusion_id"`     // 入侵事件ID
+	IntrusionType  []float64                `json:"intrusion_type"`   // 事件类型, 1webshell, 2恶意文件
+	LastModifyTime []string                 `json:"last_modify_time"` // 最近操作事件，长度必须为2
+	Md5            []string                 `json:"md5"`              // 文件MD5
+	Oid            []float64                `json:"oid"`              // 组织ID
+	Operator       []string                 `json:"operator"`         // 处理人
+	SelectAll      bool                     `json:"select_all"`       // 是否全选
+	Status         []float64                `json:"status"`           // 防护状态，1拟态防护中，2拟态防护结束
 }
-

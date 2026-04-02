@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,36 +29,34 @@ var EditLogicCmd = &cobra.Command{
 }
 
 func init() {
-		EditLogicCmd.Flags().StringVar(&editLogicParams.Audit, "audit", "", "核查原理")
-		// check is object type, use JSON string
-		var checkJSON string
-		EditLogicCmd.Flags().StringVar(&checkJSON, "check", "", "check (JSON, e.g. {\"check_schema\": \"\", \"items\": [{\"check\": {\"action\": \"...\", \"args\": \"...\"}, \"read_text\": {\"action\": \"...\", \"args\": \"...\"}}]})")
-		EditLogicCmd.Flags().StringVar(&editLogicParams.Description, "description", "", "简短描述")
-		EditLogicCmd.Flags().StringVar(&editLogicParams.Extra, "extra", "", "其他说明")
-		EditLogicCmd.Flags().StringVar(&editLogicParams.Id, "id", "", "ID")
-		EditLogicCmd.Flags().Float64Var(&editLogicParams.Level, "level", 0, "严重程度")
-		EditLogicCmd.Flags().StringVar(&editLogicParams.Name, "name", "", "名称")
-		EditLogicCmd.Flags().StringVar(&editLogicParams.Remediation, "remediation", "", "解决方案")
-		// require is complex type []map[string]interface{}, use JSON string
-		var requireJSON string
-		EditLogicCmd.Flags().StringVar(&requireJSON, "require", "", "此核查逻辑要求的主机主机类型， 比如只能在 Linux-Ubuntu-20.04 上执行 (JSON, e.g. [{\"all\": true, \"enum\": [\"x86_64\", \"arm32\"], \"pattern\": \"\", \"type\": \"os_type\"}])")
-		EditLogicCmd.Flags().StringVar(&editLogicParams.Risk, "risk", "", "风险描述")
-		EditLogicCmd.Flags().StringSliceVar(&editLogicParams.Tags, "tags", nil, "TAG")
+	EditLogicCmd.Flags().StringVar(&editLogicParams.Audit, "audit", "", "核查原理")
+	// check is object type, use JSON string
+	var checkJSON string
+	EditLogicCmd.Flags().StringVar(&checkJSON, "check", "", "check (JSON, e.g. {\"check_schema\": \"\", \"items\": [{\"check\": {\"action\": \"...\", \"args\": \"...\"}, \"read_text\": {\"action\": \"...\", \"args\": \"...\"}}]})")
+	EditLogicCmd.Flags().StringVar(&editLogicParams.Description, "description", "", "简短描述")
+	EditLogicCmd.Flags().StringVar(&editLogicParams.Extra, "extra", "", "其他说明")
+	EditLogicCmd.Flags().StringVar(&editLogicParams.Id, "id", "", "ID")
+	EditLogicCmd.Flags().Float64Var(&editLogicParams.Level, "level", 0, "严重程度")
+	EditLogicCmd.Flags().StringVar(&editLogicParams.Name, "name", "", "名称")
+	EditLogicCmd.Flags().StringVar(&editLogicParams.Remediation, "remediation", "", "解决方案")
+	// require is complex type []map[string]interface{}, use JSON string
+	var requireJSON string
+	EditLogicCmd.Flags().StringVar(&requireJSON, "require", "", "此核查逻辑要求的主机主机类型， 比如只能在 Linux-Ubuntu-20.04 上执行 (JSON, e.g. [{\"all\": true, \"enum\": [\"x86_64\", \"arm32\"], \"pattern\": \"\", \"type\": \"os_type\"}])")
+	EditLogicCmd.Flags().StringVar(&editLogicParams.Risk, "risk", "", "风险描述")
+	EditLogicCmd.Flags().StringSliceVar(&editLogicParams.Tags, "tags", nil, "TAG")
 }
-
 
 // EditLogicParams 请求参数
 type EditLogicParams struct {
-	Audit string `json:"audit"` // 核查原理
-	Check map[string]interface{} `json:"check"` // check
-	Description string `json:"description"` // 简短描述
-	Extra string `json:"extra"` // 其他说明
-	Id string `json:"id"` // ID
-	Level float64 `json:"level"` // 严重程度
-	Name string `json:"name"` // 名称
-	Remediation string `json:"remediation"` // 解决方案
-	Require []map[string]interface{} `json:"require"` // 此核查逻辑要求的主机主机类型， 比如只能在 Linux-Ubuntu-20.04 上执行
-	Risk string `json:"risk"` // 风险描述
-	Tags []string `json:"tags"` // TAG
+	Audit       string                   `json:"audit"`       // 核查原理
+	Check       map[string]interface{}   `json:"check"`       // check
+	Description string                   `json:"description"` // 简短描述
+	Extra       string                   `json:"extra"`       // 其他说明
+	Id          string                   `json:"id"`          // ID
+	Level       float64                  `json:"level"`       // 严重程度
+	Name        string                   `json:"name"`        // 名称
+	Remediation string                   `json:"remediation"` // 解决方案
+	Require     []map[string]interface{} `json:"require"`     // 此核查逻辑要求的主机主机类型， 比如只能在 Linux-Ubuntu-20.04 上执行
+	Risk        string                   `json:"risk"`        // 风险描述
+	Tags        []string                 `json:"tags"`        // TAG
 }
-

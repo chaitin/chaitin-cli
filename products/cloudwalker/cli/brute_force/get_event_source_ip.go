@@ -3,8 +3,8 @@
 package brute_force
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetEventSourceIpCmd = &cobra.Command{
 }
 
 func init() {
-		GetEventSourceIpCmd.Flags().IntVar(&getEventSourceIpParams.Id, "id", 0, "事件 ID")
+	GetEventSourceIpCmd.Flags().IntVar(&getEventSourceIpParams.Id, "id", 0, "事件 ID")
 }
-
 
 // GetEventSourceIpParams 请求参数
 type GetEventSourceIpParams struct {
 	Id int `json:"id"` // 事件 ID
 }
-

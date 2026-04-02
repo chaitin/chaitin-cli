@@ -3,8 +3,8 @@
 package tamper_proof
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetRuleCmd = &cobra.Command{
 }
 
 func init() {
-		GetRuleCmd.Flags().IntVar(&getRuleParams.Id, "id", 0, "要获取的规则的 ID")
+	GetRuleCmd.Flags().IntVar(&getRuleParams.Id, "id", 0, "要获取的规则的 ID")
 }
-
 
 // GetRuleParams 请求参数
 type GetRuleParams struct {
 	Id int `json:"id"` // 要获取的规则的 ID
 }
-

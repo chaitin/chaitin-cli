@@ -3,8 +3,8 @@
 package package_service
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var BatchApplyPackageCmd = &cobra.Command{
 }
 
 func init() {
-		BatchApplyPackageCmd.Flags().Float64SliceVar(&batchApplyPackageParams.Ids, "ids", nil, "升级包id列表")
+	BatchApplyPackageCmd.Flags().Float64SliceVar(&batchApplyPackageParams.Ids, "ids", nil, "升级包id列表")
 }
-
 
 // BatchApplyPackageParams 请求参数
 type BatchApplyPackageParams struct {
 	Ids []float64 `json:"ids"` // 升级包id列表
 }
-

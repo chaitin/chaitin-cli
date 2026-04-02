@@ -3,8 +3,8 @@
 package network_reject
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,44 +29,42 @@ var DeleteEventCmd = &cobra.Command{
 }
 
 func init() {
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		DeleteEventCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.ExpireTime, "expire-time", nil, "阻断失效时间")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.ExposedIp, "exposed-ip", nil, "主机外网 IP")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Gids, "gids", nil, "主机业务组 ID")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostComment, "host-comment", nil, "主机备注")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostIp, "host-ip", nil, "主机 IP")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostTags, "host-tags", nil, "主机标签")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Id, "id", nil, "防护事件ID")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.InternalIp, "internal-ip", nil, "主机内网 IP")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Oid, "oid", nil, "组织ID")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.OperateTime, "operate-time", nil, "阻断执行时间")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.Operator, "operator", nil, "处理人")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.RejectDirect, "reject-direct", nil, "阻断方向，1入方向，2出方向")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.RejectStatus, "reject-status", nil, "阻断状态，1已阻断，2阻断过期，3解除阻断")
-		DeleteEventCmd.Flags().BoolVar(&deleteEventParams.SelectAll, "select-all", false, "是否全选")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.SourceIp, "source-ip", nil, "阻断源 IP")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	DeleteEventCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.ExpireTime, "expire-time", nil, "阻断失效时间")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.ExposedIp, "exposed-ip", nil, "主机外网 IP")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Gids, "gids", nil, "主机业务组 ID")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostComment, "host-comment", nil, "主机备注")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostIp, "host-ip", nil, "主机 IP")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostTags, "host-tags", nil, "主机标签")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Id, "id", nil, "防护事件ID")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.InternalIp, "internal-ip", nil, "主机内网 IP")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Oid, "oid", nil, "组织ID")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.OperateTime, "operate-time", nil, "阻断执行时间")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.Operator, "operator", nil, "处理人")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.RejectDirect, "reject-direct", nil, "阻断方向，1入方向，2出方向")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.RejectStatus, "reject-status", nil, "阻断状态，1已阻断，2阻断过期，3解除阻断")
+	DeleteEventCmd.Flags().BoolVar(&deleteEventParams.SelectAll, "select-all", false, "是否全选")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.SourceIp, "source-ip", nil, "阻断源 IP")
 }
-
 
 // DeleteEventParams 请求参数
 type DeleteEventParams struct {
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	ExpireTime []string `json:"expire_time"` // 阻断失效时间
-	ExposedIp []string `json:"exposed_ip"` // 主机外网 IP
-	Gids []float64 `json:"gids"` // 主机业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostTags []string `json:"host_tags"` // 主机标签
-	Id []float64 `json:"id"` // 防护事件ID
-	InternalIp []string `json:"internal_ip"` // 主机内网 IP
-	Oid []float64 `json:"oid"` // 组织ID
-	OperateTime []string `json:"operate_time"` // 阻断执行时间
-	Operator []string `json:"operator"` // 处理人
-	RejectDirect []float64 `json:"reject_direct"` // 阻断方向，1入方向，2出方向
-	RejectStatus []float64 `json:"reject_status"` // 阻断状态，1已阻断，2阻断过期，3解除阻断
-	SelectAll bool `json:"select_all"` // 是否全选
-	SourceIp []string `json:"source_ip"` // 阻断源 IP
+	CustomAttr   []map[string]interface{} `json:"custom_attr"`   // 主机业务属性
+	ExpireTime   []string                 `json:"expire_time"`   // 阻断失效时间
+	ExposedIp    []string                 `json:"exposed_ip"`    // 主机外网 IP
+	Gids         []float64                `json:"gids"`          // 主机业务组 ID
+	HostComment  []string                 `json:"host_comment"`  // 主机备注
+	HostIp       []string                 `json:"host_ip"`       // 主机 IP
+	HostTags     []string                 `json:"host_tags"`     // 主机标签
+	Id           []float64                `json:"id"`            // 防护事件ID
+	InternalIp   []string                 `json:"internal_ip"`   // 主机内网 IP
+	Oid          []float64                `json:"oid"`           // 组织ID
+	OperateTime  []string                 `json:"operate_time"`  // 阻断执行时间
+	Operator     []string                 `json:"operator"`      // 处理人
+	RejectDirect []float64                `json:"reject_direct"` // 阻断方向，1入方向，2出方向
+	RejectStatus []float64                `json:"reject_status"` // 阻断状态，1已阻断，2阻断过期，3解除阻断
+	SelectAll    bool                     `json:"select_all"`    // 是否全选
+	SourceIp     []string                 `json:"source_ip"`     // 阻断源 IP
 }
-

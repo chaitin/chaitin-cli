@@ -3,8 +3,8 @@
 package report
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,20 +29,18 @@ var ListReportCmd = &cobra.Command{
 }
 
 func init() {
-		ListReportCmd.Flags().IntVar(&listReportParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		ListReportCmd.Flags().StringSliceVar(&listReportParams.Name, "name", nil, "报告名称")
-		ListReportCmd.Flags().IntVar(&listReportParams.Offset, "offset", 0, "页偏移, 默认为 0")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		ListReportCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	ListReportCmd.Flags().IntVar(&listReportParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	ListReportCmd.Flags().StringSliceVar(&listReportParams.Name, "name", nil, "报告名称")
+	ListReportCmd.Flags().IntVar(&listReportParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	ListReportCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
 }
-
 
 // ListReportParams 请求参数
 type ListReportParams struct {
-	Count int `json:"count"` // 每页记录数量, 默认为 20
-	Name []string `json:"name"` // 报告名称
-	Offset int `json:"offset"` // 页偏移, 默认为 0
+	Count   int                    `json:"count"`    // 每页记录数量, 默认为 20
+	Name    []string               `json:"name"`     // 报告名称
+	Offset  int                    `json:"offset"`   // 页偏移, 默认为 0
 	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
 }
-

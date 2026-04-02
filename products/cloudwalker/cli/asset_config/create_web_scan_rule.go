@@ -3,8 +3,8 @@
 package asset_config
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,22 +29,20 @@ var CreateWebScanRuleCmd = &cobra.Command{
 }
 
 func init() {
-		CreateWebScanRuleCmd.Flags().Float64SliceVar(&createWebScanRuleParams.AgentRange, "agent-range", nil, "主机范围")
-		CreateWebScanRuleCmd.Flags().Float64SliceVar(&createWebScanRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		CreateWebScanRuleCmd.Flags().BoolVar(&createWebScanRuleParams.Enable, "enable", false, "是否启用")
-		CreateWebScanRuleCmd.Flags().BoolVar(&createWebScanRuleParams.Global, "global", false, "是否绑定全局探针")
-		CreateWebScanRuleCmd.Flags().StringSliceVar(&createWebScanRuleParams.Path, "path", nil, "Web 路径")
-		CreateWebScanRuleCmd.Flags().StringVar(&createWebScanRuleParams.RuleName, "rule-name", "", "规则名称")
+	CreateWebScanRuleCmd.Flags().Float64SliceVar(&createWebScanRuleParams.AgentRange, "agent-range", nil, "主机范围")
+	CreateWebScanRuleCmd.Flags().Float64SliceVar(&createWebScanRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	CreateWebScanRuleCmd.Flags().BoolVar(&createWebScanRuleParams.Enable, "enable", false, "是否启用")
+	CreateWebScanRuleCmd.Flags().BoolVar(&createWebScanRuleParams.Global, "global", false, "是否绑定全局探针")
+	CreateWebScanRuleCmd.Flags().StringSliceVar(&createWebScanRuleParams.Path, "path", nil, "Web 路径")
+	CreateWebScanRuleCmd.Flags().StringVar(&createWebScanRuleParams.RuleName, "rule-name", "", "规则名称")
 }
-
 
 // CreateWebScanRuleParams 请求参数
 type CreateWebScanRuleParams struct {
-	AgentRange []float64 `json:"agent_range"` // 主机范围
+	AgentRange         []float64 `json:"agent_range"`          // 主机范围
 	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Enable bool `json:"enable"` // 是否启用
-	Global bool `json:"global"` // 是否绑定全局探针
-	Path []string `json:"path"` // Web 路径
-	RuleName string `json:"rule_name"` // 规则名称
+	Enable             bool      `json:"enable"`               // 是否启用
+	Global             bool      `json:"global"`               // 是否绑定全局探针
+	Path               []string  `json:"path"`                 // Web 路径
+	RuleName           string    `json:"rule_name"`            // 规则名称
 }
-

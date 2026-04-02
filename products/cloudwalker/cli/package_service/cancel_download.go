@@ -3,8 +3,8 @@
 package package_service
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var CancelDownloadCmd = &cobra.Command{
 }
 
 func init() {
-		CancelDownloadCmd.Flags().StringVar(&cancelDownloadParams.Name, "name", "", "升级包名称")
+	CancelDownloadCmd.Flags().StringVar(&cancelDownloadParams.Name, "name", "", "升级包名称")
 }
-
 
 // CancelDownloadParams 请求参数
 type CancelDownloadParams struct {
 	Name string `json:"name"` // 升级包名称
 }
-

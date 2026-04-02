@@ -3,8 +3,8 @@
 package network_audit_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,72 +29,70 @@ var GetEventListByTargetCmd = &cobra.Command{
 }
 
 func init() {
-		GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.Cmdline, "cmdline", nil, "命令行")
-		GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.Comment, "comment", nil, "用户自定义备注")
-		GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.ContainerId, "container-id", nil, "容器id")
-		GetEventListByTargetCmd.Flags().IntVar(&getEventListByTargetParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.CreatedAt, "created-at", nil, "发现时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetEventListByTargetCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetEventListByTargetCmd.Flags().Float64SliceVar(&getEventListByTargetParams.Gids, "gids", nil, "业务组 ID")
-		GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.GroupName, "group-name", nil, "业务组名")
-		GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.HostComment, "host-comment", nil, "主机备注")
-		GetEventListByTargetCmd.Flags().Float64SliceVar(&getEventListByTargetParams.HostId, "host-id", nil, "主机 ID")
-		GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.HostIp, "host-ip", nil, "主机 IP")
-		GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.HostName, "host-name", nil, "主机名称")
-		GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.HostState, "host-state", nil, "主机状态")
-		GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.HostTags, "host-tags", nil, "主机标签")
-		GetEventListByTargetCmd.Flags().IntSliceVar(&getEventListByTargetParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		GetEventListByTargetCmd.Flags().IntVar(&getEventListByTargetParams.Offset, "offset", 0, "页偏移, 默认为 0")
-		GetEventListByTargetCmd.Flags().Float64SliceVar(&getEventListByTargetParams.Oid, "oid", nil, "机构 ID")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetEventListByTargetCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.ProcessName, "process-name", nil, "进程名")
-		GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
-		// select is complex type []map[string]interface{}, use JSON string
-		var selectJSON string
-		GetEventListByTargetCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"host_id\": 151, \"id\": 151, \"process_name\": \"AliSecureCheckAdvanced.exe\", \"target\": \"119.96.137.252\"}])")
-		GetEventListByTargetCmd.Flags().BoolVar(&getEventListByTargetParams.SelectAll, "select-all", false, "选择所有事件")
-		GetEventListByTargetCmd.Flags().Float64SliceVar(&getEventListByTargetParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
-		GetEventListByTargetCmd.Flags().IntSliceVar(&getEventListByTargetParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
-		GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.Target, "target", nil, "目标地址")
-		GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.Type, "type", nil, "网络异常类型")
-		GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.UpdatedAt, "updated-at", nil, "更新时间")
-		GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.Cmdline, "cmdline", nil, "命令行")
+	GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.Comment, "comment", nil, "用户自定义备注")
+	GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.ContainerId, "container-id", nil, "容器id")
+	GetEventListByTargetCmd.Flags().IntVar(&getEventListByTargetParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.CreatedAt, "created-at", nil, "发现时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetEventListByTargetCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetEventListByTargetCmd.Flags().Float64SliceVar(&getEventListByTargetParams.Gids, "gids", nil, "业务组 ID")
+	GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.GroupName, "group-name", nil, "业务组名")
+	GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.HostComment, "host-comment", nil, "主机备注")
+	GetEventListByTargetCmd.Flags().Float64SliceVar(&getEventListByTargetParams.HostId, "host-id", nil, "主机 ID")
+	GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.HostIp, "host-ip", nil, "主机 IP")
+	GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.HostName, "host-name", nil, "主机名称")
+	GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.HostState, "host-state", nil, "主机状态")
+	GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.HostTags, "host-tags", nil, "主机标签")
+	GetEventListByTargetCmd.Flags().IntSliceVar(&getEventListByTargetParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	GetEventListByTargetCmd.Flags().IntVar(&getEventListByTargetParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	GetEventListByTargetCmd.Flags().Float64SliceVar(&getEventListByTargetParams.Oid, "oid", nil, "机构 ID")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetEventListByTargetCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.ProcessName, "process-name", nil, "进程名")
+	GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
+	// select is complex type []map[string]interface{}, use JSON string
+	var selectJSON string
+	GetEventListByTargetCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"host_id\": 151, \"id\": 151, \"process_name\": \"AliSecureCheckAdvanced.exe\", \"target\": \"119.96.137.252\"}])")
+	GetEventListByTargetCmd.Flags().BoolVar(&getEventListByTargetParams.SelectAll, "select-all", false, "选择所有事件")
+	GetEventListByTargetCmd.Flags().Float64SliceVar(&getEventListByTargetParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
+	GetEventListByTargetCmd.Flags().IntSliceVar(&getEventListByTargetParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.Target, "target", nil, "目标地址")
+	GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.Type, "type", nil, "网络异常类型")
+	GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.UpdatedAt, "updated-at", nil, "更新时间")
+	GetEventListByTargetCmd.Flags().StringSliceVar(&getEventListByTargetParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // GetEventListByTargetParams 请求参数
 type GetEventListByTargetParams struct {
-	Cmdline []string `json:"cmdline"` // 命令行
-	Comment []string `json:"comment"` // 用户自定义备注
-	ContainerId []string `json:"container_id"` // 容器id
-	Count int `json:"count"` // 每页记录数量, 默认为 20
-	CreatedAt []string `json:"created_at"` // 发现时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // 业务组 ID
-	GroupName []string `json:"group_name"` // 业务组名
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Level []int `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	Offset int `json:"offset"` // 页偏移, 默认为 0
-	Oid []float64 `json:"oid"` // 机构 ID
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	ProcessName []string `json:"process_name"` // 进程名
-	RemoteAddrType []string `json:"remote_addr_type"` // 远程IP类型，intranet(内网)、internet(外网)
-	Select []map[string]interface{} `json:"select"` // select
-	SelectAll bool `json:"select_all"` // 选择所有事件
-	StatEventId []float64 `json:"stat_event_id"` // 事件统计 ID
-	State []int `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
-	Target []string `json:"target"` // 目标地址
-	Type []string `json:"type"` // 网络异常类型
-	UpdatedAt []string `json:"updated_at"` // 更新时间
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	Cmdline        []string                 `json:"cmdline"`          // 命令行
+	Comment        []string                 `json:"comment"`          // 用户自定义备注
+	ContainerId    []string                 `json:"container_id"`     // 容器id
+	Count          int                      `json:"count"`            // 每页记录数量, 默认为 20
+	CreatedAt      []string                 `json:"created_at"`       // 发现时间
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	Gids           []float64                `json:"gids"`             // 业务组 ID
+	GroupName      []string                 `json:"group_name"`       // 业务组名
+	HostComment    []string                 `json:"host_comment"`     // 主机备注
+	HostId         []float64                `json:"host_id"`          // 主机 ID
+	HostIp         []string                 `json:"host_ip"`          // 主机 IP
+	HostName       []string                 `json:"host_name"`        // 主机名称
+	HostState      []string                 `json:"host_state"`       // 主机状态
+	HostTags       []string                 `json:"host_tags"`        // 主机标签
+	Level          []int                    `json:"level"`            // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	Offset         int                      `json:"offset"`           // 页偏移, 默认为 0
+	Oid            []float64                `json:"oid"`              // 机构 ID
+	OrderBy        map[string]interface{}   `json:"order_by"`         // 排序规则
+	ProcessName    []string                 `json:"process_name"`     // 进程名
+	RemoteAddrType []string                 `json:"remote_addr_type"` // 远程IP类型，intranet(内网)、internet(外网)
+	Select         []map[string]interface{} `json:"select"`           // select
+	SelectAll      bool                     `json:"select_all"`       // 选择所有事件
+	StatEventId    []float64                `json:"stat_event_id"`    // 事件统计 ID
+	State          []int                    `json:"state"`            // 事件状态(1-有风险，2-已忽略，3-已处理)
+	Target         []string                 `json:"target"`           // 目标地址
+	Type           []string                 `json:"type"`             // 网络异常类型
+	UpdatedAt      []string                 `json:"updated_at"`       // 更新时间
+	WhiteRuleId    []string                 `json:"white_rule_id"`    // 白名单规则 ID
 }
-

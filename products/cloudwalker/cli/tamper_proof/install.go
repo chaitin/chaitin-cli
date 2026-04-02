@@ -3,8 +3,8 @@
 package tamper_proof
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var InstallCmd = &cobra.Command{
 }
 
 func init() {
-		InstallCmd.Flags().IntVar(&installParams.HostId, "host-id", 0, "要安装防篡改模块的 Host ID")
+	InstallCmd.Flags().IntVar(&installParams.HostId, "host-id", 0, "要安装防篡改模块的 Host ID")
 }
-
 
 // InstallParams 请求参数
 type InstallParams struct {
 	HostId int `json:"host_id"` // 要安装防篡改模块的 Host ID
 }
-

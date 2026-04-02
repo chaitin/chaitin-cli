@@ -3,14 +3,12 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetOsNameCmd = &cobra.Command{
 	Use:   "get_os_name",
@@ -31,5 +29,3 @@ var GetOsNameCmd = &cobra.Command{
 func init() {
 
 }
-
-

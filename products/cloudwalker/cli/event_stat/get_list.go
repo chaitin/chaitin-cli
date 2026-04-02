@@ -3,8 +3,8 @@
 package event_stat
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,48 +29,46 @@ var GetListCmd = &cobra.Command{
 }
 
 func init() {
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetListCmd.Flags().StringSliceVar(&getListParams.EventType, "event-type", nil, "事件类型")
-		GetListCmd.Flags().StringSliceVar(&getListParams.Filename, "filename", nil, "相关文件名")
-		GetListCmd.Flags().Float64SliceVar(&getListParams.Gids, "gids", nil, "业务组 ID")
-		GetListCmd.Flags().StringSliceVar(&getListParams.HostComment, "host-comment", nil, "主机备注")
-		GetListCmd.Flags().Float64SliceVar(&getListParams.HostId, "host-id", nil, "主机 ID")
-		GetListCmd.Flags().StringSliceVar(&getListParams.HostIp, "host-ip", nil, "主机 IP")
-		GetListCmd.Flags().StringSliceVar(&getListParams.HostName, "host-name", nil, "主机名称")
-		GetListCmd.Flags().StringSliceVar(&getListParams.HostState, "host-state", nil, "主机状态")
-		GetListCmd.Flags().StringSliceVar(&getListParams.HostTags, "host-tags", nil, "主机标签")
-		GetListCmd.Flags().StringSliceVar(&getListParams.LastSeenAt, "last-seen-at", nil, "最近发现时间筛选")
-		GetListCmd.Flags().IntSliceVar(&getListParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		GetListCmd.Flags().Float64SliceVar(&getListParams.Oid, "oid", nil, "机构 ID")
-		// page is object type, use JSON string
-		var pageJSON string
-		GetListCmd.Flags().StringVar(&pageJSON, "page", "", "分页器 (JSON, e.g. {\"count\": 20, \"offset\": 0, \"order\": {\"column\": \"level\", \"order\": \"ASC\"}})")
-		GetListCmd.Flags().StringSliceVar(&getListParams.ProcessName, "process-name", nil, "相关进程名")
-		GetListCmd.Flags().BoolVar(&getListParams.Risky, "risky", false, "是否有风险")
-		GetListCmd.Flags().StringSliceVar(&getListParams.SourceIp, "source-ip", nil, "攻击源 IP")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetListCmd.Flags().StringSliceVar(&getListParams.EventType, "event-type", nil, "事件类型")
+	GetListCmd.Flags().StringSliceVar(&getListParams.Filename, "filename", nil, "相关文件名")
+	GetListCmd.Flags().Float64SliceVar(&getListParams.Gids, "gids", nil, "业务组 ID")
+	GetListCmd.Flags().StringSliceVar(&getListParams.HostComment, "host-comment", nil, "主机备注")
+	GetListCmd.Flags().Float64SliceVar(&getListParams.HostId, "host-id", nil, "主机 ID")
+	GetListCmd.Flags().StringSliceVar(&getListParams.HostIp, "host-ip", nil, "主机 IP")
+	GetListCmd.Flags().StringSliceVar(&getListParams.HostName, "host-name", nil, "主机名称")
+	GetListCmd.Flags().StringSliceVar(&getListParams.HostState, "host-state", nil, "主机状态")
+	GetListCmd.Flags().StringSliceVar(&getListParams.HostTags, "host-tags", nil, "主机标签")
+	GetListCmd.Flags().StringSliceVar(&getListParams.LastSeenAt, "last-seen-at", nil, "最近发现时间筛选")
+	GetListCmd.Flags().IntSliceVar(&getListParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	GetListCmd.Flags().Float64SliceVar(&getListParams.Oid, "oid", nil, "机构 ID")
+	// page is object type, use JSON string
+	var pageJSON string
+	GetListCmd.Flags().StringVar(&pageJSON, "page", "", "分页器 (JSON, e.g. {\"count\": 20, \"offset\": 0, \"order\": {\"column\": \"level\", \"order\": \"ASC\"}})")
+	GetListCmd.Flags().StringSliceVar(&getListParams.ProcessName, "process-name", nil, "相关进程名")
+	GetListCmd.Flags().BoolVar(&getListParams.Risky, "risky", false, "是否有风险")
+	GetListCmd.Flags().StringSliceVar(&getListParams.SourceIp, "source-ip", nil, "攻击源 IP")
 }
-
 
 // GetListParams 请求参数
 type GetListParams struct {
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	EventType []string `json:"event_type"` // 事件类型
-	Filename []string `json:"filename"` // 相关文件名
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	LastSeenAt []string `json:"last_seen_at"` // 最近发现时间筛选
-	Level []int `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	Oid []float64 `json:"oid"` // 机构 ID
-	Page map[string]interface{} `json:"page"` // 分页器
-	ProcessName []string `json:"process_name"` // 相关进程名
-	Risky bool `json:"risky"` // 是否有风险
-	SourceIp []string `json:"source_ip"` // 攻击源 IP
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	EventType   []string                 `json:"event_type"`   // 事件类型
+	Filename    []string                 `json:"filename"`     // 相关文件名
+	Gids        []float64                `json:"gids"`         // 业务组 ID
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机 ID
+	HostIp      []string                 `json:"host_ip"`      // 主机 IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTags    []string                 `json:"host_tags"`    // 主机标签
+	LastSeenAt  []string                 `json:"last_seen_at"` // 最近发现时间筛选
+	Level       []int                    `json:"level"`        // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	Oid         []float64                `json:"oid"`          // 机构 ID
+	Page        map[string]interface{}   `json:"page"`         // 分页器
+	ProcessName []string                 `json:"process_name"` // 相关进程名
+	Risky       bool                     `json:"risky"`        // 是否有风险
+	SourceIp    []string                 `json:"source_ip"`    // 攻击源 IP
 }
-

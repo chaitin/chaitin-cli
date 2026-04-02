@@ -3,8 +3,8 @@
 package full_command
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,58 +29,56 @@ var GetListBySshClientIpCmd = &cobra.Command{
 }
 
 func init() {
-		GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.Command, "command", nil, "命令")
-		GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.Comment, "comment", nil, "用户自定义备注")
-		GetListBySshClientIpCmd.Flags().IntVar(&getListBySshClientIpParams.Count, "count", 20, "数量")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetListBySshClientIpCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetListBySshClientIpCmd.Flags().Float64SliceVar(&getListBySshClientIpParams.Gids, "gids", nil, "业务组 ID")
-		GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.HostComment, "host-comment", nil, "主机备注")
-		GetListBySshClientIpCmd.Flags().Float64SliceVar(&getListBySshClientIpParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
-		GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.HostIp, "host-ip", nil, "主机IP")
-		GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.HostName, "host-name", nil, "主机名称")
-		GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.HostState, "host-state", nil, "主机状态")
-		GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.HostTags, "host-tags", nil, "主机标签")
-		GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.NetApp, "net-app", nil, "网络应用名称")
-		GetListBySshClientIpCmd.Flags().IntVar(&getListBySshClientIpParams.Offset, "offset", 0, "偏移量")
-		GetListBySshClientIpCmd.Flags().Float64SliceVar(&getListBySshClientIpParams.Oid, "oid", nil, "机构 ID")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetListBySshClientIpCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.SessionId, "session-id", nil, "会话id")
-		GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.ShellDuration, "shell-duration", nil, "会话持续时间")
-		GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.ShellStartedAt, "shell-started-at", nil, "会话启动时间")
-		GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.SshClientIp, "ssh-client-ip", nil, "ssh登陆地址")
-		GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.SshUser, "ssh-user", nil, "ssh登录用户")
-		GetListBySshClientIpCmd.Flags().Float64SliceVar(&getListBySshClientIpParams.Uid, "uid", nil, "用户id")
-		GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.Uname, "uname", nil, "用户名")
+	GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.Command, "command", nil, "命令")
+	GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.Comment, "comment", nil, "用户自定义备注")
+	GetListBySshClientIpCmd.Flags().IntVar(&getListBySshClientIpParams.Count, "count", 20, "数量")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetListBySshClientIpCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetListBySshClientIpCmd.Flags().Float64SliceVar(&getListBySshClientIpParams.Gids, "gids", nil, "业务组 ID")
+	GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.HostComment, "host-comment", nil, "主机备注")
+	GetListBySshClientIpCmd.Flags().Float64SliceVar(&getListBySshClientIpParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
+	GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.HostIp, "host-ip", nil, "主机IP")
+	GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.HostName, "host-name", nil, "主机名称")
+	GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.HostState, "host-state", nil, "主机状态")
+	GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.HostTags, "host-tags", nil, "主机标签")
+	GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.NetApp, "net-app", nil, "网络应用名称")
+	GetListBySshClientIpCmd.Flags().IntVar(&getListBySshClientIpParams.Offset, "offset", 0, "偏移量")
+	GetListBySshClientIpCmd.Flags().Float64SliceVar(&getListBySshClientIpParams.Oid, "oid", nil, "机构 ID")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetListBySshClientIpCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.SessionId, "session-id", nil, "会话id")
+	GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.ShellDuration, "shell-duration", nil, "会话持续时间")
+	GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.ShellStartedAt, "shell-started-at", nil, "会话启动时间")
+	GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.SshClientIp, "ssh-client-ip", nil, "ssh登陆地址")
+	GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.SshUser, "ssh-user", nil, "ssh登录用户")
+	GetListBySshClientIpCmd.Flags().Float64SliceVar(&getListBySshClientIpParams.Uid, "uid", nil, "用户id")
+	GetListBySshClientIpCmd.Flags().StringSliceVar(&getListBySshClientIpParams.Uname, "uname", nil, "用户名")
 }
-
 
 // GetListBySshClientIpParams 请求参数
 type GetListBySshClientIpParams struct {
-	Command []string `json:"command"` // 命令
-	Comment []string `json:"comment"` // 用户自定义备注
-	Count int `json:"count"` // 数量
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID, 用于主机详情页面
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	NetApp []string `json:"net_app"` // 网络应用名称
-	Offset int `json:"offset"` // 偏移量
-	Oid []float64 `json:"oid"` // 机构 ID
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	SessionId []string `json:"session_id"` // 会话id
-	ShellDuration []string `json:"shell_duration"` // 会话持续时间
-	ShellStartedAt []string `json:"shell_started_at"` // 会话启动时间
-	SshClientIp []string `json:"ssh_client_ip"` // ssh登陆地址
-	SshUser []string `json:"ssh_user"` // ssh登录用户
-	Uid []float64 `json:"uid"` // 用户id
-	Uname []string `json:"uname"` // 用户名
+	Command        []string                 `json:"command"`          // 命令
+	Comment        []string                 `json:"comment"`          // 用户自定义备注
+	Count          int                      `json:"count"`            // 数量
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	Gids           []float64                `json:"gids"`             // 业务组 ID
+	HostComment    []string                 `json:"host_comment"`     // 主机备注
+	HostId         []float64                `json:"host_id"`          // 主机ID, 用于主机详情页面
+	HostIp         []string                 `json:"host_ip"`          // 主机IP
+	HostName       []string                 `json:"host_name"`        // 主机名称
+	HostState      []string                 `json:"host_state"`       // 主机状态
+	HostTags       []string                 `json:"host_tags"`        // 主机标签
+	NetApp         []string                 `json:"net_app"`          // 网络应用名称
+	Offset         int                      `json:"offset"`           // 偏移量
+	Oid            []float64                `json:"oid"`              // 机构 ID
+	OrderBy        map[string]interface{}   `json:"order_by"`         // 排序规则
+	SessionId      []string                 `json:"session_id"`       // 会话id
+	ShellDuration  []string                 `json:"shell_duration"`   // 会话持续时间
+	ShellStartedAt []string                 `json:"shell_started_at"` // 会话启动时间
+	SshClientIp    []string                 `json:"ssh_client_ip"`    // ssh登陆地址
+	SshUser        []string                 `json:"ssh_user"`         // ssh登录用户
+	Uid            []float64                `json:"uid"`              // 用户id
+	Uname          []string                 `json:"uname"`            // 用户名
 }
-

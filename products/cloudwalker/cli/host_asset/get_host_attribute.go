@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetHostAttributeCmd = &cobra.Command{
 }
 
 func init() {
-		GetHostAttributeCmd.Flags().Float64Var(&getHostAttributeParams.HostId, "host-id", 0, "主机 ID")
+	GetHostAttributeCmd.Flags().Float64Var(&getHostAttributeParams.HostId, "host-id", 0, "主机 ID")
 }
-
 
 // GetHostAttributeParams 请求参数
 type GetHostAttributeParams struct {
 	HostId float64 `json:"host_id"` // 主机 ID
 }
-

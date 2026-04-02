@@ -3,8 +3,8 @@
 package crontab
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,42 +29,40 @@ var GetTaskResultCmd = &cobra.Command{
 }
 
 func init() {
-		GetTaskResultCmd.Flags().IntVar(&getTaskResultParams.Count, "count", 20, "每种任务的结果展示数量限制; 对于已经聚合的任务结果不起作用")
-		GetTaskResultCmd.Flags().StringSliceVar(&getTaskResultParams.ExposedIp, "exposed-ip", nil, "主机外网 IP")
-		GetTaskResultCmd.Flags().Float64SliceVar(&getTaskResultParams.Gids, "gids", nil, "业务组 ID")
-		GetTaskResultCmd.Flags().Float64SliceVar(&getTaskResultParams.GroupId, "group-id", nil, "业务组")
-		GetTaskResultCmd.Flags().StringSliceVar(&getTaskResultParams.GroupName, "group-name", nil, "业务组名")
-		GetTaskResultCmd.Flags().StringSliceVar(&getTaskResultParams.HostComment, "host-comment", nil, "主机备注")
-		GetTaskResultCmd.Flags().Float64SliceVar(&getTaskResultParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
-		GetTaskResultCmd.Flags().StringSliceVar(&getTaskResultParams.HostIp, "host-ip", nil, "主机IP")
-		GetTaskResultCmd.Flags().StringSliceVar(&getTaskResultParams.HostName, "host-name", nil, "主机名称")
-		GetTaskResultCmd.Flags().StringSliceVar(&getTaskResultParams.HostState, "host-state", nil, "主机状态")
-		GetTaskResultCmd.Flags().IntVar(&getTaskResultParams.Offset, "offset", 0, "每种任务的结果展示偏移; 对于已经聚合的任务结果不起作用")
-		GetTaskResultCmd.Flags().Float64SliceVar(&getTaskResultParams.Oid, "oid", nil, "机构ID")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetTaskResultCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序， 这里的排序只支持部分 asset_host_view 的字段 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetTaskResultCmd.Flags().IntVar(&getTaskResultParams.PlanId, "plan-id", 0, "计划Id")
-		GetTaskResultCmd.Flags().StringSliceVar(&getTaskResultParams.TaskType, "task-type", nil, "任务类型")
+	GetTaskResultCmd.Flags().IntVar(&getTaskResultParams.Count, "count", 20, "每种任务的结果展示数量限制; 对于已经聚合的任务结果不起作用")
+	GetTaskResultCmd.Flags().StringSliceVar(&getTaskResultParams.ExposedIp, "exposed-ip", nil, "主机外网 IP")
+	GetTaskResultCmd.Flags().Float64SliceVar(&getTaskResultParams.Gids, "gids", nil, "业务组 ID")
+	GetTaskResultCmd.Flags().Float64SliceVar(&getTaskResultParams.GroupId, "group-id", nil, "业务组")
+	GetTaskResultCmd.Flags().StringSliceVar(&getTaskResultParams.GroupName, "group-name", nil, "业务组名")
+	GetTaskResultCmd.Flags().StringSliceVar(&getTaskResultParams.HostComment, "host-comment", nil, "主机备注")
+	GetTaskResultCmd.Flags().Float64SliceVar(&getTaskResultParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
+	GetTaskResultCmd.Flags().StringSliceVar(&getTaskResultParams.HostIp, "host-ip", nil, "主机IP")
+	GetTaskResultCmd.Flags().StringSliceVar(&getTaskResultParams.HostName, "host-name", nil, "主机名称")
+	GetTaskResultCmd.Flags().StringSliceVar(&getTaskResultParams.HostState, "host-state", nil, "主机状态")
+	GetTaskResultCmd.Flags().IntVar(&getTaskResultParams.Offset, "offset", 0, "每种任务的结果展示偏移; 对于已经聚合的任务结果不起作用")
+	GetTaskResultCmd.Flags().Float64SliceVar(&getTaskResultParams.Oid, "oid", nil, "机构ID")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetTaskResultCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序， 这里的排序只支持部分 asset_host_view 的字段 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetTaskResultCmd.Flags().IntVar(&getTaskResultParams.PlanId, "plan-id", 0, "计划Id")
+	GetTaskResultCmd.Flags().StringSliceVar(&getTaskResultParams.TaskType, "task-type", nil, "任务类型")
 }
-
 
 // GetTaskResultParams 请求参数
 type GetTaskResultParams struct {
-	Count int `json:"count"` // 每种任务的结果展示数量限制; 对于已经聚合的任务结果不起作用
-	ExposedIp []string `json:"exposed_ip"` // 主机外网 IP
-	Gids []float64 `json:"gids"` // 业务组 ID
-	GroupId []float64 `json:"group_id"` // 业务组
-	GroupName []string `json:"group_name"` // 业务组名
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID, 用于主机详情页面
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	Offset int `json:"offset"` // 每种任务的结果展示偏移; 对于已经聚合的任务结果不起作用
-	Oid []float64 `json:"oid"` // 机构ID
-	OrderBy map[string]interface{} `json:"order_by"` // 排序， 这里的排序只支持部分 asset_host_view 的字段
-	PlanId int `json:"plan_id"` // 计划Id
-	TaskType []string `json:"task_type"` // 任务类型
+	Count       int                    `json:"count"`        // 每种任务的结果展示数量限制; 对于已经聚合的任务结果不起作用
+	ExposedIp   []string               `json:"exposed_ip"`   // 主机外网 IP
+	Gids        []float64              `json:"gids"`         // 业务组 ID
+	GroupId     []float64              `json:"group_id"`     // 业务组
+	GroupName   []string               `json:"group_name"`   // 业务组名
+	HostComment []string               `json:"host_comment"` // 主机备注
+	HostId      []float64              `json:"host_id"`      // 主机ID, 用于主机详情页面
+	HostIp      []string               `json:"host_ip"`      // 主机IP
+	HostName    []string               `json:"host_name"`    // 主机名称
+	HostState   []string               `json:"host_state"`   // 主机状态
+	Offset      int                    `json:"offset"`       // 每种任务的结果展示偏移; 对于已经聚合的任务结果不起作用
+	Oid         []float64              `json:"oid"`          // 机构ID
+	OrderBy     map[string]interface{} `json:"order_by"`     // 排序， 这里的排序只支持部分 asset_host_view 的字段
+	PlanId      int                    `json:"plan_id"`      // 计划Id
+	TaskType    []string               `json:"task_type"`    // 任务类型
 }
-

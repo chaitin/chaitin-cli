@@ -3,8 +3,8 @@
 package admin_strategy
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var SetSystemStrategyCmd = &cobra.Command{
 }
 
 func init() {
-		// content is object type, use JSON string
-		var contentJSON string
-		SetSystemStrategyCmd.Flags().StringVar(&contentJSON, "content", "", "安全策略内容 (JSON, e.g. {\"abnormal_login\": {\"ap_dur_critical\": 100, \"ap_dur_high\": 100, \"ap_dur_low\": 100, \"ap_dur_medium\": 100, \"ap_enable\": true, \"enable\": true, \"protect_time\": [{\"start_time\": \"...\", \"stop_time\": \"...\", \"weekdays\": \"...\"}], \"protect_time_strategy\": \"\"}, \"bruteforce\": {\"ap_dur_critical\": 100, \"ap_dur_high\": 100, \"ap_dur_low\": 100, \"ap_dur_medium\": 100, \"ap_enable\": true, \"enable\": true, \"ftp_enable\": true, \"protect_time\": [{\"start_time\": \"...\", \"stop_time\": \"...\", \"weekdays\": \"...\"}], \"protect_time_strategy\": \"\", \"rdp_enable\": true, \"smb_enable\": true, \"ssh_enable\": true, \"winrm_enable\": true}, \"elevation_process\": {\"enable\": true, \"process_kill_enable\": false, \"process_kill_event_level\": [\"\"], \"protect_time\": [{\"start_time\": \"...\", \"stop_time\": \"...\", \"weekdays\": \"...\"}], \"protect_time_strategy\": \"\"}, \"...\": \"...\"})")
-		SetSystemStrategyCmd.Flags().StringVar(&setSystemStrategyParams.Id, "id", "", "安全策略 id")
+	// content is object type, use JSON string
+	var contentJSON string
+	SetSystemStrategyCmd.Flags().StringVar(&contentJSON, "content", "", "安全策略内容 (JSON, e.g. {\"abnormal_login\": {\"ap_dur_critical\": 100, \"ap_dur_high\": 100, \"ap_dur_low\": 100, \"ap_dur_medium\": 100, \"ap_enable\": true, \"enable\": true, \"protect_time\": [{\"start_time\": \"...\", \"stop_time\": \"...\", \"weekdays\": \"...\"}], \"protect_time_strategy\": \"\"}, \"bruteforce\": {\"ap_dur_critical\": 100, \"ap_dur_high\": 100, \"ap_dur_low\": 100, \"ap_dur_medium\": 100, \"ap_enable\": true, \"enable\": true, \"ftp_enable\": true, \"protect_time\": [{\"start_time\": \"...\", \"stop_time\": \"...\", \"weekdays\": \"...\"}], \"protect_time_strategy\": \"\", \"rdp_enable\": true, \"smb_enable\": true, \"ssh_enable\": true, \"winrm_enable\": true}, \"elevation_process\": {\"enable\": true, \"process_kill_enable\": false, \"process_kill_event_level\": [\"\"], \"protect_time\": [{\"start_time\": \"...\", \"stop_time\": \"...\", \"weekdays\": \"...\"}], \"protect_time_strategy\": \"\"}, \"...\": \"...\"})")
+	SetSystemStrategyCmd.Flags().StringVar(&setSystemStrategyParams.Id, "id", "", "安全策略 id")
 }
-
 
 // SetSystemStrategyParams 请求参数
 type SetSystemStrategyParams struct {
 	Content map[string]interface{} `json:"content"` // 安全策略内容
-	Id string `json:"id"` // 安全策略 id
+	Id      string                 `json:"id"`      // 安全策略 id
 }
-

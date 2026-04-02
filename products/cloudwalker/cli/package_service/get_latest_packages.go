@@ -3,8 +3,8 @@
 package package_service
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var GetLatestPackagesCmd = &cobra.Command{
 }
 
 func init() {
-		GetLatestPackagesCmd.Flags().StringSliceVar(&getLatestPackagesParams.ModuleKeys, "module-keys", nil, "选择的模块")
-		GetLatestPackagesCmd.Flags().StringVar(&getLatestPackagesParams.ProxyHost, "proxy-host", "", "代理主机")
+	GetLatestPackagesCmd.Flags().StringSliceVar(&getLatestPackagesParams.ModuleKeys, "module-keys", nil, "选择的模块")
+	GetLatestPackagesCmd.Flags().StringVar(&getLatestPackagesParams.ProxyHost, "proxy-host", "", "代理主机")
 }
-
 
 // GetLatestPackagesParams 请求参数
 type GetLatestPackagesParams struct {
 	ModuleKeys []string `json:"module_keys"` // 选择的模块
-	ProxyHost string `json:"proxy_host"` // 代理主机
+	ProxyHost  string   `json:"proxy_host"`  // 代理主机
 }
-

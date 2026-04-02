@@ -3,8 +3,8 @@
 package process_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var RefreshCmd = &cobra.Command{
 }
 
 func init() {
-		RefreshCmd.Flags().IntSliceVar(&refreshParams.HostId, "host-id", nil, "主机 ID")
-		RefreshCmd.Flags().BoolVar(&refreshParams.SelectAll, "select-all", false, "是否全选择")
+	RefreshCmd.Flags().IntSliceVar(&refreshParams.HostId, "host-id", nil, "主机 ID")
+	RefreshCmd.Flags().BoolVar(&refreshParams.SelectAll, "select-all", false, "是否全选择")
 }
-
 
 // RefreshParams 请求参数
 type RefreshParams struct {
-	HostId []int `json:"host_id"` // 主机 ID
-	SelectAll bool `json:"select_all"` // 是否全选择
+	HostId    []int `json:"host_id"`    // 主机 ID
+	SelectAll bool  `json:"select_all"` // 是否全选择
 }
-

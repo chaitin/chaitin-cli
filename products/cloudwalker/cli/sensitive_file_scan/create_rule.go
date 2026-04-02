@@ -3,8 +3,8 @@
 package sensitive_file_scan
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,24 +29,22 @@ var CreateRuleCmd = &cobra.Command{
 }
 
 func init() {
-		CreateRuleCmd.Flags().StringSliceVar(&createRuleParams.Action, "action", nil, "动作")
-		// exclude_rule is complex type []map[string]interface{}, use JSON string
-		var excludeRuleJSON string
-		CreateRuleCmd.Flags().StringVar(&excludeRuleJSON, "exclude-rule", "", "排除规则 (JSON, e.g. [{\"method\": \"prefix\", \"rule\": \"/etc/passwd\"}])")
-		CreateRuleCmd.Flags().IntVar(&createRuleParams.Level, "level", 0, "事件级别")
-		CreateRuleCmd.Flags().StringSliceVar(&createRuleParams.Path, "path", nil, "路径")
-		CreateRuleCmd.Flags().BoolVar(&createRuleParams.Recursive, "recursive", false, "递归监控子目录")
-		CreateRuleCmd.Flags().StringVar(&createRuleParams.RuleName, "rule-name", "", "规则名称")
+	CreateRuleCmd.Flags().StringSliceVar(&createRuleParams.Action, "action", nil, "动作")
+	// exclude_rule is complex type []map[string]interface{}, use JSON string
+	var excludeRuleJSON string
+	CreateRuleCmd.Flags().StringVar(&excludeRuleJSON, "exclude-rule", "", "排除规则 (JSON, e.g. [{\"method\": \"prefix\", \"rule\": \"/etc/passwd\"}])")
+	CreateRuleCmd.Flags().IntVar(&createRuleParams.Level, "level", 0, "事件级别")
+	CreateRuleCmd.Flags().StringSliceVar(&createRuleParams.Path, "path", nil, "路径")
+	CreateRuleCmd.Flags().BoolVar(&createRuleParams.Recursive, "recursive", false, "递归监控子目录")
+	CreateRuleCmd.Flags().StringVar(&createRuleParams.RuleName, "rule-name", "", "规则名称")
 }
-
 
 // CreateRuleParams 请求参数
 type CreateRuleParams struct {
-	Action []string `json:"action"` // 动作
+	Action      []string                 `json:"action"`       // 动作
 	ExcludeRule []map[string]interface{} `json:"exclude_rule"` // 排除规则
-	Level int `json:"level"` // 事件级别
-	Path []string `json:"path"` // 路径
-	Recursive bool `json:"recursive"` // 递归监控子目录
-	RuleName string `json:"rule_name"` // 规则名称
+	Level       int                      `json:"level"`        // 事件级别
+	Path        []string                 `json:"path"`         // 路径
+	Recursive   bool                     `json:"recursive"`    // 递归监控子目录
+	RuleName    string                   `json:"rule_name"`    // 规则名称
 }
-

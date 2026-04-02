@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var SetEventArchiveConfigCmd = &cobra.Command{
 }
 
 func init() {
-		SetEventArchiveConfigCmd.Flags().IntVar(&setEventArchiveConfigParams.Archive, "archive", 0, "归档多久前")
-		SetEventArchiveConfigCmd.Flags().IntVar(&setEventArchiveConfigParams.Delete, "delete", 0, "删除多久前")
-		SetEventArchiveConfigCmd.Flags().BoolVar(&setEventArchiveConfigParams.Enable, "enable", false, "是否开启事件归档")
+	SetEventArchiveConfigCmd.Flags().IntVar(&setEventArchiveConfigParams.Archive, "archive", 0, "归档多久前")
+	SetEventArchiveConfigCmd.Flags().IntVar(&setEventArchiveConfigParams.Delete, "delete", 0, "删除多久前")
+	SetEventArchiveConfigCmd.Flags().BoolVar(&setEventArchiveConfigParams.Enable, "enable", false, "是否开启事件归档")
 }
-
 
 // SetEventArchiveConfigParams 请求参数
 type SetEventArchiveConfigParams struct {
-	Archive int `json:"archive"` // 归档多久前
-	Delete int `json:"delete"` // 删除多久前
-	Enable bool `json:"enable"` // 是否开启事件归档
+	Archive int  `json:"archive"` // 归档多久前
+	Delete  int  `json:"delete"`  // 删除多久前
+	Enable  bool `json:"enable"`  // 是否开启事件归档
 }
-

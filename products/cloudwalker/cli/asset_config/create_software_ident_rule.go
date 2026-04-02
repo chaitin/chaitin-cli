@@ -3,8 +3,8 @@
 package asset_config
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,42 +29,40 @@ var CreateSoftwareIdentRuleCmd = &cobra.Command{
 }
 
 func init() {
-		CreateSoftwareIdentRuleCmd.Flags().Float64SliceVar(&createSoftwareIdentRuleParams.AgentRange, "agent-range", nil, "主机范围")
-		CreateSoftwareIdentRuleCmd.Flags().Float64SliceVar(&createSoftwareIdentRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		CreateSoftwareIdentRuleCmd.Flags().StringVar(&createSoftwareIdentRuleParams.Category, "category", "", "软件分类")
-		CreateSoftwareIdentRuleCmd.Flags().StringVar(&createSoftwareIdentRuleParams.Description, "description", "", "软件描述")
-		CreateSoftwareIdentRuleCmd.Flags().IntVar(&createSoftwareIdentRuleParams.DetectType, "detect-type", 0, "检测类型 1:采集进程匹配 2:读取文件匹配")
-		// file_pattern is object type, use JSON string
-		var filePatternJSON string
-		CreateSoftwareIdentRuleCmd.Flags().StringVar(&filePatternJSON, "file-pattern", "", "file_pattern (JSON, e.g. {\"path\": [\"\"], \"regex\": \"\"})")
-		CreateSoftwareIdentRuleCmd.Flags().BoolVar(&createSoftwareIdentRuleParams.Global, "global", false, "是否绑定全局探针")
-		CreateSoftwareIdentRuleCmd.Flags().IntVar(&createSoftwareIdentRuleParams.Platform, "platform", 0, "适用平台 1:windows 2:linux 5:all")
-		// process_pattern is object type, use JSON string
-		var processPatternJSON string
-		CreateSoftwareIdentRuleCmd.Flags().StringVar(&processPatternJSON, "process-pattern", "", "process_pattern (JSON, e.g. {\"parent_process_cmd\": {\"operate\": 0, \"value\": [\"\"]}, \"parent_process_name\": {\"operate\": 0, \"value\": [\"\"]}, \"process_cmd\": {\"operate\": 0, \"value\": [\"\"]}, \"process_name\": {\"operate\": 0, \"value\": [\"\"]}})")
-		CreateSoftwareIdentRuleCmd.Flags().StringVar(&createSoftwareIdentRuleParams.Provider, "provider", "", "提供厂商")
-		CreateSoftwareIdentRuleCmd.Flags().StringVar(&createSoftwareIdentRuleParams.RuleName, "rule-name", "", "规则名称")
-		CreateSoftwareIdentRuleCmd.Flags().StringVar(&createSoftwareIdentRuleParams.SoftwareName, "software-name", "", "软件名称")
-		// version_pattern is object type, use JSON string
-		var versionPatternJSON string
-		CreateSoftwareIdentRuleCmd.Flags().StringVar(&versionPatternJSON, "version-pattern", "", "version_pattern (JSON, e.g. {\"path\": [\"\"], \"regex\": \"\"})")
+	CreateSoftwareIdentRuleCmd.Flags().Float64SliceVar(&createSoftwareIdentRuleParams.AgentRange, "agent-range", nil, "主机范围")
+	CreateSoftwareIdentRuleCmd.Flags().Float64SliceVar(&createSoftwareIdentRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	CreateSoftwareIdentRuleCmd.Flags().StringVar(&createSoftwareIdentRuleParams.Category, "category", "", "软件分类")
+	CreateSoftwareIdentRuleCmd.Flags().StringVar(&createSoftwareIdentRuleParams.Description, "description", "", "软件描述")
+	CreateSoftwareIdentRuleCmd.Flags().IntVar(&createSoftwareIdentRuleParams.DetectType, "detect-type", 0, "检测类型 1:采集进程匹配 2:读取文件匹配")
+	// file_pattern is object type, use JSON string
+	var filePatternJSON string
+	CreateSoftwareIdentRuleCmd.Flags().StringVar(&filePatternJSON, "file-pattern", "", "file_pattern (JSON, e.g. {\"path\": [\"\"], \"regex\": \"\"})")
+	CreateSoftwareIdentRuleCmd.Flags().BoolVar(&createSoftwareIdentRuleParams.Global, "global", false, "是否绑定全局探针")
+	CreateSoftwareIdentRuleCmd.Flags().IntVar(&createSoftwareIdentRuleParams.Platform, "platform", 0, "适用平台 1:windows 2:linux 5:all")
+	// process_pattern is object type, use JSON string
+	var processPatternJSON string
+	CreateSoftwareIdentRuleCmd.Flags().StringVar(&processPatternJSON, "process-pattern", "", "process_pattern (JSON, e.g. {\"parent_process_cmd\": {\"operate\": 0, \"value\": [\"\"]}, \"parent_process_name\": {\"operate\": 0, \"value\": [\"\"]}, \"process_cmd\": {\"operate\": 0, \"value\": [\"\"]}, \"process_name\": {\"operate\": 0, \"value\": [\"\"]}})")
+	CreateSoftwareIdentRuleCmd.Flags().StringVar(&createSoftwareIdentRuleParams.Provider, "provider", "", "提供厂商")
+	CreateSoftwareIdentRuleCmd.Flags().StringVar(&createSoftwareIdentRuleParams.RuleName, "rule-name", "", "规则名称")
+	CreateSoftwareIdentRuleCmd.Flags().StringVar(&createSoftwareIdentRuleParams.SoftwareName, "software-name", "", "软件名称")
+	// version_pattern is object type, use JSON string
+	var versionPatternJSON string
+	CreateSoftwareIdentRuleCmd.Flags().StringVar(&versionPatternJSON, "version-pattern", "", "version_pattern (JSON, e.g. {\"path\": [\"\"], \"regex\": \"\"})")
 }
-
 
 // CreateSoftwareIdentRuleParams 请求参数
 type CreateSoftwareIdentRuleParams struct {
-	AgentRange []float64 `json:"agent_range"` // 主机范围
-	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Category string `json:"category"` // 软件分类
-	Description string `json:"description"` // 软件描述
-	DetectType int `json:"detect_type"` // 检测类型 1:采集进程匹配 2:读取文件匹配
-	FilePattern map[string]interface{} `json:"file_pattern"` // file_pattern
-	Global bool `json:"global"` // 是否绑定全局探针
-	Platform int `json:"platform"` // 适用平台 1:windows 2:linux 5:all
-	ProcessPattern map[string]interface{} `json:"process_pattern"` // process_pattern
-	Provider string `json:"provider"` // 提供厂商
-	RuleName string `json:"rule_name"` // 规则名称
-	SoftwareName string `json:"software_name"` // 软件名称
-	VersionPattern map[string]interface{} `json:"version_pattern"` // version_pattern
+	AgentRange         []float64              `json:"agent_range"`          // 主机范围
+	BusinessGroupRange []float64              `json:"business_group_range"` // 业务组范围
+	Category           string                 `json:"category"`             // 软件分类
+	Description        string                 `json:"description"`          // 软件描述
+	DetectType         int                    `json:"detect_type"`          // 检测类型 1:采集进程匹配 2:读取文件匹配
+	FilePattern        map[string]interface{} `json:"file_pattern"`         // file_pattern
+	Global             bool                   `json:"global"`               // 是否绑定全局探针
+	Platform           int                    `json:"platform"`             // 适用平台 1:windows 2:linux 5:all
+	ProcessPattern     map[string]interface{} `json:"process_pattern"`      // process_pattern
+	Provider           string                 `json:"provider"`             // 提供厂商
+	RuleName           string                 `json:"rule_name"`            // 规则名称
+	SoftwareName       string                 `json:"software_name"`        // 软件名称
+	VersionPattern     map[string]interface{} `json:"version_pattern"`      // version_pattern
 }
-

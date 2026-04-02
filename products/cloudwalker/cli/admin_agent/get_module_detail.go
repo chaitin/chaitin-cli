@@ -3,8 +3,8 @@
 package admin_agent
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetModuleDetailCmd = &cobra.Command{
 }
 
 func init() {
-		GetModuleDetailCmd.Flags().IntVar(&getModuleDetailParams.Id, "id", 0, "id")
+	GetModuleDetailCmd.Flags().IntVar(&getModuleDetailParams.Id, "id", 0, "id")
 }
-
 
 // GetModuleDetailParams 请求参数
 type GetModuleDetailParams struct {
 	Id int `json:"id"` // id
 }
-

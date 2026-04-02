@@ -3,8 +3,8 @@
 package sensitive_user
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,48 +29,46 @@ var DeleteEventCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.CreatedAt, "created-at", nil, "创建时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		DeleteEventCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.EventComment, "event-comment", nil, "事件备注")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.EventId, "event-id", nil, "事件 ID")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.EventType, "event-type", nil, "事件类型")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Gid, "gid", nil, "GID")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Gids, "gids", nil, "业务组 ID 列表")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostComment, "host-comment", nil, "主机备注")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.HostId, "host-id", nil, "主机 ID")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostIp, "host-ip", nil, "主机 IP")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostName, "host-name", nil, "主机名称")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostState, "host-state", nil, "主机状态")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostTags, "host-tags", nil, "主机标签")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Oid, "oid", nil, "机构 ID")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.Sid, "sid", nil, "SID")
-		DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Uid, "uid", nil, "UID")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.User, "user", nil, "用户名")
-		DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.UserGroup, "user-group", nil, "用户组名")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.CreatedAt, "created-at", nil, "创建时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	DeleteEventCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.EventComment, "event-comment", nil, "事件备注")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.EventId, "event-id", nil, "事件 ID")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.EventType, "event-type", nil, "事件类型")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Gid, "gid", nil, "GID")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Gids, "gids", nil, "业务组 ID 列表")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostComment, "host-comment", nil, "主机备注")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.HostId, "host-id", nil, "主机 ID")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostIp, "host-ip", nil, "主机 IP")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostName, "host-name", nil, "主机名称")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostState, "host-state", nil, "主机状态")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.HostTags, "host-tags", nil, "主机标签")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Oid, "oid", nil, "机构 ID")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.Sid, "sid", nil, "SID")
+	DeleteEventCmd.Flags().Float64SliceVar(&deleteEventParams.Uid, "uid", nil, "UID")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.User, "user", nil, "用户名")
+	DeleteEventCmd.Flags().StringSliceVar(&deleteEventParams.UserGroup, "user-group", nil, "用户组名")
 }
-
 
 // DeleteEventParams 请求参数
 type DeleteEventParams struct {
-	CreatedAt []string `json:"created_at"` // 创建时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	EventComment []string `json:"event_comment"` // 事件备注
-	EventId []float64 `json:"event_id"` // 事件 ID
-	EventType []string `json:"event_type"` // 事件类型
-	Gid []float64 `json:"gid"` // GID
-	Gids []float64 `json:"gids"` // 业务组 ID 列表
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Oid []float64 `json:"oid"` // 机构 ID
-	Sid []string `json:"sid"` // SID
-	Uid []float64 `json:"uid"` // UID
-	User []string `json:"user"` // 用户名
-	UserGroup []string `json:"user_group"` // 用户组名
+	CreatedAt    []string                 `json:"created_at"`    // 创建时间
+	CustomAttr   []map[string]interface{} `json:"custom_attr"`   // 主机业务属性
+	EventComment []string                 `json:"event_comment"` // 事件备注
+	EventId      []float64                `json:"event_id"`      // 事件 ID
+	EventType    []string                 `json:"event_type"`    // 事件类型
+	Gid          []float64                `json:"gid"`           // GID
+	Gids         []float64                `json:"gids"`          // 业务组 ID 列表
+	HostComment  []string                 `json:"host_comment"`  // 主机备注
+	HostId       []float64                `json:"host_id"`       // 主机 ID
+	HostIp       []string                 `json:"host_ip"`       // 主机 IP
+	HostName     []string                 `json:"host_name"`     // 主机名称
+	HostState    []string                 `json:"host_state"`    // 主机状态
+	HostTags     []string                 `json:"host_tags"`     // 主机标签
+	Oid          []float64                `json:"oid"`           // 机构 ID
+	Sid          []string                 `json:"sid"`           // SID
+	Uid          []float64                `json:"uid"`           // UID
+	User         []string                 `json:"user"`          // 用户名
+	UserGroup    []string                 `json:"user_group"`    // 用户组名
 }
-

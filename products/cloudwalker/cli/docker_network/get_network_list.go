@@ -3,8 +3,8 @@
 package docker_network
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,50 +29,48 @@ var GetNetworkListCmd = &cobra.Command{
 }
 
 func init() {
-		GetNetworkListCmd.Flags().IntVar(&getNetworkListParams.Count, "count", 20, "数量")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetNetworkListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetNetworkListCmd.Flags().Float64SliceVar(&getNetworkListParams.Gids, "gids", nil, "gids")
-		GetNetworkListCmd.Flags().StringSliceVar(&getNetworkListParams.HostComment, "host-comment", nil, "主机备注")
-		GetNetworkListCmd.Flags().Float64SliceVar(&getNetworkListParams.HostId, "host-id", nil, "主机 ID")
-		GetNetworkListCmd.Flags().StringSliceVar(&getNetworkListParams.HostIp, "host-ip", nil, "主机 IP")
-		GetNetworkListCmd.Flags().StringSliceVar(&getNetworkListParams.HostName, "host-name", nil, "主机名称")
-		GetNetworkListCmd.Flags().StringSliceVar(&getNetworkListParams.HostState, "host-state", nil, "主机状态")
-		GetNetworkListCmd.Flags().StringSliceVar(&getNetworkListParams.HostTags, "host-tags", nil, "主机标签")
-		GetNetworkListCmd.Flags().StringSliceVar(&getNetworkListParams.NetworkCreatedAt, "network-created-at", nil, "网络创建时间")
-		GetNetworkListCmd.Flags().StringSliceVar(&getNetworkListParams.NetworkDriver, "network-driver", nil, "网络模式")
-		GetNetworkListCmd.Flags().BoolSliceVar(&getNetworkListParams.NetworkEnableIpv6, "network-enable-ipv6", nil, "是否允许ipv6")
-		GetNetworkListCmd.Flags().StringSliceVar(&getNetworkListParams.NetworkId, "network-id", nil, "网络ID")
-		GetNetworkListCmd.Flags().StringSliceVar(&getNetworkListParams.NetworkName, "network-name", nil, "网络名称")
-		GetNetworkListCmd.Flags().StringSliceVar(&getNetworkListParams.NetworkScope, "network-scope", nil, "网络范围")
-		GetNetworkListCmd.Flags().IntVar(&getNetworkListParams.Offset, "offset", 0, "偏移量")
-		GetNetworkListCmd.Flags().Float64SliceVar(&getNetworkListParams.Oid, "oid", nil, "机构 ID")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetNetworkListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetNetworkListCmd.Flags().IntVar(&getNetworkListParams.Count, "count", 20, "数量")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetNetworkListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetNetworkListCmd.Flags().Float64SliceVar(&getNetworkListParams.Gids, "gids", nil, "gids")
+	GetNetworkListCmd.Flags().StringSliceVar(&getNetworkListParams.HostComment, "host-comment", nil, "主机备注")
+	GetNetworkListCmd.Flags().Float64SliceVar(&getNetworkListParams.HostId, "host-id", nil, "主机 ID")
+	GetNetworkListCmd.Flags().StringSliceVar(&getNetworkListParams.HostIp, "host-ip", nil, "主机 IP")
+	GetNetworkListCmd.Flags().StringSliceVar(&getNetworkListParams.HostName, "host-name", nil, "主机名称")
+	GetNetworkListCmd.Flags().StringSliceVar(&getNetworkListParams.HostState, "host-state", nil, "主机状态")
+	GetNetworkListCmd.Flags().StringSliceVar(&getNetworkListParams.HostTags, "host-tags", nil, "主机标签")
+	GetNetworkListCmd.Flags().StringSliceVar(&getNetworkListParams.NetworkCreatedAt, "network-created-at", nil, "网络创建时间")
+	GetNetworkListCmd.Flags().StringSliceVar(&getNetworkListParams.NetworkDriver, "network-driver", nil, "网络模式")
+	GetNetworkListCmd.Flags().BoolSliceVar(&getNetworkListParams.NetworkEnableIpv6, "network-enable-ipv6", nil, "是否允许ipv6")
+	GetNetworkListCmd.Flags().StringSliceVar(&getNetworkListParams.NetworkId, "network-id", nil, "网络ID")
+	GetNetworkListCmd.Flags().StringSliceVar(&getNetworkListParams.NetworkName, "network-name", nil, "网络名称")
+	GetNetworkListCmd.Flags().StringSliceVar(&getNetworkListParams.NetworkScope, "network-scope", nil, "网络范围")
+	GetNetworkListCmd.Flags().IntVar(&getNetworkListParams.Offset, "offset", 0, "偏移量")
+	GetNetworkListCmd.Flags().Float64SliceVar(&getNetworkListParams.Oid, "oid", nil, "机构 ID")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetNetworkListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
 }
-
 
 // GetNetworkListParams 请求参数
 type GetNetworkListParams struct {
-	Count int `json:"count"` // 数量
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // gids
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	NetworkCreatedAt []string `json:"network_created_at"` // 网络创建时间
-	NetworkDriver []string `json:"network_driver"` // 网络模式
-	NetworkEnableIpv6 []bool `json:"network_enable_ipv6"` // 是否允许ipv6
-	NetworkId []string `json:"network_id"` // 网络ID
-	NetworkName []string `json:"network_name"` // 网络名称
-	NetworkScope []string `json:"network_scope"` // 网络范围
-	Offset int `json:"offset"` // 偏移量
-	Oid []float64 `json:"oid"` // 机构 ID
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
+	Count             int                      `json:"count"`               // 数量
+	CustomAttr        []map[string]interface{} `json:"custom_attr"`         // 主机业务属性
+	Gids              []float64                `json:"gids"`                // gids
+	HostComment       []string                 `json:"host_comment"`        // 主机备注
+	HostId            []float64                `json:"host_id"`             // 主机 ID
+	HostIp            []string                 `json:"host_ip"`             // 主机 IP
+	HostName          []string                 `json:"host_name"`           // 主机名称
+	HostState         []string                 `json:"host_state"`          // 主机状态
+	HostTags          []string                 `json:"host_tags"`           // 主机标签
+	NetworkCreatedAt  []string                 `json:"network_created_at"`  // 网络创建时间
+	NetworkDriver     []string                 `json:"network_driver"`      // 网络模式
+	NetworkEnableIpv6 []bool                   `json:"network_enable_ipv6"` // 是否允许ipv6
+	NetworkId         []string                 `json:"network_id"`          // 网络ID
+	NetworkName       []string                 `json:"network_name"`        // 网络名称
+	NetworkScope      []string                 `json:"network_scope"`       // 网络范围
+	Offset            int                      `json:"offset"`              // 偏移量
+	Oid               []float64                `json:"oid"`                 // 机构 ID
+	OrderBy           map[string]interface{}   `json:"order_by"`            // 排序规则
 }
-

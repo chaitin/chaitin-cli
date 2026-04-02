@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetSetCmd = &cobra.Command{
 }
 
 func init() {
-		GetSetCmd.Flags().StringVar(&getSetParams.Id, "id", "", "策略 ID")
+	GetSetCmd.Flags().StringVar(&getSetParams.Id, "id", "", "策略 ID")
 }
-
 
 // GetSetParams 请求参数
 type GetSetParams struct {
 	Id string `json:"id"` // 策略 ID
 }
-

@@ -3,8 +3,8 @@
 package process_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,90 +29,88 @@ var StatProcessBySafetyCmd = &cobra.Command{
 }
 
 func init() {
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.AppName, "app-name", nil, "应用名称")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.AppVersion, "app-version", nil, "应用版本")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.Cmdline, "cmdline", nil, "命令行参数")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.Container, "container", nil, "相关容器ID")
-		StatProcessBySafetyCmd.Flags().IntVar(&statProcessBySafetyParams.Count, "count", 20, "数量")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		StatProcessBySafetyCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.EffectiveGroup, "effective-group", nil, "进程所属有效用户组")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.EffectiveUser, "effective-user", nil, "进程所属有效用户")
-		StatProcessBySafetyCmd.Flags().Float64SliceVar(&statProcessBySafetyParams.Egid, "egid", nil, "进程所属有效用户组id")
-		StatProcessBySafetyCmd.Flags().Float64SliceVar(&statProcessBySafetyParams.Euid, "euid", nil, "进程所属有效用户id")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.FileAccessTime, "file-access-time", nil, "文件最近访问时间")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.FileBirth, "file-birth", nil, "文件创建时间")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.FileChangeTime, "file-change-time", nil, "文件属性修改时间")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.FileModifyTime, "file-modify-time", nil, "文件内容修改时间")
-		StatProcessBySafetyCmd.Flags().Float64SliceVar(&statProcessBySafetyParams.Gid, "gid", nil, "进程所属组id")
-		StatProcessBySafetyCmd.Flags().Float64SliceVar(&statProcessBySafetyParams.Gids, "gids", nil, "业务组 ID 列表")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.Group, "group", nil, "进程所属组")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.HostComment, "host-comment", nil, "主机备注")
-		StatProcessBySafetyCmd.Flags().Float64SliceVar(&statProcessBySafetyParams.HostId, "host-id", nil, "主机 ID")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.HostIp, "host-ip", nil, "主机 IP")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.HostName, "host-name", nil, "主机名称")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.HostState, "host-state", nil, "主机状态")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.HostTags, "host-tags", nil, "主机标签")
-		StatProcessBySafetyCmd.Flags().BoolVar(&statProcessBySafetyParams.InstallByPm, "install-by-pm", false, "是否通过包安装")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.Md5, "md5", nil, "可执行文件md5")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.Name, "name", nil, "进程名称")
-		StatProcessBySafetyCmd.Flags().Float64SliceVar(&statProcessBySafetyParams.Oid, "oid", nil, "机构 ID")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.Path, "path", nil, "可执行文件路径")
-		StatProcessBySafetyCmd.Flags().Float64SliceVar(&statProcessBySafetyParams.Pid, "pid", nil, "进程pid")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.PortNum, "port-num", nil, "端口数量范围")
-		StatProcessBySafetyCmd.Flags().Float64SliceVar(&statProcessBySafetyParams.Ppid, "ppid", nil, "进程ppid")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.Safety, "safety", nil, "安全性，枚举")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.Sha256, "sha256", nil, "可执行文件sha256")
-		StatProcessBySafetyCmd.Flags().BoolVar(&statProcessBySafetyParams.SingleProcess, "single-process", false, "单例进程")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.Status, "status", nil, "进程状态，先输入字符串匹配。不是枚举，状态比较多不同操作系统不太一样")
-		StatProcessBySafetyCmd.Flags().Float64SliceVar(&statProcessBySafetyParams.Uid, "uid", nil, "进程所属用户id")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.Uptime, "uptime", nil, "进程启动时间")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.User, "user", nil, "进程所属用户")
-		StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.WorkDir, "work-dir", nil, "运行目录")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.AppName, "app-name", nil, "应用名称")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.AppVersion, "app-version", nil, "应用版本")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.Cmdline, "cmdline", nil, "命令行参数")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.Container, "container", nil, "相关容器ID")
+	StatProcessBySafetyCmd.Flags().IntVar(&statProcessBySafetyParams.Count, "count", 20, "数量")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	StatProcessBySafetyCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.EffectiveGroup, "effective-group", nil, "进程所属有效用户组")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.EffectiveUser, "effective-user", nil, "进程所属有效用户")
+	StatProcessBySafetyCmd.Flags().Float64SliceVar(&statProcessBySafetyParams.Egid, "egid", nil, "进程所属有效用户组id")
+	StatProcessBySafetyCmd.Flags().Float64SliceVar(&statProcessBySafetyParams.Euid, "euid", nil, "进程所属有效用户id")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.FileAccessTime, "file-access-time", nil, "文件最近访问时间")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.FileBirth, "file-birth", nil, "文件创建时间")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.FileChangeTime, "file-change-time", nil, "文件属性修改时间")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.FileModifyTime, "file-modify-time", nil, "文件内容修改时间")
+	StatProcessBySafetyCmd.Flags().Float64SliceVar(&statProcessBySafetyParams.Gid, "gid", nil, "进程所属组id")
+	StatProcessBySafetyCmd.Flags().Float64SliceVar(&statProcessBySafetyParams.Gids, "gids", nil, "业务组 ID 列表")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.Group, "group", nil, "进程所属组")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.HostComment, "host-comment", nil, "主机备注")
+	StatProcessBySafetyCmd.Flags().Float64SliceVar(&statProcessBySafetyParams.HostId, "host-id", nil, "主机 ID")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.HostIp, "host-ip", nil, "主机 IP")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.HostName, "host-name", nil, "主机名称")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.HostState, "host-state", nil, "主机状态")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.HostTags, "host-tags", nil, "主机标签")
+	StatProcessBySafetyCmd.Flags().BoolVar(&statProcessBySafetyParams.InstallByPm, "install-by-pm", false, "是否通过包安装")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.Md5, "md5", nil, "可执行文件md5")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.Name, "name", nil, "进程名称")
+	StatProcessBySafetyCmd.Flags().Float64SliceVar(&statProcessBySafetyParams.Oid, "oid", nil, "机构 ID")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.Path, "path", nil, "可执行文件路径")
+	StatProcessBySafetyCmd.Flags().Float64SliceVar(&statProcessBySafetyParams.Pid, "pid", nil, "进程pid")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.PortNum, "port-num", nil, "端口数量范围")
+	StatProcessBySafetyCmd.Flags().Float64SliceVar(&statProcessBySafetyParams.Ppid, "ppid", nil, "进程ppid")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.Safety, "safety", nil, "安全性，枚举")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.Sha256, "sha256", nil, "可执行文件sha256")
+	StatProcessBySafetyCmd.Flags().BoolVar(&statProcessBySafetyParams.SingleProcess, "single-process", false, "单例进程")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.Status, "status", nil, "进程状态，先输入字符串匹配。不是枚举，状态比较多不同操作系统不太一样")
+	StatProcessBySafetyCmd.Flags().Float64SliceVar(&statProcessBySafetyParams.Uid, "uid", nil, "进程所属用户id")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.Uptime, "uptime", nil, "进程启动时间")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.User, "user", nil, "进程所属用户")
+	StatProcessBySafetyCmd.Flags().StringSliceVar(&statProcessBySafetyParams.WorkDir, "work-dir", nil, "运行目录")
 }
-
 
 // StatProcessBySafetyParams 请求参数
 type StatProcessBySafetyParams struct {
-	AppName []string `json:"app_name"` // 应用名称
-	AppVersion []string `json:"app_version"` // 应用版本
-	Cmdline []string `json:"cmdline"` // 命令行参数
-	Container []string `json:"container"` // 相关容器ID
-	Count int `json:"count"` // 数量
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	EffectiveGroup []string `json:"effective_group"` // 进程所属有效用户组
-	EffectiveUser []string `json:"effective_user"` // 进程所属有效用户
-	Egid []float64 `json:"egid"` // 进程所属有效用户组id
-	Euid []float64 `json:"euid"` // 进程所属有效用户id
-	FileAccessTime []string `json:"file_access_time"` // 文件最近访问时间
-	FileBirth []string `json:"file_birth"` // 文件创建时间
-	FileChangeTime []string `json:"file_change_time"` // 文件属性修改时间
-	FileModifyTime []string `json:"file_modify_time"` // 文件内容修改时间
-	Gid []float64 `json:"gid"` // 进程所属组id
-	Gids []float64 `json:"gids"` // 业务组 ID 列表
-	Group []string `json:"group"` // 进程所属组
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	InstallByPm bool `json:"install_by_pm"` // 是否通过包安装
-	Md5 []string `json:"md5"` // 可执行文件md5
-	Name []string `json:"name"` // 进程名称
-	Oid []float64 `json:"oid"` // 机构 ID
-	Path []string `json:"path"` // 可执行文件路径
-	Pid []float64 `json:"pid"` // 进程pid
-	PortNum []string `json:"port_num"` // 端口数量范围
-	Ppid []float64 `json:"ppid"` // 进程ppid
-	Safety []string `json:"safety"` // 安全性，枚举
-	Sha256 []string `json:"sha256"` // 可执行文件sha256
-	SingleProcess bool `json:"single_process"` // 单例进程
-	Status []string `json:"status"` // 进程状态，先输入字符串匹配。不是枚举，状态比较多不同操作系统不太一样
-	Uid []float64 `json:"uid"` // 进程所属用户id
-	Uptime []string `json:"uptime"` // 进程启动时间
-	User []string `json:"user"` // 进程所属用户
-	WorkDir []string `json:"work_dir"` // 运行目录
+	AppName        []string                 `json:"app_name"`         // 应用名称
+	AppVersion     []string                 `json:"app_version"`      // 应用版本
+	Cmdline        []string                 `json:"cmdline"`          // 命令行参数
+	Container      []string                 `json:"container"`        // 相关容器ID
+	Count          int                      `json:"count"`            // 数量
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	EffectiveGroup []string                 `json:"effective_group"`  // 进程所属有效用户组
+	EffectiveUser  []string                 `json:"effective_user"`   // 进程所属有效用户
+	Egid           []float64                `json:"egid"`             // 进程所属有效用户组id
+	Euid           []float64                `json:"euid"`             // 进程所属有效用户id
+	FileAccessTime []string                 `json:"file_access_time"` // 文件最近访问时间
+	FileBirth      []string                 `json:"file_birth"`       // 文件创建时间
+	FileChangeTime []string                 `json:"file_change_time"` // 文件属性修改时间
+	FileModifyTime []string                 `json:"file_modify_time"` // 文件内容修改时间
+	Gid            []float64                `json:"gid"`              // 进程所属组id
+	Gids           []float64                `json:"gids"`             // 业务组 ID 列表
+	Group          []string                 `json:"group"`            // 进程所属组
+	HostComment    []string                 `json:"host_comment"`     // 主机备注
+	HostId         []float64                `json:"host_id"`          // 主机 ID
+	HostIp         []string                 `json:"host_ip"`          // 主机 IP
+	HostName       []string                 `json:"host_name"`        // 主机名称
+	HostState      []string                 `json:"host_state"`       // 主机状态
+	HostTags       []string                 `json:"host_tags"`        // 主机标签
+	InstallByPm    bool                     `json:"install_by_pm"`    // 是否通过包安装
+	Md5            []string                 `json:"md5"`              // 可执行文件md5
+	Name           []string                 `json:"name"`             // 进程名称
+	Oid            []float64                `json:"oid"`              // 机构 ID
+	Path           []string                 `json:"path"`             // 可执行文件路径
+	Pid            []float64                `json:"pid"`              // 进程pid
+	PortNum        []string                 `json:"port_num"`         // 端口数量范围
+	Ppid           []float64                `json:"ppid"`             // 进程ppid
+	Safety         []string                 `json:"safety"`           // 安全性，枚举
+	Sha256         []string                 `json:"sha256"`           // 可执行文件sha256
+	SingleProcess  bool                     `json:"single_process"`   // 单例进程
+	Status         []string                 `json:"status"`           // 进程状态，先输入字符串匹配。不是枚举，状态比较多不同操作系统不太一样
+	Uid            []float64                `json:"uid"`              // 进程所属用户id
+	Uptime         []string                 `json:"uptime"`           // 进程启动时间
+	User           []string                 `json:"user"`             // 进程所属用户
+	WorkDir        []string                 `json:"work_dir"`         // 运行目录
 }
-

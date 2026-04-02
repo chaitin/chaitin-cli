@@ -3,8 +3,8 @@
 package agent
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,28 +29,26 @@ var CreateAgentIpCfgCmd = &cobra.Command{
 }
 
 func init() {
-		CreateAgentIpCfgCmd.Flags().Float64SliceVar(&createAgentIpCfgParams.AgentRange, "agent-range", nil, "主机范围")
-		CreateAgentIpCfgCmd.Flags().Float64SliceVar(&createAgentIpCfgParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		CreateAgentIpCfgCmd.Flags().BoolVar(&createAgentIpCfgParams.Enable, "enable", false, "是否启用")
-		CreateAgentIpCfgCmd.Flags().BoolVar(&createAgentIpCfgParams.Global, "global", false, "是否绑定全局探针")
-		CreateAgentIpCfgCmd.Flags().StringSliceVar(&createAgentIpCfgParams.Interface, "interface", nil, "网络接口名称")
-		CreateAgentIpCfgCmd.Flags().StringVar(&createAgentIpCfgParams.InterfaceMode, "interface-mode", "", "网络接口匹配模式，regex||identical||空")
-		CreateAgentIpCfgCmd.Flags().StringVar(&createAgentIpCfgParams.IpProtocol, "ip-protocol", "", "IP 协议，ipv4||ipv6||空")
-		CreateAgentIpCfgCmd.Flags().StringSliceVar(&createAgentIpCfgParams.IpRange, "ip-range", nil, "IP 地址范围")
-		CreateAgentIpCfgCmd.Flags().StringVar(&createAgentIpCfgParams.RuleName, "rule-name", "", "规则名称")
+	CreateAgentIpCfgCmd.Flags().Float64SliceVar(&createAgentIpCfgParams.AgentRange, "agent-range", nil, "主机范围")
+	CreateAgentIpCfgCmd.Flags().Float64SliceVar(&createAgentIpCfgParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	CreateAgentIpCfgCmd.Flags().BoolVar(&createAgentIpCfgParams.Enable, "enable", false, "是否启用")
+	CreateAgentIpCfgCmd.Flags().BoolVar(&createAgentIpCfgParams.Global, "global", false, "是否绑定全局探针")
+	CreateAgentIpCfgCmd.Flags().StringSliceVar(&createAgentIpCfgParams.Interface, "interface", nil, "网络接口名称")
+	CreateAgentIpCfgCmd.Flags().StringVar(&createAgentIpCfgParams.InterfaceMode, "interface-mode", "", "网络接口匹配模式，regex||identical||空")
+	CreateAgentIpCfgCmd.Flags().StringVar(&createAgentIpCfgParams.IpProtocol, "ip-protocol", "", "IP 协议，ipv4||ipv6||空")
+	CreateAgentIpCfgCmd.Flags().StringSliceVar(&createAgentIpCfgParams.IpRange, "ip-range", nil, "IP 地址范围")
+	CreateAgentIpCfgCmd.Flags().StringVar(&createAgentIpCfgParams.RuleName, "rule-name", "", "规则名称")
 }
-
 
 // CreateAgentIpCfgParams 请求参数
 type CreateAgentIpCfgParams struct {
-	AgentRange []float64 `json:"agent_range"` // 主机范围
+	AgentRange         []float64 `json:"agent_range"`          // 主机范围
 	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Enable bool `json:"enable"` // 是否启用
-	Global bool `json:"global"` // 是否绑定全局探针
-	Interface []string `json:"interface"` // 网络接口名称
-	InterfaceMode string `json:"interface_mode"` // 网络接口匹配模式，regex||identical||空
-	IpProtocol string `json:"ip_protocol"` // IP 协议，ipv4||ipv6||空
-	IpRange []string `json:"ip_range"` // IP 地址范围
-	RuleName string `json:"rule_name"` // 规则名称
+	Enable             bool      `json:"enable"`               // 是否启用
+	Global             bool      `json:"global"`               // 是否绑定全局探针
+	Interface          []string  `json:"interface"`            // 网络接口名称
+	InterfaceMode      string    `json:"interface_mode"`       // 网络接口匹配模式，regex||identical||空
+	IpProtocol         string    `json:"ip_protocol"`          // IP 协议，ipv4||ipv6||空
+	IpRange            []string  `json:"ip_range"`             // IP 地址范围
+	RuleName           string    `json:"rule_name"`            // 规则名称
 }
-

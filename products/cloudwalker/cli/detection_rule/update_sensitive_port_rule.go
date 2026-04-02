@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,32 +29,30 @@ var UpdateSensitivePortRuleCmd = &cobra.Command{
 }
 
 func init() {
-		UpdateSensitivePortRuleCmd.Flags().Float64SliceVar(&updateSensitivePortRuleParams.AgentRange, "agent-range", nil, "主机范围")
-		UpdateSensitivePortRuleCmd.Flags().Float64SliceVar(&updateSensitivePortRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		UpdateSensitivePortRuleCmd.Flags().BoolVar(&updateSensitivePortRuleParams.Enable, "enable", false, "是否启用")
-		UpdateSensitivePortRuleCmd.Flags().BoolVar(&updateSensitivePortRuleParams.Global, "global", false, "是否绑定全局探针")
-		UpdateSensitivePortRuleCmd.Flags().StringVar(&updateSensitivePortRuleParams.Id, "id", "", "规则 id")
-		UpdateSensitivePortRuleCmd.Flags().BoolVar(&updateSensitivePortRuleParams.IgnoreOnlyLocal, "ignore-only-local", false, "忽略仅监听本地的端口")
-		// items is complex type []map[string]interface{}, use JSON string
-		var itemsJSON string
-		UpdateSensitivePortRuleCmd.Flags().StringVar(&itemsJSON, "items", "", "规则项 (JSON, e.g. [{\"cmdline_arg\": [\"-l\"], \"exe_file\": [\"/usr/bin/ls\"], \"port\": [80]}])")
-		UpdateSensitivePortRuleCmd.Flags().Float64Var(&updateSensitivePortRuleParams.Level, "level", 0, "风险等级")
-		UpdateSensitivePortRuleCmd.Flags().BoolVar(&updateSensitivePortRuleParams.OnlyGlobalNetwork, "only-global-network", false, "仅上报监听全局网络的端口")
-		UpdateSensitivePortRuleCmd.Flags().StringVar(&updateSensitivePortRuleParams.RuleName, "rule-name", "", "规则名称")
+	UpdateSensitivePortRuleCmd.Flags().Float64SliceVar(&updateSensitivePortRuleParams.AgentRange, "agent-range", nil, "主机范围")
+	UpdateSensitivePortRuleCmd.Flags().Float64SliceVar(&updateSensitivePortRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	UpdateSensitivePortRuleCmd.Flags().BoolVar(&updateSensitivePortRuleParams.Enable, "enable", false, "是否启用")
+	UpdateSensitivePortRuleCmd.Flags().BoolVar(&updateSensitivePortRuleParams.Global, "global", false, "是否绑定全局探针")
+	UpdateSensitivePortRuleCmd.Flags().StringVar(&updateSensitivePortRuleParams.Id, "id", "", "规则 id")
+	UpdateSensitivePortRuleCmd.Flags().BoolVar(&updateSensitivePortRuleParams.IgnoreOnlyLocal, "ignore-only-local", false, "忽略仅监听本地的端口")
+	// items is complex type []map[string]interface{}, use JSON string
+	var itemsJSON string
+	UpdateSensitivePortRuleCmd.Flags().StringVar(&itemsJSON, "items", "", "规则项 (JSON, e.g. [{\"cmdline_arg\": [\"-l\"], \"exe_file\": [\"/usr/bin/ls\"], \"port\": [80]}])")
+	UpdateSensitivePortRuleCmd.Flags().Float64Var(&updateSensitivePortRuleParams.Level, "level", 0, "风险等级")
+	UpdateSensitivePortRuleCmd.Flags().BoolVar(&updateSensitivePortRuleParams.OnlyGlobalNetwork, "only-global-network", false, "仅上报监听全局网络的端口")
+	UpdateSensitivePortRuleCmd.Flags().StringVar(&updateSensitivePortRuleParams.RuleName, "rule-name", "", "规则名称")
 }
-
 
 // UpdateSensitivePortRuleParams 请求参数
 type UpdateSensitivePortRuleParams struct {
-	AgentRange []float64 `json:"agent_range"` // 主机范围
-	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Enable bool `json:"enable"` // 是否启用
-	Global bool `json:"global"` // 是否绑定全局探针
-	Id string `json:"id"` // 规则 id
-	IgnoreOnlyLocal bool `json:"ignore_only_local"` // 忽略仅监听本地的端口
-	Items []map[string]interface{} `json:"items"` // 规则项
-	Level float64 `json:"level"` // 风险等级
-	OnlyGlobalNetwork bool `json:"only_global_network"` // 仅上报监听全局网络的端口
-	RuleName string `json:"rule_name"` // 规则名称
+	AgentRange         []float64                `json:"agent_range"`          // 主机范围
+	BusinessGroupRange []float64                `json:"business_group_range"` // 业务组范围
+	Enable             bool                     `json:"enable"`               // 是否启用
+	Global             bool                     `json:"global"`               // 是否绑定全局探针
+	Id                 string                   `json:"id"`                   // 规则 id
+	IgnoreOnlyLocal    bool                     `json:"ignore_only_local"`    // 忽略仅监听本地的端口
+	Items              []map[string]interface{} `json:"items"`                // 规则项
+	Level              float64                  `json:"level"`                // 风险等级
+	OnlyGlobalNetwork  bool                     `json:"only_global_network"`  // 仅上报监听全局网络的端口
+	RuleName           string                   `json:"rule_name"`            // 规则名称
 }
-

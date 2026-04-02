@@ -3,8 +3,8 @@
 package report
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var DeleteReportCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteReportCmd.Flags().Float64SliceVar(&deleteReportParams.Ids, "ids", nil, "ID")
-		DeleteReportCmd.Flags().StringSliceVar(&deleteReportParams.Name, "name", nil, "报告名称")
-		DeleteReportCmd.Flags().BoolVar(&deleteReportParams.SelectAll, "select-all", false, "是否选中所有")
+	DeleteReportCmd.Flags().Float64SliceVar(&deleteReportParams.Ids, "ids", nil, "ID")
+	DeleteReportCmd.Flags().StringSliceVar(&deleteReportParams.Name, "name", nil, "报告名称")
+	DeleteReportCmd.Flags().BoolVar(&deleteReportParams.SelectAll, "select-all", false, "是否选中所有")
 }
-
 
 // DeleteReportParams 请求参数
 type DeleteReportParams struct {
-	Ids []float64 `json:"ids"` // ID
-	Name []string `json:"name"` // 报告名称
-	SelectAll bool `json:"select_all"` // 是否选中所有
+	Ids       []float64 `json:"ids"`        // ID
+	Name      []string  `json:"name"`       // 报告名称
+	SelectAll bool      `json:"select_all"` // 是否选中所有
 }
-

@@ -3,8 +3,8 @@
 package asset_config
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetSoftwareIdentRuleCmd = &cobra.Command{
 }
 
 func init() {
-		GetSoftwareIdentRuleCmd.Flags().StringVar(&getSoftwareIdentRuleParams.Id, "id", "", "规则 ID")
+	GetSoftwareIdentRuleCmd.Flags().StringVar(&getSoftwareIdentRuleParams.Id, "id", "", "规则 ID")
 }
-
 
 // GetSoftwareIdentRuleParams 请求参数
 type GetSoftwareIdentRuleParams struct {
 	Id string `json:"id"` // 规则 ID
 }
-

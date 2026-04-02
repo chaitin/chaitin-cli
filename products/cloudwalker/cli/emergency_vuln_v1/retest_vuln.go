@@ -3,8 +3,8 @@
 package emergency_vuln_v1
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var RetestVulnCmd = &cobra.Command{
 }
 
 func init() {
-		// select is complex type []map[string]interface{}, use JSON string
-		var selectJSON string
-		RetestVulnCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"event_id\": 120, \"host_id\": 111, \"vuln_id\": 111}])")
-		RetestVulnCmd.Flags().BoolVar(&retestVulnParams.SelectAll, "select-all", false, "select_all")
+	// select is complex type []map[string]interface{}, use JSON string
+	var selectJSON string
+	RetestVulnCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"event_id\": 120, \"host_id\": 111, \"vuln_id\": 111}])")
+	RetestVulnCmd.Flags().BoolVar(&retestVulnParams.SelectAll, "select-all", false, "select_all")
 }
-
 
 // RetestVulnParams 请求参数
 type RetestVulnParams struct {
-	Select []map[string]interface{} `json:"select"` // select
-	SelectAll bool `json:"select_all"` // select_all
+	Select    []map[string]interface{} `json:"select"`     // select
+	SelectAll bool                     `json:"select_all"` // select_all
 }
-

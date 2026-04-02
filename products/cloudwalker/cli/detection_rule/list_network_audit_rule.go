@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,40 +29,38 @@ var ListNetworkAuditRuleCmd = &cobra.Command{
 }
 
 func init() {
-		ListNetworkAuditRuleCmd.Flags().IntVar(&listNetworkAuditRuleParams.Count, "count", 20, "每页记录数量")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		ListNetworkAuditRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		ListNetworkAuditRuleCmd.Flags().BoolVar(&listNetworkAuditRuleParams.Enable, "enable", false, "是否启用")
-		ListNetworkAuditRuleCmd.Flags().StringSliceVar(&listNetworkAuditRuleParams.HostComment, "host-comment", nil, "主机备注")
-		ListNetworkAuditRuleCmd.Flags().Float64SliceVar(&listNetworkAuditRuleParams.HostId, "host-id", nil, "主机ID")
-		ListNetworkAuditRuleCmd.Flags().StringSliceVar(&listNetworkAuditRuleParams.HostIp, "host-ip", nil, "主机IP")
-		ListNetworkAuditRuleCmd.Flags().StringSliceVar(&listNetworkAuditRuleParams.HostName, "host-name", nil, "主机名称")
-		ListNetworkAuditRuleCmd.Flags().StringSliceVar(&listNetworkAuditRuleParams.HostState, "host-state", nil, "主机状态")
-		ListNetworkAuditRuleCmd.Flags().StringSliceVar(&listNetworkAuditRuleParams.HostTag, "host-tag", nil, "主机标签")
-		ListNetworkAuditRuleCmd.Flags().StringSliceVar(&listNetworkAuditRuleParams.Id, "id", nil, "规则 ID")
-		ListNetworkAuditRuleCmd.Flags().Float64SliceVar(&listNetworkAuditRuleParams.Level, "level", nil, "风险等级")
-		ListNetworkAuditRuleCmd.Flags().StringSliceVar(&listNetworkAuditRuleParams.Method, "method", nil, "匹配方式")
-		ListNetworkAuditRuleCmd.Flags().IntVar(&listNetworkAuditRuleParams.Offset, "offset", 0, "页偏移")
-		ListNetworkAuditRuleCmd.Flags().StringSliceVar(&listNetworkAuditRuleParams.RuleName, "rule-name", nil, "规则名称")
+	ListNetworkAuditRuleCmd.Flags().IntVar(&listNetworkAuditRuleParams.Count, "count", 20, "每页记录数量")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	ListNetworkAuditRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	ListNetworkAuditRuleCmd.Flags().BoolVar(&listNetworkAuditRuleParams.Enable, "enable", false, "是否启用")
+	ListNetworkAuditRuleCmd.Flags().StringSliceVar(&listNetworkAuditRuleParams.HostComment, "host-comment", nil, "主机备注")
+	ListNetworkAuditRuleCmd.Flags().Float64SliceVar(&listNetworkAuditRuleParams.HostId, "host-id", nil, "主机ID")
+	ListNetworkAuditRuleCmd.Flags().StringSliceVar(&listNetworkAuditRuleParams.HostIp, "host-ip", nil, "主机IP")
+	ListNetworkAuditRuleCmd.Flags().StringSliceVar(&listNetworkAuditRuleParams.HostName, "host-name", nil, "主机名称")
+	ListNetworkAuditRuleCmd.Flags().StringSliceVar(&listNetworkAuditRuleParams.HostState, "host-state", nil, "主机状态")
+	ListNetworkAuditRuleCmd.Flags().StringSliceVar(&listNetworkAuditRuleParams.HostTag, "host-tag", nil, "主机标签")
+	ListNetworkAuditRuleCmd.Flags().StringSliceVar(&listNetworkAuditRuleParams.Id, "id", nil, "规则 ID")
+	ListNetworkAuditRuleCmd.Flags().Float64SliceVar(&listNetworkAuditRuleParams.Level, "level", nil, "风险等级")
+	ListNetworkAuditRuleCmd.Flags().StringSliceVar(&listNetworkAuditRuleParams.Method, "method", nil, "匹配方式")
+	ListNetworkAuditRuleCmd.Flags().IntVar(&listNetworkAuditRuleParams.Offset, "offset", 0, "页偏移")
+	ListNetworkAuditRuleCmd.Flags().StringSliceVar(&listNetworkAuditRuleParams.RuleName, "rule-name", nil, "规则名称")
 }
-
 
 // ListNetworkAuditRuleParams 请求参数
 type ListNetworkAuditRuleParams struct {
-	Count int `json:"count"` // 每页记录数量
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Enable bool `json:"enable"` // 是否启用
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTag []string `json:"host_tag"` // 主机标签
-	Id []string `json:"id"` // 规则 ID
-	Level []float64 `json:"level"` // 风险等级
-	Method []string `json:"method"` // 匹配方式
-	Offset int `json:"offset"` // 页偏移
-	RuleName []string `json:"rule_name"` // 规则名称
+	Count       int                      `json:"count"`        // 每页记录数量
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Enable      bool                     `json:"enable"`       // 是否启用
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机ID
+	HostIp      []string                 `json:"host_ip"`      // 主机IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTag     []string                 `json:"host_tag"`     // 主机标签
+	Id          []string                 `json:"id"`           // 规则 ID
+	Level       []float64                `json:"level"`        // 风险等级
+	Method      []string                 `json:"method"`       // 匹配方式
+	Offset      int                      `json:"offset"`       // 页偏移
+	RuleName    []string                 `json:"rule_name"`    // 规则名称
 }
-

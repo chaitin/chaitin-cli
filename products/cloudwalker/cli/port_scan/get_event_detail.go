@@ -3,8 +3,8 @@
 package port_scan
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetEventDetailCmd = &cobra.Command{
 }
 
 func init() {
-		GetEventDetailCmd.Flags().IntVar(&getEventDetailParams.EventId, "event-id", 0, "事件 ID")
+	GetEventDetailCmd.Flags().IntVar(&getEventDetailParams.EventId, "event-id", 0, "事件 ID")
 }
-
 
 // GetEventDetailParams 请求参数
 type GetEventDetailParams struct {
 	EventId int `json:"event_id"` // 事件 ID
 }
-

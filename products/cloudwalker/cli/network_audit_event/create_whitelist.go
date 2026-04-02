@@ -3,8 +3,8 @@
 package network_audit_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,68 +29,66 @@ var CreateWhitelistCmd = &cobra.Command{
 }
 
 func init() {
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.Cmdline, "cmdline", nil, "命令行")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.Comment, "comment", nil, "用户自定义备注")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.ContainerId, "container-id", nil, "容器id")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.CreatedAt, "created-at", nil, "发现时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		CreateWhitelistCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.Gids, "gids", nil, "业务组 ID")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.GroupName, "group-name", nil, "业务组名")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.HostComment, "host-comment", nil, "主机备注")
-		CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.HostId, "host-id", nil, "主机 ID")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.HostIp, "host-ip", nil, "主机 IP")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.HostName, "host-name", nil, "主机名称")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.HostState, "host-state", nil, "主机状态")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.HostTags, "host-tags", nil, "主机标签")
-		CreateWhitelistCmd.Flags().IntSliceVar(&createWhitelistParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.Oid, "oid", nil, "机构 ID")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.ProcessName, "process-name", nil, "进程名")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
-		// select is complex type []map[string]interface{}, use JSON string
-		var selectJSON string
-		CreateWhitelistCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"host_id\": 151, \"id\": 151, \"process_name\": \"AliSecureCheckAdvanced.exe\", \"target\": \"119.96.137.252\"}])")
-		CreateWhitelistCmd.Flags().BoolVar(&createWhitelistParams.SelectAll, "select-all", false, "选择所有事件")
-		CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
-		CreateWhitelistCmd.Flags().IntSliceVar(&createWhitelistParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.Target, "target", nil, "目标地址")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.Type, "type", nil, "网络异常类型")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.UpdatedAt, "updated-at", nil, "更新时间")
-		CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
-		// whitelist is object type, use JSON string
-		var whitelistJSON string
-		CreateWhitelistCmd.Flags().StringVar(&whitelistJSON, "whitelist", "", "whitelist (JSON, e.g. {\"agent_range\": [1, 2, 3], \"builtin_id\": \"1\", \"business_group_range\": [1, 2, 3], \"...\": \"...\"})")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.Cmdline, "cmdline", nil, "命令行")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.Comment, "comment", nil, "用户自定义备注")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.ContainerId, "container-id", nil, "容器id")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.CreatedAt, "created-at", nil, "发现时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	CreateWhitelistCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.Gids, "gids", nil, "业务组 ID")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.GroupName, "group-name", nil, "业务组名")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.HostComment, "host-comment", nil, "主机备注")
+	CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.HostId, "host-id", nil, "主机 ID")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.HostIp, "host-ip", nil, "主机 IP")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.HostName, "host-name", nil, "主机名称")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.HostState, "host-state", nil, "主机状态")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.HostTags, "host-tags", nil, "主机标签")
+	CreateWhitelistCmd.Flags().IntSliceVar(&createWhitelistParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.Oid, "oid", nil, "机构 ID")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.ProcessName, "process-name", nil, "进程名")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
+	// select is complex type []map[string]interface{}, use JSON string
+	var selectJSON string
+	CreateWhitelistCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"host_id\": 151, \"id\": 151, \"process_name\": \"AliSecureCheckAdvanced.exe\", \"target\": \"119.96.137.252\"}])")
+	CreateWhitelistCmd.Flags().BoolVar(&createWhitelistParams.SelectAll, "select-all", false, "选择所有事件")
+	CreateWhitelistCmd.Flags().Float64SliceVar(&createWhitelistParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
+	CreateWhitelistCmd.Flags().IntSliceVar(&createWhitelistParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.Target, "target", nil, "目标地址")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.Type, "type", nil, "网络异常类型")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.UpdatedAt, "updated-at", nil, "更新时间")
+	CreateWhitelistCmd.Flags().StringSliceVar(&createWhitelistParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	// whitelist is object type, use JSON string
+	var whitelistJSON string
+	CreateWhitelistCmd.Flags().StringVar(&whitelistJSON, "whitelist", "", "whitelist (JSON, e.g. {\"agent_range\": [1, 2, 3], \"builtin_id\": \"1\", \"business_group_range\": [1, 2, 3], \"...\": \"...\"})")
 }
-
 
 // CreateWhitelistParams 请求参数
 type CreateWhitelistParams struct {
-	Cmdline []string `json:"cmdline"` // 命令行
-	Comment []string `json:"comment"` // 用户自定义备注
-	ContainerId []string `json:"container_id"` // 容器id
-	CreatedAt []string `json:"created_at"` // 发现时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // 业务组 ID
-	GroupName []string `json:"group_name"` // 业务组名
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Level []int `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	Oid []float64 `json:"oid"` // 机构 ID
-	ProcessName []string `json:"process_name"` // 进程名
-	RemoteAddrType []string `json:"remote_addr_type"` // 远程IP类型，intranet(内网)、internet(外网)
-	Select []map[string]interface{} `json:"select"` // select
-	SelectAll bool `json:"select_all"` // 选择所有事件
-	StatEventId []float64 `json:"stat_event_id"` // 事件统计 ID
-	State []int `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
-	Target []string `json:"target"` // 目标地址
-	Type []string `json:"type"` // 网络异常类型
-	UpdatedAt []string `json:"updated_at"` // 更新时间
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
-	Whitelist map[string]interface{} `json:"whitelist"` // whitelist
+	Cmdline        []string                 `json:"cmdline"`          // 命令行
+	Comment        []string                 `json:"comment"`          // 用户自定义备注
+	ContainerId    []string                 `json:"container_id"`     // 容器id
+	CreatedAt      []string                 `json:"created_at"`       // 发现时间
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	Gids           []float64                `json:"gids"`             // 业务组 ID
+	GroupName      []string                 `json:"group_name"`       // 业务组名
+	HostComment    []string                 `json:"host_comment"`     // 主机备注
+	HostId         []float64                `json:"host_id"`          // 主机 ID
+	HostIp         []string                 `json:"host_ip"`          // 主机 IP
+	HostName       []string                 `json:"host_name"`        // 主机名称
+	HostState      []string                 `json:"host_state"`       // 主机状态
+	HostTags       []string                 `json:"host_tags"`        // 主机标签
+	Level          []int                    `json:"level"`            // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	Oid            []float64                `json:"oid"`              // 机构 ID
+	ProcessName    []string                 `json:"process_name"`     // 进程名
+	RemoteAddrType []string                 `json:"remote_addr_type"` // 远程IP类型，intranet(内网)、internet(外网)
+	Select         []map[string]interface{} `json:"select"`           // select
+	SelectAll      bool                     `json:"select_all"`       // 选择所有事件
+	StatEventId    []float64                `json:"stat_event_id"`    // 事件统计 ID
+	State          []int                    `json:"state"`            // 事件状态(1-有风险，2-已忽略，3-已处理)
+	Target         []string                 `json:"target"`           // 目标地址
+	Type           []string                 `json:"type"`             // 网络异常类型
+	UpdatedAt      []string                 `json:"updated_at"`       // 更新时间
+	WhiteRuleId    []string                 `json:"white_rule_id"`    // 白名单规则 ID
+	Whitelist      map[string]interface{}   `json:"whitelist"`        // whitelist
 }
-

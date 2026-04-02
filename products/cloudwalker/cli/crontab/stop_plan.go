@@ -3,8 +3,8 @@
 package crontab
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,34 +29,32 @@ var StopPlanCmd = &cobra.Command{
 }
 
 func init() {
-		StopPlanCmd.Flags().StringSliceVar(&stopPlanParams.Comment, "comment", nil, "计划备注：子串匹配")
-		StopPlanCmd.Flags().StringSliceVar(&stopPlanParams.CreatedAt, "created-at", nil, "创建时间：时间范围")
-		StopPlanCmd.Flags().StringSliceVar(&stopPlanParams.LastFinishedAt, "last-finished-at", nil, "上次结束时间：时间范围")
-		StopPlanCmd.Flags().StringSliceVar(&stopPlanParams.LastStartedAt, "last-started-at", nil, "上次启动时间：时间范围")
-		StopPlanCmd.Flags().StringSliceVar(&stopPlanParams.Name, "name", nil, "计划名称：子串匹配")
-		StopPlanCmd.Flags().IntSliceVar(&stopPlanParams.PlanId, "plan-id", nil, "计划 ID")
-		StopPlanCmd.Flags().StringSliceVar(&stopPlanParams.PlanType, "plan-type", nil, "计划任务类型：多选")
-		StopPlanCmd.Flags().BoolVar(&stopPlanParams.SelectAll, "select-all", false, "是否全部停止筛选器选中的任务计划")
-		StopPlanCmd.Flags().StringSliceVar(&stopPlanParams.State, "state", nil, "上次执行状态：多选")
-		StopPlanCmd.Flags().StringSliceVar(&stopPlanParams.TriggerMethod, "trigger-method", nil, "触发方式：多选")
-		StopPlanCmd.Flags().StringSliceVar(&stopPlanParams.Type, "type", nil, "任务类型：多选")
-		StopPlanCmd.Flags().StringSliceVar(&stopPlanParams.UpdatedAt, "updated-at", nil, "最近修改时间：时间范围")
+	StopPlanCmd.Flags().StringSliceVar(&stopPlanParams.Comment, "comment", nil, "计划备注：子串匹配")
+	StopPlanCmd.Flags().StringSliceVar(&stopPlanParams.CreatedAt, "created-at", nil, "创建时间：时间范围")
+	StopPlanCmd.Flags().StringSliceVar(&stopPlanParams.LastFinishedAt, "last-finished-at", nil, "上次结束时间：时间范围")
+	StopPlanCmd.Flags().StringSliceVar(&stopPlanParams.LastStartedAt, "last-started-at", nil, "上次启动时间：时间范围")
+	StopPlanCmd.Flags().StringSliceVar(&stopPlanParams.Name, "name", nil, "计划名称：子串匹配")
+	StopPlanCmd.Flags().IntSliceVar(&stopPlanParams.PlanId, "plan-id", nil, "计划 ID")
+	StopPlanCmd.Flags().StringSliceVar(&stopPlanParams.PlanType, "plan-type", nil, "计划任务类型：多选")
+	StopPlanCmd.Flags().BoolVar(&stopPlanParams.SelectAll, "select-all", false, "是否全部停止筛选器选中的任务计划")
+	StopPlanCmd.Flags().StringSliceVar(&stopPlanParams.State, "state", nil, "上次执行状态：多选")
+	StopPlanCmd.Flags().StringSliceVar(&stopPlanParams.TriggerMethod, "trigger-method", nil, "触发方式：多选")
+	StopPlanCmd.Flags().StringSliceVar(&stopPlanParams.Type, "type", nil, "任务类型：多选")
+	StopPlanCmd.Flags().StringSliceVar(&stopPlanParams.UpdatedAt, "updated-at", nil, "最近修改时间：时间范围")
 }
-
 
 // StopPlanParams 请求参数
 type StopPlanParams struct {
-	Comment []string `json:"comment"` // 计划备注：子串匹配
-	CreatedAt []string `json:"created_at"` // 创建时间：时间范围
+	Comment        []string `json:"comment"`          // 计划备注：子串匹配
+	CreatedAt      []string `json:"created_at"`       // 创建时间：时间范围
 	LastFinishedAt []string `json:"last_finished_at"` // 上次结束时间：时间范围
-	LastStartedAt []string `json:"last_started_at"` // 上次启动时间：时间范围
-	Name []string `json:"name"` // 计划名称：子串匹配
-	PlanId []int `json:"plan_id"` // 计划 ID
-	PlanType []string `json:"plan_type"` // 计划任务类型：多选
-	SelectAll bool `json:"select_all"` // 是否全部停止筛选器选中的任务计划
-	State []string `json:"state"` // 上次执行状态：多选
-	TriggerMethod []string `json:"trigger_method"` // 触发方式：多选
-	Type []string `json:"type"` // 任务类型：多选
-	UpdatedAt []string `json:"updated_at"` // 最近修改时间：时间范围
+	LastStartedAt  []string `json:"last_started_at"`  // 上次启动时间：时间范围
+	Name           []string `json:"name"`             // 计划名称：子串匹配
+	PlanId         []int    `json:"plan_id"`          // 计划 ID
+	PlanType       []string `json:"plan_type"`        // 计划任务类型：多选
+	SelectAll      bool     `json:"select_all"`       // 是否全部停止筛选器选中的任务计划
+	State          []string `json:"state"`            // 上次执行状态：多选
+	TriggerMethod  []string `json:"trigger_method"`   // 触发方式：多选
+	Type           []string `json:"type"`             // 任务类型：多选
+	UpdatedAt      []string `json:"updated_at"`       // 最近修改时间：时间范围
 }
-

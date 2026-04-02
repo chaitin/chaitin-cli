@@ -3,8 +3,8 @@
 package non_white_process
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,38 +29,36 @@ var ListRuleCmd = &cobra.Command{
 }
 
 func init() {
-		ListRuleCmd.Flags().IntVar(&listRuleParams.Count, "count", 20, "每页记录数量")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		ListRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		ListRuleCmd.Flags().StringSliceVar(&listRuleParams.HostComment, "host-comment", nil, "主机备注")
-		ListRuleCmd.Flags().Float64SliceVar(&listRuleParams.HostId, "host-id", nil, "主机ID")
-		ListRuleCmd.Flags().StringSliceVar(&listRuleParams.HostIp, "host-ip", nil, "主机IP")
-		ListRuleCmd.Flags().StringSliceVar(&listRuleParams.HostName, "host-name", nil, "主机名称")
-		ListRuleCmd.Flags().StringSliceVar(&listRuleParams.HostState, "host-state", nil, "主机状态")
-		ListRuleCmd.Flags().StringSliceVar(&listRuleParams.HostTag, "host-tag", nil, "主机标签")
-		ListRuleCmd.Flags().StringSliceVar(&listRuleParams.Id, "id", nil, "ID")
-		ListRuleCmd.Flags().StringSliceVar(&listRuleParams.LastStudyAt, "last-study-at", nil, "最后学习时间")
-		ListRuleCmd.Flags().IntVar(&listRuleParams.Offset, "offset", 0, "页偏移")
-		ListRuleCmd.Flags().StringSliceVar(&listRuleParams.RuleName, "rule-name", nil, "规则名称")
-		ListRuleCmd.Flags().StringSliceVar(&listRuleParams.Status, "status", nil, "检测模式")
+	ListRuleCmd.Flags().IntVar(&listRuleParams.Count, "count", 20, "每页记录数量")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	ListRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	ListRuleCmd.Flags().StringSliceVar(&listRuleParams.HostComment, "host-comment", nil, "主机备注")
+	ListRuleCmd.Flags().Float64SliceVar(&listRuleParams.HostId, "host-id", nil, "主机ID")
+	ListRuleCmd.Flags().StringSliceVar(&listRuleParams.HostIp, "host-ip", nil, "主机IP")
+	ListRuleCmd.Flags().StringSliceVar(&listRuleParams.HostName, "host-name", nil, "主机名称")
+	ListRuleCmd.Flags().StringSliceVar(&listRuleParams.HostState, "host-state", nil, "主机状态")
+	ListRuleCmd.Flags().StringSliceVar(&listRuleParams.HostTag, "host-tag", nil, "主机标签")
+	ListRuleCmd.Flags().StringSliceVar(&listRuleParams.Id, "id", nil, "ID")
+	ListRuleCmd.Flags().StringSliceVar(&listRuleParams.LastStudyAt, "last-study-at", nil, "最后学习时间")
+	ListRuleCmd.Flags().IntVar(&listRuleParams.Offset, "offset", 0, "页偏移")
+	ListRuleCmd.Flags().StringSliceVar(&listRuleParams.RuleName, "rule-name", nil, "规则名称")
+	ListRuleCmd.Flags().StringSliceVar(&listRuleParams.Status, "status", nil, "检测模式")
 }
-
 
 // ListRuleParams 请求参数
 type ListRuleParams struct {
-	Count int `json:"count"` // 每页记录数量
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTag []string `json:"host_tag"` // 主机标签
-	Id []string `json:"id"` // ID
-	LastStudyAt []string `json:"last_study_at"` // 最后学习时间
-	Offset int `json:"offset"` // 页偏移
-	RuleName []string `json:"rule_name"` // 规则名称
-	Status []string `json:"status"` // 检测模式
+	Count       int                      `json:"count"`         // 每页记录数量
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`   // 主机业务属性
+	HostComment []string                 `json:"host_comment"`  // 主机备注
+	HostId      []float64                `json:"host_id"`       // 主机ID
+	HostIp      []string                 `json:"host_ip"`       // 主机IP
+	HostName    []string                 `json:"host_name"`     // 主机名称
+	HostState   []string                 `json:"host_state"`    // 主机状态
+	HostTag     []string                 `json:"host_tag"`      // 主机标签
+	Id          []string                 `json:"id"`            // ID
+	LastStudyAt []string                 `json:"last_study_at"` // 最后学习时间
+	Offset      int                      `json:"offset"`        // 页偏移
+	RuleName    []string                 `json:"rule_name"`     // 规则名称
+	Status      []string                 `json:"status"`        // 检测模式
 }
-

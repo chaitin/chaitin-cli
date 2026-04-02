@@ -3,14 +3,12 @@
 package report
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetTemplateTypesCmd = &cobra.Command{
 	Use:   "get_template_types",
@@ -31,5 +29,3 @@ var GetTemplateTypesCmd = &cobra.Command{
 func init() {
 
 }
-
-

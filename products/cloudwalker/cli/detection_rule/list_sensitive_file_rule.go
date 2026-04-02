@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,40 +29,38 @@ var ListSensitiveFileRuleCmd = &cobra.Command{
 }
 
 func init() {
-		ListSensitiveFileRuleCmd.Flags().IntVar(&listSensitiveFileRuleParams.Count, "count", 20, "每页记录数量")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		ListSensitiveFileRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		ListSensitiveFileRuleCmd.Flags().BoolVar(&listSensitiveFileRuleParams.Enable, "enable", false, "是否启用")
-		ListSensitiveFileRuleCmd.Flags().StringSliceVar(&listSensitiveFileRuleParams.HostComment, "host-comment", nil, "主机备注")
-		ListSensitiveFileRuleCmd.Flags().Float64SliceVar(&listSensitiveFileRuleParams.HostId, "host-id", nil, "主机ID")
-		ListSensitiveFileRuleCmd.Flags().StringSliceVar(&listSensitiveFileRuleParams.HostIp, "host-ip", nil, "主机IP")
-		ListSensitiveFileRuleCmd.Flags().StringSliceVar(&listSensitiveFileRuleParams.HostName, "host-name", nil, "主机名称")
-		ListSensitiveFileRuleCmd.Flags().StringSliceVar(&listSensitiveFileRuleParams.HostState, "host-state", nil, "主机状态")
-		ListSensitiveFileRuleCmd.Flags().StringSliceVar(&listSensitiveFileRuleParams.HostTag, "host-tag", nil, "主机标签")
-		ListSensitiveFileRuleCmd.Flags().StringSliceVar(&listSensitiveFileRuleParams.Id, "id", nil, "规则 ID")
-		ListSensitiveFileRuleCmd.Flags().BoolVar(&listSensitiveFileRuleParams.IsBuiltin, "is-builtin", false, "是否为内置规则")
-		ListSensitiveFileRuleCmd.Flags().IntVar(&listSensitiveFileRuleParams.Offset, "offset", 0, "页偏移")
-		ListSensitiveFileRuleCmd.Flags().StringSliceVar(&listSensitiveFileRuleParams.Path, "path", nil, "文件路径")
-		ListSensitiveFileRuleCmd.Flags().StringSliceVar(&listSensitiveFileRuleParams.RuleName, "rule-name", nil, "规则名称")
+	ListSensitiveFileRuleCmd.Flags().IntVar(&listSensitiveFileRuleParams.Count, "count", 20, "每页记录数量")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	ListSensitiveFileRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	ListSensitiveFileRuleCmd.Flags().BoolVar(&listSensitiveFileRuleParams.Enable, "enable", false, "是否启用")
+	ListSensitiveFileRuleCmd.Flags().StringSliceVar(&listSensitiveFileRuleParams.HostComment, "host-comment", nil, "主机备注")
+	ListSensitiveFileRuleCmd.Flags().Float64SliceVar(&listSensitiveFileRuleParams.HostId, "host-id", nil, "主机ID")
+	ListSensitiveFileRuleCmd.Flags().StringSliceVar(&listSensitiveFileRuleParams.HostIp, "host-ip", nil, "主机IP")
+	ListSensitiveFileRuleCmd.Flags().StringSliceVar(&listSensitiveFileRuleParams.HostName, "host-name", nil, "主机名称")
+	ListSensitiveFileRuleCmd.Flags().StringSliceVar(&listSensitiveFileRuleParams.HostState, "host-state", nil, "主机状态")
+	ListSensitiveFileRuleCmd.Flags().StringSliceVar(&listSensitiveFileRuleParams.HostTag, "host-tag", nil, "主机标签")
+	ListSensitiveFileRuleCmd.Flags().StringSliceVar(&listSensitiveFileRuleParams.Id, "id", nil, "规则 ID")
+	ListSensitiveFileRuleCmd.Flags().BoolVar(&listSensitiveFileRuleParams.IsBuiltin, "is-builtin", false, "是否为内置规则")
+	ListSensitiveFileRuleCmd.Flags().IntVar(&listSensitiveFileRuleParams.Offset, "offset", 0, "页偏移")
+	ListSensitiveFileRuleCmd.Flags().StringSliceVar(&listSensitiveFileRuleParams.Path, "path", nil, "文件路径")
+	ListSensitiveFileRuleCmd.Flags().StringSliceVar(&listSensitiveFileRuleParams.RuleName, "rule-name", nil, "规则名称")
 }
-
 
 // ListSensitiveFileRuleParams 请求参数
 type ListSensitiveFileRuleParams struct {
-	Count int `json:"count"` // 每页记录数量
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Enable bool `json:"enable"` // 是否启用
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTag []string `json:"host_tag"` // 主机标签
-	Id []string `json:"id"` // 规则 ID
-	IsBuiltin bool `json:"is_builtin"` // 是否为内置规则
-	Offset int `json:"offset"` // 页偏移
-	Path []string `json:"path"` // 文件路径
-	RuleName []string `json:"rule_name"` // 规则名称
+	Count       int                      `json:"count"`        // 每页记录数量
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Enable      bool                     `json:"enable"`       // 是否启用
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机ID
+	HostIp      []string                 `json:"host_ip"`      // 主机IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTag     []string                 `json:"host_tag"`     // 主机标签
+	Id          []string                 `json:"id"`           // 规则 ID
+	IsBuiltin   bool                     `json:"is_builtin"`   // 是否为内置规则
+	Offset      int                      `json:"offset"`       // 页偏移
+	Path        []string                 `json:"path"`         // 文件路径
+	RuleName    []string                 `json:"rule_name"`    // 规则名称
 }
-

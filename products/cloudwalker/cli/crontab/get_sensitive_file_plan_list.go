@@ -3,8 +3,8 @@
 package crontab
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,38 +29,36 @@ var GetSensitiveFilePlanListCmd = &cobra.Command{
 }
 
 func init() {
-		GetSensitiveFilePlanListCmd.Flags().StringSliceVar(&getSensitiveFilePlanListParams.Comment, "comment", nil, "计划备注：子串匹配")
-		GetSensitiveFilePlanListCmd.Flags().IntVar(&getSensitiveFilePlanListParams.Count, "count", 20, "记录数限制")
-		GetSensitiveFilePlanListCmd.Flags().StringSliceVar(&getSensitiveFilePlanListParams.CreatedAt, "created-at", nil, "创建时间：时间范围")
-		GetSensitiveFilePlanListCmd.Flags().BoolSliceVar(&getSensitiveFilePlanListParams.Enable, "enable", nil, "是否启用，true代表启用，false代表禁用")
-		GetSensitiveFilePlanListCmd.Flags().StringSliceVar(&getSensitiveFilePlanListParams.LastFinishedAt, "last-finished-at", nil, "最近扫描结束时间：时间范围")
-		GetSensitiveFilePlanListCmd.Flags().StringSliceVar(&getSensitiveFilePlanListParams.LastStartedAt, "last-started-at", nil, "最近扫描启动时间：时间范围")
-		GetSensitiveFilePlanListCmd.Flags().StringSliceVar(&getSensitiveFilePlanListParams.Name, "name", nil, "计划名称：子串匹配")
-		GetSensitiveFilePlanListCmd.Flags().StringSliceVar(&getSensitiveFilePlanListParams.NextStartedAt, "next-started-at", nil, "下次扫描启动时间：时间范围")
-		GetSensitiveFilePlanListCmd.Flags().IntVar(&getSensitiveFilePlanListParams.Offset, "offset", 0, "偏移量")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetSensitiveFilePlanListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetSensitiveFilePlanListCmd.Flags().StringSliceVar(&getSensitiveFilePlanListParams.State, "state", nil, "扫描状态：多选")
-		GetSensitiveFilePlanListCmd.Flags().StringSliceVar(&getSensitiveFilePlanListParams.TriggerMethod, "trigger-method", nil, "触发方式：多选")
-		GetSensitiveFilePlanListCmd.Flags().StringSliceVar(&getSensitiveFilePlanListParams.UpdatedAt, "updated-at", nil, "最近修改时间：时间范围")
+	GetSensitiveFilePlanListCmd.Flags().StringSliceVar(&getSensitiveFilePlanListParams.Comment, "comment", nil, "计划备注：子串匹配")
+	GetSensitiveFilePlanListCmd.Flags().IntVar(&getSensitiveFilePlanListParams.Count, "count", 20, "记录数限制")
+	GetSensitiveFilePlanListCmd.Flags().StringSliceVar(&getSensitiveFilePlanListParams.CreatedAt, "created-at", nil, "创建时间：时间范围")
+	GetSensitiveFilePlanListCmd.Flags().BoolSliceVar(&getSensitiveFilePlanListParams.Enable, "enable", nil, "是否启用，true代表启用，false代表禁用")
+	GetSensitiveFilePlanListCmd.Flags().StringSliceVar(&getSensitiveFilePlanListParams.LastFinishedAt, "last-finished-at", nil, "最近扫描结束时间：时间范围")
+	GetSensitiveFilePlanListCmd.Flags().StringSliceVar(&getSensitiveFilePlanListParams.LastStartedAt, "last-started-at", nil, "最近扫描启动时间：时间范围")
+	GetSensitiveFilePlanListCmd.Flags().StringSliceVar(&getSensitiveFilePlanListParams.Name, "name", nil, "计划名称：子串匹配")
+	GetSensitiveFilePlanListCmd.Flags().StringSliceVar(&getSensitiveFilePlanListParams.NextStartedAt, "next-started-at", nil, "下次扫描启动时间：时间范围")
+	GetSensitiveFilePlanListCmd.Flags().IntVar(&getSensitiveFilePlanListParams.Offset, "offset", 0, "偏移量")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetSensitiveFilePlanListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetSensitiveFilePlanListCmd.Flags().StringSliceVar(&getSensitiveFilePlanListParams.State, "state", nil, "扫描状态：多选")
+	GetSensitiveFilePlanListCmd.Flags().StringSliceVar(&getSensitiveFilePlanListParams.TriggerMethod, "trigger-method", nil, "触发方式：多选")
+	GetSensitiveFilePlanListCmd.Flags().StringSliceVar(&getSensitiveFilePlanListParams.UpdatedAt, "updated-at", nil, "最近修改时间：时间范围")
 }
-
 
 // GetSensitiveFilePlanListParams 请求参数
 type GetSensitiveFilePlanListParams struct {
-	Comment []string `json:"comment"` // 计划备注：子串匹配
-	Count int `json:"count"` // 记录数限制
-	CreatedAt []string `json:"created_at"` // 创建时间：时间范围
-	Enable []bool `json:"enable"` // 是否启用，true代表启用，false代表禁用
-	LastFinishedAt []string `json:"last_finished_at"` // 最近扫描结束时间：时间范围
-	LastStartedAt []string `json:"last_started_at"` // 最近扫描启动时间：时间范围
-	Name []string `json:"name"` // 计划名称：子串匹配
-	NextStartedAt []string `json:"next_started_at"` // 下次扫描启动时间：时间范围
-	Offset int `json:"offset"` // 偏移量
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	State []string `json:"state"` // 扫描状态：多选
-	TriggerMethod []string `json:"trigger_method"` // 触发方式：多选
-	UpdatedAt []string `json:"updated_at"` // 最近修改时间：时间范围
+	Comment        []string               `json:"comment"`          // 计划备注：子串匹配
+	Count          int                    `json:"count"`            // 记录数限制
+	CreatedAt      []string               `json:"created_at"`       // 创建时间：时间范围
+	Enable         []bool                 `json:"enable"`           // 是否启用，true代表启用，false代表禁用
+	LastFinishedAt []string               `json:"last_finished_at"` // 最近扫描结束时间：时间范围
+	LastStartedAt  []string               `json:"last_started_at"`  // 最近扫描启动时间：时间范围
+	Name           []string               `json:"name"`             // 计划名称：子串匹配
+	NextStartedAt  []string               `json:"next_started_at"`  // 下次扫描启动时间：时间范围
+	Offset         int                    `json:"offset"`           // 偏移量
+	OrderBy        map[string]interface{} `json:"order_by"`         // 排序规则
+	State          []string               `json:"state"`            // 扫描状态：多选
+	TriggerMethod  []string               `json:"trigger_method"`   // 触发方式：多选
+	UpdatedAt      []string               `json:"updated_at"`       // 最近修改时间：时间范围
 }
-

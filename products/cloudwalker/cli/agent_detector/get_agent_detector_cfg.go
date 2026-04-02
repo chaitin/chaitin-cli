@@ -3,14 +3,12 @@
 package agent_detector
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetAgentDetectorCfgCmd = &cobra.Command{
 	Use:   "get_agent_detector_cfg",
@@ -31,5 +29,3 @@ var GetAgentDetectorCfgCmd = &cobra.Command{
 func init() {
 
 }
-
-

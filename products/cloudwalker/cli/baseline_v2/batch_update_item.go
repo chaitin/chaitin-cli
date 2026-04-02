@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,18 +29,16 @@ var BatchUpdateItemCmd = &cobra.Command{
 }
 
 func init() {
-		BatchUpdateItemCmd.Flags().BoolVar(&batchUpdateItemParams.ChangeToEnable, "change-to-enable", false, "是否启用核查项")
-		BatchUpdateItemCmd.Flags().StringSliceVar(&batchUpdateItemParams.ItemId, "item-id", nil, "ID")
-		BatchUpdateItemCmd.Flags().BoolVar(&batchUpdateItemParams.SelectAll, "select-all", false, "是否选中所有")
-		BatchUpdateItemCmd.Flags().StringSliceVar(&batchUpdateItemParams.SetId, "set-id", nil, "自定义策略id")
+	BatchUpdateItemCmd.Flags().BoolVar(&batchUpdateItemParams.ChangeToEnable, "change-to-enable", false, "是否启用核查项")
+	BatchUpdateItemCmd.Flags().StringSliceVar(&batchUpdateItemParams.ItemId, "item-id", nil, "ID")
+	BatchUpdateItemCmd.Flags().BoolVar(&batchUpdateItemParams.SelectAll, "select-all", false, "是否选中所有")
+	BatchUpdateItemCmd.Flags().StringSliceVar(&batchUpdateItemParams.SetId, "set-id", nil, "自定义策略id")
 }
-
 
 // BatchUpdateItemParams 请求参数
 type BatchUpdateItemParams struct {
-	ChangeToEnable bool `json:"change_to_enable"` // 是否启用核查项
-	ItemId []string `json:"item_id"` // ID
-	SelectAll bool `json:"select_all"` // 是否选中所有
-	SetId []string `json:"set_id"` // 自定义策略id
+	ChangeToEnable bool     `json:"change_to_enable"` // 是否启用核查项
+	ItemId         []string `json:"item_id"`          // ID
+	SelectAll      bool     `json:"select_all"`       // 是否选中所有
+	SetId          []string `json:"set_id"`           // 自定义策略id
 }
-

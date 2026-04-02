@@ -3,14 +3,12 @@
 package organization
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var ListOrgWithBizGroupCmd = &cobra.Command{
 	Use:   "list_org_with_biz_group",
@@ -31,5 +29,3 @@ var ListOrgWithBizGroupCmd = &cobra.Command{
 func init() {
 
 }
-
-

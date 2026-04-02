@@ -3,8 +3,8 @@
 package suspicious_operation
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,78 +29,76 @@ var MarkAsReadCmd = &cobra.Command{
 }
 
 func init() {
-		MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.Comment, "comment", nil, "用户自定义备注")
-		MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.ContainerHashId, "container-hash-id", nil, "容器Id")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		MarkAsReadCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.Egid, "egid", nil, "有效用户组ID")
-		MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.Egname, "egname", nil, "有效用户组名")
-		MarkAsReadCmd.Flags().Float64SliceVar(&markAsReadParams.Euid, "euid", nil, "有效用户ID")
-		MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.Euname, "euname", nil, "有效用户名")
-		// filter is complex type []map[string]interface{}, use JSON string
-		var filterJSON string
-		MarkAsReadCmd.Flags().StringVar(&filterJSON, "filter", "", "过滤信息 (JSON, e.g. [{\"host_id\": 122, \"id\": 122, \"net_app\": \"weblogic\", \"rule_name\": \"使用黑客工具\", \"ssh_client_ip\": \"120.12.27.128\", \"ssh_user\": \"root\"}])")
-		MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.Gid, "gid", nil, "用户组ID")
-		MarkAsReadCmd.Flags().Float64SliceVar(&markAsReadParams.Gids, "gids", nil, "业务组ID")
-		MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.Gname, "gname", nil, "用户组名")
-		MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.HostComment, "host-comment", nil, "主机备注")
-		MarkAsReadCmd.Flags().Float64SliceVar(&markAsReadParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
-		MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.HostIp, "host-ip", nil, "主机IP")
-		MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.HostName, "host-name", nil, "主机名称")
-		MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.HostState, "host-state", nil, "主机状态")
-		MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.HostTags, "host-tags", nil, "主机标签")
-		MarkAsReadCmd.Flags().Float64SliceVar(&markAsReadParams.Ids, "ids", nil, "事件 ID, 用于事件详情页面")
-		MarkAsReadCmd.Flags().Float64SliceVar(&markAsReadParams.Level, "level", nil, "风险等级(1-低危，2-中危，3-高危，4-严重)")
-		MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.NetApp, "net-app", nil, "网络应用")
-		MarkAsReadCmd.Flags().Float64SliceVar(&markAsReadParams.Oid, "oid", nil, "机构 ID")
-		MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.RuleName, "rule-name", nil, "规则名称")
-		MarkAsReadCmd.Flags().BoolVar(&markAsReadParams.SelectAll, "select-all", false, "是否全选")
-		MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.SessionId, "session-id", nil, "会话ID")
-		MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.SshClientIp, "ssh-client-ip", nil, "ssh登陆地址")
-		MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.SshUser, "ssh-user", nil, "ssh登录用户")
-		MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.StartTime, "start-time", nil, "开始时间")
-		MarkAsReadCmd.Flags().Float64SliceVar(&markAsReadParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
-		MarkAsReadCmd.Flags().Float64SliceVar(&markAsReadParams.State, "state", nil, "处置状态(1-有风险，2-已忽略，3-已处理)")
-		MarkAsReadCmd.Flags().Float64SliceVar(&markAsReadParams.Uid, "uid", nil, "用户ID")
-		MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.Uname, "uname", nil, "用户名")
-		MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.Comment, "comment", nil, "用户自定义备注")
+	MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.ContainerHashId, "container-hash-id", nil, "容器Id")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	MarkAsReadCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.Egid, "egid", nil, "有效用户组ID")
+	MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.Egname, "egname", nil, "有效用户组名")
+	MarkAsReadCmd.Flags().Float64SliceVar(&markAsReadParams.Euid, "euid", nil, "有效用户ID")
+	MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.Euname, "euname", nil, "有效用户名")
+	// filter is complex type []map[string]interface{}, use JSON string
+	var filterJSON string
+	MarkAsReadCmd.Flags().StringVar(&filterJSON, "filter", "", "过滤信息 (JSON, e.g. [{\"host_id\": 122, \"id\": 122, \"net_app\": \"weblogic\", \"rule_name\": \"使用黑客工具\", \"ssh_client_ip\": \"120.12.27.128\", \"ssh_user\": \"root\"}])")
+	MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.Gid, "gid", nil, "用户组ID")
+	MarkAsReadCmd.Flags().Float64SliceVar(&markAsReadParams.Gids, "gids", nil, "业务组ID")
+	MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.Gname, "gname", nil, "用户组名")
+	MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.HostComment, "host-comment", nil, "主机备注")
+	MarkAsReadCmd.Flags().Float64SliceVar(&markAsReadParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
+	MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.HostIp, "host-ip", nil, "主机IP")
+	MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.HostName, "host-name", nil, "主机名称")
+	MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.HostState, "host-state", nil, "主机状态")
+	MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.HostTags, "host-tags", nil, "主机标签")
+	MarkAsReadCmd.Flags().Float64SliceVar(&markAsReadParams.Ids, "ids", nil, "事件 ID, 用于事件详情页面")
+	MarkAsReadCmd.Flags().Float64SliceVar(&markAsReadParams.Level, "level", nil, "风险等级(1-低危，2-中危，3-高危，4-严重)")
+	MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.NetApp, "net-app", nil, "网络应用")
+	MarkAsReadCmd.Flags().Float64SliceVar(&markAsReadParams.Oid, "oid", nil, "机构 ID")
+	MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.RuleName, "rule-name", nil, "规则名称")
+	MarkAsReadCmd.Flags().BoolVar(&markAsReadParams.SelectAll, "select-all", false, "是否全选")
+	MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.SessionId, "session-id", nil, "会话ID")
+	MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.SshClientIp, "ssh-client-ip", nil, "ssh登陆地址")
+	MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.SshUser, "ssh-user", nil, "ssh登录用户")
+	MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.StartTime, "start-time", nil, "开始时间")
+	MarkAsReadCmd.Flags().Float64SliceVar(&markAsReadParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
+	MarkAsReadCmd.Flags().Float64SliceVar(&markAsReadParams.State, "state", nil, "处置状态(1-有风险，2-已忽略，3-已处理)")
+	MarkAsReadCmd.Flags().Float64SliceVar(&markAsReadParams.Uid, "uid", nil, "用户ID")
+	MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.Uname, "uname", nil, "用户名")
+	MarkAsReadCmd.Flags().StringSliceVar(&markAsReadParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // MarkAsReadParams 请求参数
 type MarkAsReadParams struct {
-	Comment []string `json:"comment"` // 用户自定义备注
-	ContainerHashId []string `json:"container_hash_id"` // 容器Id
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Egid []string `json:"egid"` // 有效用户组ID
-	Egname []string `json:"egname"` // 有效用户组名
-	Euid []float64 `json:"euid"` // 有效用户ID
-	Euname []string `json:"euname"` // 有效用户名
-	Filter []map[string]interface{} `json:"filter"` // 过滤信息
-	Gid []string `json:"gid"` // 用户组ID
-	Gids []float64 `json:"gids"` // 业务组ID
-	Gname []string `json:"gname"` // 用户组名
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID, 用于主机详情页面
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Ids []float64 `json:"ids"` // 事件 ID, 用于事件详情页面
-	Level []float64 `json:"level"` // 风险等级(1-低危，2-中危，3-高危，4-严重)
-	NetApp []string `json:"net_app"` // 网络应用
-	Oid []float64 `json:"oid"` // 机构 ID
-	RuleName []string `json:"rule_name"` // 规则名称
-	SelectAll bool `json:"select_all"` // 是否全选
-	SessionId []string `json:"session_id"` // 会话ID
-	SshClientIp []string `json:"ssh_client_ip"` // ssh登陆地址
-	SshUser []string `json:"ssh_user"` // ssh登录用户
-	StartTime []string `json:"start_time"` // 开始时间
-	StatEventId []float64 `json:"stat_event_id"` // 事件统计 ID
-	State []float64 `json:"state"` // 处置状态(1-有风险，2-已忽略，3-已处理)
-	Uid []float64 `json:"uid"` // 用户ID
-	Uname []string `json:"uname"` // 用户名
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	Comment         []string                 `json:"comment"`           // 用户自定义备注
+	ContainerHashId []string                 `json:"container_hash_id"` // 容器Id
+	CustomAttr      []map[string]interface{} `json:"custom_attr"`       // 主机业务属性
+	Egid            []string                 `json:"egid"`              // 有效用户组ID
+	Egname          []string                 `json:"egname"`            // 有效用户组名
+	Euid            []float64                `json:"euid"`              // 有效用户ID
+	Euname          []string                 `json:"euname"`            // 有效用户名
+	Filter          []map[string]interface{} `json:"filter"`            // 过滤信息
+	Gid             []string                 `json:"gid"`               // 用户组ID
+	Gids            []float64                `json:"gids"`              // 业务组ID
+	Gname           []string                 `json:"gname"`             // 用户组名
+	HostComment     []string                 `json:"host_comment"`      // 主机备注
+	HostId          []float64                `json:"host_id"`           // 主机ID, 用于主机详情页面
+	HostIp          []string                 `json:"host_ip"`           // 主机IP
+	HostName        []string                 `json:"host_name"`         // 主机名称
+	HostState       []string                 `json:"host_state"`        // 主机状态
+	HostTags        []string                 `json:"host_tags"`         // 主机标签
+	Ids             []float64                `json:"ids"`               // 事件 ID, 用于事件详情页面
+	Level           []float64                `json:"level"`             // 风险等级(1-低危，2-中危，3-高危，4-严重)
+	NetApp          []string                 `json:"net_app"`           // 网络应用
+	Oid             []float64                `json:"oid"`               // 机构 ID
+	RuleName        []string                 `json:"rule_name"`         // 规则名称
+	SelectAll       bool                     `json:"select_all"`        // 是否全选
+	SessionId       []string                 `json:"session_id"`        // 会话ID
+	SshClientIp     []string                 `json:"ssh_client_ip"`     // ssh登陆地址
+	SshUser         []string                 `json:"ssh_user"`          // ssh登录用户
+	StartTime       []string                 `json:"start_time"`        // 开始时间
+	StatEventId     []float64                `json:"stat_event_id"`     // 事件统计 ID
+	State           []float64                `json:"state"`             // 处置状态(1-有风险，2-已忽略，3-已处理)
+	Uid             []float64                `json:"uid"`               // 用户ID
+	Uname           []string                 `json:"uname"`             // 用户名
+	WhiteRuleId     []string                 `json:"white_rule_id"`     // 白名单规则 ID
 }
-

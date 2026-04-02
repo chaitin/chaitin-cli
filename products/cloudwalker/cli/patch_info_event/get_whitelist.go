@@ -3,8 +3,8 @@
 package patch_info_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetWhitelistCmd = &cobra.Command{
 }
 
 func init() {
-		GetWhitelistCmd.Flags().Float64Var(&getWhitelistParams.EventId, "event-id", 0, "风险事件ID")
+	GetWhitelistCmd.Flags().Float64Var(&getWhitelistParams.EventId, "event-id", 0, "风险事件ID")
 }
-
 
 // GetWhitelistParams 请求参数
 type GetWhitelistParams struct {
 	EventId float64 `json:"event_id"` // 风险事件ID
 }
-

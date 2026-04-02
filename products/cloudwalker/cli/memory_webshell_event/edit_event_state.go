@@ -3,8 +3,8 @@
 package memory_webshell_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,66 +29,64 @@ var EditEventStateCmd = &cobra.Command{
 }
 
 func init() {
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.ClassName, "class-name", nil, "类名")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.Comment, "comment", nil, "用户自定义备注")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.CreatedAt, "created-at", nil, "事件发现时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		EditEventStateCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Gids, "gids", nil, "业务组 ID")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostComment, "host-comment", nil, "主机备注")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.HostId, "host-id", nil, "主机 ID")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostIp, "host-ip", nil, "主机 IP")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostName, "host-name", nil, "主机名称")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostState, "host-state", nil, "主机状态")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostTags, "host-tags", nil, "主机标签")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Id, "id", nil, "事件ID")
-		EditEventStateCmd.Flags().IntSliceVar(&editEventStateParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		EditEventStateCmd.Flags().Float64Var(&editEventStateParams.NewState, "new-state", 0, "新的事件状态，Unmalshal的时候自动Valid")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Oid, "oid", nil, "机构 ID")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Pid, "pid", nil, "进程 ID")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.PlanId, "plan-id", nil, "任务 id")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.ProcessName, "process-name", nil, "进程名称")
-		// select is complex type []map[string]interface{}, use JSON string
-		var selectJSON string
-		EditEventStateCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"class_name\": \".class\", \"host_id\": 162, \"id\": 154, \"server_name\": \"tomcat\"}])")
-		EditEventStateCmd.Flags().BoolVar(&editEventStateParams.SelectAll, "select-all", false, "是否全选")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.ServerName, "server-name", nil, "服务名称")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
-		EditEventStateCmd.Flags().IntSliceVar(&editEventStateParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Type, "type", nil, "事件类型 1:内存马 2:内存恶意代码")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.UpdatedAt, "updated-at", nil, "最后发现时间")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.ClassName, "class-name", nil, "类名")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.Comment, "comment", nil, "用户自定义备注")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.CreatedAt, "created-at", nil, "事件发现时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	EditEventStateCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Gids, "gids", nil, "业务组 ID")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostComment, "host-comment", nil, "主机备注")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.HostId, "host-id", nil, "主机 ID")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostIp, "host-ip", nil, "主机 IP")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostName, "host-name", nil, "主机名称")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostState, "host-state", nil, "主机状态")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostTags, "host-tags", nil, "主机标签")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Id, "id", nil, "事件ID")
+	EditEventStateCmd.Flags().IntSliceVar(&editEventStateParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	EditEventStateCmd.Flags().Float64Var(&editEventStateParams.NewState, "new-state", 0, "新的事件状态，Unmalshal的时候自动Valid")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Oid, "oid", nil, "机构 ID")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Pid, "pid", nil, "进程 ID")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.PlanId, "plan-id", nil, "任务 id")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.ProcessName, "process-name", nil, "进程名称")
+	// select is complex type []map[string]interface{}, use JSON string
+	var selectJSON string
+	EditEventStateCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"class_name\": \".class\", \"host_id\": 162, \"id\": 154, \"server_name\": \"tomcat\"}])")
+	EditEventStateCmd.Flags().BoolVar(&editEventStateParams.SelectAll, "select-all", false, "是否全选")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.ServerName, "server-name", nil, "服务名称")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
+	EditEventStateCmd.Flags().IntSliceVar(&editEventStateParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Type, "type", nil, "事件类型 1:内存马 2:内存恶意代码")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.UpdatedAt, "updated-at", nil, "最后发现时间")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // EditEventStateParams 请求参数
 type EditEventStateParams struct {
-	ClassName []string `json:"class_name"` // 类名
-	Comment []string `json:"comment"` // 用户自定义备注
-	CreatedAt []string `json:"created_at"` // 事件发现时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Id []float64 `json:"id"` // 事件ID
-	Level []int `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	NewState float64 `json:"new_state"` // 新的事件状态，Unmalshal的时候自动Valid
-	Oid []float64 `json:"oid"` // 机构 ID
-	Pid []float64 `json:"pid"` // 进程 ID
-	PlanId []float64 `json:"plan_id"` // 任务 id
-	ProcessName []string `json:"process_name"` // 进程名称
-	Select []map[string]interface{} `json:"select"` // select
-	SelectAll bool `json:"select_all"` // 是否全选
-	ServerName []string `json:"server_name"` // 服务名称
-	StatEventId []float64 `json:"stat_event_id"` // 事件统计 ID
-	State []int `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
-	Type []float64 `json:"type"` // 事件类型 1:内存马 2:内存恶意代码
-	UpdatedAt []string `json:"updated_at"` // 最后发现时间
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	ClassName   []string                 `json:"class_name"`    // 类名
+	Comment     []string                 `json:"comment"`       // 用户自定义备注
+	CreatedAt   []string                 `json:"created_at"`    // 事件发现时间
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`   // 主机业务属性
+	Gids        []float64                `json:"gids"`          // 业务组 ID
+	HostComment []string                 `json:"host_comment"`  // 主机备注
+	HostId      []float64                `json:"host_id"`       // 主机 ID
+	HostIp      []string                 `json:"host_ip"`       // 主机 IP
+	HostName    []string                 `json:"host_name"`     // 主机名称
+	HostState   []string                 `json:"host_state"`    // 主机状态
+	HostTags    []string                 `json:"host_tags"`     // 主机标签
+	Id          []float64                `json:"id"`            // 事件ID
+	Level       []int                    `json:"level"`         // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	NewState    float64                  `json:"new_state"`     // 新的事件状态，Unmalshal的时候自动Valid
+	Oid         []float64                `json:"oid"`           // 机构 ID
+	Pid         []float64                `json:"pid"`           // 进程 ID
+	PlanId      []float64                `json:"plan_id"`       // 任务 id
+	ProcessName []string                 `json:"process_name"`  // 进程名称
+	Select      []map[string]interface{} `json:"select"`        // select
+	SelectAll   bool                     `json:"select_all"`    // 是否全选
+	ServerName  []string                 `json:"server_name"`   // 服务名称
+	StatEventId []float64                `json:"stat_event_id"` // 事件统计 ID
+	State       []int                    `json:"state"`         // 事件状态(1-有风险，2-已忽略，3-已处理)
+	Type        []float64                `json:"type"`          // 事件类型 1:内存马 2:内存恶意代码
+	UpdatedAt   []string                 `json:"updated_at"`    // 最后发现时间
+	WhiteRuleId []string                 `json:"white_rule_id"` // 白名单规则 ID
 }
-

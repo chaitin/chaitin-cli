@@ -3,8 +3,8 @@
 package webshell_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,22 +29,20 @@ var EditMimicryConfigCmd = &cobra.Command{
 }
 
 func init() {
-		EditMimicryConfigCmd.Flags().StringVar(&editMimicryConfigParams.HoneypotType, "honeypot-type", "", "honeypot_type")
-		EditMimicryConfigCmd.Flags().StringVar(&editMimicryConfigParams.ProxyHost, "proxy-host", "", "proxy_host")
-		EditMimicryConfigCmd.Flags().StringVar(&editMimicryConfigParams.ProxyPort, "proxy-port", "", "proxy_port")
-		EditMimicryConfigCmd.Flags().StringVar(&editMimicryConfigParams.SaasOrgId, "saas-org-id", "", "saas_org_id")
-		EditMimicryConfigCmd.Flags().StringVar(&editMimicryConfigParams.ServerHost, "server-host", "", "server_host")
-		EditMimicryConfigCmd.Flags().StringVar(&editMimicryConfigParams.Token, "token", "", "token")
+	EditMimicryConfigCmd.Flags().StringVar(&editMimicryConfigParams.HoneypotType, "honeypot-type", "", "honeypot_type")
+	EditMimicryConfigCmd.Flags().StringVar(&editMimicryConfigParams.ProxyHost, "proxy-host", "", "proxy_host")
+	EditMimicryConfigCmd.Flags().StringVar(&editMimicryConfigParams.ProxyPort, "proxy-port", "", "proxy_port")
+	EditMimicryConfigCmd.Flags().StringVar(&editMimicryConfigParams.SaasOrgId, "saas-org-id", "", "saas_org_id")
+	EditMimicryConfigCmd.Flags().StringVar(&editMimicryConfigParams.ServerHost, "server-host", "", "server_host")
+	EditMimicryConfigCmd.Flags().StringVar(&editMimicryConfigParams.Token, "token", "", "token")
 }
-
 
 // EditMimicryConfigParams 请求参数
 type EditMimicryConfigParams struct {
 	HoneypotType string `json:"honeypot_type"` // honeypot_type
-	ProxyHost string `json:"proxy_host"` // proxy_host
-	ProxyPort string `json:"proxy_port"` // proxy_port
-	SaasOrgId string `json:"saas_org_id"` // saas_org_id
-	ServerHost string `json:"server_host"` // server_host
-	Token string `json:"token"` // token
+	ProxyHost    string `json:"proxy_host"`    // proxy_host
+	ProxyPort    string `json:"proxy_port"`    // proxy_port
+	SaasOrgId    string `json:"saas_org_id"`   // saas_org_id
+	ServerHost   string `json:"server_host"`   // server_host
+	Token        string `json:"token"`         // token
 }
-

@@ -3,8 +3,8 @@
 package full_command
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,58 +29,56 @@ var GetListByHostCmd = &cobra.Command{
 }
 
 func init() {
-		GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.Command, "command", nil, "命令")
-		GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.Comment, "comment", nil, "用户自定义备注")
-		GetListByHostCmd.Flags().IntVar(&getListByHostParams.Count, "count", 20, "数量")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetListByHostCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetListByHostCmd.Flags().Float64SliceVar(&getListByHostParams.Gids, "gids", nil, "业务组 ID")
-		GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.HostComment, "host-comment", nil, "主机备注")
-		GetListByHostCmd.Flags().Float64SliceVar(&getListByHostParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
-		GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.HostIp, "host-ip", nil, "主机IP")
-		GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.HostName, "host-name", nil, "主机名称")
-		GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.HostState, "host-state", nil, "主机状态")
-		GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.HostTags, "host-tags", nil, "主机标签")
-		GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.NetApp, "net-app", nil, "网络应用名称")
-		GetListByHostCmd.Flags().IntVar(&getListByHostParams.Offset, "offset", 0, "偏移量")
-		GetListByHostCmd.Flags().Float64SliceVar(&getListByHostParams.Oid, "oid", nil, "机构 ID")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetListByHostCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.SessionId, "session-id", nil, "会话id")
-		GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.ShellDuration, "shell-duration", nil, "会话持续时间")
-		GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.ShellStartedAt, "shell-started-at", nil, "会话启动时间")
-		GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.SshClientIp, "ssh-client-ip", nil, "ssh登陆地址")
-		GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.SshUser, "ssh-user", nil, "ssh登录用户")
-		GetListByHostCmd.Flags().Float64SliceVar(&getListByHostParams.Uid, "uid", nil, "用户id")
-		GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.Uname, "uname", nil, "用户名")
+	GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.Command, "command", nil, "命令")
+	GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.Comment, "comment", nil, "用户自定义备注")
+	GetListByHostCmd.Flags().IntVar(&getListByHostParams.Count, "count", 20, "数量")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetListByHostCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetListByHostCmd.Flags().Float64SliceVar(&getListByHostParams.Gids, "gids", nil, "业务组 ID")
+	GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.HostComment, "host-comment", nil, "主机备注")
+	GetListByHostCmd.Flags().Float64SliceVar(&getListByHostParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
+	GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.HostIp, "host-ip", nil, "主机IP")
+	GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.HostName, "host-name", nil, "主机名称")
+	GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.HostState, "host-state", nil, "主机状态")
+	GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.HostTags, "host-tags", nil, "主机标签")
+	GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.NetApp, "net-app", nil, "网络应用名称")
+	GetListByHostCmd.Flags().IntVar(&getListByHostParams.Offset, "offset", 0, "偏移量")
+	GetListByHostCmd.Flags().Float64SliceVar(&getListByHostParams.Oid, "oid", nil, "机构 ID")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetListByHostCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.SessionId, "session-id", nil, "会话id")
+	GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.ShellDuration, "shell-duration", nil, "会话持续时间")
+	GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.ShellStartedAt, "shell-started-at", nil, "会话启动时间")
+	GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.SshClientIp, "ssh-client-ip", nil, "ssh登陆地址")
+	GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.SshUser, "ssh-user", nil, "ssh登录用户")
+	GetListByHostCmd.Flags().Float64SliceVar(&getListByHostParams.Uid, "uid", nil, "用户id")
+	GetListByHostCmd.Flags().StringSliceVar(&getListByHostParams.Uname, "uname", nil, "用户名")
 }
-
 
 // GetListByHostParams 请求参数
 type GetListByHostParams struct {
-	Command []string `json:"command"` // 命令
-	Comment []string `json:"comment"` // 用户自定义备注
-	Count int `json:"count"` // 数量
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID, 用于主机详情页面
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	NetApp []string `json:"net_app"` // 网络应用名称
-	Offset int `json:"offset"` // 偏移量
-	Oid []float64 `json:"oid"` // 机构 ID
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	SessionId []string `json:"session_id"` // 会话id
-	ShellDuration []string `json:"shell_duration"` // 会话持续时间
-	ShellStartedAt []string `json:"shell_started_at"` // 会话启动时间
-	SshClientIp []string `json:"ssh_client_ip"` // ssh登陆地址
-	SshUser []string `json:"ssh_user"` // ssh登录用户
-	Uid []float64 `json:"uid"` // 用户id
-	Uname []string `json:"uname"` // 用户名
+	Command        []string                 `json:"command"`          // 命令
+	Comment        []string                 `json:"comment"`          // 用户自定义备注
+	Count          int                      `json:"count"`            // 数量
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	Gids           []float64                `json:"gids"`             // 业务组 ID
+	HostComment    []string                 `json:"host_comment"`     // 主机备注
+	HostId         []float64                `json:"host_id"`          // 主机ID, 用于主机详情页面
+	HostIp         []string                 `json:"host_ip"`          // 主机IP
+	HostName       []string                 `json:"host_name"`        // 主机名称
+	HostState      []string                 `json:"host_state"`       // 主机状态
+	HostTags       []string                 `json:"host_tags"`        // 主机标签
+	NetApp         []string                 `json:"net_app"`          // 网络应用名称
+	Offset         int                      `json:"offset"`           // 偏移量
+	Oid            []float64                `json:"oid"`              // 机构 ID
+	OrderBy        map[string]interface{}   `json:"order_by"`         // 排序规则
+	SessionId      []string                 `json:"session_id"`       // 会话id
+	ShellDuration  []string                 `json:"shell_duration"`   // 会话持续时间
+	ShellStartedAt []string                 `json:"shell_started_at"` // 会话启动时间
+	SshClientIp    []string                 `json:"ssh_client_ip"`    // ssh登陆地址
+	SshUser        []string                 `json:"ssh_user"`         // ssh登录用户
+	Uid            []float64                `json:"uid"`              // 用户id
+	Uname          []string                 `json:"uname"`            // 用户名
 }
-

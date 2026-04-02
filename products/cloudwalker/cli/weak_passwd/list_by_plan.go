@@ -3,8 +3,8 @@
 package weak_passwd
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,42 +29,40 @@ var ListByPlanCmd = &cobra.Command{
 }
 
 func init() {
-		ListByPlanCmd.Flags().BoolSliceVar(&listByPlanParams.CanLogin, "can-login", nil, "是否可登录，true代表可登录，false代表不可登录")
-		ListByPlanCmd.Flags().IntVar(&listByPlanParams.Count, "count", 20, "count")
-		ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.CreatedAt, "created-at", nil, "创建时间")
-		ListByPlanCmd.Flags().Float64SliceVar(&listByPlanParams.Gids, "gids", nil, "业务组 ID 列表")
-		ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.HostComment, "host-comment", nil, "主机备注")
-		ListByPlanCmd.Flags().Float64SliceVar(&listByPlanParams.HostId, "host-id", nil, "主机 ID")
-		ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.HostIp, "host-ip", nil, "主机 IP")
-		ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.HostName, "host-name", nil, "主机名称")
-		ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.HostState, "host-state", nil, "主机状态")
-		ListByPlanCmd.Flags().Float64SliceVar(&listByPlanParams.Id, "id", nil, "ID 用来在任务完成后按id筛选")
-		ListByPlanCmd.Flags().IntVar(&listByPlanParams.Offset, "offset", 0, "offset")
-		ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.Password, "password", nil, "密码")
-		ListByPlanCmd.Flags().Float64Var(&listByPlanParams.PlanId, "plan-id", 0, "弱口令plan id")
-		ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.Service, "service", nil, "服务")
-		ListByPlanCmd.Flags().IntSliceVar(&listByPlanParams.State, "state", nil, "事件状态")
-		ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.Username, "username", nil, "用户名")
+	ListByPlanCmd.Flags().BoolSliceVar(&listByPlanParams.CanLogin, "can-login", nil, "是否可登录，true代表可登录，false代表不可登录")
+	ListByPlanCmd.Flags().IntVar(&listByPlanParams.Count, "count", 20, "count")
+	ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.CreatedAt, "created-at", nil, "创建时间")
+	ListByPlanCmd.Flags().Float64SliceVar(&listByPlanParams.Gids, "gids", nil, "业务组 ID 列表")
+	ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.HostComment, "host-comment", nil, "主机备注")
+	ListByPlanCmd.Flags().Float64SliceVar(&listByPlanParams.HostId, "host-id", nil, "主机 ID")
+	ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.HostIp, "host-ip", nil, "主机 IP")
+	ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.HostName, "host-name", nil, "主机名称")
+	ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.HostState, "host-state", nil, "主机状态")
+	ListByPlanCmd.Flags().Float64SliceVar(&listByPlanParams.Id, "id", nil, "ID 用来在任务完成后按id筛选")
+	ListByPlanCmd.Flags().IntVar(&listByPlanParams.Offset, "offset", 0, "offset")
+	ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.Password, "password", nil, "密码")
+	ListByPlanCmd.Flags().Float64Var(&listByPlanParams.PlanId, "plan-id", 0, "弱口令plan id")
+	ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.Service, "service", nil, "服务")
+	ListByPlanCmd.Flags().IntSliceVar(&listByPlanParams.State, "state", nil, "事件状态")
+	ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.Username, "username", nil, "用户名")
 }
-
 
 // ListByPlanParams 请求参数
 type ListByPlanParams struct {
-	CanLogin []bool `json:"can_login"` // 是否可登录，true代表可登录，false代表不可登录
-	Count int `json:"count"` // count
-	CreatedAt []string `json:"created_at"` // 创建时间
-	Gids []float64 `json:"gids"` // 业务组 ID 列表
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	Id []float64 `json:"id"` // ID 用来在任务完成后按id筛选
-	Offset int `json:"offset"` // offset
-	Password []string `json:"password"` // 密码
-	PlanId float64 `json:"plan_id"` // 弱口令plan id
-	Service []string `json:"service"` // 服务
-	State []int `json:"state"` // 事件状态
-	Username []string `json:"username"` // 用户名
+	CanLogin    []bool    `json:"can_login"`    // 是否可登录，true代表可登录，false代表不可登录
+	Count       int       `json:"count"`        // count
+	CreatedAt   []string  `json:"created_at"`   // 创建时间
+	Gids        []float64 `json:"gids"`         // 业务组 ID 列表
+	HostComment []string  `json:"host_comment"` // 主机备注
+	HostId      []float64 `json:"host_id"`      // 主机 ID
+	HostIp      []string  `json:"host_ip"`      // 主机 IP
+	HostName    []string  `json:"host_name"`    // 主机名称
+	HostState   []string  `json:"host_state"`   // 主机状态
+	Id          []float64 `json:"id"`           // ID 用来在任务完成后按id筛选
+	Offset      int       `json:"offset"`       // offset
+	Password    []string  `json:"password"`     // 密码
+	PlanId      float64   `json:"plan_id"`      // 弱口令plan id
+	Service     []string  `json:"service"`      // 服务
+	State       []int     `json:"state"`        // 事件状态
+	Username    []string  `json:"username"`     // 用户名
 }
-

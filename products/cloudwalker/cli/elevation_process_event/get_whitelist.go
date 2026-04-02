@@ -3,8 +3,8 @@
 package elevation_process_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,60 +29,58 @@ var GetWhitelistCmd = &cobra.Command{
 }
 
 func init() {
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.AggExename, "agg-exename", nil, "进程名")
-		GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.AggHostId, "agg-host-id", nil, "主机Id")
-		GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.AggId, "agg-id", nil, "事件Id")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.AggOriginEffectUser, "agg-origin-effect-user", nil, "用户名")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.Comment, "comment", nil, "用户自定义备注")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.CreatedAt, "created-at", nil, "首次发现时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetWhitelistCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.Exename, "exename", nil, "进程名")
-		GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.Gids, "gids", nil, "业务组 ID")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostComment, "host-comment", nil, "主机备注")
-		GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.HostId, "host-id", nil, "主机 ID")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostIp, "host-ip", nil, "主机 IP")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostName, "host-name", nil, "主机名称")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostState, "host-state", nil, "主机状态")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostTags, "host-tags", nil, "主机标签")
-		GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.Ids, "ids", nil, "事件 ID")
-		GetWhitelistCmd.Flags().IntSliceVar(&getWhitelistParams.Level, "level", nil, "风险等级(1-低危，2-中危，3-高危，4-严重)")
-		GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.Oid, "oid", nil, "机构 ID")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.OriginUser, "origin-user", nil, "提权源用户")
-		GetWhitelistCmd.Flags().BoolVar(&getWhitelistParams.SelectAll, "select-all", false, "是否选中所有")
-		GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
-		GetWhitelistCmd.Flags().IntSliceVar(&getWhitelistParams.State, "state", nil, "处置状态(1-有风险，2-已忽略，3-已处理)")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.TargetUser, "target-user", nil, "提权目标用户")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.AggExename, "agg-exename", nil, "进程名")
+	GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.AggHostId, "agg-host-id", nil, "主机Id")
+	GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.AggId, "agg-id", nil, "事件Id")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.AggOriginEffectUser, "agg-origin-effect-user", nil, "用户名")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.Comment, "comment", nil, "用户自定义备注")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.CreatedAt, "created-at", nil, "首次发现时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetWhitelistCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.Exename, "exename", nil, "进程名")
+	GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.Gids, "gids", nil, "业务组 ID")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostComment, "host-comment", nil, "主机备注")
+	GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.HostId, "host-id", nil, "主机 ID")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostIp, "host-ip", nil, "主机 IP")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostName, "host-name", nil, "主机名称")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostState, "host-state", nil, "主机状态")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostTags, "host-tags", nil, "主机标签")
+	GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.Ids, "ids", nil, "事件 ID")
+	GetWhitelistCmd.Flags().IntSliceVar(&getWhitelistParams.Level, "level", nil, "风险等级(1-低危，2-中危，3-高危，4-严重)")
+	GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.Oid, "oid", nil, "机构 ID")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.OriginUser, "origin-user", nil, "提权源用户")
+	GetWhitelistCmd.Flags().BoolVar(&getWhitelistParams.SelectAll, "select-all", false, "是否选中所有")
+	GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
+	GetWhitelistCmd.Flags().IntSliceVar(&getWhitelistParams.State, "state", nil, "处置状态(1-有风险，2-已忽略，3-已处理)")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.TargetUser, "target-user", nil, "提权目标用户")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // GetWhitelistParams 请求参数
 type GetWhitelistParams struct {
-	AggExename []string `json:"agg_exename"` // 进程名
-	AggHostId []float64 `json:"agg_host_id"` // 主机Id
-	AggId []float64 `json:"agg_id"` // 事件Id
-	AggOriginEffectUser []string `json:"agg_origin_effect_user"` // 用户名
-	Comment []string `json:"comment"` // 用户自定义备注
-	CreatedAt []string `json:"created_at"` // 首次发现时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Exename []string `json:"exename"` // 进程名
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Ids []float64 `json:"ids"` // 事件 ID
-	Level []int `json:"level"` // 风险等级(1-低危，2-中危，3-高危，4-严重)
-	Oid []float64 `json:"oid"` // 机构 ID
-	OriginUser []string `json:"origin_user"` // 提权源用户
-	SelectAll bool `json:"select_all"` // 是否选中所有
-	StatEventId []float64 `json:"stat_event_id"` // 事件统计 ID
-	State []int `json:"state"` // 处置状态(1-有风险，2-已忽略，3-已处理)
-	TargetUser []string `json:"target_user"` // 提权目标用户
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	AggExename          []string                 `json:"agg_exename"`            // 进程名
+	AggHostId           []float64                `json:"agg_host_id"`            // 主机Id
+	AggId               []float64                `json:"agg_id"`                 // 事件Id
+	AggOriginEffectUser []string                 `json:"agg_origin_effect_user"` // 用户名
+	Comment             []string                 `json:"comment"`                // 用户自定义备注
+	CreatedAt           []string                 `json:"created_at"`             // 首次发现时间
+	CustomAttr          []map[string]interface{} `json:"custom_attr"`            // 主机业务属性
+	Exename             []string                 `json:"exename"`                // 进程名
+	Gids                []float64                `json:"gids"`                   // 业务组 ID
+	HostComment         []string                 `json:"host_comment"`           // 主机备注
+	HostId              []float64                `json:"host_id"`                // 主机 ID
+	HostIp              []string                 `json:"host_ip"`                // 主机 IP
+	HostName            []string                 `json:"host_name"`              // 主机名称
+	HostState           []string                 `json:"host_state"`             // 主机状态
+	HostTags            []string                 `json:"host_tags"`              // 主机标签
+	Ids                 []float64                `json:"ids"`                    // 事件 ID
+	Level               []int                    `json:"level"`                  // 风险等级(1-低危，2-中危，3-高危，4-严重)
+	Oid                 []float64                `json:"oid"`                    // 机构 ID
+	OriginUser          []string                 `json:"origin_user"`            // 提权源用户
+	SelectAll           bool                     `json:"select_all"`             // 是否选中所有
+	StatEventId         []float64                `json:"stat_event_id"`          // 事件统计 ID
+	State               []int                    `json:"state"`                  // 处置状态(1-有风险，2-已忽略，3-已处理)
+	TargetUser          []string                 `json:"target_user"`            // 提权目标用户
+	WhiteRuleId         []string                 `json:"white_rule_id"`          // 白名单规则 ID
 }
-

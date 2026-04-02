@@ -3,14 +3,12 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetFirewallGlobalConfigCmd = &cobra.Command{
 	Use:   "get_firewall_global_config",
@@ -31,5 +29,3 @@ var GetFirewallGlobalConfigCmd = &cobra.Command{
 func init() {
 
 }
-
-

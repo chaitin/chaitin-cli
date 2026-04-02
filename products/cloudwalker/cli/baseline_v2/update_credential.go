@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,26 +29,24 @@ var UpdateCredentialCmd = &cobra.Command{
 }
 
 func init() {
-		UpdateCredentialCmd.Flags().StringVar(&updateCredentialParams.Address, "address", "", "请求地址")
-		UpdateCredentialCmd.Flags().Float64SliceVar(&updateCredentialParams.AgentRange, "agent-range", nil, "主机范围")
-		UpdateCredentialCmd.Flags().Float64SliceVar(&updateCredentialParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		UpdateCredentialCmd.Flags().IntVar(&updateCredentialParams.Id, "id", 0, "凭据 ID")
-		UpdateCredentialCmd.Flags().StringVar(&updateCredentialParams.Password, "password", "", "密码")
-		UpdateCredentialCmd.Flags().StringVar(&updateCredentialParams.Protocol, "protocol", "", "监听的协议(TCP, UnixSocket)")
-		UpdateCredentialCmd.Flags().StringVar(&updateCredentialParams.Type, "type", "", "凭证类型(mysql，postgresql，oracle, weblogic)")
-		UpdateCredentialCmd.Flags().StringVar(&updateCredentialParams.Username, "username", "", "用户名")
+	UpdateCredentialCmd.Flags().StringVar(&updateCredentialParams.Address, "address", "", "请求地址")
+	UpdateCredentialCmd.Flags().Float64SliceVar(&updateCredentialParams.AgentRange, "agent-range", nil, "主机范围")
+	UpdateCredentialCmd.Flags().Float64SliceVar(&updateCredentialParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	UpdateCredentialCmd.Flags().IntVar(&updateCredentialParams.Id, "id", 0, "凭据 ID")
+	UpdateCredentialCmd.Flags().StringVar(&updateCredentialParams.Password, "password", "", "密码")
+	UpdateCredentialCmd.Flags().StringVar(&updateCredentialParams.Protocol, "protocol", "", "监听的协议(TCP, UnixSocket)")
+	UpdateCredentialCmd.Flags().StringVar(&updateCredentialParams.Type, "type", "", "凭证类型(mysql，postgresql，oracle, weblogic)")
+	UpdateCredentialCmd.Flags().StringVar(&updateCredentialParams.Username, "username", "", "用户名")
 }
-
 
 // UpdateCredentialParams 请求参数
 type UpdateCredentialParams struct {
-	Address string `json:"address"` // 请求地址
-	AgentRange []float64 `json:"agent_range"` // 主机范围
+	Address            string    `json:"address"`              // 请求地址
+	AgentRange         []float64 `json:"agent_range"`          // 主机范围
 	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Id int `json:"id"` // 凭据 ID
-	Password string `json:"password"` // 密码
-	Protocol string `json:"protocol"` // 监听的协议(TCP, UnixSocket)
-	Type string `json:"type"` // 凭证类型(mysql，postgresql，oracle, weblogic)
-	Username string `json:"username"` // 用户名
+	Id                 int       `json:"id"`                   // 凭据 ID
+	Password           string    `json:"password"`             // 密码
+	Protocol           string    `json:"protocol"`             // 监听的协议(TCP, UnixSocket)
+	Type               string    `json:"type"`                 // 凭证类型(mysql，postgresql，oracle, weblogic)
+	Username           string    `json:"username"`             // 用户名
 }
-

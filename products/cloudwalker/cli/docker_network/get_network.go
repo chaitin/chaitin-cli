@@ -3,8 +3,8 @@
 package docker_network
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetNetworkCmd = &cobra.Command{
 }
 
 func init() {
-		GetNetworkCmd.Flags().IntVar(&getNetworkParams.Id, "id", 0, "id")
+	GetNetworkCmd.Flags().IntVar(&getNetworkParams.Id, "id", 0, "id")
 }
-
 
 // GetNetworkParams 请求参数
 type GetNetworkParams struct {
 	Id int `json:"id"` // id
 }
-

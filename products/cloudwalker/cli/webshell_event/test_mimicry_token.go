@@ -3,14 +3,12 @@
 package webshell_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var TestMimicryTokenCmd = &cobra.Command{
 	Use:   "test_mimicry_token",
@@ -31,5 +29,3 @@ var TestMimicryTokenCmd = &cobra.Command{
 func init() {
 
 }
-
-

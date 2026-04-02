@@ -3,8 +3,8 @@
 package audit_log
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var GetArchiveListCmd = &cobra.Command{
 }
 
 func init() {
-		GetArchiveListCmd.Flags().IntVar(&getArchiveListParams.Limit, "limit", 0, "数量")
-		GetArchiveListCmd.Flags().IntVar(&getArchiveListParams.Offset, "offset", 0, "偏移量")
+	GetArchiveListCmd.Flags().IntVar(&getArchiveListParams.Limit, "limit", 0, "数量")
+	GetArchiveListCmd.Flags().IntVar(&getArchiveListParams.Offset, "offset", 0, "偏移量")
 }
-
 
 // GetArchiveListParams 请求参数
 type GetArchiveListParams struct {
-	Limit int `json:"limit"` // 数量
+	Limit  int `json:"limit"`  // 数量
 	Offset int `json:"offset"` // 偏移量
 }
-

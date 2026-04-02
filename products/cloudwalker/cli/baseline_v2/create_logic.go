@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,34 +29,32 @@ var CreateLogicCmd = &cobra.Command{
 }
 
 func init() {
-		CreateLogicCmd.Flags().StringVar(&createLogicParams.Audit, "audit", "", "核查原理")
-		// check is object type, use JSON string
-		var checkJSON string
-		CreateLogicCmd.Flags().StringVar(&checkJSON, "check", "", "check (JSON, e.g. {\"check_schema\": \"\", \"items\": [{\"check\": {\"action\": \"...\", \"args\": \"...\"}, \"read_text\": {\"action\": \"...\", \"args\": \"...\"}}]})")
-		CreateLogicCmd.Flags().StringVar(&createLogicParams.Description, "description", "", "核查项描述")
-		CreateLogicCmd.Flags().StringVar(&createLogicParams.Extra, "extra", "", "其他说明")
-		CreateLogicCmd.Flags().IntVar(&createLogicParams.Level, "level", 0, "严重程度")
-		CreateLogicCmd.Flags().StringVar(&createLogicParams.Name, "name", "", "逻辑名称")
-		CreateLogicCmd.Flags().StringVar(&createLogicParams.Remediation, "remediation", "", "解决方案")
-		// require is complex type []map[string]interface{}, use JSON string
-		var requireJSON string
-		CreateLogicCmd.Flags().StringVar(&requireJSON, "require", "", "此核查逻辑要求的主机主机类型， 比如只能在 Linux-Ubuntu-20.04 上执行 (JSON, e.g. [{\"all\": true, \"enum\": [\"x86_64\", \"arm32\"], \"pattern\": \"\", \"type\": \"os_type\"}])")
-		CreateLogicCmd.Flags().StringVar(&createLogicParams.Risk, "risk", "", "风险描述")
-		CreateLogicCmd.Flags().StringSliceVar(&createLogicParams.Tags, "tags", nil, "TAG")
+	CreateLogicCmd.Flags().StringVar(&createLogicParams.Audit, "audit", "", "核查原理")
+	// check is object type, use JSON string
+	var checkJSON string
+	CreateLogicCmd.Flags().StringVar(&checkJSON, "check", "", "check (JSON, e.g. {\"check_schema\": \"\", \"items\": [{\"check\": {\"action\": \"...\", \"args\": \"...\"}, \"read_text\": {\"action\": \"...\", \"args\": \"...\"}}]})")
+	CreateLogicCmd.Flags().StringVar(&createLogicParams.Description, "description", "", "核查项描述")
+	CreateLogicCmd.Flags().StringVar(&createLogicParams.Extra, "extra", "", "其他说明")
+	CreateLogicCmd.Flags().IntVar(&createLogicParams.Level, "level", 0, "严重程度")
+	CreateLogicCmd.Flags().StringVar(&createLogicParams.Name, "name", "", "逻辑名称")
+	CreateLogicCmd.Flags().StringVar(&createLogicParams.Remediation, "remediation", "", "解决方案")
+	// require is complex type []map[string]interface{}, use JSON string
+	var requireJSON string
+	CreateLogicCmd.Flags().StringVar(&requireJSON, "require", "", "此核查逻辑要求的主机主机类型， 比如只能在 Linux-Ubuntu-20.04 上执行 (JSON, e.g. [{\"all\": true, \"enum\": [\"x86_64\", \"arm32\"], \"pattern\": \"\", \"type\": \"os_type\"}])")
+	CreateLogicCmd.Flags().StringVar(&createLogicParams.Risk, "risk", "", "风险描述")
+	CreateLogicCmd.Flags().StringSliceVar(&createLogicParams.Tags, "tags", nil, "TAG")
 }
-
 
 // CreateLogicParams 请求参数
 type CreateLogicParams struct {
-	Audit string `json:"audit"` // 核查原理
-	Check map[string]interface{} `json:"check"` // check
-	Description string `json:"description"` // 核查项描述
-	Extra string `json:"extra"` // 其他说明
-	Level int `json:"level"` // 严重程度
-	Name string `json:"name"` // 逻辑名称
-	Remediation string `json:"remediation"` // 解决方案
-	Require []map[string]interface{} `json:"require"` // 此核查逻辑要求的主机主机类型， 比如只能在 Linux-Ubuntu-20.04 上执行
-	Risk string `json:"risk"` // 风险描述
-	Tags []string `json:"tags"` // TAG
+	Audit       string                   `json:"audit"`       // 核查原理
+	Check       map[string]interface{}   `json:"check"`       // check
+	Description string                   `json:"description"` // 核查项描述
+	Extra       string                   `json:"extra"`       // 其他说明
+	Level       int                      `json:"level"`       // 严重程度
+	Name        string                   `json:"name"`        // 逻辑名称
+	Remediation string                   `json:"remediation"` // 解决方案
+	Require     []map[string]interface{} `json:"require"`     // 此核查逻辑要求的主机主机类型， 比如只能在 Linux-Ubuntu-20.04 上执行
+	Risk        string                   `json:"risk"`        // 风险描述
+	Tags        []string                 `json:"tags"`        // TAG
 }
-

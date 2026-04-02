@@ -3,8 +3,8 @@
 package sensitive_file_scan
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var UpdateBaseCmd = &cobra.Command{
 }
 
 func init() {
-		UpdateBaseCmd.Flags().Float64SliceVar(&updateBaseParams.Id, "id", nil, "基准ID")
-		UpdateBaseCmd.Flags().BoolVar(&updateBaseParams.SelectAll, "select-all", false, "是否全选")
+	UpdateBaseCmd.Flags().Float64SliceVar(&updateBaseParams.Id, "id", nil, "基准ID")
+	UpdateBaseCmd.Flags().BoolVar(&updateBaseParams.SelectAll, "select-all", false, "是否全选")
 }
-
 
 // UpdateBaseParams 请求参数
 type UpdateBaseParams struct {
-	Id []float64 `json:"id"` // 基准ID
-	SelectAll bool `json:"select_all"` // 是否全选
+	Id        []float64 `json:"id"`         // 基准ID
+	SelectAll bool      `json:"select_all"` // 是否全选
 }
-

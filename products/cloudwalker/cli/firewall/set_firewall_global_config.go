@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var SetFirewallGlobalConfigCmd = &cobra.Command{
 }
 
 func init() {
-		SetFirewallGlobalConfigCmd.Flags().IntVar(&setFirewallGlobalConfigParams.WorkMode, "work-mode", 0, "工作模式 0-默认 1-仅用户态")
+	SetFirewallGlobalConfigCmd.Flags().IntVar(&setFirewallGlobalConfigParams.WorkMode, "work-mode", 0, "工作模式 0-默认 1-仅用户态")
 }
-
 
 // SetFirewallGlobalConfigParams 请求参数
 type SetFirewallGlobalConfigParams struct {
 	WorkMode int `json:"work_mode"` // 工作模式 0-默认 1-仅用户态
 }
-

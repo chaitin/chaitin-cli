@@ -3,8 +3,8 @@
 package log_collect
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var DeleteLogCollectCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteLogCollectCmd.Flags().StringSliceVar(&deleteLogCollectParams.Id, "id", nil, "ID")
+	DeleteLogCollectCmd.Flags().StringSliceVar(&deleteLogCollectParams.Id, "id", nil, "ID")
 }
-
 
 // DeleteLogCollectParams 请求参数
 type DeleteLogCollectParams struct {
 	Id []string `json:"id"` // ID
 }
-

@@ -3,8 +3,8 @@
 package tamper_proof
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,18 +29,16 @@ var GetHostListCmd = &cobra.Command{
 }
 
 func init() {
-		GetHostListCmd.Flags().IntVar(&getHostListParams.Count, "count", 20, "返回的主机的数量")
-		// filter is object type, use JSON string
-		var filterJSON string
-		GetHostListCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. {\"capacity_enhancement_drive_state\": [\"\"], \"custom_attr\": [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}], \"exposed_ip\": [\"\"], \"...\": \"...\"})")
-		GetHostListCmd.Flags().IntVar(&getHostListParams.Offset, "offset", 0, "返回的主机的偏移值")
+	GetHostListCmd.Flags().IntVar(&getHostListParams.Count, "count", 20, "返回的主机的数量")
+	// filter is object type, use JSON string
+	var filterJSON string
+	GetHostListCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. {\"capacity_enhancement_drive_state\": [\"\"], \"custom_attr\": [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}], \"exposed_ip\": [\"\"], \"...\": \"...\"})")
+	GetHostListCmd.Flags().IntVar(&getHostListParams.Offset, "offset", 0, "返回的主机的偏移值")
 }
-
 
 // GetHostListParams 请求参数
 type GetHostListParams struct {
-	Count int `json:"count"` // 返回的主机的数量
+	Count  int                    `json:"count"`  // 返回的主机的数量
 	Filter map[string]interface{} `json:"filter"` // filter
-	Offset int `json:"offset"` // 返回的主机的偏移值
+	Offset int                    `json:"offset"` // 返回的主机的偏移值
 }
-

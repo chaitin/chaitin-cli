@@ -3,8 +3,8 @@
 package scout_agent_api
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var TestKafkaCmd = &cobra.Command{
 }
 
 func init() {
-		TestKafkaCmd.Flags().StringVar(&testKafkaParams.KafkaAddr, "kafka-addr", "", "kafka 地址")
-		TestKafkaCmd.Flags().IntVar(&testKafkaParams.ScoutAgentId, "scout-agent-id", 0, "采集探针 id")
+	TestKafkaCmd.Flags().StringVar(&testKafkaParams.KafkaAddr, "kafka-addr", "", "kafka 地址")
+	TestKafkaCmd.Flags().IntVar(&testKafkaParams.ScoutAgentId, "scout-agent-id", 0, "采集探针 id")
 }
-
 
 // TestKafkaParams 请求参数
 type TestKafkaParams struct {
-	KafkaAddr string `json:"kafka_addr"` // kafka 地址
-	ScoutAgentId int `json:"scout_agent_id"` // 采集探针 id
+	KafkaAddr    string `json:"kafka_addr"`     // kafka 地址
+	ScoutAgentId int    `json:"scout_agent_id"` // 采集探针 id
 }
-

@@ -3,8 +3,8 @@
 package agent_module
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,22 +29,20 @@ var OperateModuleCmd = &cobra.Command{
 }
 
 func init() {
-		// filter is object type, use JSON string
-		var filterJSON string
-		OperateModuleCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"agent_install_plan_id\": [1, 2], \"agent_mem_size\": [\"1GB\"], \"agent_memory_rate\": [\"0.03298633\"], \"...\": \"...\"})")
-		// operation_data is object type, use JSON string
-		var operationDataJSON string
-		OperateModuleCmd.Flags().StringVar(&operationDataJSON, "operation-data", "", "更新||卸载||安装探针指定模块 (JSON, e.g. {\"module_type\": \"cw_enhancer\", \"operation\": \"install\"})")
-		// select_filter is object type, use JSON string
-		var selectFilterJSON string
-		OperateModuleCmd.Flags().StringVar(&selectFilterJSON, "select-filter", "", "是否全选&主机ID (JSON, e.g. {\"select\": [{\"id\": 196}], \"select_all\": true})")
+	// filter is object type, use JSON string
+	var filterJSON string
+	OperateModuleCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"agent_install_plan_id\": [1, 2], \"agent_mem_size\": [\"1GB\"], \"agent_memory_rate\": [\"0.03298633\"], \"...\": \"...\"})")
+	// operation_data is object type, use JSON string
+	var operationDataJSON string
+	OperateModuleCmd.Flags().StringVar(&operationDataJSON, "operation-data", "", "更新||卸载||安装探针指定模块 (JSON, e.g. {\"module_type\": \"cw_enhancer\", \"operation\": \"install\"})")
+	// select_filter is object type, use JSON string
+	var selectFilterJSON string
+	OperateModuleCmd.Flags().StringVar(&selectFilterJSON, "select-filter", "", "是否全选&主机ID (JSON, e.g. {\"select\": [{\"id\": 196}], \"select_all\": true})")
 }
-
 
 // OperateModuleParams 请求参数
 type OperateModuleParams struct {
-	Filter map[string]interface{} `json:"filter"` // 筛选器
+	Filter        map[string]interface{} `json:"filter"`         // 筛选器
 	OperationData map[string]interface{} `json:"operation_data"` // 更新||卸载||安装探针指定模块
-	SelectFilter map[string]interface{} `json:"select_filter"` // 是否全选&主机ID
+	SelectFilter  map[string]interface{} `json:"select_filter"`  // 是否全选&主机ID
 }
-

@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetAttributesCmd = &cobra.Command{
 }
 
 func init() {
-		GetAttributesCmd.Flags().BoolVar(&getAttributesParams.NeedSystem, "need-system", false, "是否需要系统保留业务属性")
+	GetAttributesCmd.Flags().BoolVar(&getAttributesParams.NeedSystem, "need-system", false, "是否需要系统保留业务属性")
 }
-
 
 // GetAttributesParams 请求参数
 type GetAttributesParams struct {
 	NeedSystem bool `json:"need_system"` // 是否需要系统保留业务属性
 }
-

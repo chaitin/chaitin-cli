@@ -3,8 +3,8 @@
 package brute_force
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,68 +29,66 @@ var GetWhitelistCmd = &cobra.Command{
 }
 
 func init() {
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.AuthMethod, "auth-method", nil, "auth_method")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.Category, "category", nil, "爆破类型")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.Comment, "comment", nil, "comment")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.CreatedAt, "created-at", nil, "爆破开始时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetWhitelistCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.Description, "description", nil, "爆破描述")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.FailureCount, "failure-count", nil, "failure_count")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.FinishedAt, "finished-at", nil, "finished_at")
-		GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.Gids, "gids", nil, "gids")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostComment, "host-comment", nil, "主机备注")
-		GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.HostId, "host-id", nil, "主机 ID")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostIp, "host-ip", nil, "主机 IP")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostName, "host-name", nil, "主机名称")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostState, "host-state", nil, "主机状态")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostTags, "host-tags", nil, "主机标签")
-		GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.Ids, "ids", nil, "事件 ID")
-		GetWhitelistCmd.Flags().IntSliceVar(&getWhitelistParams.Level, "level", nil, "风险等级(1-低危，2-中危，3-高危，4-严重)")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.LocationCode, "location-code", nil, "location_code")
-		GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.Oid, "oid", nil, "机构 ID")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
-		GetWhitelistCmd.Flags().BoolVar(&getWhitelistParams.SelectAll, "select-all", false, "是否选中所有")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.SourceIp, "source-ip", nil, "source_ip")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.StartedAt, "started-at", nil, "started_at")
-		GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
-		GetWhitelistCmd.Flags().IntSliceVar(&getWhitelistParams.State, "state", nil, "处置状态(1-有风险，2-已忽略，3-已处理)")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.SuccessCount, "success-count", nil, "success_count")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.UserName, "user-name", nil, "user_name")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.AuthMethod, "auth-method", nil, "auth_method")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.Category, "category", nil, "爆破类型")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.Comment, "comment", nil, "comment")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.CreatedAt, "created-at", nil, "爆破开始时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetWhitelistCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.Description, "description", nil, "爆破描述")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.FailureCount, "failure-count", nil, "failure_count")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.FinishedAt, "finished-at", nil, "finished_at")
+	GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.Gids, "gids", nil, "gids")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostComment, "host-comment", nil, "主机备注")
+	GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.HostId, "host-id", nil, "主机 ID")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostIp, "host-ip", nil, "主机 IP")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostName, "host-name", nil, "主机名称")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostState, "host-state", nil, "主机状态")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostTags, "host-tags", nil, "主机标签")
+	GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.Ids, "ids", nil, "事件 ID")
+	GetWhitelistCmd.Flags().IntSliceVar(&getWhitelistParams.Level, "level", nil, "风险等级(1-低危，2-中危，3-高危，4-严重)")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.LocationCode, "location-code", nil, "location_code")
+	GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.Oid, "oid", nil, "机构 ID")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
+	GetWhitelistCmd.Flags().BoolVar(&getWhitelistParams.SelectAll, "select-all", false, "是否选中所有")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.SourceIp, "source-ip", nil, "source_ip")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.StartedAt, "started-at", nil, "started_at")
+	GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
+	GetWhitelistCmd.Flags().IntSliceVar(&getWhitelistParams.State, "state", nil, "处置状态(1-有风险，2-已忽略，3-已处理)")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.SuccessCount, "success-count", nil, "success_count")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.UserName, "user-name", nil, "user_name")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // GetWhitelistParams 请求参数
 type GetWhitelistParams struct {
-	AuthMethod []string `json:"auth_method"` // auth_method
-	Category []string `json:"category"` // 爆破类型
-	Comment []string `json:"comment"` // comment
-	CreatedAt []string `json:"created_at"` // 爆破开始时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Description []string `json:"description"` // 爆破描述
-	FailureCount []string `json:"failure_count"` // failure_count
-	FinishedAt []string `json:"finished_at"` // finished_at
-	Gids []float64 `json:"gids"` // gids
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Ids []float64 `json:"ids"` // 事件 ID
-	Level []int `json:"level"` // 风险等级(1-低危，2-中危，3-高危，4-严重)
-	LocationCode []string `json:"location_code"` // location_code
-	Oid []float64 `json:"oid"` // 机构 ID
-	RemoteAddrType []string `json:"remote_addr_type"` // 远程IP类型，intranet(内网)、internet(外网)
-	SelectAll bool `json:"select_all"` // 是否选中所有
-	SourceIp []string `json:"source_ip"` // source_ip
-	StartedAt []string `json:"started_at"` // started_at
-	StatEventId []float64 `json:"stat_event_id"` // 事件统计 ID
-	State []int `json:"state"` // 处置状态(1-有风险，2-已忽略，3-已处理)
-	SuccessCount []string `json:"success_count"` // success_count
-	UserName []string `json:"user_name"` // user_name
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	AuthMethod     []string                 `json:"auth_method"`      // auth_method
+	Category       []string                 `json:"category"`         // 爆破类型
+	Comment        []string                 `json:"comment"`          // comment
+	CreatedAt      []string                 `json:"created_at"`       // 爆破开始时间
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	Description    []string                 `json:"description"`      // 爆破描述
+	FailureCount   []string                 `json:"failure_count"`    // failure_count
+	FinishedAt     []string                 `json:"finished_at"`      // finished_at
+	Gids           []float64                `json:"gids"`             // gids
+	HostComment    []string                 `json:"host_comment"`     // 主机备注
+	HostId         []float64                `json:"host_id"`          // 主机 ID
+	HostIp         []string                 `json:"host_ip"`          // 主机 IP
+	HostName       []string                 `json:"host_name"`        // 主机名称
+	HostState      []string                 `json:"host_state"`       // 主机状态
+	HostTags       []string                 `json:"host_tags"`        // 主机标签
+	Ids            []float64                `json:"ids"`              // 事件 ID
+	Level          []int                    `json:"level"`            // 风险等级(1-低危，2-中危，3-高危，4-严重)
+	LocationCode   []string                 `json:"location_code"`    // location_code
+	Oid            []float64                `json:"oid"`              // 机构 ID
+	RemoteAddrType []string                 `json:"remote_addr_type"` // 远程IP类型，intranet(内网)、internet(外网)
+	SelectAll      bool                     `json:"select_all"`       // 是否选中所有
+	SourceIp       []string                 `json:"source_ip"`        // source_ip
+	StartedAt      []string                 `json:"started_at"`       // started_at
+	StatEventId    []float64                `json:"stat_event_id"`    // 事件统计 ID
+	State          []int                    `json:"state"`            // 处置状态(1-有风险，2-已忽略，3-已处理)
+	SuccessCount   []string                 `json:"success_count"`    // success_count
+	UserName       []string                 `json:"user_name"`        // user_name
+	WhiteRuleId    []string                 `json:"white_rule_id"`    // 白名单规则 ID
 }
-

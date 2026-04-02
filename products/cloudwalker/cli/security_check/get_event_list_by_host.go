@@ -3,8 +3,8 @@
 package security_check
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,62 +29,60 @@ var GetEventListByHostCmd = &cobra.Command{
 }
 
 func init() {
-		GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.Comment, "comment", nil, "用户自定义备注")
-		GetEventListByHostCmd.Flags().IntVar(&getEventListByHostParams.Count, "count", 20, "数量")
-		GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.CreatedAt, "created-at", nil, "创建时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetEventListByHostCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		// filter is complex type []map[string]interface{}, use JSON string
-		var filterJSON string
-		GetEventListByHostCmd.Flags().StringVar(&filterJSON, "filter", "", "聚合筛选 (JSON, e.g. [{\"host_id\": 15, \"id\": 15, \"item_id\": \"15\"}])")
-		GetEventListByHostCmd.Flags().Float64SliceVar(&getEventListByHostParams.Gids, "gids", nil, "业务组 ID 列表")
-		GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.Hint, "hint", nil, "脆弱点")
-		GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.HostComment, "host-comment", nil, "主机备注")
-		GetEventListByHostCmd.Flags().Float64SliceVar(&getEventListByHostParams.HostId, "host-id", nil, "主机 ID")
-		GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.HostIp, "host-ip", nil, "主机 IP")
-		GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.HostName, "host-name", nil, "主机名称")
-		GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.HostState, "host-state", nil, "主机状态")
-		GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.HostTags, "host-tags", nil, "主机标签")
-		GetEventListByHostCmd.Flags().Float64SliceVar(&getEventListByHostParams.Id, "id", nil, "事件 ID 列表")
-		GetEventListByHostCmd.Flags().IntSliceVar(&getEventListByHostParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.Name, "name", nil, "事件名称")
-		GetEventListByHostCmd.Flags().IntVar(&getEventListByHostParams.Offset, "offset", 0, "偏移量")
-		GetEventListByHostCmd.Flags().Float64SliceVar(&getEventListByHostParams.Oid, "oid", nil, "机构 ID")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetEventListByHostCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetEventListByHostCmd.Flags().BoolVar(&getEventListByHostParams.SelectAll, "select-all", false, "是否全选")
-		GetEventListByHostCmd.Flags().IntSliceVar(&getEventListByHostParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
-		GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.Tags, "tags", nil, "风险标签")
-		GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.UpdatedAt, "updated-at", nil, "最近发现时间")
+	GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.Comment, "comment", nil, "用户自定义备注")
+	GetEventListByHostCmd.Flags().IntVar(&getEventListByHostParams.Count, "count", 20, "数量")
+	GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.CreatedAt, "created-at", nil, "创建时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetEventListByHostCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	// filter is complex type []map[string]interface{}, use JSON string
+	var filterJSON string
+	GetEventListByHostCmd.Flags().StringVar(&filterJSON, "filter", "", "聚合筛选 (JSON, e.g. [{\"host_id\": 15, \"id\": 15, \"item_id\": \"15\"}])")
+	GetEventListByHostCmd.Flags().Float64SliceVar(&getEventListByHostParams.Gids, "gids", nil, "业务组 ID 列表")
+	GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.Hint, "hint", nil, "脆弱点")
+	GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.HostComment, "host-comment", nil, "主机备注")
+	GetEventListByHostCmd.Flags().Float64SliceVar(&getEventListByHostParams.HostId, "host-id", nil, "主机 ID")
+	GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.HostIp, "host-ip", nil, "主机 IP")
+	GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.HostName, "host-name", nil, "主机名称")
+	GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.HostState, "host-state", nil, "主机状态")
+	GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.HostTags, "host-tags", nil, "主机标签")
+	GetEventListByHostCmd.Flags().Float64SliceVar(&getEventListByHostParams.Id, "id", nil, "事件 ID 列表")
+	GetEventListByHostCmd.Flags().IntSliceVar(&getEventListByHostParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.Name, "name", nil, "事件名称")
+	GetEventListByHostCmd.Flags().IntVar(&getEventListByHostParams.Offset, "offset", 0, "偏移量")
+	GetEventListByHostCmd.Flags().Float64SliceVar(&getEventListByHostParams.Oid, "oid", nil, "机构 ID")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetEventListByHostCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetEventListByHostCmd.Flags().BoolVar(&getEventListByHostParams.SelectAll, "select-all", false, "是否全选")
+	GetEventListByHostCmd.Flags().IntSliceVar(&getEventListByHostParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.Tags, "tags", nil, "风险标签")
+	GetEventListByHostCmd.Flags().StringSliceVar(&getEventListByHostParams.UpdatedAt, "updated-at", nil, "最近发现时间")
 }
-
 
 // GetEventListByHostParams 请求参数
 type GetEventListByHostParams struct {
-	Comment []string `json:"comment"` // 用户自定义备注
-	Count int `json:"count"` // 数量
-	CreatedAt []string `json:"created_at"` // 创建时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Filter []map[string]interface{} `json:"filter"` // 聚合筛选
-	Gids []float64 `json:"gids"` // 业务组 ID 列表
-	Hint []string `json:"hint"` // 脆弱点
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Id []float64 `json:"id"` // 事件 ID 列表
-	Level []int `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	Name []string `json:"name"` // 事件名称
-	Offset int `json:"offset"` // 偏移量
-	Oid []float64 `json:"oid"` // 机构 ID
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	SelectAll bool `json:"select_all"` // 是否全选
-	State []int `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
-	Tags []string `json:"tags"` // 风险标签
-	UpdatedAt []string `json:"updated_at"` // 最近发现时间
+	Comment     []string                 `json:"comment"`      // 用户自定义备注
+	Count       int                      `json:"count"`        // 数量
+	CreatedAt   []string                 `json:"created_at"`   // 创建时间
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Filter      []map[string]interface{} `json:"filter"`       // 聚合筛选
+	Gids        []float64                `json:"gids"`         // 业务组 ID 列表
+	Hint        []string                 `json:"hint"`         // 脆弱点
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机 ID
+	HostIp      []string                 `json:"host_ip"`      // 主机 IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTags    []string                 `json:"host_tags"`    // 主机标签
+	Id          []float64                `json:"id"`           // 事件 ID 列表
+	Level       []int                    `json:"level"`        // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	Name        []string                 `json:"name"`         // 事件名称
+	Offset      int                      `json:"offset"`       // 偏移量
+	Oid         []float64                `json:"oid"`          // 机构 ID
+	OrderBy     map[string]interface{}   `json:"order_by"`     // 排序规则
+	SelectAll   bool                     `json:"select_all"`   // 是否全选
+	State       []int                    `json:"state"`        // 事件状态(1-有风险，2-已忽略，3-已处理)
+	Tags        []string                 `json:"tags"`         // 风险标签
+	UpdatedAt   []string                 `json:"updated_at"`   // 最近发现时间
 }
-

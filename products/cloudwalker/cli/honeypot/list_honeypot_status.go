@@ -3,8 +3,8 @@
 package honeypot
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,56 +29,54 @@ var ListHoneypotStatusCmd = &cobra.Command{
 }
 
 func init() {
-		ListHoneypotStatusCmd.Flags().IntVar(&listHoneypotStatusParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		ListHoneypotStatusCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		ListHoneypotStatusCmd.Flags().Float64SliceVar(&listHoneypotStatusParams.Gids, "gids", nil, "业务组 ID")
-		ListHoneypotStatusCmd.Flags().StringSliceVar(&listHoneypotStatusParams.HostComment, "host-comment", nil, "主机备注")
-		ListHoneypotStatusCmd.Flags().Float64SliceVar(&listHoneypotStatusParams.HostId, "host-id", nil, "主机 ID")
-		ListHoneypotStatusCmd.Flags().StringSliceVar(&listHoneypotStatusParams.HostIp, "host-ip", nil, "主机 IP")
-		ListHoneypotStatusCmd.Flags().StringSliceVar(&listHoneypotStatusParams.HostName, "host-name", nil, "主机名称")
-		ListHoneypotStatusCmd.Flags().StringSliceVar(&listHoneypotStatusParams.HostState, "host-state", nil, "主机状态")
-		ListHoneypotStatusCmd.Flags().StringSliceVar(&listHoneypotStatusParams.HostTags, "host-tags", nil, "主机标签")
-		ListHoneypotStatusCmd.Flags().Float64SliceVar(&listHoneypotStatusParams.Id, "id", nil, "记录 ID")
-		ListHoneypotStatusCmd.Flags().StringSliceVar(&listHoneypotStatusParams.Ip, "ip", nil, "IP")
-		ListHoneypotStatusCmd.Flags().IntSliceVar(&listHoneypotStatusParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		ListHoneypotStatusCmd.Flags().StringSliceVar(&listHoneypotStatusParams.Name, "name", nil, "蜜罐名称")
-		ListHoneypotStatusCmd.Flags().IntVar(&listHoneypotStatusParams.Offset, "offset", 0, "页偏移, 默认为 0")
-		ListHoneypotStatusCmd.Flags().Float64SliceVar(&listHoneypotStatusParams.Oid, "oid", nil, "机构 ID")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		ListHoneypotStatusCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		ListHoneypotStatusCmd.Flags().Float64SliceVar(&listHoneypotStatusParams.Port, "port", nil, "端口")
-		ListHoneypotStatusCmd.Flags().StringSliceVar(&listHoneypotStatusParams.RuleName, "rule-name", nil, "规则名")
-		ListHoneypotStatusCmd.Flags().IntSliceVar(&listHoneypotStatusParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
-		ListHoneypotStatusCmd.Flags().Float64SliceVar(&listHoneypotStatusParams.Status, "status", nil, "蜜罐状态")
-		ListHoneypotStatusCmd.Flags().StringSliceVar(&listHoneypotStatusParams.Type, "type", nil, "蜜罐类型")
+	ListHoneypotStatusCmd.Flags().IntVar(&listHoneypotStatusParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	ListHoneypotStatusCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	ListHoneypotStatusCmd.Flags().Float64SliceVar(&listHoneypotStatusParams.Gids, "gids", nil, "业务组 ID")
+	ListHoneypotStatusCmd.Flags().StringSliceVar(&listHoneypotStatusParams.HostComment, "host-comment", nil, "主机备注")
+	ListHoneypotStatusCmd.Flags().Float64SliceVar(&listHoneypotStatusParams.HostId, "host-id", nil, "主机 ID")
+	ListHoneypotStatusCmd.Flags().StringSliceVar(&listHoneypotStatusParams.HostIp, "host-ip", nil, "主机 IP")
+	ListHoneypotStatusCmd.Flags().StringSliceVar(&listHoneypotStatusParams.HostName, "host-name", nil, "主机名称")
+	ListHoneypotStatusCmd.Flags().StringSliceVar(&listHoneypotStatusParams.HostState, "host-state", nil, "主机状态")
+	ListHoneypotStatusCmd.Flags().StringSliceVar(&listHoneypotStatusParams.HostTags, "host-tags", nil, "主机标签")
+	ListHoneypotStatusCmd.Flags().Float64SliceVar(&listHoneypotStatusParams.Id, "id", nil, "记录 ID")
+	ListHoneypotStatusCmd.Flags().StringSliceVar(&listHoneypotStatusParams.Ip, "ip", nil, "IP")
+	ListHoneypotStatusCmd.Flags().IntSliceVar(&listHoneypotStatusParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	ListHoneypotStatusCmd.Flags().StringSliceVar(&listHoneypotStatusParams.Name, "name", nil, "蜜罐名称")
+	ListHoneypotStatusCmd.Flags().IntVar(&listHoneypotStatusParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	ListHoneypotStatusCmd.Flags().Float64SliceVar(&listHoneypotStatusParams.Oid, "oid", nil, "机构 ID")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	ListHoneypotStatusCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	ListHoneypotStatusCmd.Flags().Float64SliceVar(&listHoneypotStatusParams.Port, "port", nil, "端口")
+	ListHoneypotStatusCmd.Flags().StringSliceVar(&listHoneypotStatusParams.RuleName, "rule-name", nil, "规则名")
+	ListHoneypotStatusCmd.Flags().IntSliceVar(&listHoneypotStatusParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	ListHoneypotStatusCmd.Flags().Float64SliceVar(&listHoneypotStatusParams.Status, "status", nil, "蜜罐状态")
+	ListHoneypotStatusCmd.Flags().StringSliceVar(&listHoneypotStatusParams.Type, "type", nil, "蜜罐类型")
 }
-
 
 // ListHoneypotStatusParams 请求参数
 type ListHoneypotStatusParams struct {
-	Count int `json:"count"` // 每页记录数量, 默认为 20
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Id []float64 `json:"id"` // 记录 ID
-	Ip []string `json:"ip"` // IP
-	Level []int `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	Name []string `json:"name"` // 蜜罐名称
-	Offset int `json:"offset"` // 页偏移, 默认为 0
-	Oid []float64 `json:"oid"` // 机构 ID
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	Port []float64 `json:"port"` // 端口
-	RuleName []string `json:"rule_name"` // 规则名
-	State []int `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
-	Status []float64 `json:"status"` // 蜜罐状态
-	Type []string `json:"type"` // 蜜罐类型
+	Count       int                      `json:"count"`        // 每页记录数量, 默认为 20
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Gids        []float64                `json:"gids"`         // 业务组 ID
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机 ID
+	HostIp      []string                 `json:"host_ip"`      // 主机 IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTags    []string                 `json:"host_tags"`    // 主机标签
+	Id          []float64                `json:"id"`           // 记录 ID
+	Ip          []string                 `json:"ip"`           // IP
+	Level       []int                    `json:"level"`        // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	Name        []string                 `json:"name"`         // 蜜罐名称
+	Offset      int                      `json:"offset"`       // 页偏移, 默认为 0
+	Oid         []float64                `json:"oid"`          // 机构 ID
+	OrderBy     map[string]interface{}   `json:"order_by"`     // 排序规则
+	Port        []float64                `json:"port"`         // 端口
+	RuleName    []string                 `json:"rule_name"`    // 规则名
+	State       []int                    `json:"state"`        // 事件状态(1-有风险，2-已忽略，3-已处理)
+	Status      []float64                `json:"status"`       // 蜜罐状态
+	Type        []string                 `json:"type"`         // 蜜罐类型
 }
-

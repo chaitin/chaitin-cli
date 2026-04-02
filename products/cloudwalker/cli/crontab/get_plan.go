@@ -3,8 +3,8 @@
 package crontab
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var GetPlanCmd = &cobra.Command{
 }
 
 func init() {
-		GetPlanCmd.Flags().IntVar(&getPlanParams.PlanId, "plan-id", 0, "计划 ID")
-		GetPlanCmd.Flags().StringVar(&getPlanParams.PlanType, "plan-type", "", "任务计划类型")
+	GetPlanCmd.Flags().IntVar(&getPlanParams.PlanId, "plan-id", 0, "计划 ID")
+	GetPlanCmd.Flags().StringVar(&getPlanParams.PlanType, "plan-type", "", "任务计划类型")
 }
-
 
 // GetPlanParams 请求参数
 type GetPlanParams struct {
-	PlanId int `json:"plan_id"` // 计划 ID
+	PlanId   int    `json:"plan_id"`   // 计划 ID
 	PlanType string `json:"plan_type"` // 任务计划类型
 }
-

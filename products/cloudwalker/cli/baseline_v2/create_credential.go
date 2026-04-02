@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,24 +29,22 @@ var CreateCredentialCmd = &cobra.Command{
 }
 
 func init() {
-		CreateCredentialCmd.Flags().StringVar(&createCredentialParams.Address, "address", "", "监听的地址")
-		CreateCredentialCmd.Flags().Float64SliceVar(&createCredentialParams.AgentRange, "agent-range", nil, "探针范围")
-		CreateCredentialCmd.Flags().Float64SliceVar(&createCredentialParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		CreateCredentialCmd.Flags().StringVar(&createCredentialParams.Password, "password", "", "密码")
-		CreateCredentialCmd.Flags().StringVar(&createCredentialParams.Protocol, "protocol", "", "监听的协议(TCP, UnixSocket)")
-		CreateCredentialCmd.Flags().StringVar(&createCredentialParams.Type, "type", "", "凭证类型(mysql，postgresql，oracle, weblogic)")
-		CreateCredentialCmd.Flags().StringVar(&createCredentialParams.Username, "username", "", "用户名")
+	CreateCredentialCmd.Flags().StringVar(&createCredentialParams.Address, "address", "", "监听的地址")
+	CreateCredentialCmd.Flags().Float64SliceVar(&createCredentialParams.AgentRange, "agent-range", nil, "探针范围")
+	CreateCredentialCmd.Flags().Float64SliceVar(&createCredentialParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	CreateCredentialCmd.Flags().StringVar(&createCredentialParams.Password, "password", "", "密码")
+	CreateCredentialCmd.Flags().StringVar(&createCredentialParams.Protocol, "protocol", "", "监听的协议(TCP, UnixSocket)")
+	CreateCredentialCmd.Flags().StringVar(&createCredentialParams.Type, "type", "", "凭证类型(mysql，postgresql，oracle, weblogic)")
+	CreateCredentialCmd.Flags().StringVar(&createCredentialParams.Username, "username", "", "用户名")
 }
-
 
 // CreateCredentialParams 请求参数
 type CreateCredentialParams struct {
-	Address string `json:"address"` // 监听的地址
-	AgentRange []float64 `json:"agent_range"` // 探针范围
+	Address            string    `json:"address"`              // 监听的地址
+	AgentRange         []float64 `json:"agent_range"`          // 探针范围
 	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Password string `json:"password"` // 密码
-	Protocol string `json:"protocol"` // 监听的协议(TCP, UnixSocket)
-	Type string `json:"type"` // 凭证类型(mysql，postgresql，oracle, weblogic)
-	Username string `json:"username"` // 用户名
+	Password           string    `json:"password"`             // 密码
+	Protocol           string    `json:"protocol"`             // 监听的协议(TCP, UnixSocket)
+	Type               string    `json:"type"`                 // 凭证类型(mysql，postgresql，oracle, weblogic)
+	Username           string    `json:"username"`             // 用户名
 }
-

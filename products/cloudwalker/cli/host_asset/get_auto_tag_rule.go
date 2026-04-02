@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,30 +29,28 @@ var GetAutoTagRuleCmd = &cobra.Command{
 }
 
 func init() {
-		GetAutoTagRuleCmd.Flags().IntVar(&getAutoTagRuleParams.Count, "count", 20, "数量")
-		GetAutoTagRuleCmd.Flags().StringSliceVar(&getAutoTagRuleParams.CreatedAt, "created-at", nil, "更新时间，时间戳范围")
-		GetAutoTagRuleCmd.Flags().BoolVar(&getAutoTagRuleParams.Enable, "enable", false, "当前状态是否启用")
-		GetAutoTagRuleCmd.Flags().StringSliceVar(&getAutoTagRuleParams.HostIp, "host-ip", nil, "主机IP地址")
-		GetAutoTagRuleCmd.Flags().StringSliceVar(&getAutoTagRuleParams.Id, "id", nil, "规则ID")
-		GetAutoTagRuleCmd.Flags().StringSliceVar(&getAutoTagRuleParams.MatchType, "match-type", nil, "匹配条件")
-		GetAutoTagRuleCmd.Flags().IntVar(&getAutoTagRuleParams.Offset, "offset", 0, " 偏移量")
-		GetAutoTagRuleCmd.Flags().StringSliceVar(&getAutoTagRuleParams.RuleName, "rule-name", nil, "规则名称")
-		GetAutoTagRuleCmd.Flags().StringSliceVar(&getAutoTagRuleParams.Tags, "tags", nil, "标签")
-		GetAutoTagRuleCmd.Flags().StringSliceVar(&getAutoTagRuleParams.UpdatedAt, "updated-at", nil, "更新时间，时间戳范围")
+	GetAutoTagRuleCmd.Flags().IntVar(&getAutoTagRuleParams.Count, "count", 20, "数量")
+	GetAutoTagRuleCmd.Flags().StringSliceVar(&getAutoTagRuleParams.CreatedAt, "created-at", nil, "更新时间，时间戳范围")
+	GetAutoTagRuleCmd.Flags().BoolVar(&getAutoTagRuleParams.Enable, "enable", false, "当前状态是否启用")
+	GetAutoTagRuleCmd.Flags().StringSliceVar(&getAutoTagRuleParams.HostIp, "host-ip", nil, "主机IP地址")
+	GetAutoTagRuleCmd.Flags().StringSliceVar(&getAutoTagRuleParams.Id, "id", nil, "规则ID")
+	GetAutoTagRuleCmd.Flags().StringSliceVar(&getAutoTagRuleParams.MatchType, "match-type", nil, "匹配条件")
+	GetAutoTagRuleCmd.Flags().IntVar(&getAutoTagRuleParams.Offset, "offset", 0, " 偏移量")
+	GetAutoTagRuleCmd.Flags().StringSliceVar(&getAutoTagRuleParams.RuleName, "rule-name", nil, "规则名称")
+	GetAutoTagRuleCmd.Flags().StringSliceVar(&getAutoTagRuleParams.Tags, "tags", nil, "标签")
+	GetAutoTagRuleCmd.Flags().StringSliceVar(&getAutoTagRuleParams.UpdatedAt, "updated-at", nil, "更新时间，时间戳范围")
 }
-
 
 // GetAutoTagRuleParams 请求参数
 type GetAutoTagRuleParams struct {
-	Count int `json:"count"` // 数量
+	Count     int      `json:"count"`      // 数量
 	CreatedAt []string `json:"created_at"` // 更新时间，时间戳范围
-	Enable bool `json:"enable"` // 当前状态是否启用
-	HostIp []string `json:"host_ip"` // 主机IP地址
-	Id []string `json:"id"` // 规则ID
+	Enable    bool     `json:"enable"`     // 当前状态是否启用
+	HostIp    []string `json:"host_ip"`    // 主机IP地址
+	Id        []string `json:"id"`         // 规则ID
 	MatchType []string `json:"match_type"` // 匹配条件
-	Offset int `json:"offset"` //  偏移量
-	RuleName []string `json:"rule_name"` // 规则名称
-	Tags []string `json:"tags"` // 标签
+	Offset    int      `json:"offset"`     //  偏移量
+	RuleName  []string `json:"rule_name"`  // 规则名称
+	Tags      []string `json:"tags"`       // 标签
 	UpdatedAt []string `json:"updated_at"` // 更新时间，时间戳范围
 }
-

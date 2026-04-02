@@ -3,8 +3,8 @@
 package docker_image
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,38 +29,36 @@ var StatImageCmd = &cobra.Command{
 }
 
 func init() {
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		StatImageCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		StatImageCmd.Flags().Float64SliceVar(&statImageParams.Gids, "gids", nil, "gids")
-		StatImageCmd.Flags().StringSliceVar(&statImageParams.HostComment, "host-comment", nil, "主机备注")
-		StatImageCmd.Flags().Float64SliceVar(&statImageParams.HostId, "host-id", nil, "主机 ID")
-		StatImageCmd.Flags().StringSliceVar(&statImageParams.HostIp, "host-ip", nil, "主机 IP")
-		StatImageCmd.Flags().StringSliceVar(&statImageParams.HostName, "host-name", nil, "主机名称")
-		StatImageCmd.Flags().StringSliceVar(&statImageParams.HostState, "host-state", nil, "主机状态")
-		StatImageCmd.Flags().StringSliceVar(&statImageParams.HostTags, "host-tags", nil, "主机标签")
-		StatImageCmd.Flags().StringSliceVar(&statImageParams.ImageCreatedAt, "image-created-at", nil, "image_created_at")
-		StatImageCmd.Flags().StringSliceVar(&statImageParams.ImageHashId, "image-hash-id", nil, "镜像ID")
-		StatImageCmd.Flags().Float64SliceVar(&statImageParams.ImageSize, "image-size", nil, "镜像大小byte")
-		StatImageCmd.Flags().StringSliceVar(&statImageParams.ImageTag, "image-tag", nil, "镜像Tag")
-		StatImageCmd.Flags().Float64SliceVar(&statImageParams.Oid, "oid", nil, "机构 ID")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	StatImageCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	StatImageCmd.Flags().Float64SliceVar(&statImageParams.Gids, "gids", nil, "gids")
+	StatImageCmd.Flags().StringSliceVar(&statImageParams.HostComment, "host-comment", nil, "主机备注")
+	StatImageCmd.Flags().Float64SliceVar(&statImageParams.HostId, "host-id", nil, "主机 ID")
+	StatImageCmd.Flags().StringSliceVar(&statImageParams.HostIp, "host-ip", nil, "主机 IP")
+	StatImageCmd.Flags().StringSliceVar(&statImageParams.HostName, "host-name", nil, "主机名称")
+	StatImageCmd.Flags().StringSliceVar(&statImageParams.HostState, "host-state", nil, "主机状态")
+	StatImageCmd.Flags().StringSliceVar(&statImageParams.HostTags, "host-tags", nil, "主机标签")
+	StatImageCmd.Flags().StringSliceVar(&statImageParams.ImageCreatedAt, "image-created-at", nil, "image_created_at")
+	StatImageCmd.Flags().StringSliceVar(&statImageParams.ImageHashId, "image-hash-id", nil, "镜像ID")
+	StatImageCmd.Flags().Float64SliceVar(&statImageParams.ImageSize, "image-size", nil, "镜像大小byte")
+	StatImageCmd.Flags().StringSliceVar(&statImageParams.ImageTag, "image-tag", nil, "镜像Tag")
+	StatImageCmd.Flags().Float64SliceVar(&statImageParams.Oid, "oid", nil, "机构 ID")
 }
-
 
 // StatImageParams 请求参数
 type StatImageParams struct {
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // gids
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	ImageCreatedAt []string `json:"image_created_at"` // image_created_at
-	ImageHashId []string `json:"image_hash_id"` // 镜像ID
-	ImageSize []float64 `json:"image_size"` // 镜像大小byte
-	ImageTag []string `json:"image_tag"` // 镜像Tag
-	Oid []float64 `json:"oid"` // 机构 ID
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	Gids           []float64                `json:"gids"`             // gids
+	HostComment    []string                 `json:"host_comment"`     // 主机备注
+	HostId         []float64                `json:"host_id"`          // 主机 ID
+	HostIp         []string                 `json:"host_ip"`          // 主机 IP
+	HostName       []string                 `json:"host_name"`        // 主机名称
+	HostState      []string                 `json:"host_state"`       // 主机状态
+	HostTags       []string                 `json:"host_tags"`        // 主机标签
+	ImageCreatedAt []string                 `json:"image_created_at"` // image_created_at
+	ImageHashId    []string                 `json:"image_hash_id"`    // 镜像ID
+	ImageSize      []float64                `json:"image_size"`       // 镜像大小byte
+	ImageTag       []string                 `json:"image_tag"`        // 镜像Tag
+	Oid            []float64                `json:"oid"`              // 机构 ID
 }
-

@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var RemoteInstallCancelCmd = &cobra.Command{
 }
 
 func init() {
-		RemoteInstallCancelCmd.Flags().StringVar(&remoteInstallCancelParams.TaskId, "task-id", "", "任务 ID")
+	RemoteInstallCancelCmd.Flags().StringVar(&remoteInstallCancelParams.TaskId, "task-id", "", "任务 ID")
 }
-
 
 // RemoteInstallCancelParams 请求参数
 type RemoteInstallCancelParams struct {
 	TaskId string `json:"task_id"` // 任务 ID
 }
-

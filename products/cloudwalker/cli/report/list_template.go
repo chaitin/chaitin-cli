@@ -3,8 +3,8 @@
 package report
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,22 +29,20 @@ var ListTemplateCmd = &cobra.Command{
 }
 
 func init() {
-		ListTemplateCmd.Flags().IntVar(&listTemplateParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		ListTemplateCmd.Flags().StringSliceVar(&listTemplateParams.Name, "name", nil, "模板名称")
-		ListTemplateCmd.Flags().IntVar(&listTemplateParams.Offset, "offset", 0, "页偏移, 默认为 0")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		ListTemplateCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		ListTemplateCmd.Flags().StringSliceVar(&listTemplateParams.Type, "type", nil, "模板类型")
+	ListTemplateCmd.Flags().IntVar(&listTemplateParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	ListTemplateCmd.Flags().StringSliceVar(&listTemplateParams.Name, "name", nil, "模板名称")
+	ListTemplateCmd.Flags().IntVar(&listTemplateParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	ListTemplateCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	ListTemplateCmd.Flags().StringSliceVar(&listTemplateParams.Type, "type", nil, "模板类型")
 }
-
 
 // ListTemplateParams 请求参数
 type ListTemplateParams struct {
-	Count int `json:"count"` // 每页记录数量, 默认为 20
-	Name []string `json:"name"` // 模板名称
-	Offset int `json:"offset"` // 页偏移, 默认为 0
+	Count   int                    `json:"count"`    // 每页记录数量, 默认为 20
+	Name    []string               `json:"name"`     // 模板名称
+	Offset  int                    `json:"offset"`   // 页偏移, 默认为 0
 	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	Type []string `json:"type"` // 模板类型
+	Type    []string               `json:"type"`     // 模板类型
 }
-

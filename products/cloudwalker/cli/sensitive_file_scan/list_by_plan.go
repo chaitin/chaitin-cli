@@ -3,8 +3,8 @@
 package sensitive_file_scan
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,28 +29,26 @@ var ListByPlanCmd = &cobra.Command{
 }
 
 func init() {
-		ListByPlanCmd.Flags().IntVar(&listByPlanParams.Count, "count", 20, "数量")
-		ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.HostComment, "host-comment", nil, "主机备注")
-		ListByPlanCmd.Flags().Float64SliceVar(&listByPlanParams.HostId, "host-id", nil, "主机 ID")
-		ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.HostIp, "host-ip", nil, "主机 IP")
-		ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.HostName, "host-name", nil, "主机名称")
-		ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.HostState, "host-state", nil, "主机状态")
-		ListByPlanCmd.Flags().Float64SliceVar(&listByPlanParams.Id, "id", nil, "ID 用来在任务完成后按id筛选")
-		ListByPlanCmd.Flags().IntVar(&listByPlanParams.Offset, "offset", 0, "偏移量")
-		ListByPlanCmd.Flags().Float64Var(&listByPlanParams.PlanId, "plan-id", 0, "文件完整性扫描plan id")
+	ListByPlanCmd.Flags().IntVar(&listByPlanParams.Count, "count", 20, "数量")
+	ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.HostComment, "host-comment", nil, "主机备注")
+	ListByPlanCmd.Flags().Float64SliceVar(&listByPlanParams.HostId, "host-id", nil, "主机 ID")
+	ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.HostIp, "host-ip", nil, "主机 IP")
+	ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.HostName, "host-name", nil, "主机名称")
+	ListByPlanCmd.Flags().StringSliceVar(&listByPlanParams.HostState, "host-state", nil, "主机状态")
+	ListByPlanCmd.Flags().Float64SliceVar(&listByPlanParams.Id, "id", nil, "ID 用来在任务完成后按id筛选")
+	ListByPlanCmd.Flags().IntVar(&listByPlanParams.Offset, "offset", 0, "偏移量")
+	ListByPlanCmd.Flags().Float64Var(&listByPlanParams.PlanId, "plan-id", 0, "文件完整性扫描plan id")
 }
-
 
 // ListByPlanParams 请求参数
 type ListByPlanParams struct {
-	Count int `json:"count"` // 数量
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	Id []float64 `json:"id"` // ID 用来在任务完成后按id筛选
-	Offset int `json:"offset"` // 偏移量
-	PlanId float64 `json:"plan_id"` // 文件完整性扫描plan id
+	Count       int       `json:"count"`        // 数量
+	HostComment []string  `json:"host_comment"` // 主机备注
+	HostId      []float64 `json:"host_id"`      // 主机 ID
+	HostIp      []string  `json:"host_ip"`      // 主机 IP
+	HostName    []string  `json:"host_name"`    // 主机名称
+	HostState   []string  `json:"host_state"`   // 主机状态
+	Id          []float64 `json:"id"`           // ID 用来在任务完成后按id筛选
+	Offset      int       `json:"offset"`       // 偏移量
+	PlanId      float64   `json:"plan_id"`      // 文件完整性扫描plan id
 }
-

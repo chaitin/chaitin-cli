@@ -3,8 +3,8 @@
 package emergency_vuln_v1
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,34 +29,32 @@ var GetPluginListCmd = &cobra.Command{
 }
 
 func init() {
-		GetPluginListCmd.Flags().StringSliceVar(&getPluginListParams.Cnnvd, "cnnvd", nil, "CNNVD编号")
-		GetPluginListCmd.Flags().StringSliceVar(&getPluginListParams.Cnvd, "cnvd", nil, "CNVD编号")
-		GetPluginListCmd.Flags().IntVar(&getPluginListParams.Count, "count", 20, "数量")
-		GetPluginListCmd.Flags().StringSliceVar(&getPluginListParams.CtId, "ct-id", nil, "长亭ID")
-		GetPluginListCmd.Flags().StringSliceVar(&getPluginListParams.Cve, "cve", nil, "CVE编号")
-		GetPluginListCmd.Flags().Float64SliceVar(&getPluginListParams.Id, "id", nil, "ID")
-		GetPluginListCmd.Flags().IntVar(&getPluginListParams.Offset, "offset", 0, "偏移量")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetPluginListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetPluginListCmd.Flags().StringSliceVar(&getPluginListParams.PluginId, "plugin-id", nil, "插件ID")
-		GetPluginListCmd.Flags().StringSliceVar(&getPluginListParams.PluginName, "plugin-name", nil, "插件名称")
-		GetPluginListCmd.Flags().StringSliceVar(&getPluginListParams.Tags, "tags", nil, "漏洞标签")
+	GetPluginListCmd.Flags().StringSliceVar(&getPluginListParams.Cnnvd, "cnnvd", nil, "CNNVD编号")
+	GetPluginListCmd.Flags().StringSliceVar(&getPluginListParams.Cnvd, "cnvd", nil, "CNVD编号")
+	GetPluginListCmd.Flags().IntVar(&getPluginListParams.Count, "count", 20, "数量")
+	GetPluginListCmd.Flags().StringSliceVar(&getPluginListParams.CtId, "ct-id", nil, "长亭ID")
+	GetPluginListCmd.Flags().StringSliceVar(&getPluginListParams.Cve, "cve", nil, "CVE编号")
+	GetPluginListCmd.Flags().Float64SliceVar(&getPluginListParams.Id, "id", nil, "ID")
+	GetPluginListCmd.Flags().IntVar(&getPluginListParams.Offset, "offset", 0, "偏移量")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetPluginListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetPluginListCmd.Flags().StringSliceVar(&getPluginListParams.PluginId, "plugin-id", nil, "插件ID")
+	GetPluginListCmd.Flags().StringSliceVar(&getPluginListParams.PluginName, "plugin-name", nil, "插件名称")
+	GetPluginListCmd.Flags().StringSliceVar(&getPluginListParams.Tags, "tags", nil, "漏洞标签")
 }
-
 
 // GetPluginListParams 请求参数
 type GetPluginListParams struct {
-	Cnnvd []string `json:"cnnvd"` // CNNVD编号
-	Cnvd []string `json:"cnvd"` // CNVD编号
-	Count int `json:"count"` // 数量
-	CtId []string `json:"ct_id"` // 长亭ID
-	Cve []string `json:"cve"` // CVE编号
-	Id []float64 `json:"id"` // ID
-	Offset int `json:"offset"` // 偏移量
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	PluginId []string `json:"plugin_id"` // 插件ID
-	PluginName []string `json:"plugin_name"` // 插件名称
-	Tags []string `json:"tags"` // 漏洞标签
+	Cnnvd      []string               `json:"cnnvd"`       // CNNVD编号
+	Cnvd       []string               `json:"cnvd"`        // CNVD编号
+	Count      int                    `json:"count"`       // 数量
+	CtId       []string               `json:"ct_id"`       // 长亭ID
+	Cve        []string               `json:"cve"`         // CVE编号
+	Id         []float64              `json:"id"`          // ID
+	Offset     int                    `json:"offset"`      // 偏移量
+	OrderBy    map[string]interface{} `json:"order_by"`    // 排序规则
+	PluginId   []string               `json:"plugin_id"`   // 插件ID
+	PluginName []string               `json:"plugin_name"` // 插件名称
+	Tags       []string               `json:"tags"`        // 漏洞标签
 }
-

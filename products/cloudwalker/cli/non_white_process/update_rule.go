@@ -3,8 +3,8 @@
 package non_white_process
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,24 +29,22 @@ var UpdateRuleCmd = &cobra.Command{
 }
 
 func init() {
-		UpdateRuleCmd.Flags().Float64SliceVar(&updateRuleParams.AgentRange, "agent-range", nil, "主机范围")
-		UpdateRuleCmd.Flags().Float64SliceVar(&updateRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		UpdateRuleCmd.Flags().StringSliceVar(&updateRuleParams.CustomWhiteList, "custom-white-list", nil, "自定义白名单")
-		UpdateRuleCmd.Flags().BoolVar(&updateRuleParams.Global, "global", false, "是否绑定全局探针")
-		UpdateRuleCmd.Flags().StringVar(&updateRuleParams.Id, "id", "", "规则 ID")
-		UpdateRuleCmd.Flags().StringVar(&updateRuleParams.RuleName, "rule-name", "", "规则名称")
-		UpdateRuleCmd.Flags().StringVar(&updateRuleParams.Status, "status", "", "检测模式")
+	UpdateRuleCmd.Flags().Float64SliceVar(&updateRuleParams.AgentRange, "agent-range", nil, "主机范围")
+	UpdateRuleCmd.Flags().Float64SliceVar(&updateRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	UpdateRuleCmd.Flags().StringSliceVar(&updateRuleParams.CustomWhiteList, "custom-white-list", nil, "自定义白名单")
+	UpdateRuleCmd.Flags().BoolVar(&updateRuleParams.Global, "global", false, "是否绑定全局探针")
+	UpdateRuleCmd.Flags().StringVar(&updateRuleParams.Id, "id", "", "规则 ID")
+	UpdateRuleCmd.Flags().StringVar(&updateRuleParams.RuleName, "rule-name", "", "规则名称")
+	UpdateRuleCmd.Flags().StringVar(&updateRuleParams.Status, "status", "", "检测模式")
 }
-
 
 // UpdateRuleParams 请求参数
 type UpdateRuleParams struct {
-	AgentRange []float64 `json:"agent_range"` // 主机范围
+	AgentRange         []float64 `json:"agent_range"`          // 主机范围
 	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	CustomWhiteList []string `json:"custom_white_list"` // 自定义白名单
-	Global bool `json:"global"` // 是否绑定全局探针
-	Id string `json:"id"` // 规则 ID
-	RuleName string `json:"rule_name"` // 规则名称
-	Status string `json:"status"` // 检测模式
+	CustomWhiteList    []string  `json:"custom_white_list"`    // 自定义白名单
+	Global             bool      `json:"global"`               // 是否绑定全局探针
+	Id                 string    `json:"id"`                   // 规则 ID
+	RuleName           string    `json:"rule_name"`            // 规则名称
+	Status             string    `json:"status"`               // 检测模式
 }
-

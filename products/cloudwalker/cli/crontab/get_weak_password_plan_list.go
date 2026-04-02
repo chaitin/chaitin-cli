@@ -3,8 +3,8 @@
 package crontab
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,38 +29,36 @@ var GetWeakPasswordPlanListCmd = &cobra.Command{
 }
 
 func init() {
-		GetWeakPasswordPlanListCmd.Flags().StringSliceVar(&getWeakPasswordPlanListParams.Comment, "comment", nil, "计划备注：子串匹配")
-		GetWeakPasswordPlanListCmd.Flags().IntVar(&getWeakPasswordPlanListParams.Count, "count", 20, "记录数限制")
-		GetWeakPasswordPlanListCmd.Flags().StringSliceVar(&getWeakPasswordPlanListParams.CreatedAt, "created-at", nil, "创建时间：时间范围")
-		GetWeakPasswordPlanListCmd.Flags().BoolSliceVar(&getWeakPasswordPlanListParams.Enable, "enable", nil, "是否启用，true代表启用，false代表禁用")
-		GetWeakPasswordPlanListCmd.Flags().StringSliceVar(&getWeakPasswordPlanListParams.LastFinishedAt, "last-finished-at", nil, "最近扫描结束时间：时间范围")
-		GetWeakPasswordPlanListCmd.Flags().StringSliceVar(&getWeakPasswordPlanListParams.LastStartedAt, "last-started-at", nil, "最近扫描启动时间：时间范围")
-		GetWeakPasswordPlanListCmd.Flags().StringSliceVar(&getWeakPasswordPlanListParams.Name, "name", nil, "计划名称：子串匹配")
-		GetWeakPasswordPlanListCmd.Flags().StringSliceVar(&getWeakPasswordPlanListParams.NextStartedAt, "next-started-at", nil, "下次扫描启动时间：时间范围")
-		GetWeakPasswordPlanListCmd.Flags().IntVar(&getWeakPasswordPlanListParams.Offset, "offset", 0, "偏移量")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetWeakPasswordPlanListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetWeakPasswordPlanListCmd.Flags().StringSliceVar(&getWeakPasswordPlanListParams.State, "state", nil, "扫描状态：多选")
-		GetWeakPasswordPlanListCmd.Flags().StringSliceVar(&getWeakPasswordPlanListParams.TriggerMethod, "trigger-method", nil, "触发方式：多选")
-		GetWeakPasswordPlanListCmd.Flags().StringSliceVar(&getWeakPasswordPlanListParams.UpdatedAt, "updated-at", nil, "最近修改时间：时间范围")
+	GetWeakPasswordPlanListCmd.Flags().StringSliceVar(&getWeakPasswordPlanListParams.Comment, "comment", nil, "计划备注：子串匹配")
+	GetWeakPasswordPlanListCmd.Flags().IntVar(&getWeakPasswordPlanListParams.Count, "count", 20, "记录数限制")
+	GetWeakPasswordPlanListCmd.Flags().StringSliceVar(&getWeakPasswordPlanListParams.CreatedAt, "created-at", nil, "创建时间：时间范围")
+	GetWeakPasswordPlanListCmd.Flags().BoolSliceVar(&getWeakPasswordPlanListParams.Enable, "enable", nil, "是否启用，true代表启用，false代表禁用")
+	GetWeakPasswordPlanListCmd.Flags().StringSliceVar(&getWeakPasswordPlanListParams.LastFinishedAt, "last-finished-at", nil, "最近扫描结束时间：时间范围")
+	GetWeakPasswordPlanListCmd.Flags().StringSliceVar(&getWeakPasswordPlanListParams.LastStartedAt, "last-started-at", nil, "最近扫描启动时间：时间范围")
+	GetWeakPasswordPlanListCmd.Flags().StringSliceVar(&getWeakPasswordPlanListParams.Name, "name", nil, "计划名称：子串匹配")
+	GetWeakPasswordPlanListCmd.Flags().StringSliceVar(&getWeakPasswordPlanListParams.NextStartedAt, "next-started-at", nil, "下次扫描启动时间：时间范围")
+	GetWeakPasswordPlanListCmd.Flags().IntVar(&getWeakPasswordPlanListParams.Offset, "offset", 0, "偏移量")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetWeakPasswordPlanListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetWeakPasswordPlanListCmd.Flags().StringSliceVar(&getWeakPasswordPlanListParams.State, "state", nil, "扫描状态：多选")
+	GetWeakPasswordPlanListCmd.Flags().StringSliceVar(&getWeakPasswordPlanListParams.TriggerMethod, "trigger-method", nil, "触发方式：多选")
+	GetWeakPasswordPlanListCmd.Flags().StringSliceVar(&getWeakPasswordPlanListParams.UpdatedAt, "updated-at", nil, "最近修改时间：时间范围")
 }
-
 
 // GetWeakPasswordPlanListParams 请求参数
 type GetWeakPasswordPlanListParams struct {
-	Comment []string `json:"comment"` // 计划备注：子串匹配
-	Count int `json:"count"` // 记录数限制
-	CreatedAt []string `json:"created_at"` // 创建时间：时间范围
-	Enable []bool `json:"enable"` // 是否启用，true代表启用，false代表禁用
-	LastFinishedAt []string `json:"last_finished_at"` // 最近扫描结束时间：时间范围
-	LastStartedAt []string `json:"last_started_at"` // 最近扫描启动时间：时间范围
-	Name []string `json:"name"` // 计划名称：子串匹配
-	NextStartedAt []string `json:"next_started_at"` // 下次扫描启动时间：时间范围
-	Offset int `json:"offset"` // 偏移量
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	State []string `json:"state"` // 扫描状态：多选
-	TriggerMethod []string `json:"trigger_method"` // 触发方式：多选
-	UpdatedAt []string `json:"updated_at"` // 最近修改时间：时间范围
+	Comment        []string               `json:"comment"`          // 计划备注：子串匹配
+	Count          int                    `json:"count"`            // 记录数限制
+	CreatedAt      []string               `json:"created_at"`       // 创建时间：时间范围
+	Enable         []bool                 `json:"enable"`           // 是否启用，true代表启用，false代表禁用
+	LastFinishedAt []string               `json:"last_finished_at"` // 最近扫描结束时间：时间范围
+	LastStartedAt  []string               `json:"last_started_at"`  // 最近扫描启动时间：时间范围
+	Name           []string               `json:"name"`             // 计划名称：子串匹配
+	NextStartedAt  []string               `json:"next_started_at"`  // 下次扫描启动时间：时间范围
+	Offset         int                    `json:"offset"`           // 偏移量
+	OrderBy        map[string]interface{} `json:"order_by"`         // 排序规则
+	State          []string               `json:"state"`            // 扫描状态：多选
+	TriggerMethod  []string               `json:"trigger_method"`   // 触发方式：多选
+	UpdatedAt      []string               `json:"updated_at"`       // 最近修改时间：时间范围
 }
-

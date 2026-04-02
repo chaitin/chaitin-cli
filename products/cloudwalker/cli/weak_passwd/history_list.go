@@ -3,8 +3,8 @@
 package weak_passwd
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var HistoryListCmd = &cobra.Command{
 }
 
 func init() {
-		HistoryListCmd.Flags().Float64Var(&historyListParams.EventId, "event-id", 0, "弱口令事件 id")
-		HistoryListCmd.Flags().StringVar(&historyListParams.Order, "order", "", "按时间排序")
+	HistoryListCmd.Flags().Float64Var(&historyListParams.EventId, "event-id", 0, "弱口令事件 id")
+	HistoryListCmd.Flags().StringVar(&historyListParams.Order, "order", "", "按时间排序")
 }
-
 
 // HistoryListParams 请求参数
 type HistoryListParams struct {
 	EventId float64 `json:"event_id"` // 弱口令事件 id
-	Order string `json:"order"` // 按时间排序
+	Order   string  `json:"order"`    // 按时间排序
 }
-

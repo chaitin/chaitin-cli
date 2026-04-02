@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var RemoteInstallStatusCmd = &cobra.Command{
 }
 
 func init() {
-		RemoteInstallStatusCmd.Flags().StringVar(&remoteInstallStatusParams.TaskId, "task-id", "", "任务 ID")
+	RemoteInstallStatusCmd.Flags().StringVar(&remoteInstallStatusParams.TaskId, "task-id", "", "任务 ID")
 }
-
 
 // RemoteInstallStatusParams 请求参数
 type RemoteInstallStatusParams struct {
 	TaskId string `json:"task_id"` // 任务 ID
 }
-

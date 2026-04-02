@@ -3,8 +3,8 @@
 package report
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var DeleteTemplateCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteTemplateCmd.Flags().Float64SliceVar(&deleteTemplateParams.Ids, "ids", nil, "ids")
-		DeleteTemplateCmd.Flags().StringSliceVar(&deleteTemplateParams.Name, "name", nil, "模板名称")
-		DeleteTemplateCmd.Flags().BoolVar(&deleteTemplateParams.SelectAll, "select-all", false, "是否选中所有")
+	DeleteTemplateCmd.Flags().Float64SliceVar(&deleteTemplateParams.Ids, "ids", nil, "ids")
+	DeleteTemplateCmd.Flags().StringSliceVar(&deleteTemplateParams.Name, "name", nil, "模板名称")
+	DeleteTemplateCmd.Flags().BoolVar(&deleteTemplateParams.SelectAll, "select-all", false, "是否选中所有")
 }
-
 
 // DeleteTemplateParams 请求参数
 type DeleteTemplateParams struct {
-	Ids []float64 `json:"ids"` // ids
-	Name []string `json:"name"` // 模板名称
-	SelectAll bool `json:"select_all"` // 是否选中所有
+	Ids       []float64 `json:"ids"`        // ids
+	Name      []string  `json:"name"`       // 模板名称
+	SelectAll bool      `json:"select_all"` // 是否选中所有
 }
-

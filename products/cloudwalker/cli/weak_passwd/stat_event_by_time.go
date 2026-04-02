@@ -3,8 +3,8 @@
 package weak_passwd
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,62 +29,60 @@ var StatEventByTimeCmd = &cobra.Command{
 }
 
 func init() {
-		StatEventByTimeCmd.Flags().Float64Var(&statEventByTimeParams.Accessible, "accessible", 0, "是否可外部访问,1代表不可外部访问 2代表可以外部风闻")
-		StatEventByTimeCmd.Flags().BoolSliceVar(&statEventByTimeParams.CanLogin, "can-login", nil, "是否可登录，true代表可登录，false代表不可登录")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.Comment, "comment", nil, "用户自定义备注")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.CreatedAt, "created-at", nil, "创建事件")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		StatEventByTimeCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		StatEventByTimeCmd.Flags().Float64SliceVar(&statEventByTimeParams.Gids, "gids", nil, "业务组 ID 列表")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.HostComment, "host-comment", nil, "主机备注")
-		StatEventByTimeCmd.Flags().Float64SliceVar(&statEventByTimeParams.HostId, "host-id", nil, "主机 ID")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.HostIp, "host-ip", nil, "主机 IP")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.HostName, "host-name", nil, "主机名称")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.HostState, "host-state", nil, "主机状态")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.HostTags, "host-tags", nil, "主机标签")
-		StatEventByTimeCmd.Flags().Float64SliceVar(&statEventByTimeParams.Id, "id", nil, "ID 用来在任务完成后按id筛选")
-		StatEventByTimeCmd.Flags().IntSliceVar(&statEventByTimeParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		StatEventByTimeCmd.Flags().StringVar(&statEventByTimeParams.Method, "method", "", "时间统计方法(total/increment)")
-		StatEventByTimeCmd.Flags().Float64SliceVar(&statEventByTimeParams.Oid, "oid", nil, "机构 ID")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.Password, "password", nil, "密码")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.Service, "service", nil, "服务")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.ServicePath, "service-path", nil, "服务路径地址")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.ServiceVersion, "service-version", nil, "服务版本")
-		StatEventByTimeCmd.Flags().IntSliceVar(&statEventByTimeParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.Type, "type", nil, "弱口令类型,too_short代表密码长度小于7位,empty代表空口令,is_username代表密码与用户名相同,like_username代表密码中包含用户名,number_only代表纯数字密码,空代表其他")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.UpdatedAt, "updated-at", nil, "最后发现时间")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.Username, "username", nil, "用户名")
-		StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	StatEventByTimeCmd.Flags().Float64Var(&statEventByTimeParams.Accessible, "accessible", 0, "是否可外部访问,1代表不可外部访问 2代表可以外部风闻")
+	StatEventByTimeCmd.Flags().BoolSliceVar(&statEventByTimeParams.CanLogin, "can-login", nil, "是否可登录，true代表可登录，false代表不可登录")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.Comment, "comment", nil, "用户自定义备注")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.CreatedAt, "created-at", nil, "创建事件")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	StatEventByTimeCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	StatEventByTimeCmd.Flags().Float64SliceVar(&statEventByTimeParams.Gids, "gids", nil, "业务组 ID 列表")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.HostComment, "host-comment", nil, "主机备注")
+	StatEventByTimeCmd.Flags().Float64SliceVar(&statEventByTimeParams.HostId, "host-id", nil, "主机 ID")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.HostIp, "host-ip", nil, "主机 IP")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.HostName, "host-name", nil, "主机名称")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.HostState, "host-state", nil, "主机状态")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.HostTags, "host-tags", nil, "主机标签")
+	StatEventByTimeCmd.Flags().Float64SliceVar(&statEventByTimeParams.Id, "id", nil, "ID 用来在任务完成后按id筛选")
+	StatEventByTimeCmd.Flags().IntSliceVar(&statEventByTimeParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	StatEventByTimeCmd.Flags().StringVar(&statEventByTimeParams.Method, "method", "", "时间统计方法(total/increment)")
+	StatEventByTimeCmd.Flags().Float64SliceVar(&statEventByTimeParams.Oid, "oid", nil, "机构 ID")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.Password, "password", nil, "密码")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.Service, "service", nil, "服务")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.ServicePath, "service-path", nil, "服务路径地址")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.ServiceVersion, "service-version", nil, "服务版本")
+	StatEventByTimeCmd.Flags().IntSliceVar(&statEventByTimeParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.Type, "type", nil, "弱口令类型,too_short代表密码长度小于7位,empty代表空口令,is_username代表密码与用户名相同,like_username代表密码中包含用户名,number_only代表纯数字密码,空代表其他")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.UpdatedAt, "updated-at", nil, "最后发现时间")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.Username, "username", nil, "用户名")
+	StatEventByTimeCmd.Flags().StringSliceVar(&statEventByTimeParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // StatEventByTimeParams 请求参数
 type StatEventByTimeParams struct {
-	Accessible float64 `json:"accessible"` // 是否可外部访问,1代表不可外部访问 2代表可以外部风闻
-	CanLogin []bool `json:"can_login"` // 是否可登录，true代表可登录，false代表不可登录
-	Comment []string `json:"comment"` // 用户自定义备注
-	CreatedAt []string `json:"created_at"` // 创建事件
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // 业务组 ID 列表
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Id []float64 `json:"id"` // ID 用来在任务完成后按id筛选
-	Level []int `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	Method string `json:"method"` // 时间统计方法(total/increment)
-	Oid []float64 `json:"oid"` // 机构 ID
-	Password []string `json:"password"` // 密码
-	Service []string `json:"service"` // 服务
-	ServicePath []string `json:"service_path"` // 服务路径地址
-	ServiceVersion []string `json:"service_version"` // 服务版本
-	State []int `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
-	Type []string `json:"type"` // 弱口令类型,too_short代表密码长度小于7位,empty代表空口令,is_username代表密码与用户名相同,like_username代表密码中包含用户名,number_only代表纯数字密码,空代表其他
-	UpdatedAt []string `json:"updated_at"` // 最后发现时间
-	Username []string `json:"username"` // 用户名
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	Accessible     float64                  `json:"accessible"`      // 是否可外部访问,1代表不可外部访问 2代表可以外部风闻
+	CanLogin       []bool                   `json:"can_login"`       // 是否可登录，true代表可登录，false代表不可登录
+	Comment        []string                 `json:"comment"`         // 用户自定义备注
+	CreatedAt      []string                 `json:"created_at"`      // 创建事件
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`     // 主机业务属性
+	Gids           []float64                `json:"gids"`            // 业务组 ID 列表
+	HostComment    []string                 `json:"host_comment"`    // 主机备注
+	HostId         []float64                `json:"host_id"`         // 主机 ID
+	HostIp         []string                 `json:"host_ip"`         // 主机 IP
+	HostName       []string                 `json:"host_name"`       // 主机名称
+	HostState      []string                 `json:"host_state"`      // 主机状态
+	HostTags       []string                 `json:"host_tags"`       // 主机标签
+	Id             []float64                `json:"id"`              // ID 用来在任务完成后按id筛选
+	Level          []int                    `json:"level"`           // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	Method         string                   `json:"method"`          // 时间统计方法(total/increment)
+	Oid            []float64                `json:"oid"`             // 机构 ID
+	Password       []string                 `json:"password"`        // 密码
+	Service        []string                 `json:"service"`         // 服务
+	ServicePath    []string                 `json:"service_path"`    // 服务路径地址
+	ServiceVersion []string                 `json:"service_version"` // 服务版本
+	State          []int                    `json:"state"`           // 事件状态(1-有风险，2-已忽略，3-已处理)
+	Type           []string                 `json:"type"`            // 弱口令类型,too_short代表密码长度小于7位,empty代表空口令,is_username代表密码与用户名相同,like_username代表密码中包含用户名,number_only代表纯数字密码,空代表其他
+	UpdatedAt      []string                 `json:"updated_at"`      // 最后发现时间
+	Username       []string                 `json:"username"`        // 用户名
+	WhiteRuleId    []string                 `json:"white_rule_id"`   // 白名单规则 ID
 }
-

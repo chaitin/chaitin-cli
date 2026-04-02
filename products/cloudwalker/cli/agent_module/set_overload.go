@@ -3,8 +3,8 @@
 package agent_module
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,22 +29,20 @@ var SetOverloadCmd = &cobra.Command{
 }
 
 func init() {
-		SetOverloadCmd.Flags().IntVar(&setOverloadParams.Cpu, "cpu", 0, "cpu 自动休眠阈值")
-		// filter is object type, use JSON string
-		var filterJSON string
-		SetOverloadCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"agent_install_plan_id\": [1, 2], \"agent_mem_size\": [\"1GB\"], \"agent_memory_rate\": [\"0.03298633\"], \"...\": \"...\"})")
-		SetOverloadCmd.Flags().IntVar(&setOverloadParams.Memory, "memory", 0, "内存自动休眠阈值")
-		// select_filter is object type, use JSON string
-		var selectFilterJSON string
-		SetOverloadCmd.Flags().StringVar(&selectFilterJSON, "select-filter", "", "是否全选&主机ID (JSON, e.g. {\"select\": [{\"id\": 196}], \"select_all\": true})")
+	SetOverloadCmd.Flags().IntVar(&setOverloadParams.Cpu, "cpu", 0, "cpu 自动休眠阈值")
+	// filter is object type, use JSON string
+	var filterJSON string
+	SetOverloadCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"agent_install_plan_id\": [1, 2], \"agent_mem_size\": [\"1GB\"], \"agent_memory_rate\": [\"0.03298633\"], \"...\": \"...\"})")
+	SetOverloadCmd.Flags().IntVar(&setOverloadParams.Memory, "memory", 0, "内存自动休眠阈值")
+	// select_filter is object type, use JSON string
+	var selectFilterJSON string
+	SetOverloadCmd.Flags().StringVar(&selectFilterJSON, "select-filter", "", "是否全选&主机ID (JSON, e.g. {\"select\": [{\"id\": 196}], \"select_all\": true})")
 }
-
 
 // SetOverloadParams 请求参数
 type SetOverloadParams struct {
-	Cpu int `json:"cpu"` // cpu 自动休眠阈值
-	Filter map[string]interface{} `json:"filter"` // 筛选器
-	Memory int `json:"memory"` // 内存自动休眠阈值
+	Cpu          int                    `json:"cpu"`           // cpu 自动休眠阈值
+	Filter       map[string]interface{} `json:"filter"`        // 筛选器
+	Memory       int                    `json:"memory"`        // 内存自动休眠阈值
 	SelectFilter map[string]interface{} `json:"select_filter"` // 是否全选&主机ID
 }
-

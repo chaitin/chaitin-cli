@@ -3,8 +3,8 @@
 package sensitive_file_scan
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,50 +29,48 @@ var EditEventStateCmd = &cobra.Command{
 }
 
 func init() {
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.Action, "action", nil, "动作")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.Comment, "comment", nil, "用户自定义备注")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.CreatedAt, "created-at", nil, "事件创建事件")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		EditEventStateCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Gids, "gids", nil, "业务组 ID 列表")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostComment, "host-comment", nil, "主机备注")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.HostId, "host-id", nil, "主机 ID")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostIp, "host-ip", nil, "主机 IP")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostName, "host-name", nil, "主机名称")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostState, "host-state", nil, "主机状态")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostTags, "host-tags", nil, "主机标签")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Ids, "ids", nil, "事件 ID 列表")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		EditEventStateCmd.Flags().Float64Var(&editEventStateParams.NewState, "new-state", 0, "更新后的事件状态(1-有风险，2-已忽略，3-已处理)")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Oid, "oid", nil, "机构 ID")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.Path, "path", nil, "文件路径")
-		EditEventStateCmd.Flags().BoolVar(&editEventStateParams.SelectAll, "select-all", false, "是否选中所有")
-		EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
-		EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.Action, "action", nil, "动作")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.Comment, "comment", nil, "用户自定义备注")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.CreatedAt, "created-at", nil, "事件创建事件")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	EditEventStateCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Gids, "gids", nil, "业务组 ID 列表")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostComment, "host-comment", nil, "主机备注")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.HostId, "host-id", nil, "主机 ID")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostIp, "host-ip", nil, "主机 IP")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostName, "host-name", nil, "主机名称")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostState, "host-state", nil, "主机状态")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.HostTags, "host-tags", nil, "主机标签")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Ids, "ids", nil, "事件 ID 列表")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	EditEventStateCmd.Flags().Float64Var(&editEventStateParams.NewState, "new-state", 0, "更新后的事件状态(1-有风险，2-已忽略，3-已处理)")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.Oid, "oid", nil, "机构 ID")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.Path, "path", nil, "文件路径")
+	EditEventStateCmd.Flags().BoolVar(&editEventStateParams.SelectAll, "select-all", false, "是否选中所有")
+	EditEventStateCmd.Flags().Float64SliceVar(&editEventStateParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	EditEventStateCmd.Flags().StringSliceVar(&editEventStateParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // EditEventStateParams 请求参数
 type EditEventStateParams struct {
-	Action []string `json:"action"` // 动作
-	Comment []string `json:"comment"` // 用户自定义备注
-	CreatedAt []string `json:"created_at"` // 事件创建事件
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // 业务组 ID 列表
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Ids []float64 `json:"ids"` // 事件 ID 列表
-	Level []float64 `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	NewState float64 `json:"new_state"` // 更新后的事件状态(1-有风险，2-已忽略，3-已处理)
-	Oid []float64 `json:"oid"` // 机构 ID
-	Path []string `json:"path"` // 文件路径
-	SelectAll bool `json:"select_all"` // 是否选中所有
-	State []float64 `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	Action      []string                 `json:"action"`        // 动作
+	Comment     []string                 `json:"comment"`       // 用户自定义备注
+	CreatedAt   []string                 `json:"created_at"`    // 事件创建事件
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`   // 主机业务属性
+	Gids        []float64                `json:"gids"`          // 业务组 ID 列表
+	HostComment []string                 `json:"host_comment"`  // 主机备注
+	HostId      []float64                `json:"host_id"`       // 主机 ID
+	HostIp      []string                 `json:"host_ip"`       // 主机 IP
+	HostName    []string                 `json:"host_name"`     // 主机名称
+	HostState   []string                 `json:"host_state"`    // 主机状态
+	HostTags    []string                 `json:"host_tags"`     // 主机标签
+	Ids         []float64                `json:"ids"`           // 事件 ID 列表
+	Level       []float64                `json:"level"`         // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	NewState    float64                  `json:"new_state"`     // 更新后的事件状态(1-有风险，2-已忽略，3-已处理)
+	Oid         []float64                `json:"oid"`           // 机构 ID
+	Path        []string                 `json:"path"`          // 文件路径
+	SelectAll   bool                     `json:"select_all"`    // 是否选中所有
+	State       []float64                `json:"state"`         // 事件状态(1-有风险，2-已忽略，3-已处理)
+	WhiteRuleId []string                 `json:"white_rule_id"` // 白名单规则 ID
 }
-

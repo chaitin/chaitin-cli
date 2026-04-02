@@ -3,8 +3,8 @@
 package admin_agent
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,18 +29,16 @@ var GetModuleListCmd = &cobra.Command{
 }
 
 func init() {
-		// filter is object type, use JSON string
-		var filterJSON string
-		GetModuleListCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"applied\": [\"true\"], \"arch\": [\"amd64\"], \"distributor_os_release\": [\"Ubuntu linux 22.04\"], \"...\": \"...\"})")
-		// page is object type, use JSON string
-		var pageJSON string
-		GetModuleListCmd.Flags().StringVar(&pageJSON, "page", "", "分页器 (JSON, e.g. {\"count\": 20, \"offset\": 0, \"order\": {\"column\": \"level\", \"order\": \"ASC\"}})")
+	// filter is object type, use JSON string
+	var filterJSON string
+	GetModuleListCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"applied\": [\"true\"], \"arch\": [\"amd64\"], \"distributor_os_release\": [\"Ubuntu linux 22.04\"], \"...\": \"...\"})")
+	// page is object type, use JSON string
+	var pageJSON string
+	GetModuleListCmd.Flags().StringVar(&pageJSON, "page", "", "分页器 (JSON, e.g. {\"count\": 20, \"offset\": 0, \"order\": {\"column\": \"level\", \"order\": \"ASC\"}})")
 }
-
 
 // GetModuleListParams 请求参数
 type GetModuleListParams struct {
 	Filter map[string]interface{} `json:"filter"` // 筛选器
-	Page map[string]interface{} `json:"page"` // 分页器
+	Page   map[string]interface{} `json:"page"`   // 分页器
 }
-

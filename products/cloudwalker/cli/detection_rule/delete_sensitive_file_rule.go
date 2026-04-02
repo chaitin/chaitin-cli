@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,36 +29,34 @@ var DeleteSensitiveFileRuleCmd = &cobra.Command{
 }
 
 func init() {
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		DeleteSensitiveFileRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		DeleteSensitiveFileRuleCmd.Flags().BoolVar(&deleteSensitiveFileRuleParams.Enable, "enable", false, "是否启用")
-		DeleteSensitiveFileRuleCmd.Flags().StringSliceVar(&deleteSensitiveFileRuleParams.HostComment, "host-comment", nil, "主机备注")
-		DeleteSensitiveFileRuleCmd.Flags().Float64SliceVar(&deleteSensitiveFileRuleParams.HostId, "host-id", nil, "主机ID")
-		DeleteSensitiveFileRuleCmd.Flags().StringSliceVar(&deleteSensitiveFileRuleParams.HostIp, "host-ip", nil, "主机IP")
-		DeleteSensitiveFileRuleCmd.Flags().StringSliceVar(&deleteSensitiveFileRuleParams.HostName, "host-name", nil, "主机名称")
-		DeleteSensitiveFileRuleCmd.Flags().StringSliceVar(&deleteSensitiveFileRuleParams.HostState, "host-state", nil, "主机状态")
-		DeleteSensitiveFileRuleCmd.Flags().StringSliceVar(&deleteSensitiveFileRuleParams.HostTag, "host-tag", nil, "主机标签")
-		DeleteSensitiveFileRuleCmd.Flags().StringSliceVar(&deleteSensitiveFileRuleParams.Id, "id", nil, "规则 ID")
-		DeleteSensitiveFileRuleCmd.Flags().BoolVar(&deleteSensitiveFileRuleParams.IsBuiltin, "is-builtin", false, "是否为内置规则")
-		DeleteSensitiveFileRuleCmd.Flags().StringSliceVar(&deleteSensitiveFileRuleParams.Path, "path", nil, "文件路径")
-		DeleteSensitiveFileRuleCmd.Flags().StringSliceVar(&deleteSensitiveFileRuleParams.RuleName, "rule-name", nil, "规则名称")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	DeleteSensitiveFileRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	DeleteSensitiveFileRuleCmd.Flags().BoolVar(&deleteSensitiveFileRuleParams.Enable, "enable", false, "是否启用")
+	DeleteSensitiveFileRuleCmd.Flags().StringSliceVar(&deleteSensitiveFileRuleParams.HostComment, "host-comment", nil, "主机备注")
+	DeleteSensitiveFileRuleCmd.Flags().Float64SliceVar(&deleteSensitiveFileRuleParams.HostId, "host-id", nil, "主机ID")
+	DeleteSensitiveFileRuleCmd.Flags().StringSliceVar(&deleteSensitiveFileRuleParams.HostIp, "host-ip", nil, "主机IP")
+	DeleteSensitiveFileRuleCmd.Flags().StringSliceVar(&deleteSensitiveFileRuleParams.HostName, "host-name", nil, "主机名称")
+	DeleteSensitiveFileRuleCmd.Flags().StringSliceVar(&deleteSensitiveFileRuleParams.HostState, "host-state", nil, "主机状态")
+	DeleteSensitiveFileRuleCmd.Flags().StringSliceVar(&deleteSensitiveFileRuleParams.HostTag, "host-tag", nil, "主机标签")
+	DeleteSensitiveFileRuleCmd.Flags().StringSliceVar(&deleteSensitiveFileRuleParams.Id, "id", nil, "规则 ID")
+	DeleteSensitiveFileRuleCmd.Flags().BoolVar(&deleteSensitiveFileRuleParams.IsBuiltin, "is-builtin", false, "是否为内置规则")
+	DeleteSensitiveFileRuleCmd.Flags().StringSliceVar(&deleteSensitiveFileRuleParams.Path, "path", nil, "文件路径")
+	DeleteSensitiveFileRuleCmd.Flags().StringSliceVar(&deleteSensitiveFileRuleParams.RuleName, "rule-name", nil, "规则名称")
 }
-
 
 // DeleteSensitiveFileRuleParams 请求参数
 type DeleteSensitiveFileRuleParams struct {
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Enable bool `json:"enable"` // 是否启用
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTag []string `json:"host_tag"` // 主机标签
-	Id []string `json:"id"` // 规则 ID
-	IsBuiltin bool `json:"is_builtin"` // 是否为内置规则
-	Path []string `json:"path"` // 文件路径
-	RuleName []string `json:"rule_name"` // 规则名称
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Enable      bool                     `json:"enable"`       // 是否启用
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机ID
+	HostIp      []string                 `json:"host_ip"`      // 主机IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTag     []string                 `json:"host_tag"`     // 主机标签
+	Id          []string                 `json:"id"`           // 规则 ID
+	IsBuiltin   bool                     `json:"is_builtin"`   // 是否为内置规则
+	Path        []string                 `json:"path"`         // 文件路径
+	RuleName    []string                 `json:"rule_name"`    // 规则名称
 }
-

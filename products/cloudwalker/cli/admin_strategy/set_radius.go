@@ -3,8 +3,8 @@
 package admin_strategy
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var SetRadiusCmd = &cobra.Command{
 }
 
 func init() {
-		SetRadiusCmd.Flags().StringVar(&setRadiusParams.Address, "address", "", "服务地址")
-		SetRadiusCmd.Flags().StringVar(&setRadiusParams.AuthType, "auth-type", "", "认证方式")
-		SetRadiusCmd.Flags().StringVar(&setRadiusParams.Pwd, "pwd", "", "共享密钥")
+	SetRadiusCmd.Flags().StringVar(&setRadiusParams.Address, "address", "", "服务地址")
+	SetRadiusCmd.Flags().StringVar(&setRadiusParams.AuthType, "auth-type", "", "认证方式")
+	SetRadiusCmd.Flags().StringVar(&setRadiusParams.Pwd, "pwd", "", "共享密钥")
 }
-
 
 // SetRadiusParams 请求参数
 type SetRadiusParams struct {
-	Address string `json:"address"` // 服务地址
+	Address  string `json:"address"`   // 服务地址
 	AuthType string `json:"auth_type"` // 认证方式
-	Pwd string `json:"pwd"` // 共享密钥
+	Pwd      string `json:"pwd"`       // 共享密钥
 }
-

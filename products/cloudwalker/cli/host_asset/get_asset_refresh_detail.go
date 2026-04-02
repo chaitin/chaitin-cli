@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetAssetRefreshDetailCmd = &cobra.Command{
 }
 
 func init() {
-		GetAssetRefreshDetailCmd.Flags().IntVar(&getAssetRefreshDetailParams.HostId, "host-id", 0, "主机ID")
+	GetAssetRefreshDetailCmd.Flags().IntVar(&getAssetRefreshDetailParams.HostId, "host-id", 0, "主机ID")
 }
-
 
 // GetAssetRefreshDetailParams 请求参数
 type GetAssetRefreshDetailParams struct {
 	HostId int `json:"host_id"` // 主机ID
 }
-

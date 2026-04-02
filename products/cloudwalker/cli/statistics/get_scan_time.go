@@ -3,8 +3,8 @@
 package statistics
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetScanTimeCmd = &cobra.Command{
 }
 
 func init() {
-		GetScanTimeCmd.Flags().BoolVar(&getScanTimeParams.FlushCache, "flush-cache", false, "禁用缓存")
+	GetScanTimeCmd.Flags().BoolVar(&getScanTimeParams.FlushCache, "flush-cache", false, "禁用缓存")
 }
-
 
 // GetScanTimeParams 请求参数
 type GetScanTimeParams struct {
 	FlushCache bool `json:"flush_cache"` // 禁用缓存
 }
-

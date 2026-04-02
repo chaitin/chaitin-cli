@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetAllHostTagCmd = &cobra.Command{
 }
 
 func init() {
-		GetAllHostTagCmd.Flags().StringSliceVar(&getAllHostTagParams.TagType, "tag-type", nil, "标签类型，def: 手动标签，auto: 自动标签")
+	GetAllHostTagCmd.Flags().StringSliceVar(&getAllHostTagParams.TagType, "tag-type", nil, "标签类型，def: 手动标签，auto: 自动标签")
 }
-
 
 // GetAllHostTagParams 请求参数
 type GetAllHostTagParams struct {
 	TagType []string `json:"tag_type"` // 标签类型，def: 手动标签，auto: 自动标签
 }
-

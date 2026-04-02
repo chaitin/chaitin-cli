@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,36 +29,34 @@ var DeleteNetworkAuditRuleCmd = &cobra.Command{
 }
 
 func init() {
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		DeleteNetworkAuditRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		DeleteNetworkAuditRuleCmd.Flags().BoolVar(&deleteNetworkAuditRuleParams.Enable, "enable", false, "是否启用")
-		DeleteNetworkAuditRuleCmd.Flags().StringSliceVar(&deleteNetworkAuditRuleParams.HostComment, "host-comment", nil, "主机备注")
-		DeleteNetworkAuditRuleCmd.Flags().Float64SliceVar(&deleteNetworkAuditRuleParams.HostId, "host-id", nil, "主机ID")
-		DeleteNetworkAuditRuleCmd.Flags().StringSliceVar(&deleteNetworkAuditRuleParams.HostIp, "host-ip", nil, "主机IP")
-		DeleteNetworkAuditRuleCmd.Flags().StringSliceVar(&deleteNetworkAuditRuleParams.HostName, "host-name", nil, "主机名称")
-		DeleteNetworkAuditRuleCmd.Flags().StringSliceVar(&deleteNetworkAuditRuleParams.HostState, "host-state", nil, "主机状态")
-		DeleteNetworkAuditRuleCmd.Flags().StringSliceVar(&deleteNetworkAuditRuleParams.HostTag, "host-tag", nil, "主机标签")
-		DeleteNetworkAuditRuleCmd.Flags().StringSliceVar(&deleteNetworkAuditRuleParams.Id, "id", nil, "规则 ID")
-		DeleteNetworkAuditRuleCmd.Flags().Float64SliceVar(&deleteNetworkAuditRuleParams.Level, "level", nil, "风险等级")
-		DeleteNetworkAuditRuleCmd.Flags().StringSliceVar(&deleteNetworkAuditRuleParams.Method, "method", nil, "匹配方式")
-		DeleteNetworkAuditRuleCmd.Flags().StringSliceVar(&deleteNetworkAuditRuleParams.RuleName, "rule-name", nil, "规则名称")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	DeleteNetworkAuditRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	DeleteNetworkAuditRuleCmd.Flags().BoolVar(&deleteNetworkAuditRuleParams.Enable, "enable", false, "是否启用")
+	DeleteNetworkAuditRuleCmd.Flags().StringSliceVar(&deleteNetworkAuditRuleParams.HostComment, "host-comment", nil, "主机备注")
+	DeleteNetworkAuditRuleCmd.Flags().Float64SliceVar(&deleteNetworkAuditRuleParams.HostId, "host-id", nil, "主机ID")
+	DeleteNetworkAuditRuleCmd.Flags().StringSliceVar(&deleteNetworkAuditRuleParams.HostIp, "host-ip", nil, "主机IP")
+	DeleteNetworkAuditRuleCmd.Flags().StringSliceVar(&deleteNetworkAuditRuleParams.HostName, "host-name", nil, "主机名称")
+	DeleteNetworkAuditRuleCmd.Flags().StringSliceVar(&deleteNetworkAuditRuleParams.HostState, "host-state", nil, "主机状态")
+	DeleteNetworkAuditRuleCmd.Flags().StringSliceVar(&deleteNetworkAuditRuleParams.HostTag, "host-tag", nil, "主机标签")
+	DeleteNetworkAuditRuleCmd.Flags().StringSliceVar(&deleteNetworkAuditRuleParams.Id, "id", nil, "规则 ID")
+	DeleteNetworkAuditRuleCmd.Flags().Float64SliceVar(&deleteNetworkAuditRuleParams.Level, "level", nil, "风险等级")
+	DeleteNetworkAuditRuleCmd.Flags().StringSliceVar(&deleteNetworkAuditRuleParams.Method, "method", nil, "匹配方式")
+	DeleteNetworkAuditRuleCmd.Flags().StringSliceVar(&deleteNetworkAuditRuleParams.RuleName, "rule-name", nil, "规则名称")
 }
-
 
 // DeleteNetworkAuditRuleParams 请求参数
 type DeleteNetworkAuditRuleParams struct {
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Enable bool `json:"enable"` // 是否启用
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTag []string `json:"host_tag"` // 主机标签
-	Id []string `json:"id"` // 规则 ID
-	Level []float64 `json:"level"` // 风险等级
-	Method []string `json:"method"` // 匹配方式
-	RuleName []string `json:"rule_name"` // 规则名称
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Enable      bool                     `json:"enable"`       // 是否启用
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机ID
+	HostIp      []string                 `json:"host_ip"`      // 主机IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTag     []string                 `json:"host_tag"`     // 主机标签
+	Id          []string                 `json:"id"`           // 规则 ID
+	Level       []float64                `json:"level"`        // 风险等级
+	Method      []string                 `json:"method"`       // 匹配方式
+	RuleName    []string                 `json:"rule_name"`    // 规则名称
 }
-

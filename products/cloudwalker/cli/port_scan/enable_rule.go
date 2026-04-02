@@ -3,8 +3,8 @@
 package port_scan
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var EnableRuleCmd = &cobra.Command{
 }
 
 func init() {
-		EnableRuleCmd.Flags().BoolVar(&enableRuleParams.Enable, "enable", false, "是否启用")
-		// filter is object type, use JSON string
-		var filterJSON string
-		EnableRuleCmd.Flags().StringVar(&filterJSON, "filter", "", "规则过滤条件 (JSON, e.g. {\"custom_attr\": [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}], \"enable\": [true], \"host_comment\": [\"主机备注\"], \"...\": \"...\"})")
+	EnableRuleCmd.Flags().BoolVar(&enableRuleParams.Enable, "enable", false, "是否启用")
+	// filter is object type, use JSON string
+	var filterJSON string
+	EnableRuleCmd.Flags().StringVar(&filterJSON, "filter", "", "规则过滤条件 (JSON, e.g. {\"custom_attr\": [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}], \"enable\": [true], \"host_comment\": [\"主机备注\"], \"...\": \"...\"})")
 }
-
 
 // EnableRuleParams 请求参数
 type EnableRuleParams struct {
-	Enable bool `json:"enable"` // 是否启用
+	Enable bool                   `json:"enable"` // 是否启用
 	Filter map[string]interface{} `json:"filter"` // 规则过滤条件
 }
-

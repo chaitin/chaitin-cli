@@ -3,8 +3,8 @@
 package user_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,64 +29,62 @@ var StatUserCmd = &cobra.Command{
 }
 
 func init() {
-		StatUserCmd.Flags().BoolSliceVar(&statUserParams.CanLogin, "can-login", nil, "是否可登录，true代表可登录，false代表不可登录")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		StatUserCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		StatUserCmd.Flags().BoolSliceVar(&statUserParams.Enabled, "enabled", nil, "是否启用，true代表启用，false代表禁用")
-		StatUserCmd.Flags().Float64SliceVar(&statUserParams.Gid, "gid", nil, "用户组id")
-		StatUserCmd.Flags().Float64SliceVar(&statUserParams.Gids, "gids", nil, "业务组")
-		StatUserCmd.Flags().StringSliceVar(&statUserParams.HomeDir, "home-dir", nil, "home目录")
-		StatUserCmd.Flags().StringSliceVar(&statUserParams.HostComment, "host-comment", nil, "主机备注")
-		StatUserCmd.Flags().Float64SliceVar(&statUserParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
-		StatUserCmd.Flags().StringSliceVar(&statUserParams.HostIp, "host-ip", nil, "主机IP")
-		StatUserCmd.Flags().StringSliceVar(&statUserParams.HostName, "host-name", nil, "主机名称")
-		StatUserCmd.Flags().StringSliceVar(&statUserParams.HostState, "host-state", nil, "主机状态")
-		StatUserCmd.Flags().StringSliceVar(&statUserParams.HostTags, "host-tags", nil, "主机标签")
-		StatUserCmd.Flags().StringSliceVar(&statUserParams.Info, "info", nil, "用户说明")
-		StatUserCmd.Flags().StringSliceVar(&statUserParams.LastLogin, "last-login", nil, "上次登录时间")
-		StatUserCmd.Flags().Float64SliceVar(&statUserParams.Oid, "oid", nil, "机构 ID")
-		StatUserCmd.Flags().StringSliceVar(&statUserParams.PasswordExpire, "password-expire", nil, "密码到期时间")
-		StatUserCmd.Flags().StringSliceVar(&statUserParams.PasswordModify, "password-modify", nil, "上次修改密码时间")
-		StatUserCmd.Flags().BoolSliceVar(&statUserParams.Privileged, "privileged", nil, "是否最高权限，true代表有最高权限，false代表不是最高权限")
-		StatUserCmd.Flags().StringSliceVar(&statUserParams.Shell, "shell", nil, "用户shell")
-		StatUserCmd.Flags().BoolVar(&statUserParams.SingletonUser, "singleton-user", false, "单例用户")
-		StatUserCmd.Flags().StringSliceVar(&statUserParams.SshFingerprint, "ssh-fingerprint", nil, "SSH 公钥指纹")
-		StatUserCmd.Flags().StringSliceVar(&statUserParams.SshKeyString, "ssh-key-string", nil, "完整内容")
-		StatUserCmd.Flags().Float64SliceVar(&statUserParams.Uid, "uid", nil, "用户id")
-		StatUserCmd.Flags().StringSliceVar(&statUserParams.UserExpire, "user-expire", nil, "用户失效时间")
-		StatUserCmd.Flags().StringSliceVar(&statUserParams.UserGroup, "user-group", nil, "用户组名")
-		StatUserCmd.Flags().StringSliceVar(&statUserParams.Username, "username", nil, "用户名")
+	StatUserCmd.Flags().BoolSliceVar(&statUserParams.CanLogin, "can-login", nil, "是否可登录，true代表可登录，false代表不可登录")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	StatUserCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	StatUserCmd.Flags().BoolSliceVar(&statUserParams.Enabled, "enabled", nil, "是否启用，true代表启用，false代表禁用")
+	StatUserCmd.Flags().Float64SliceVar(&statUserParams.Gid, "gid", nil, "用户组id")
+	StatUserCmd.Flags().Float64SliceVar(&statUserParams.Gids, "gids", nil, "业务组")
+	StatUserCmd.Flags().StringSliceVar(&statUserParams.HomeDir, "home-dir", nil, "home目录")
+	StatUserCmd.Flags().StringSliceVar(&statUserParams.HostComment, "host-comment", nil, "主机备注")
+	StatUserCmd.Flags().Float64SliceVar(&statUserParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
+	StatUserCmd.Flags().StringSliceVar(&statUserParams.HostIp, "host-ip", nil, "主机IP")
+	StatUserCmd.Flags().StringSliceVar(&statUserParams.HostName, "host-name", nil, "主机名称")
+	StatUserCmd.Flags().StringSliceVar(&statUserParams.HostState, "host-state", nil, "主机状态")
+	StatUserCmd.Flags().StringSliceVar(&statUserParams.HostTags, "host-tags", nil, "主机标签")
+	StatUserCmd.Flags().StringSliceVar(&statUserParams.Info, "info", nil, "用户说明")
+	StatUserCmd.Flags().StringSliceVar(&statUserParams.LastLogin, "last-login", nil, "上次登录时间")
+	StatUserCmd.Flags().Float64SliceVar(&statUserParams.Oid, "oid", nil, "机构 ID")
+	StatUserCmd.Flags().StringSliceVar(&statUserParams.PasswordExpire, "password-expire", nil, "密码到期时间")
+	StatUserCmd.Flags().StringSliceVar(&statUserParams.PasswordModify, "password-modify", nil, "上次修改密码时间")
+	StatUserCmd.Flags().BoolSliceVar(&statUserParams.Privileged, "privileged", nil, "是否最高权限，true代表有最高权限，false代表不是最高权限")
+	StatUserCmd.Flags().StringSliceVar(&statUserParams.Shell, "shell", nil, "用户shell")
+	StatUserCmd.Flags().BoolVar(&statUserParams.SingletonUser, "singleton-user", false, "单例用户")
+	StatUserCmd.Flags().StringSliceVar(&statUserParams.SshFingerprint, "ssh-fingerprint", nil, "SSH 公钥指纹")
+	StatUserCmd.Flags().StringSliceVar(&statUserParams.SshKeyString, "ssh-key-string", nil, "完整内容")
+	StatUserCmd.Flags().Float64SliceVar(&statUserParams.Uid, "uid", nil, "用户id")
+	StatUserCmd.Flags().StringSliceVar(&statUserParams.UserExpire, "user-expire", nil, "用户失效时间")
+	StatUserCmd.Flags().StringSliceVar(&statUserParams.UserGroup, "user-group", nil, "用户组名")
+	StatUserCmd.Flags().StringSliceVar(&statUserParams.Username, "username", nil, "用户名")
 }
-
 
 // StatUserParams 请求参数
 type StatUserParams struct {
-	CanLogin []bool `json:"can_login"` // 是否可登录，true代表可登录，false代表不可登录
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Enabled []bool `json:"enabled"` // 是否启用，true代表启用，false代表禁用
-	Gid []float64 `json:"gid"` // 用户组id
-	Gids []float64 `json:"gids"` // 业务组
-	HomeDir []string `json:"home_dir"` // home目录
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID, 用于主机详情页面
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Info []string `json:"info"` // 用户说明
-	LastLogin []string `json:"last_login"` // 上次登录时间
-	Oid []float64 `json:"oid"` // 机构 ID
-	PasswordExpire []string `json:"password_expire"` // 密码到期时间
-	PasswordModify []string `json:"password_modify"` // 上次修改密码时间
-	Privileged []bool `json:"privileged"` // 是否最高权限，true代表有最高权限，false代表不是最高权限
-	Shell []string `json:"shell"` // 用户shell
-	SingletonUser bool `json:"singleton_user"` // 单例用户
-	SshFingerprint []string `json:"ssh_fingerprint"` // SSH 公钥指纹
-	SshKeyString []string `json:"ssh_key_string"` // 完整内容
-	Uid []float64 `json:"uid"` // 用户id
-	UserExpire []string `json:"user_expire"` // 用户失效时间
-	UserGroup []string `json:"user_group"` // 用户组名
-	Username []string `json:"username"` // 用户名
+	CanLogin       []bool                   `json:"can_login"`       // 是否可登录，true代表可登录，false代表不可登录
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`     // 主机业务属性
+	Enabled        []bool                   `json:"enabled"`         // 是否启用，true代表启用，false代表禁用
+	Gid            []float64                `json:"gid"`             // 用户组id
+	Gids           []float64                `json:"gids"`            // 业务组
+	HomeDir        []string                 `json:"home_dir"`        // home目录
+	HostComment    []string                 `json:"host_comment"`    // 主机备注
+	HostId         []float64                `json:"host_id"`         // 主机ID, 用于主机详情页面
+	HostIp         []string                 `json:"host_ip"`         // 主机IP
+	HostName       []string                 `json:"host_name"`       // 主机名称
+	HostState      []string                 `json:"host_state"`      // 主机状态
+	HostTags       []string                 `json:"host_tags"`       // 主机标签
+	Info           []string                 `json:"info"`            // 用户说明
+	LastLogin      []string                 `json:"last_login"`      // 上次登录时间
+	Oid            []float64                `json:"oid"`             // 机构 ID
+	PasswordExpire []string                 `json:"password_expire"` // 密码到期时间
+	PasswordModify []string                 `json:"password_modify"` // 上次修改密码时间
+	Privileged     []bool                   `json:"privileged"`      // 是否最高权限，true代表有最高权限，false代表不是最高权限
+	Shell          []string                 `json:"shell"`           // 用户shell
+	SingletonUser  bool                     `json:"singleton_user"`  // 单例用户
+	SshFingerprint []string                 `json:"ssh_fingerprint"` // SSH 公钥指纹
+	SshKeyString   []string                 `json:"ssh_key_string"`  // 完整内容
+	Uid            []float64                `json:"uid"`             // 用户id
+	UserExpire     []string                 `json:"user_expire"`     // 用户失效时间
+	UserGroup      []string                 `json:"user_group"`      // 用户组名
+	Username       []string                 `json:"username"`        // 用户名
 }
-

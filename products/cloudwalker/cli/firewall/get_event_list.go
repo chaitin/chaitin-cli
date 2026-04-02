@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,56 +29,54 @@ var GetEventListCmd = &cobra.Command{
 }
 
 func init() {
-		GetEventListCmd.Flags().StringSliceVar(&getEventListParams.Action, "action", nil, "操作，DROP/WARNING")
-		GetEventListCmd.Flags().IntVar(&getEventListParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		GetEventListCmd.Flags().StringSliceVar(&getEventListParams.CreatedAt, "created-at", nil, "创建时间")
-		GetEventListCmd.Flags().StringSliceVar(&getEventListParams.Domain, "domain", nil, "关联域名")
-		GetEventListCmd.Flags().Float64SliceVar(&getEventListParams.Gids, "gids", nil, "业务组 ID")
-		GetEventListCmd.Flags().StringSliceVar(&getEventListParams.HostComment, "host-comment", nil, "主机备注")
-		GetEventListCmd.Flags().Float64SliceVar(&getEventListParams.HostId, "host-id", nil, "主机 ID")
-		GetEventListCmd.Flags().StringSliceVar(&getEventListParams.HostIp, "host-ip", nil, "主机 IP")
-		GetEventListCmd.Flags().StringSliceVar(&getEventListParams.HostName, "host-name", nil, "主机名称")
-		GetEventListCmd.Flags().StringSliceVar(&getEventListParams.HostState, "host-state", nil, "主机状态")
-		GetEventListCmd.Flags().StringSliceVar(&getEventListParams.HostTag, "host-tag", nil, "主机标签")
-		GetEventListCmd.Flags().Float64SliceVar(&getEventListParams.Id, "id", nil, "事件ID")
-		GetEventListCmd.Flags().IntVar(&getEventListParams.Offset, "offset", 0, "页偏移, 默认为 0")
-		GetEventListCmd.Flags().Float64SliceVar(&getEventListParams.Oid, "oid", nil, "机构 ID")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetEventListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetEventListCmd.Flags().StringSliceVar(&getEventListParams.Process, "process", nil, "进程")
-		GetEventListCmd.Flags().StringSliceVar(&getEventListParams.Protocol, "protocol", nil, "协议")
-		GetEventListCmd.Flags().Float64SliceVar(&getEventListParams.RuleId, "rule-id", nil, "规则ID")
-		GetEventListCmd.Flags().BoolVar(&getEventListParams.SelectAll, "select-all", false, "是否全选")
-		GetEventListCmd.Flags().StringSliceVar(&getEventListParams.SourceAddress, "source-address", nil, "源地址")
-		GetEventListCmd.Flags().StringSliceVar(&getEventListParams.TargetAddress, "target-address", nil, "目标地址")
-		GetEventListCmd.Flags().Float64SliceVar(&getEventListParams.TargetPort, "target-port", nil, "目标端口")
+	GetEventListCmd.Flags().StringSliceVar(&getEventListParams.Action, "action", nil, "操作，DROP/WARNING")
+	GetEventListCmd.Flags().IntVar(&getEventListParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	GetEventListCmd.Flags().StringSliceVar(&getEventListParams.CreatedAt, "created-at", nil, "创建时间")
+	GetEventListCmd.Flags().StringSliceVar(&getEventListParams.Domain, "domain", nil, "关联域名")
+	GetEventListCmd.Flags().Float64SliceVar(&getEventListParams.Gids, "gids", nil, "业务组 ID")
+	GetEventListCmd.Flags().StringSliceVar(&getEventListParams.HostComment, "host-comment", nil, "主机备注")
+	GetEventListCmd.Flags().Float64SliceVar(&getEventListParams.HostId, "host-id", nil, "主机 ID")
+	GetEventListCmd.Flags().StringSliceVar(&getEventListParams.HostIp, "host-ip", nil, "主机 IP")
+	GetEventListCmd.Flags().StringSliceVar(&getEventListParams.HostName, "host-name", nil, "主机名称")
+	GetEventListCmd.Flags().StringSliceVar(&getEventListParams.HostState, "host-state", nil, "主机状态")
+	GetEventListCmd.Flags().StringSliceVar(&getEventListParams.HostTag, "host-tag", nil, "主机标签")
+	GetEventListCmd.Flags().Float64SliceVar(&getEventListParams.Id, "id", nil, "事件ID")
+	GetEventListCmd.Flags().IntVar(&getEventListParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	GetEventListCmd.Flags().Float64SliceVar(&getEventListParams.Oid, "oid", nil, "机构 ID")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetEventListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetEventListCmd.Flags().StringSliceVar(&getEventListParams.Process, "process", nil, "进程")
+	GetEventListCmd.Flags().StringSliceVar(&getEventListParams.Protocol, "protocol", nil, "协议")
+	GetEventListCmd.Flags().Float64SliceVar(&getEventListParams.RuleId, "rule-id", nil, "规则ID")
+	GetEventListCmd.Flags().BoolVar(&getEventListParams.SelectAll, "select-all", false, "是否全选")
+	GetEventListCmd.Flags().StringSliceVar(&getEventListParams.SourceAddress, "source-address", nil, "源地址")
+	GetEventListCmd.Flags().StringSliceVar(&getEventListParams.TargetAddress, "target-address", nil, "目标地址")
+	GetEventListCmd.Flags().Float64SliceVar(&getEventListParams.TargetPort, "target-port", nil, "目标端口")
 }
-
 
 // GetEventListParams 请求参数
 type GetEventListParams struct {
-	Action []string `json:"action"` // 操作，DROP/WARNING
-	Count int `json:"count"` // 每页记录数量, 默认为 20
-	CreatedAt []string `json:"created_at"` // 创建时间
-	Domain []string `json:"domain"` // 关联域名
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTag []string `json:"host_tag"` // 主机标签
-	Id []float64 `json:"id"` // 事件ID
-	Offset int `json:"offset"` // 页偏移, 默认为 0
-	Oid []float64 `json:"oid"` // 机构 ID
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	Process []string `json:"process"` // 进程
-	Protocol []string `json:"protocol"` // 协议
-	RuleId []float64 `json:"rule_id"` // 规则ID
-	SelectAll bool `json:"select_all"` // 是否全选
-	SourceAddress []string `json:"source_address"` // 源地址
-	TargetAddress []string `json:"target_address"` // 目标地址
-	TargetPort []float64 `json:"target_port"` // 目标端口
+	Action        []string               `json:"action"`         // 操作，DROP/WARNING
+	Count         int                    `json:"count"`          // 每页记录数量, 默认为 20
+	CreatedAt     []string               `json:"created_at"`     // 创建时间
+	Domain        []string               `json:"domain"`         // 关联域名
+	Gids          []float64              `json:"gids"`           // 业务组 ID
+	HostComment   []string               `json:"host_comment"`   // 主机备注
+	HostId        []float64              `json:"host_id"`        // 主机 ID
+	HostIp        []string               `json:"host_ip"`        // 主机 IP
+	HostName      []string               `json:"host_name"`      // 主机名称
+	HostState     []string               `json:"host_state"`     // 主机状态
+	HostTag       []string               `json:"host_tag"`       // 主机标签
+	Id            []float64              `json:"id"`             // 事件ID
+	Offset        int                    `json:"offset"`         // 页偏移, 默认为 0
+	Oid           []float64              `json:"oid"`            // 机构 ID
+	OrderBy       map[string]interface{} `json:"order_by"`       // 排序规则
+	Process       []string               `json:"process"`        // 进程
+	Protocol      []string               `json:"protocol"`       // 协议
+	RuleId        []float64              `json:"rule_id"`        // 规则ID
+	SelectAll     bool                   `json:"select_all"`     // 是否全选
+	SourceAddress []string               `json:"source_address"` // 源地址
+	TargetAddress []string               `json:"target_address"` // 目标地址
+	TargetPort    []float64              `json:"target_port"`    // 目标端口
 }
-

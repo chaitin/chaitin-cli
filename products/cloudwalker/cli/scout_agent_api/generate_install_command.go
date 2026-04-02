@@ -3,8 +3,8 @@
 package scout_agent_api
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,24 +29,22 @@ var GenerateInstallCommandCmd = &cobra.Command{
 }
 
 func init() {
-		GenerateInstallCommandCmd.Flags().StringVar(&generateInstallCommandParams.KafkaAddr, "kafka-addr", "", "kafka 地址")
-		// os_config is object type, use JSON string
-		var osConfigJSON string
-		GenerateInstallCommandCmd.Flags().StringVar(&osConfigJSON, "os-config", "", "操作系统配置 (JSON, e.g. {\"linux_config\": {\"privilege_escape_method\": \"none\"}, \"os\": \"linux\", \"win_config\": {\"shell_type\": \"cmd\"}})")
-		// proxy_config is object type, use JSON string
-		var proxyConfigJSON string
-		GenerateInstallCommandCmd.Flags().StringVar(&proxyConfigJSON, "proxy-config", "", "代理配置 (JSON, e.g. {\"host\": \"127.0.0.1\", \"password\": \"123456\", \"port\": 3306, \"type\": \"none\", \"username\": \"root\"})")
-		GenerateInstallCommandCmd.Flags().StringVar(&generateInstallCommandParams.RemoteHost, "remote-host", "", "远端服务器地址")
-		GenerateInstallCommandCmd.Flags().IntVar(&generateInstallCommandParams.TokenTtl, "token-ttl", 0, "token过期时间(秒)")
+	GenerateInstallCommandCmd.Flags().StringVar(&generateInstallCommandParams.KafkaAddr, "kafka-addr", "", "kafka 地址")
+	// os_config is object type, use JSON string
+	var osConfigJSON string
+	GenerateInstallCommandCmd.Flags().StringVar(&osConfigJSON, "os-config", "", "操作系统配置 (JSON, e.g. {\"linux_config\": {\"privilege_escape_method\": \"none\"}, \"os\": \"linux\", \"win_config\": {\"shell_type\": \"cmd\"}})")
+	// proxy_config is object type, use JSON string
+	var proxyConfigJSON string
+	GenerateInstallCommandCmd.Flags().StringVar(&proxyConfigJSON, "proxy-config", "", "代理配置 (JSON, e.g. {\"host\": \"127.0.0.1\", \"password\": \"123456\", \"port\": 3306, \"type\": \"none\", \"username\": \"root\"})")
+	GenerateInstallCommandCmd.Flags().StringVar(&generateInstallCommandParams.RemoteHost, "remote-host", "", "远端服务器地址")
+	GenerateInstallCommandCmd.Flags().IntVar(&generateInstallCommandParams.TokenTtl, "token-ttl", 0, "token过期时间(秒)")
 }
-
 
 // GenerateInstallCommandParams 请求参数
 type GenerateInstallCommandParams struct {
-	KafkaAddr string `json:"kafka_addr"` // kafka 地址
-	OsConfig map[string]interface{} `json:"os_config"` // 操作系统配置
+	KafkaAddr   string                 `json:"kafka_addr"`   // kafka 地址
+	OsConfig    map[string]interface{} `json:"os_config"`    // 操作系统配置
 	ProxyConfig map[string]interface{} `json:"proxy_config"` // 代理配置
-	RemoteHost string `json:"remote_host"` // 远端服务器地址
-	TokenTtl int `json:"token_ttl"` // token过期时间(秒)
+	RemoteHost  string                 `json:"remote_host"`  // 远端服务器地址
+	TokenTtl    int                    `json:"token_ttl"`    // token过期时间(秒)
 }
-

@@ -3,8 +3,8 @@
 package vuln
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetVulnCmd = &cobra.Command{
 }
 
 func init() {
-		GetVulnCmd.Flags().IntVar(&getVulnParams.Id, "id", 0, "漏洞 ID")
+	GetVulnCmd.Flags().IntVar(&getVulnParams.Id, "id", 0, "漏洞 ID")
 }
-
 
 // GetVulnParams 请求参数
 type GetVulnParams struct {
 	Id int `json:"id"` // 漏洞 ID
 }
-

@@ -3,8 +3,8 @@
 package scout_agent_api
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,18 +29,16 @@ var GetAgentListCmd = &cobra.Command{
 }
 
 func init() {
-		// filter is object type, use JSON string
-		var filterJSON string
-		GetAgentListCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"agent_memory_rate\": [\"0.03298633\"], \"cpu\": [\"0.007942708\"], \"created_at\": [\"1664273285.232421\"], \"...\": \"...\"})")
-		// page is object type, use JSON string
-		var pageJSON string
-		GetAgentListCmd.Flags().StringVar(&pageJSON, "page", "", "分页器 (JSON, e.g. {\"count\": 20, \"offset\": 0, \"order_by\": {\"column\": \"level\", \"order\": \"ASC\"}})")
+	// filter is object type, use JSON string
+	var filterJSON string
+	GetAgentListCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"agent_memory_rate\": [\"0.03298633\"], \"cpu\": [\"0.007942708\"], \"created_at\": [\"1664273285.232421\"], \"...\": \"...\"})")
+	// page is object type, use JSON string
+	var pageJSON string
+	GetAgentListCmd.Flags().StringVar(&pageJSON, "page", "", "分页器 (JSON, e.g. {\"count\": 20, \"offset\": 0, \"order_by\": {\"column\": \"level\", \"order\": \"ASC\"}})")
 }
-
 
 // GetAgentListParams 请求参数
 type GetAgentListParams struct {
 	Filter map[string]interface{} `json:"filter"` // 筛选器
-	Page map[string]interface{} `json:"page"` // 分页器
+	Page   map[string]interface{} `json:"page"`   // 分页器
 }
-

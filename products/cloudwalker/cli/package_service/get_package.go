@@ -3,8 +3,8 @@
 package package_service
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetPackageCmd = &cobra.Command{
 }
 
 func init() {
-		GetPackageCmd.Flags().IntVar(&getPackageParams.Id, "id", 0, "id")
+	GetPackageCmd.Flags().IntVar(&getPackageParams.Id, "id", 0, "id")
 }
-
 
 // GetPackageParams 请求参数
 type GetPackageParams struct {
 	Id int `json:"id"` // id
 }
-

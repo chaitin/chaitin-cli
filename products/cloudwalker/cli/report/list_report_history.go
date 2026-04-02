@@ -3,8 +3,8 @@
 package report
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var ListReportHistoryCmd = &cobra.Command{
 }
 
 func init() {
-		ListReportHistoryCmd.Flags().IntVar(&listReportHistoryParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		ListReportHistoryCmd.Flags().IntVar(&listReportHistoryParams.Id, "id", 0, "ID")
-		ListReportHistoryCmd.Flags().IntVar(&listReportHistoryParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	ListReportHistoryCmd.Flags().IntVar(&listReportHistoryParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	ListReportHistoryCmd.Flags().IntVar(&listReportHistoryParams.Id, "id", 0, "ID")
+	ListReportHistoryCmd.Flags().IntVar(&listReportHistoryParams.Offset, "offset", 0, "页偏移, 默认为 0")
 }
-
 
 // ListReportHistoryParams 请求参数
 type ListReportHistoryParams struct {
-	Count int `json:"count"` // 每页记录数量, 默认为 20
-	Id int `json:"id"` // ID
+	Count  int `json:"count"`  // 每页记录数量, 默认为 20
+	Id     int `json:"id"`     // ID
 	Offset int `json:"offset"` // 页偏移, 默认为 0
 }
-

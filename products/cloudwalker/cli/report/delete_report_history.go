@@ -3,8 +3,8 @@
 package report
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var DeleteReportHistoryCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteReportHistoryCmd.Flags().IntVar(&deleteReportHistoryParams.Id, "id", 0, "id")
+	DeleteReportHistoryCmd.Flags().IntVar(&deleteReportHistoryParams.Id, "id", 0, "id")
 }
-
 
 // DeleteReportHistoryParams 请求参数
 type DeleteReportHistoryParams struct {
 	Id int `json:"id"` // id
 }
-

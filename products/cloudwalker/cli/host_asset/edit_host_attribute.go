@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var EditHostAttributeCmd = &cobra.Command{
 }
 
 func init() {
-		// attributes is complex type []map[string]interface{}, use JSON string
-		var attributesJSON string
-		EditHostAttributeCmd.Flags().StringVar(&attributesJSON, "attributes", "", "attributes (JSON, e.g. [{\"attr_name\": \"\", \"attr_type\": \"\", \"attr_value\": [\"\"]}])")
-		EditHostAttributeCmd.Flags().Float64Var(&editHostAttributeParams.HostId, "host-id", 0, "主机 ID")
+	// attributes is complex type []map[string]interface{}, use JSON string
+	var attributesJSON string
+	EditHostAttributeCmd.Flags().StringVar(&attributesJSON, "attributes", "", "attributes (JSON, e.g. [{\"attr_name\": \"\", \"attr_type\": \"\", \"attr_value\": [\"\"]}])")
+	EditHostAttributeCmd.Flags().Float64Var(&editHostAttributeParams.HostId, "host-id", 0, "主机 ID")
 }
-
 
 // EditHostAttributeParams 请求参数
 type EditHostAttributeParams struct {
 	Attributes []map[string]interface{} `json:"attributes"` // attributes
-	HostId float64 `json:"host_id"` // 主机 ID
+	HostId     float64                  `json:"host_id"`    // 主机 ID
 }
-

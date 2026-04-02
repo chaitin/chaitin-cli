@@ -3,14 +3,12 @@
 package business_group
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetBusinessGroupTreeCmd = &cobra.Command{
 	Use:   "get_business_group_tree",
@@ -31,5 +29,3 @@ var GetBusinessGroupTreeCmd = &cobra.Command{
 func init() {
 
 }
-
-

@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var CopyLogicCmd = &cobra.Command{
 }
 
 func init() {
-		CopyLogicCmd.Flags().StringSliceVar(&copyLogicParams.Id, "id", nil, "ID")
+	CopyLogicCmd.Flags().StringSliceVar(&copyLogicParams.Id, "id", nil, "ID")
 }
-
 
 // CopyLogicParams 请求参数
 type CopyLogicParams struct {
 	Id []string `json:"id"` // ID
 }
-

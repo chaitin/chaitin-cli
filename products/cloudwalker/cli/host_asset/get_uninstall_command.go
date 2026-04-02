@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var GetUninstallCommandCmd = &cobra.Command{
 }
 
 func init() {
-		GetUninstallCommandCmd.Flags().StringSliceVar(&getUninstallCommandParams.LighterId, "lighter-id", nil, "lighter id")
-		GetUninstallCommandCmd.Flags().Float64Var(&getUninstallCommandParams.TokenTtl, "token-ttl", 0, "过期时间")
-		GetUninstallCommandCmd.Flags().StringVar(&getUninstallCommandParams.Totp, "totp", "", "双因子认证口令")
+	GetUninstallCommandCmd.Flags().StringSliceVar(&getUninstallCommandParams.LighterId, "lighter-id", nil, "lighter id")
+	GetUninstallCommandCmd.Flags().Float64Var(&getUninstallCommandParams.TokenTtl, "token-ttl", 0, "过期时间")
+	GetUninstallCommandCmd.Flags().StringVar(&getUninstallCommandParams.Totp, "totp", "", "双因子认证口令")
 }
-
 
 // GetUninstallCommandParams 请求参数
 type GetUninstallCommandParams struct {
 	LighterId []string `json:"lighter_id"` // lighter id
-	TokenTtl float64 `json:"token_ttl"` // 过期时间
-	Totp string `json:"totp"` // 双因子认证口令
+	TokenTtl  float64  `json:"token_ttl"`  // 过期时间
+	Totp      string   `json:"totp"`       // 双因子认证口令
 }
-

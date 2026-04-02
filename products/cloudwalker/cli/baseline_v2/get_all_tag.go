@@ -3,14 +3,12 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetAllTagCmd = &cobra.Command{
 	Use:   "get_all_tag",
@@ -31,5 +29,3 @@ var GetAllTagCmd = &cobra.Command{
 func init() {
 
 }
-
-

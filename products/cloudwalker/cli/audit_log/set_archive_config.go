@@ -3,8 +3,8 @@
 package audit_log
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var SetArchiveConfigCmd = &cobra.Command{
 }
 
 func init() {
-		SetArchiveConfigCmd.Flags().IntVar(&setArchiveConfigParams.Archive, "archive", 0, "归档多久前")
-		SetArchiveConfigCmd.Flags().IntVar(&setArchiveConfigParams.Delete, "delete", 0, "删除多久前")
-		SetArchiveConfigCmd.Flags().BoolVar(&setArchiveConfigParams.Enable, "enable", false, "是否开启事件归档")
+	SetArchiveConfigCmd.Flags().IntVar(&setArchiveConfigParams.Archive, "archive", 0, "归档多久前")
+	SetArchiveConfigCmd.Flags().IntVar(&setArchiveConfigParams.Delete, "delete", 0, "删除多久前")
+	SetArchiveConfigCmd.Flags().BoolVar(&setArchiveConfigParams.Enable, "enable", false, "是否开启事件归档")
 }
-
 
 // SetArchiveConfigParams 请求参数
 type SetArchiveConfigParams struct {
-	Archive int `json:"archive"` // 归档多久前
-	Delete int `json:"delete"` // 删除多久前
-	Enable bool `json:"enable"` // 是否开启事件归档
+	Archive int  `json:"archive"` // 归档多久前
+	Delete  int  `json:"delete"`  // 删除多久前
+	Enable  bool `json:"enable"`  // 是否开启事件归档
 }
-

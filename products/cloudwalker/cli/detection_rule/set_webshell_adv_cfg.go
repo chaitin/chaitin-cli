@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var SetWebshellAdvCfgCmd = &cobra.Command{
 }
 
 func init() {
-		SetWebshellAdvCfgCmd.Flags().StringVar(&setWebshellAdvCfgParams.DetectorThreshold, "detector-threshold", "", "检测模式")
+	SetWebshellAdvCfgCmd.Flags().StringVar(&setWebshellAdvCfgParams.DetectorThreshold, "detector-threshold", "", "检测模式")
 }
-
 
 // SetWebshellAdvCfgParams 请求参数
 type SetWebshellAdvCfgParams struct {
 	DetectorThreshold string `json:"detector_threshold"` // 检测模式
 }
-

@@ -3,8 +3,8 @@
 package report
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetReportCmd = &cobra.Command{
 }
 
 func init() {
-		GetReportCmd.Flags().IntVar(&getReportParams.Id, "id", 0, "ID")
+	GetReportCmd.Flags().IntVar(&getReportParams.Id, "id", 0, "ID")
 }
-
 
 // GetReportParams 请求参数
 type GetReportParams struct {
 	Id int `json:"id"` // ID
 }
-

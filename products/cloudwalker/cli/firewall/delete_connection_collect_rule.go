@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var DeleteConnectionCollectRuleCmd = &cobra.Command{
 }
 
 func init() {
-		// filter is object type, use JSON string
-		var filterJSON string
-		DeleteConnectionCollectRuleCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选条件 (JSON, e.g. {\"created_at\": [\"xxxxxxxxx\"], \"enable\": true, \"host_ip\": [\"192.168.1.1\"], \"...\": \"...\"})")
-		DeleteConnectionCollectRuleCmd.Flags().BoolVar(&deleteConnectionCollectRuleParams.SelectAll, "select-all", false, "是否全选")
+	// filter is object type, use JSON string
+	var filterJSON string
+	DeleteConnectionCollectRuleCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选条件 (JSON, e.g. {\"created_at\": [\"xxxxxxxxx\"], \"enable\": true, \"host_ip\": [\"192.168.1.1\"], \"...\": \"...\"})")
+	DeleteConnectionCollectRuleCmd.Flags().BoolVar(&deleteConnectionCollectRuleParams.SelectAll, "select-all", false, "是否全选")
 }
-
 
 // DeleteConnectionCollectRuleParams 请求参数
 type DeleteConnectionCollectRuleParams struct {
-	Filter map[string]interface{} `json:"filter"` // 筛选条件
-	SelectAll bool `json:"select_all"` // 是否全选
+	Filter    map[string]interface{} `json:"filter"`     // 筛选条件
+	SelectAll bool                   `json:"select_all"` // 是否全选
 }
-

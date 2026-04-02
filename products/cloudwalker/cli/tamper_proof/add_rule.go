@@ -3,8 +3,8 @@
 package tamper_proof
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,28 +29,26 @@ var AddRuleCmd = &cobra.Command{
 }
 
 func init() {
-		AddRuleCmd.Flags().BoolVar(&addRuleParams.Enable, "enable", false, "是否启用")
-		AddRuleCmd.Flags().IntSliceVar(&addRuleParams.Hosts, "hosts", nil, "应用的主机列表")
-		AddRuleCmd.Flags().IntVar(&addRuleParams.Mode, "mode", 0, "防护模式，0 阻断防护，1 模拟防护")
-		AddRuleCmd.Flags().StringVar(&addRuleParams.Name, "name", "", "规则名")
-		AddRuleCmd.Flags().IntSliceVar(&addRuleParams.OperationWhitelist, "operation-whitelist", nil, "篡改行为白名单，0：修改，1：修改文件属性，2：创建，3：删除，4：移动（重命名），5：文件映射，6：硬链接")
-		AddRuleCmd.Flags().StringSliceVar(&addRuleParams.ProcessPathWhitelist, "process-path-whitelist", nil, "进程白名单，包含可执行文件的绝对路径")
-		AddRuleCmd.Flags().StringVar(&addRuleParams.ProtectionPath, "protection-path", "", "保护路径")
-		AddRuleCmd.Flags().StringSliceVar(&addRuleParams.ProtectionPathWhitelist, "protection-path-whitelist", nil, " 保护路径白名单")
-		AddRuleCmd.Flags().StringSliceVar(&addRuleParams.UserWhitelist, "user-whitelist", nil, "用户白名单")
+	AddRuleCmd.Flags().BoolVar(&addRuleParams.Enable, "enable", false, "是否启用")
+	AddRuleCmd.Flags().IntSliceVar(&addRuleParams.Hosts, "hosts", nil, "应用的主机列表")
+	AddRuleCmd.Flags().IntVar(&addRuleParams.Mode, "mode", 0, "防护模式，0 阻断防护，1 模拟防护")
+	AddRuleCmd.Flags().StringVar(&addRuleParams.Name, "name", "", "规则名")
+	AddRuleCmd.Flags().IntSliceVar(&addRuleParams.OperationWhitelist, "operation-whitelist", nil, "篡改行为白名单，0：修改，1：修改文件属性，2：创建，3：删除，4：移动（重命名），5：文件映射，6：硬链接")
+	AddRuleCmd.Flags().StringSliceVar(&addRuleParams.ProcessPathWhitelist, "process-path-whitelist", nil, "进程白名单，包含可执行文件的绝对路径")
+	AddRuleCmd.Flags().StringVar(&addRuleParams.ProtectionPath, "protection-path", "", "保护路径")
+	AddRuleCmd.Flags().StringSliceVar(&addRuleParams.ProtectionPathWhitelist, "protection-path-whitelist", nil, " 保护路径白名单")
+	AddRuleCmd.Flags().StringSliceVar(&addRuleParams.UserWhitelist, "user-whitelist", nil, "用户白名单")
 }
-
 
 // AddRuleParams 请求参数
 type AddRuleParams struct {
-	Enable bool `json:"enable"` // 是否启用
-	Hosts []int `json:"hosts"` // 应用的主机列表
-	Mode int `json:"mode"` // 防护模式，0 阻断防护，1 模拟防护
-	Name string `json:"name"` // 规则名
-	OperationWhitelist []int `json:"operation_whitelist"` // 篡改行为白名单，0：修改，1：修改文件属性，2：创建，3：删除，4：移动（重命名），5：文件映射，6：硬链接
-	ProcessPathWhitelist []string `json:"process_path_whitelist"` // 进程白名单，包含可执行文件的绝对路径
-	ProtectionPath string `json:"protection_path"` // 保护路径
+	Enable                  bool     `json:"enable"`                    // 是否启用
+	Hosts                   []int    `json:"hosts"`                     // 应用的主机列表
+	Mode                    int      `json:"mode"`                      // 防护模式，0 阻断防护，1 模拟防护
+	Name                    string   `json:"name"`                      // 规则名
+	OperationWhitelist      []int    `json:"operation_whitelist"`       // 篡改行为白名单，0：修改，1：修改文件属性，2：创建，3：删除，4：移动（重命名），5：文件映射，6：硬链接
+	ProcessPathWhitelist    []string `json:"process_path_whitelist"`    // 进程白名单，包含可执行文件的绝对路径
+	ProtectionPath          string   `json:"protection_path"`           // 保护路径
 	ProtectionPathWhitelist []string `json:"protection_path_whitelist"` //  保护路径白名单
-	UserWhitelist []string `json:"user_whitelist"` // 用户白名单
+	UserWhitelist           []string `json:"user_whitelist"`            // 用户白名单
 }
-

@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,42 +29,40 @@ var ListSensitivePortRuleCmd = &cobra.Command{
 }
 
 func init() {
-		ListSensitivePortRuleCmd.Flags().IntVar(&listSensitivePortRuleParams.Count, "count", 20, "每页记录数量")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		ListSensitivePortRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		ListSensitivePortRuleCmd.Flags().BoolVar(&listSensitivePortRuleParams.Enable, "enable", false, "是否启用")
-		ListSensitivePortRuleCmd.Flags().StringSliceVar(&listSensitivePortRuleParams.HostComment, "host-comment", nil, "主机备注")
-		ListSensitivePortRuleCmd.Flags().Float64SliceVar(&listSensitivePortRuleParams.HostId, "host-id", nil, "主机ID")
-		ListSensitivePortRuleCmd.Flags().StringSliceVar(&listSensitivePortRuleParams.HostIp, "host-ip", nil, "主机IP")
-		ListSensitivePortRuleCmd.Flags().StringSliceVar(&listSensitivePortRuleParams.HostName, "host-name", nil, "主机名称")
-		ListSensitivePortRuleCmd.Flags().StringSliceVar(&listSensitivePortRuleParams.HostState, "host-state", nil, "主机状态")
-		ListSensitivePortRuleCmd.Flags().StringSliceVar(&listSensitivePortRuleParams.HostTag, "host-tag", nil, "主机标签")
-		ListSensitivePortRuleCmd.Flags().StringSliceVar(&listSensitivePortRuleParams.Id, "id", nil, "规则 ID")
-		ListSensitivePortRuleCmd.Flags().BoolVar(&listSensitivePortRuleParams.IsBuiltin, "is-builtin", false, "是否为内置规则")
-		ListSensitivePortRuleCmd.Flags().Float64SliceVar(&listSensitivePortRuleParams.Level, "level", nil, "风险等级")
-		ListSensitivePortRuleCmd.Flags().IntVar(&listSensitivePortRuleParams.Offset, "offset", 0, "页偏移")
-		ListSensitivePortRuleCmd.Flags().Float64SliceVar(&listSensitivePortRuleParams.Port, "port", nil, "端口")
-		ListSensitivePortRuleCmd.Flags().StringSliceVar(&listSensitivePortRuleParams.RuleName, "rule-name", nil, "规则名称")
+	ListSensitivePortRuleCmd.Flags().IntVar(&listSensitivePortRuleParams.Count, "count", 20, "每页记录数量")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	ListSensitivePortRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	ListSensitivePortRuleCmd.Flags().BoolVar(&listSensitivePortRuleParams.Enable, "enable", false, "是否启用")
+	ListSensitivePortRuleCmd.Flags().StringSliceVar(&listSensitivePortRuleParams.HostComment, "host-comment", nil, "主机备注")
+	ListSensitivePortRuleCmd.Flags().Float64SliceVar(&listSensitivePortRuleParams.HostId, "host-id", nil, "主机ID")
+	ListSensitivePortRuleCmd.Flags().StringSliceVar(&listSensitivePortRuleParams.HostIp, "host-ip", nil, "主机IP")
+	ListSensitivePortRuleCmd.Flags().StringSliceVar(&listSensitivePortRuleParams.HostName, "host-name", nil, "主机名称")
+	ListSensitivePortRuleCmd.Flags().StringSliceVar(&listSensitivePortRuleParams.HostState, "host-state", nil, "主机状态")
+	ListSensitivePortRuleCmd.Flags().StringSliceVar(&listSensitivePortRuleParams.HostTag, "host-tag", nil, "主机标签")
+	ListSensitivePortRuleCmd.Flags().StringSliceVar(&listSensitivePortRuleParams.Id, "id", nil, "规则 ID")
+	ListSensitivePortRuleCmd.Flags().BoolVar(&listSensitivePortRuleParams.IsBuiltin, "is-builtin", false, "是否为内置规则")
+	ListSensitivePortRuleCmd.Flags().Float64SliceVar(&listSensitivePortRuleParams.Level, "level", nil, "风险等级")
+	ListSensitivePortRuleCmd.Flags().IntVar(&listSensitivePortRuleParams.Offset, "offset", 0, "页偏移")
+	ListSensitivePortRuleCmd.Flags().Float64SliceVar(&listSensitivePortRuleParams.Port, "port", nil, "端口")
+	ListSensitivePortRuleCmd.Flags().StringSliceVar(&listSensitivePortRuleParams.RuleName, "rule-name", nil, "规则名称")
 }
-
 
 // ListSensitivePortRuleParams 请求参数
 type ListSensitivePortRuleParams struct {
-	Count int `json:"count"` // 每页记录数量
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Enable bool `json:"enable"` // 是否启用
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTag []string `json:"host_tag"` // 主机标签
-	Id []string `json:"id"` // 规则 ID
-	IsBuiltin bool `json:"is_builtin"` // 是否为内置规则
-	Level []float64 `json:"level"` // 风险等级
-	Offset int `json:"offset"` // 页偏移
-	Port []float64 `json:"port"` // 端口
-	RuleName []string `json:"rule_name"` // 规则名称
+	Count       int                      `json:"count"`        // 每页记录数量
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Enable      bool                     `json:"enable"`       // 是否启用
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机ID
+	HostIp      []string                 `json:"host_ip"`      // 主机IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTag     []string                 `json:"host_tag"`     // 主机标签
+	Id          []string                 `json:"id"`           // 规则 ID
+	IsBuiltin   bool                     `json:"is_builtin"`   // 是否为内置规则
+	Level       []float64                `json:"level"`        // 风险等级
+	Offset      int                      `json:"offset"`       // 页偏移
+	Port        []float64                `json:"port"`         // 端口
+	RuleName    []string                 `json:"rule_name"`    // 规则名称
 }
-

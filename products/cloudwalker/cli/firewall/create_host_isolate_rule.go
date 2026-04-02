@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,26 +29,24 @@ var CreateHostIsolateRuleCmd = &cobra.Command{
 }
 
 func init() {
-		CreateHostIsolateRuleCmd.Flags().Float64SliceVar(&createHostIsolateRuleParams.AgentRange, "agent-range", nil, "主机范围")
-		CreateHostIsolateRuleCmd.Flags().Float64SliceVar(&createHostIsolateRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		CreateHostIsolateRuleCmd.Flags().BoolVar(&createHostIsolateRuleParams.Enable, "enable", false, "是否开启规则")
-		CreateHostIsolateRuleCmd.Flags().BoolVar(&createHostIsolateRuleParams.Global, "global", false, "是否绑定全局探针")
-		CreateHostIsolateRuleCmd.Flags().StringVar(&createHostIsolateRuleParams.Link, "link", "", "隔离方向")
-		CreateHostIsolateRuleCmd.Flags().StringVar(&createHostIsolateRuleParams.Name, "name", "", "规则名")
-		CreateHostIsolateRuleCmd.Flags().StringSliceVar(&createHostIsolateRuleParams.WhiteIp, "white-ip", nil, "白名单IP")
-		CreateHostIsolateRuleCmd.Flags().StringSliceVar(&createHostIsolateRuleParams.WhitePort, "white-port", nil, "白名单端口范围")
+	CreateHostIsolateRuleCmd.Flags().Float64SliceVar(&createHostIsolateRuleParams.AgentRange, "agent-range", nil, "主机范围")
+	CreateHostIsolateRuleCmd.Flags().Float64SliceVar(&createHostIsolateRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	CreateHostIsolateRuleCmd.Flags().BoolVar(&createHostIsolateRuleParams.Enable, "enable", false, "是否开启规则")
+	CreateHostIsolateRuleCmd.Flags().BoolVar(&createHostIsolateRuleParams.Global, "global", false, "是否绑定全局探针")
+	CreateHostIsolateRuleCmd.Flags().StringVar(&createHostIsolateRuleParams.Link, "link", "", "隔离方向")
+	CreateHostIsolateRuleCmd.Flags().StringVar(&createHostIsolateRuleParams.Name, "name", "", "规则名")
+	CreateHostIsolateRuleCmd.Flags().StringSliceVar(&createHostIsolateRuleParams.WhiteIp, "white-ip", nil, "白名单IP")
+	CreateHostIsolateRuleCmd.Flags().StringSliceVar(&createHostIsolateRuleParams.WhitePort, "white-port", nil, "白名单端口范围")
 }
-
 
 // CreateHostIsolateRuleParams 请求参数
 type CreateHostIsolateRuleParams struct {
-	AgentRange []float64 `json:"agent_range"` // 主机范围
+	AgentRange         []float64 `json:"agent_range"`          // 主机范围
 	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Enable bool `json:"enable"` // 是否开启规则
-	Global bool `json:"global"` // 是否绑定全局探针
-	Link string `json:"link"` // 隔离方向
-	Name string `json:"name"` // 规则名
-	WhiteIp []string `json:"white_ip"` // 白名单IP
-	WhitePort []string `json:"white_port"` // 白名单端口范围
+	Enable             bool      `json:"enable"`               // 是否开启规则
+	Global             bool      `json:"global"`               // 是否绑定全局探针
+	Link               string    `json:"link"`                 // 隔离方向
+	Name               string    `json:"name"`                 // 规则名
+	WhiteIp            []string  `json:"white_ip"`             // 白名单IP
+	WhitePort          []string  `json:"white_port"`           // 白名单端口范围
 }
-

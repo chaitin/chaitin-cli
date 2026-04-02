@@ -3,8 +3,8 @@
 package crontab
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var StartSensitiveFilePlanCmd = &cobra.Command{
 }
 
 func init() {
-		StartSensitiveFilePlanCmd.Flags().IntSliceVar(&startSensitiveFilePlanParams.PlanId, "plan-id", nil, "计划 ID")
-		StartSensitiveFilePlanCmd.Flags().BoolVar(&startSensitiveFilePlanParams.SelectAll, "select-all", false, "筛选全部")
+	StartSensitiveFilePlanCmd.Flags().IntSliceVar(&startSensitiveFilePlanParams.PlanId, "plan-id", nil, "计划 ID")
+	StartSensitiveFilePlanCmd.Flags().BoolVar(&startSensitiveFilePlanParams.SelectAll, "select-all", false, "筛选全部")
 }
-
 
 // StartSensitiveFilePlanParams 请求参数
 type StartSensitiveFilePlanParams struct {
-	PlanId []int `json:"plan_id"` // 计划 ID
-	SelectAll bool `json:"select_all"` // 筛选全部
+	PlanId    []int `json:"plan_id"`    // 计划 ID
+	SelectAll bool  `json:"select_all"` // 筛选全部
 }
-

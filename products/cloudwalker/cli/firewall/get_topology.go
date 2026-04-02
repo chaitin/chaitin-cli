@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var GetTopologyCmd = &cobra.Command{
 }
 
 func init() {
-		// filter is object type, use JSON string
-		var filterJSON string
-		GetTopologyCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选条件 (JSON, e.g. {\"access_count\": 0.0, \"conn_kind\": [0.0], \"conn_type\": [0.0], \"...\": \"...\"})")
+	// filter is object type, use JSON string
+	var filterJSON string
+	GetTopologyCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选条件 (JSON, e.g. {\"access_count\": 0.0, \"conn_kind\": [0.0], \"conn_type\": [0.0], \"...\": \"...\"})")
 }
-
 
 // GetTopologyParams 请求参数
 type GetTopologyParams struct {
 	Filter map[string]interface{} `json:"filter"` // 筛选条件
 }
-

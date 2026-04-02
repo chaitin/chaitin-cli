@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,30 +29,28 @@ var CreateHoneypotRuleCmd = &cobra.Command{
 }
 
 func init() {
-		CreateHoneypotRuleCmd.Flags().Float64SliceVar(&createHoneypotRuleParams.AgentRange, "agent-range", nil, "主机范围")
-		CreateHoneypotRuleCmd.Flags().Float64SliceVar(&createHoneypotRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		CreateHoneypotRuleCmd.Flags().BoolVar(&createHoneypotRuleParams.Enable, "enable", false, "是否启用")
-		CreateHoneypotRuleCmd.Flags().BoolVar(&createHoneypotRuleParams.Global, "global", false, "是否绑定全局探针")
-		CreateHoneypotRuleCmd.Flags().StringVar(&createHoneypotRuleParams.HoneypotName, "honeypot-name", "", "蜜罐名称")
-		CreateHoneypotRuleCmd.Flags().StringSliceVar(&createHoneypotRuleParams.ListenAddr, "listen-addr", nil, "监听地址")
-		CreateHoneypotRuleCmd.Flags().StringVar(&createHoneypotRuleParams.Message, "message", "", "响应文本")
-		CreateHoneypotRuleCmd.Flags().StringVar(&createHoneypotRuleParams.Method, "method", "", "蜜罐类型")
-		CreateHoneypotRuleCmd.Flags().StringVar(&createHoneypotRuleParams.ProxyAddr, "proxy-addr", "", "流量转发地址")
-		CreateHoneypotRuleCmd.Flags().StringVar(&createHoneypotRuleParams.RuleName, "rule-name", "", "规则名称")
+	CreateHoneypotRuleCmd.Flags().Float64SliceVar(&createHoneypotRuleParams.AgentRange, "agent-range", nil, "主机范围")
+	CreateHoneypotRuleCmd.Flags().Float64SliceVar(&createHoneypotRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	CreateHoneypotRuleCmd.Flags().BoolVar(&createHoneypotRuleParams.Enable, "enable", false, "是否启用")
+	CreateHoneypotRuleCmd.Flags().BoolVar(&createHoneypotRuleParams.Global, "global", false, "是否绑定全局探针")
+	CreateHoneypotRuleCmd.Flags().StringVar(&createHoneypotRuleParams.HoneypotName, "honeypot-name", "", "蜜罐名称")
+	CreateHoneypotRuleCmd.Flags().StringSliceVar(&createHoneypotRuleParams.ListenAddr, "listen-addr", nil, "监听地址")
+	CreateHoneypotRuleCmd.Flags().StringVar(&createHoneypotRuleParams.Message, "message", "", "响应文本")
+	CreateHoneypotRuleCmd.Flags().StringVar(&createHoneypotRuleParams.Method, "method", "", "蜜罐类型")
+	CreateHoneypotRuleCmd.Flags().StringVar(&createHoneypotRuleParams.ProxyAddr, "proxy-addr", "", "流量转发地址")
+	CreateHoneypotRuleCmd.Flags().StringVar(&createHoneypotRuleParams.RuleName, "rule-name", "", "规则名称")
 }
-
 
 // CreateHoneypotRuleParams 请求参数
 type CreateHoneypotRuleParams struct {
-	AgentRange []float64 `json:"agent_range"` // 主机范围
+	AgentRange         []float64 `json:"agent_range"`          // 主机范围
 	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Enable bool `json:"enable"` // 是否启用
-	Global bool `json:"global"` // 是否绑定全局探针
-	HoneypotName string `json:"honeypot_name"` // 蜜罐名称
-	ListenAddr []string `json:"listen_addr"` // 监听地址
-	Message string `json:"message"` // 响应文本
-	Method string `json:"method"` // 蜜罐类型
-	ProxyAddr string `json:"proxy_addr"` // 流量转发地址
-	RuleName string `json:"rule_name"` // 规则名称
+	Enable             bool      `json:"enable"`               // 是否启用
+	Global             bool      `json:"global"`               // 是否绑定全局探针
+	HoneypotName       string    `json:"honeypot_name"`        // 蜜罐名称
+	ListenAddr         []string  `json:"listen_addr"`          // 监听地址
+	Message            string    `json:"message"`              // 响应文本
+	Method             string    `json:"method"`               // 蜜罐类型
+	ProxyAddr          string    `json:"proxy_addr"`           // 流量转发地址
+	RuleName           string    `json:"rule_name"`            // 规则名称
 }
-

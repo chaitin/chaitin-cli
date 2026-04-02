@@ -3,8 +3,8 @@
 package host_nic_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var GetHostNicCmd = &cobra.Command{
 }
 
 func init() {
-		GetHostNicCmd.Flags().IntVar(&getHostNicParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		GetHostNicCmd.Flags().IntVar(&getHostNicParams.HostId, "host-id", 0, "123")
-		GetHostNicCmd.Flags().IntVar(&getHostNicParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	GetHostNicCmd.Flags().IntVar(&getHostNicParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	GetHostNicCmd.Flags().IntVar(&getHostNicParams.HostId, "host-id", 0, "123")
+	GetHostNicCmd.Flags().IntVar(&getHostNicParams.Offset, "offset", 0, "页偏移, 默认为 0")
 }
-
 
 // GetHostNicParams 请求参数
 type GetHostNicParams struct {
-	Count int `json:"count"` // 每页记录数量, 默认为 20
+	Count  int `json:"count"`   // 每页记录数量, 默认为 20
 	HostId int `json:"host_id"` // 123
-	Offset int `json:"offset"` // 页偏移, 默认为 0
+	Offset int `json:"offset"`  // 页偏移, 默认为 0
 }
-

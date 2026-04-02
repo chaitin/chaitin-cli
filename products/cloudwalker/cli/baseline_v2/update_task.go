@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,30 +29,28 @@ var UpdateTaskCmd = &cobra.Command{
 }
 
 func init() {
-		UpdateTaskCmd.Flags().Float64SliceVar(&updateTaskParams.AgentRange, "agent-range", nil, "探针范围, null 为不修改, 留空为置空")
-		UpdateTaskCmd.Flags().Float64SliceVar(&updateTaskParams.BusinessGroupRange, "business-group-range", nil, "业务组范围, null 为不修改, 留空为置空")
-		UpdateTaskCmd.Flags().StringVar(&updateTaskParams.Comment, "comment", "", "备注, null 为不修改")
-		// cron is object type, use JSON string
-		var cronJSON string
-		UpdateTaskCmd.Flags().StringVar(&cronJSON, "cron", "", "计划定时器, null 为不修改 (JSON, e.g. {\"interval\": 1, \"now\": true, \"plan_time\": 1667461108.618155, \"trigger_method\": \"day\", \"week_selector\": [0]})")
-		UpdateTaskCmd.Flags().StringSliceVar(&updateTaskParams.HostTagRange, "host-tag-range", nil, "主机标签范围")
-		UpdateTaskCmd.Flags().IntVar(&updateTaskParams.Id, "id", 0, "任务 ID")
-		UpdateTaskCmd.Flags().StringVar(&updateTaskParams.Name, "name", "", "任务名称, null 为不修改")
-		UpdateTaskCmd.Flags().StringVar(&updateTaskParams.SetId, "set-id", "", "策略 ID, null 为不修改")
-		UpdateTaskCmd.Flags().IntVar(&updateTaskParams.Timeout, "timeout", 0, "最大运行时间(秒), null 为不修改")
+	UpdateTaskCmd.Flags().Float64SliceVar(&updateTaskParams.AgentRange, "agent-range", nil, "探针范围, null 为不修改, 留空为置空")
+	UpdateTaskCmd.Flags().Float64SliceVar(&updateTaskParams.BusinessGroupRange, "business-group-range", nil, "业务组范围, null 为不修改, 留空为置空")
+	UpdateTaskCmd.Flags().StringVar(&updateTaskParams.Comment, "comment", "", "备注, null 为不修改")
+	// cron is object type, use JSON string
+	var cronJSON string
+	UpdateTaskCmd.Flags().StringVar(&cronJSON, "cron", "", "计划定时器, null 为不修改 (JSON, e.g. {\"interval\": 1, \"now\": true, \"plan_time\": 1667461108.618155, \"trigger_method\": \"day\", \"week_selector\": [0]})")
+	UpdateTaskCmd.Flags().StringSliceVar(&updateTaskParams.HostTagRange, "host-tag-range", nil, "主机标签范围")
+	UpdateTaskCmd.Flags().IntVar(&updateTaskParams.Id, "id", 0, "任务 ID")
+	UpdateTaskCmd.Flags().StringVar(&updateTaskParams.Name, "name", "", "任务名称, null 为不修改")
+	UpdateTaskCmd.Flags().StringVar(&updateTaskParams.SetId, "set-id", "", "策略 ID, null 为不修改")
+	UpdateTaskCmd.Flags().IntVar(&updateTaskParams.Timeout, "timeout", 0, "最大运行时间(秒), null 为不修改")
 }
-
 
 // UpdateTaskParams 请求参数
 type UpdateTaskParams struct {
-	AgentRange []float64 `json:"agent_range"` // 探针范围, null 为不修改, 留空为置空
-	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围, null 为不修改, 留空为置空
-	Comment string `json:"comment"` // 备注, null 为不修改
-	Cron map[string]interface{} `json:"cron"` // 计划定时器, null 为不修改
-	HostTagRange []string `json:"host_tag_range"` // 主机标签范围
-	Id int `json:"id"` // 任务 ID
-	Name string `json:"name"` // 任务名称, null 为不修改
-	SetId string `json:"set_id"` // 策略 ID, null 为不修改
-	Timeout int `json:"timeout"` // 最大运行时间(秒), null 为不修改
+	AgentRange         []float64              `json:"agent_range"`          // 探针范围, null 为不修改, 留空为置空
+	BusinessGroupRange []float64              `json:"business_group_range"` // 业务组范围, null 为不修改, 留空为置空
+	Comment            string                 `json:"comment"`              // 备注, null 为不修改
+	Cron               map[string]interface{} `json:"cron"`                 // 计划定时器, null 为不修改
+	HostTagRange       []string               `json:"host_tag_range"`       // 主机标签范围
+	Id                 int                    `json:"id"`                   // 任务 ID
+	Name               string                 `json:"name"`                 // 任务名称, null 为不修改
+	SetId              string                 `json:"set_id"`               // 策略 ID, null 为不修改
+	Timeout            int                    `json:"timeout"`              // 最大运行时间(秒), null 为不修改
 }
-

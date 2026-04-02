@@ -3,8 +3,8 @@
 package agent_detector
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,38 +29,36 @@ var UninstallDetectorAgentCmd = &cobra.Command{
 }
 
 func init() {
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		UninstallDetectorAgentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		UninstallDetectorAgentCmd.Flags().Float64SliceVar(&uninstallDetectorAgentParams.GroupId, "group-id", nil, "业务组 ID")
-		UninstallDetectorAgentCmd.Flags().StringSliceVar(&uninstallDetectorAgentParams.HostComment, "host-comment", nil, "主机备注")
-		UninstallDetectorAgentCmd.Flags().Float64SliceVar(&uninstallDetectorAgentParams.HostId, "host-id", nil, "主机 ID")
-		UninstallDetectorAgentCmd.Flags().StringSliceVar(&uninstallDetectorAgentParams.HostIp, "host-ip", nil, "主机 IP")
-		UninstallDetectorAgentCmd.Flags().StringSliceVar(&uninstallDetectorAgentParams.HostName, "host-name", nil, "主机名称")
-		UninstallDetectorAgentCmd.Flags().StringSliceVar(&uninstallDetectorAgentParams.HostOsName, "host-os-name", nil, "主机操作系统名称")
-		UninstallDetectorAgentCmd.Flags().StringSliceVar(&uninstallDetectorAgentParams.HostState, "host-state", nil, "主机状态")
-		UninstallDetectorAgentCmd.Flags().StringSliceVar(&uninstallDetectorAgentParams.HostTags, "host-tags", nil, "主机标签")
-		UninstallDetectorAgentCmd.Flags().StringSliceVar(&uninstallDetectorAgentParams.InstalledAt, "installed-at", nil, "安装时间")
-		UninstallDetectorAgentCmd.Flags().BoolVar(&uninstallDetectorAgentParams.Newest, "newest", false, "是否是最新版本")
-		UninstallDetectorAgentCmd.Flags().StringSliceVar(&uninstallDetectorAgentParams.State, "state", nil, "探针状态")
-		UninstallDetectorAgentCmd.Flags().StringSliceVar(&uninstallDetectorAgentParams.UpgradedAt, "upgraded-at", nil, "升级时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	UninstallDetectorAgentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	UninstallDetectorAgentCmd.Flags().Float64SliceVar(&uninstallDetectorAgentParams.GroupId, "group-id", nil, "业务组 ID")
+	UninstallDetectorAgentCmd.Flags().StringSliceVar(&uninstallDetectorAgentParams.HostComment, "host-comment", nil, "主机备注")
+	UninstallDetectorAgentCmd.Flags().Float64SliceVar(&uninstallDetectorAgentParams.HostId, "host-id", nil, "主机 ID")
+	UninstallDetectorAgentCmd.Flags().StringSliceVar(&uninstallDetectorAgentParams.HostIp, "host-ip", nil, "主机 IP")
+	UninstallDetectorAgentCmd.Flags().StringSliceVar(&uninstallDetectorAgentParams.HostName, "host-name", nil, "主机名称")
+	UninstallDetectorAgentCmd.Flags().StringSliceVar(&uninstallDetectorAgentParams.HostOsName, "host-os-name", nil, "主机操作系统名称")
+	UninstallDetectorAgentCmd.Flags().StringSliceVar(&uninstallDetectorAgentParams.HostState, "host-state", nil, "主机状态")
+	UninstallDetectorAgentCmd.Flags().StringSliceVar(&uninstallDetectorAgentParams.HostTags, "host-tags", nil, "主机标签")
+	UninstallDetectorAgentCmd.Flags().StringSliceVar(&uninstallDetectorAgentParams.InstalledAt, "installed-at", nil, "安装时间")
+	UninstallDetectorAgentCmd.Flags().BoolVar(&uninstallDetectorAgentParams.Newest, "newest", false, "是否是最新版本")
+	UninstallDetectorAgentCmd.Flags().StringSliceVar(&uninstallDetectorAgentParams.State, "state", nil, "探针状态")
+	UninstallDetectorAgentCmd.Flags().StringSliceVar(&uninstallDetectorAgentParams.UpgradedAt, "upgraded-at", nil, "升级时间")
 }
-
 
 // UninstallDetectorAgentParams 请求参数
 type UninstallDetectorAgentParams struct {
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	GroupId []float64 `json:"group_id"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostOsName []string `json:"host_os_name"` // 主机操作系统名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	InstalledAt []string `json:"installed_at"` // 安装时间
-	Newest bool `json:"newest"` // 是否是最新版本
-	State []string `json:"state"` // 探针状态
-	UpgradedAt []string `json:"upgraded_at"` // 升级时间
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	GroupId     []float64                `json:"group_id"`     // 业务组 ID
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机 ID
+	HostIp      []string                 `json:"host_ip"`      // 主机 IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostOsName  []string                 `json:"host_os_name"` // 主机操作系统名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTags    []string                 `json:"host_tags"`    // 主机标签
+	InstalledAt []string                 `json:"installed_at"` // 安装时间
+	Newest      bool                     `json:"newest"`       // 是否是最新版本
+	State       []string                 `json:"state"`        // 探针状态
+	UpgradedAt  []string                 `json:"upgraded_at"`  // 升级时间
 }
-

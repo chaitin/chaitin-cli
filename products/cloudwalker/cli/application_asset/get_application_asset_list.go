@@ -3,8 +3,8 @@
 package application_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,58 +29,56 @@ var GetApplicationAssetListCmd = &cobra.Command{
 }
 
 func init() {
-		GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.App, "app", nil, "软件")
-		GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.Category, "category", nil, "分类")
-		GetApplicationAssetListCmd.Flags().IntVar(&getApplicationAssetListParams.Count, "count", 20, "数量")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetApplicationAssetListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		// filter is complex type []map[string]interface{}, use JSON string
-		var filterJSON string
-		GetApplicationAssetListCmd.Flags().StringVar(&filterJSON, "filter", "", "已选中的项目 (JSON, e.g. [{\"app\": \"windows_nt\", \"category\": \"系统库\", \"host_id\": 196, \"id\": 190823, \"version\": \"10.0.14393.447\"}])")
-		GetApplicationAssetListCmd.Flags().Float64SliceVar(&getApplicationAssetListParams.Gids, "gids", nil, "业务组 ID 列表")
-		GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.HostComment, "host-comment", nil, "主机备注")
-		GetApplicationAssetListCmd.Flags().Float64SliceVar(&getApplicationAssetListParams.HostId, "host-id", nil, "主机 ID")
-		GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.HostIp, "host-ip", nil, "主机 IP")
-		GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.HostName, "host-name", nil, "主机名称")
-		GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.HostState, "host-state", nil, "主机状态")
-		GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.HostTags, "host-tags", nil, "主机标签")
-		GetApplicationAssetListCmd.Flags().IntVar(&getApplicationAssetListParams.Offset, "offset", 0, "偏移量")
-		GetApplicationAssetListCmd.Flags().Float64SliceVar(&getApplicationAssetListParams.Oid, "oid", nil, "机构 ID")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetApplicationAssetListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.Path, "path", nil, "路径")
-		GetApplicationAssetListCmd.Flags().BoolSliceVar(&getApplicationAssetListParams.Running, "running", nil, "是否正在运行")
-		GetApplicationAssetListCmd.Flags().BoolVar(&getApplicationAssetListParams.SelectAll, "select-all", false, "是否选中所有")
-		GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.UpdatedAt, "updated-at", nil, "最近发现时间")
-		GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.Vendor, "vendor", nil, "产商")
-		GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.Version, "version", nil, "版本号")
+	GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.App, "app", nil, "软件")
+	GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.Category, "category", nil, "分类")
+	GetApplicationAssetListCmd.Flags().IntVar(&getApplicationAssetListParams.Count, "count", 20, "数量")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetApplicationAssetListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	// filter is complex type []map[string]interface{}, use JSON string
+	var filterJSON string
+	GetApplicationAssetListCmd.Flags().StringVar(&filterJSON, "filter", "", "已选中的项目 (JSON, e.g. [{\"app\": \"windows_nt\", \"category\": \"系统库\", \"host_id\": 196, \"id\": 190823, \"version\": \"10.0.14393.447\"}])")
+	GetApplicationAssetListCmd.Flags().Float64SliceVar(&getApplicationAssetListParams.Gids, "gids", nil, "业务组 ID 列表")
+	GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.HostComment, "host-comment", nil, "主机备注")
+	GetApplicationAssetListCmd.Flags().Float64SliceVar(&getApplicationAssetListParams.HostId, "host-id", nil, "主机 ID")
+	GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.HostIp, "host-ip", nil, "主机 IP")
+	GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.HostName, "host-name", nil, "主机名称")
+	GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.HostState, "host-state", nil, "主机状态")
+	GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.HostTags, "host-tags", nil, "主机标签")
+	GetApplicationAssetListCmd.Flags().IntVar(&getApplicationAssetListParams.Offset, "offset", 0, "偏移量")
+	GetApplicationAssetListCmd.Flags().Float64SliceVar(&getApplicationAssetListParams.Oid, "oid", nil, "机构 ID")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetApplicationAssetListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.Path, "path", nil, "路径")
+	GetApplicationAssetListCmd.Flags().BoolSliceVar(&getApplicationAssetListParams.Running, "running", nil, "是否正在运行")
+	GetApplicationAssetListCmd.Flags().BoolVar(&getApplicationAssetListParams.SelectAll, "select-all", false, "是否选中所有")
+	GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.UpdatedAt, "updated-at", nil, "最近发现时间")
+	GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.Vendor, "vendor", nil, "产商")
+	GetApplicationAssetListCmd.Flags().StringSliceVar(&getApplicationAssetListParams.Version, "version", nil, "版本号")
 }
-
 
 // GetApplicationAssetListParams 请求参数
 type GetApplicationAssetListParams struct {
-	App []string `json:"app"` // 软件
-	Category []string `json:"category"` // 分类
-	Count int `json:"count"` // 数量
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Filter []map[string]interface{} `json:"filter"` // 已选中的项目
-	Gids []float64 `json:"gids"` // 业务组 ID 列表
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Offset int `json:"offset"` // 偏移量
-	Oid []float64 `json:"oid"` // 机构 ID
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	Path []string `json:"path"` // 路径
-	Running []bool `json:"running"` // 是否正在运行
-	SelectAll bool `json:"select_all"` // 是否选中所有
-	UpdatedAt []string `json:"updated_at"` // 最近发现时间
-	Vendor []string `json:"vendor"` // 产商
-	Version []string `json:"version"` // 版本号
+	App         []string                 `json:"app"`          // 软件
+	Category    []string                 `json:"category"`     // 分类
+	Count       int                      `json:"count"`        // 数量
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Filter      []map[string]interface{} `json:"filter"`       // 已选中的项目
+	Gids        []float64                `json:"gids"`         // 业务组 ID 列表
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机 ID
+	HostIp      []string                 `json:"host_ip"`      // 主机 IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTags    []string                 `json:"host_tags"`    // 主机标签
+	Offset      int                      `json:"offset"`       // 偏移量
+	Oid         []float64                `json:"oid"`          // 机构 ID
+	OrderBy     map[string]interface{}   `json:"order_by"`     // 排序规则
+	Path        []string                 `json:"path"`         // 路径
+	Running     []bool                   `json:"running"`      // 是否正在运行
+	SelectAll   bool                     `json:"select_all"`   // 是否选中所有
+	UpdatedAt   []string                 `json:"updated_at"`   // 最近发现时间
+	Vendor      []string                 `json:"vendor"`       // 产商
+	Version     []string                 `json:"version"`      // 版本号
 }
-

@@ -3,8 +3,8 @@
 package patch_info
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,36 +29,34 @@ var GetPatchInfoListCmd = &cobra.Command{
 }
 
 func init() {
-		GetPatchInfoListCmd.Flags().StringSliceVar(&getPatchInfoListParams.AffectPackage, "affect-package", nil, "补丁影响软件包，模糊")
-		GetPatchInfoListCmd.Flags().StringSliceVar(&getPatchInfoListParams.AffectProduct, "affect-product", nil, "补丁影响发行版，模糊")
-		GetPatchInfoListCmd.Flags().IntVar(&getPatchInfoListParams.Count, "count", 20, "数量")
-		GetPatchInfoListCmd.Flags().StringSliceVar(&getPatchInfoListParams.Cve, "cve", nil, "CVE, 精确")
-		GetPatchInfoListCmd.Flags().Float64SliceVar(&getPatchInfoListParams.Level, "level", nil, "补丁风险等级(1-低危，2-中危，3-高危，4-严重)")
-		GetPatchInfoListCmd.Flags().StringSliceVar(&getPatchInfoListParams.Name, "name", nil, "补丁名称，模糊匹配")
-		GetPatchInfoListCmd.Flags().StringSliceVar(&getPatchInfoListParams.Number, "number", nil, "补丁号, 精确")
-		GetPatchInfoListCmd.Flags().IntVar(&getPatchInfoListParams.Offset, "offset", 0, "偏移量")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetPatchInfoListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetPatchInfoListCmd.Flags().StringSliceVar(&getPatchInfoListParams.PublishTime, "publish-time", nil, "发现时间")
-		GetPatchInfoListCmd.Flags().StringSliceVar(&getPatchInfoListParams.Triat, "triat", nil, "补丁特征, 精确")
-		GetPatchInfoListCmd.Flags().StringSliceVar(&getPatchInfoListParams.Type, "type", nil, "补丁类型")
+	GetPatchInfoListCmd.Flags().StringSliceVar(&getPatchInfoListParams.AffectPackage, "affect-package", nil, "补丁影响软件包，模糊")
+	GetPatchInfoListCmd.Flags().StringSliceVar(&getPatchInfoListParams.AffectProduct, "affect-product", nil, "补丁影响发行版，模糊")
+	GetPatchInfoListCmd.Flags().IntVar(&getPatchInfoListParams.Count, "count", 20, "数量")
+	GetPatchInfoListCmd.Flags().StringSliceVar(&getPatchInfoListParams.Cve, "cve", nil, "CVE, 精确")
+	GetPatchInfoListCmd.Flags().Float64SliceVar(&getPatchInfoListParams.Level, "level", nil, "补丁风险等级(1-低危，2-中危，3-高危，4-严重)")
+	GetPatchInfoListCmd.Flags().StringSliceVar(&getPatchInfoListParams.Name, "name", nil, "补丁名称，模糊匹配")
+	GetPatchInfoListCmd.Flags().StringSliceVar(&getPatchInfoListParams.Number, "number", nil, "补丁号, 精确")
+	GetPatchInfoListCmd.Flags().IntVar(&getPatchInfoListParams.Offset, "offset", 0, "偏移量")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetPatchInfoListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetPatchInfoListCmd.Flags().StringSliceVar(&getPatchInfoListParams.PublishTime, "publish-time", nil, "发现时间")
+	GetPatchInfoListCmd.Flags().StringSliceVar(&getPatchInfoListParams.Triat, "triat", nil, "补丁特征, 精确")
+	GetPatchInfoListCmd.Flags().StringSliceVar(&getPatchInfoListParams.Type, "type", nil, "补丁类型")
 }
-
 
 // GetPatchInfoListParams 请求参数
 type GetPatchInfoListParams struct {
-	AffectPackage []string `json:"affect_package"` // 补丁影响软件包，模糊
-	AffectProduct []string `json:"affect_product"` // 补丁影响发行版，模糊
-	Count int `json:"count"` // 数量
-	Cve []string `json:"cve"` // CVE, 精确
-	Level []float64 `json:"level"` // 补丁风险等级(1-低危，2-中危，3-高危，4-严重)
-	Name []string `json:"name"` // 补丁名称，模糊匹配
-	Number []string `json:"number"` // 补丁号, 精确
-	Offset int `json:"offset"` // 偏移量
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	PublishTime []string `json:"publish_time"` // 发现时间
-	Triat []string `json:"triat"` // 补丁特征, 精确
-	Type []string `json:"type"` // 补丁类型
+	AffectPackage []string               `json:"affect_package"` // 补丁影响软件包，模糊
+	AffectProduct []string               `json:"affect_product"` // 补丁影响发行版，模糊
+	Count         int                    `json:"count"`          // 数量
+	Cve           []string               `json:"cve"`            // CVE, 精确
+	Level         []float64              `json:"level"`          // 补丁风险等级(1-低危，2-中危，3-高危，4-严重)
+	Name          []string               `json:"name"`           // 补丁名称，模糊匹配
+	Number        []string               `json:"number"`         // 补丁号, 精确
+	Offset        int                    `json:"offset"`         // 偏移量
+	OrderBy       map[string]interface{} `json:"order_by"`       // 排序规则
+	PublishTime   []string               `json:"publish_time"`   // 发现时间
+	Triat         []string               `json:"triat"`          // 补丁特征, 精确
+	Type          []string               `json:"type"`           // 补丁类型
 }
-

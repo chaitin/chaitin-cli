@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var DeleteAttributesCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteAttributesCmd.Flags().StringSliceVar(&deleteAttributesParams.Name, "name", nil, "待删除属性名称")
+	DeleteAttributesCmd.Flags().StringSliceVar(&deleteAttributesParams.Name, "name", nil, "待删除属性名称")
 }
-
 
 // DeleteAttributesParams 请求参数
 type DeleteAttributesParams struct {
 	Name []string `json:"name"` // 待删除属性名称
 }
-

@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetSubtaskCmd = &cobra.Command{
 }
 
 func init() {
-		GetSubtaskCmd.Flags().IntVar(&getSubtaskParams.Id, "id", 0, "ID")
+	GetSubtaskCmd.Flags().IntVar(&getSubtaskParams.Id, "id", 0, "ID")
 }
-
 
 // GetSubtaskParams 请求参数
 type GetSubtaskParams struct {
 	Id int `json:"id"` // ID
 }
-

@@ -3,8 +3,8 @@
 package host_route_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var GetHostRouteCmd = &cobra.Command{
 }
 
 func init() {
-		GetHostRouteCmd.Flags().IntVar(&getHostRouteParams.Count, "count", 20, "数量")
-		GetHostRouteCmd.Flags().IntVar(&getHostRouteParams.HostId, "host-id", 0, "主机 ID")
-		GetHostRouteCmd.Flags().IntVar(&getHostRouteParams.Offset, "offset", 0, "偏移量")
+	GetHostRouteCmd.Flags().IntVar(&getHostRouteParams.Count, "count", 20, "数量")
+	GetHostRouteCmd.Flags().IntVar(&getHostRouteParams.HostId, "host-id", 0, "主机 ID")
+	GetHostRouteCmd.Flags().IntVar(&getHostRouteParams.Offset, "offset", 0, "偏移量")
 }
-
 
 // GetHostRouteParams 请求参数
 type GetHostRouteParams struct {
-	Count int `json:"count"` // 数量
+	Count  int `json:"count"`   // 数量
 	HostId int `json:"host_id"` // 主机 ID
-	Offset int `json:"offset"` // 偏移量
+	Offset int `json:"offset"`  // 偏移量
 }
-

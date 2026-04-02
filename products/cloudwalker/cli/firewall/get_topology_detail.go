@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,18 +29,16 @@ var GetTopologyDetailCmd = &cobra.Command{
 }
 
 func init() {
-		// filter is object type, use JSON string
-		var filterJSON string
-		GetTopologyDetailCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选条件 (JSON, e.g. {\"conn_type\": [0.0], \"dest\": {\"cidr\": \"\", \"group_id\": 0.0, \"group_name\": \"\", \"host_id\": 0.0, \"host_status\": \"\", \"host_tag\": [0.0], \"type\": 0.0}, \"dest_cidr\": [\"\"], \"...\": \"...\"})")
-		// page is object type, use JSON string
-		var pageJSON string
-		GetTopologyDetailCmd.Flags().StringVar(&pageJSON, "page", "", "分页参数 (JSON, e.g. {\"count\": 20, \"offset\": 0, \"order\": {\"column\": \"level\", \"order\": \"ASC\"}})")
+	// filter is object type, use JSON string
+	var filterJSON string
+	GetTopologyDetailCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选条件 (JSON, e.g. {\"conn_type\": [0.0], \"dest\": {\"cidr\": \"\", \"group_id\": 0.0, \"group_name\": \"\", \"host_id\": 0.0, \"host_status\": \"\", \"host_tag\": [0.0], \"type\": 0.0}, \"dest_cidr\": [\"\"], \"...\": \"...\"})")
+	// page is object type, use JSON string
+	var pageJSON string
+	GetTopologyDetailCmd.Flags().StringVar(&pageJSON, "page", "", "分页参数 (JSON, e.g. {\"count\": 20, \"offset\": 0, \"order\": {\"column\": \"level\", \"order\": \"ASC\"}})")
 }
-
 
 // GetTopologyDetailParams 请求参数
 type GetTopologyDetailParams struct {
 	Filter map[string]interface{} `json:"filter"` // 筛选条件
-	Page map[string]interface{} `json:"page"` // 分页参数
+	Page   map[string]interface{} `json:"page"`   // 分页参数
 }
-

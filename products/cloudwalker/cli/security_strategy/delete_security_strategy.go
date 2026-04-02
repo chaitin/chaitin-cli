@@ -3,8 +3,8 @@
 package security_strategy
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var DeleteSecurityStrategyCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteSecurityStrategyCmd.Flags().StringSliceVar(&deleteSecurityStrategyParams.Id, "id", nil, "策略 id")
-		DeleteSecurityStrategyCmd.Flags().StringSliceVar(&deleteSecurityStrategyParams.Name, "name", nil, "策略名称")
+	DeleteSecurityStrategyCmd.Flags().StringSliceVar(&deleteSecurityStrategyParams.Id, "id", nil, "策略 id")
+	DeleteSecurityStrategyCmd.Flags().StringSliceVar(&deleteSecurityStrategyParams.Name, "name", nil, "策略名称")
 }
-
 
 // DeleteSecurityStrategyParams 请求参数
 type DeleteSecurityStrategyParams struct {
-	Id []string `json:"id"` // 策略 id
+	Id   []string `json:"id"`   // 策略 id
 	Name []string `json:"name"` // 策略名称
 }
-

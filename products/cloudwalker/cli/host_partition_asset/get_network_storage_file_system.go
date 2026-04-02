@@ -3,14 +3,12 @@
 package host_partition_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetNetworkStorageFileSystemCmd = &cobra.Command{
 	Use:   "get_network_storage_file_system",
@@ -31,5 +29,3 @@ var GetNetworkStorageFileSystemCmd = &cobra.Command{
 func init() {
 
 }
-
-

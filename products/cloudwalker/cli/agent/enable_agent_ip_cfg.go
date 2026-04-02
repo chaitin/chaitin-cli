@@ -3,8 +3,8 @@
 package agent
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,38 +29,36 @@ var EnableAgentIpCfgCmd = &cobra.Command{
 }
 
 func init() {
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		EnableAgentIpCfgCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		EnableAgentIpCfgCmd.Flags().BoolSliceVar(&enableAgentIpCfgParams.Enable, "enable", nil, "是否启用")
-		EnableAgentIpCfgCmd.Flags().BoolVar(&enableAgentIpCfgParams.Enablement, "enablement", false, "启用或禁用")
-		EnableAgentIpCfgCmd.Flags().StringSliceVar(&enableAgentIpCfgParams.HostComment, "host-comment", nil, "主机备注")
-		EnableAgentIpCfgCmd.Flags().Float64SliceVar(&enableAgentIpCfgParams.HostId, "host-id", nil, "主机ID")
-		EnableAgentIpCfgCmd.Flags().StringSliceVar(&enableAgentIpCfgParams.HostIp, "host-ip", nil, "主机IP")
-		EnableAgentIpCfgCmd.Flags().StringSliceVar(&enableAgentIpCfgParams.HostName, "host-name", nil, "主机名称")
-		EnableAgentIpCfgCmd.Flags().StringSliceVar(&enableAgentIpCfgParams.HostState, "host-state", nil, "主机状态")
-		EnableAgentIpCfgCmd.Flags().StringSliceVar(&enableAgentIpCfgParams.HostTag, "host-tag", nil, "主机标签")
-		EnableAgentIpCfgCmd.Flags().IntSliceVar(&enableAgentIpCfgParams.Id, "id", nil, "规则 ID")
-		EnableAgentIpCfgCmd.Flags().StringSliceVar(&enableAgentIpCfgParams.Mode, "mode", nil, "匹配模式, ip_protocol || ip_range || interface")
-		EnableAgentIpCfgCmd.Flags().IntSliceVar(&enableAgentIpCfgParams.Oid, "oid", nil, "组织 ID")
-		EnableAgentIpCfgCmd.Flags().StringSliceVar(&enableAgentIpCfgParams.RuleName, "rule-name", nil, "规则名称")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	EnableAgentIpCfgCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	EnableAgentIpCfgCmd.Flags().BoolSliceVar(&enableAgentIpCfgParams.Enable, "enable", nil, "是否启用")
+	EnableAgentIpCfgCmd.Flags().BoolVar(&enableAgentIpCfgParams.Enablement, "enablement", false, "启用或禁用")
+	EnableAgentIpCfgCmd.Flags().StringSliceVar(&enableAgentIpCfgParams.HostComment, "host-comment", nil, "主机备注")
+	EnableAgentIpCfgCmd.Flags().Float64SliceVar(&enableAgentIpCfgParams.HostId, "host-id", nil, "主机ID")
+	EnableAgentIpCfgCmd.Flags().StringSliceVar(&enableAgentIpCfgParams.HostIp, "host-ip", nil, "主机IP")
+	EnableAgentIpCfgCmd.Flags().StringSliceVar(&enableAgentIpCfgParams.HostName, "host-name", nil, "主机名称")
+	EnableAgentIpCfgCmd.Flags().StringSliceVar(&enableAgentIpCfgParams.HostState, "host-state", nil, "主机状态")
+	EnableAgentIpCfgCmd.Flags().StringSliceVar(&enableAgentIpCfgParams.HostTag, "host-tag", nil, "主机标签")
+	EnableAgentIpCfgCmd.Flags().IntSliceVar(&enableAgentIpCfgParams.Id, "id", nil, "规则 ID")
+	EnableAgentIpCfgCmd.Flags().StringSliceVar(&enableAgentIpCfgParams.Mode, "mode", nil, "匹配模式, ip_protocol || ip_range || interface")
+	EnableAgentIpCfgCmd.Flags().IntSliceVar(&enableAgentIpCfgParams.Oid, "oid", nil, "组织 ID")
+	EnableAgentIpCfgCmd.Flags().StringSliceVar(&enableAgentIpCfgParams.RuleName, "rule-name", nil, "规则名称")
 }
-
 
 // EnableAgentIpCfgParams 请求参数
 type EnableAgentIpCfgParams struct {
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Enable []bool `json:"enable"` // 是否启用
-	Enablement bool `json:"enablement"` // 启用或禁用
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTag []string `json:"host_tag"` // 主机标签
-	Id []int `json:"id"` // 规则 ID
-	Mode []string `json:"mode"` // 匹配模式, ip_protocol || ip_range || interface
-	Oid []int `json:"oid"` // 组织 ID
-	RuleName []string `json:"rule_name"` // 规则名称
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Enable      []bool                   `json:"enable"`       // 是否启用
+	Enablement  bool                     `json:"enablement"`   // 启用或禁用
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机ID
+	HostIp      []string                 `json:"host_ip"`      // 主机IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTag     []string                 `json:"host_tag"`     // 主机标签
+	Id          []int                    `json:"id"`           // 规则 ID
+	Mode        []string                 `json:"mode"`         // 匹配模式, ip_protocol || ip_range || interface
+	Oid         []int                    `json:"oid"`          // 组织 ID
+	RuleName    []string                 `json:"rule_name"`    // 规则名称
 }
-

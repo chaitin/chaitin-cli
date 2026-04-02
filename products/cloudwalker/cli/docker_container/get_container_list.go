@@ -3,8 +3,8 @@
 package docker_container
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,62 +29,60 @@ var GetContainerListCmd = &cobra.Command{
 }
 
 func init() {
-		GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.ContainerId, "container-id", nil, "容器hashid")
-		GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.ContainerName, "container-name", nil, "容器名称")
-		GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.ContainerState, "container-state", nil, "容器状态")
-		GetContainerListCmd.Flags().IntVar(&getContainerListParams.Count, "count", 20, "数量")
-		GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.CreatedAt, "created-at", nil, "容器创建时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetContainerListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.FinishedAt, "finished-at", nil, "容器结束时间")
-		GetContainerListCmd.Flags().Float64SliceVar(&getContainerListParams.Gids, "gids", nil, "业务组 ID 列表")
-		GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.HostComment, "host-comment", nil, "主机备注")
-		GetContainerListCmd.Flags().Float64SliceVar(&getContainerListParams.HostId, "host-id", nil, "主机 ID")
-		GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.HostIp, "host-ip", nil, "主机 IP")
-		GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.HostName, "host-name", nil, "主机名称")
-		GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.HostState, "host-state", nil, "主机状态")
-		GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.HostTags, "host-tags", nil, "主机标签")
-		GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.ImageHashId, "image-hash-id", nil, "镜像hashid")
-		GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.ImageName, "image-name", nil, "镜像名称")
-		GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.MountDestination, "mount-destination", nil, "宿主机路径")
-		GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.MountSource, "mount-source", nil, "容器路径")
-		GetContainerListCmd.Flags().IntVar(&getContainerListParams.Offset, "offset", 0, "偏移量")
-		GetContainerListCmd.Flags().Float64SliceVar(&getContainerListParams.Oid, "oid", nil, "机构 ID")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetContainerListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.PrivatePort, "private-port", nil, "容器端口")
-		GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.PublicPort, "public-port", nil, "宿主机端口")
-		GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.StartedAt, "started-at", nil, "容器开始时间")
+	GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.ContainerId, "container-id", nil, "容器hashid")
+	GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.ContainerName, "container-name", nil, "容器名称")
+	GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.ContainerState, "container-state", nil, "容器状态")
+	GetContainerListCmd.Flags().IntVar(&getContainerListParams.Count, "count", 20, "数量")
+	GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.CreatedAt, "created-at", nil, "容器创建时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetContainerListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.FinishedAt, "finished-at", nil, "容器结束时间")
+	GetContainerListCmd.Flags().Float64SliceVar(&getContainerListParams.Gids, "gids", nil, "业务组 ID 列表")
+	GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.HostComment, "host-comment", nil, "主机备注")
+	GetContainerListCmd.Flags().Float64SliceVar(&getContainerListParams.HostId, "host-id", nil, "主机 ID")
+	GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.HostIp, "host-ip", nil, "主机 IP")
+	GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.HostName, "host-name", nil, "主机名称")
+	GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.HostState, "host-state", nil, "主机状态")
+	GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.HostTags, "host-tags", nil, "主机标签")
+	GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.ImageHashId, "image-hash-id", nil, "镜像hashid")
+	GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.ImageName, "image-name", nil, "镜像名称")
+	GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.MountDestination, "mount-destination", nil, "宿主机路径")
+	GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.MountSource, "mount-source", nil, "容器路径")
+	GetContainerListCmd.Flags().IntVar(&getContainerListParams.Offset, "offset", 0, "偏移量")
+	GetContainerListCmd.Flags().Float64SliceVar(&getContainerListParams.Oid, "oid", nil, "机构 ID")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetContainerListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.PrivatePort, "private-port", nil, "容器端口")
+	GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.PublicPort, "public-port", nil, "宿主机端口")
+	GetContainerListCmd.Flags().StringSliceVar(&getContainerListParams.StartedAt, "started-at", nil, "容器开始时间")
 }
-
 
 // GetContainerListParams 请求参数
 type GetContainerListParams struct {
-	ContainerId []string `json:"container_id"` // 容器hashid
-	ContainerName []string `json:"container_name"` // 容器名称
-	ContainerState []string `json:"container_state"` // 容器状态
-	Count int `json:"count"` // 数量
-	CreatedAt []string `json:"created_at"` // 容器创建时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	FinishedAt []string `json:"finished_at"` // 容器结束时间
-	Gids []float64 `json:"gids"` // 业务组 ID 列表
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	ImageHashId []string `json:"image_hash_id"` // 镜像hashid
-	ImageName []string `json:"image_name"` // 镜像名称
-	MountDestination []string `json:"mount_destination"` // 宿主机路径
-	MountSource []string `json:"mount_source"` // 容器路径
-	Offset int `json:"offset"` // 偏移量
-	Oid []float64 `json:"oid"` // 机构 ID
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	PrivatePort []string `json:"private_port"` // 容器端口
-	PublicPort []string `json:"public_port"` // 宿主机端口
-	StartedAt []string `json:"started_at"` // 容器开始时间
+	ContainerId      []string                 `json:"container_id"`      // 容器hashid
+	ContainerName    []string                 `json:"container_name"`    // 容器名称
+	ContainerState   []string                 `json:"container_state"`   // 容器状态
+	Count            int                      `json:"count"`             // 数量
+	CreatedAt        []string                 `json:"created_at"`        // 容器创建时间
+	CustomAttr       []map[string]interface{} `json:"custom_attr"`       // 主机业务属性
+	FinishedAt       []string                 `json:"finished_at"`       // 容器结束时间
+	Gids             []float64                `json:"gids"`              // 业务组 ID 列表
+	HostComment      []string                 `json:"host_comment"`      // 主机备注
+	HostId           []float64                `json:"host_id"`           // 主机 ID
+	HostIp           []string                 `json:"host_ip"`           // 主机 IP
+	HostName         []string                 `json:"host_name"`         // 主机名称
+	HostState        []string                 `json:"host_state"`        // 主机状态
+	HostTags         []string                 `json:"host_tags"`         // 主机标签
+	ImageHashId      []string                 `json:"image_hash_id"`     // 镜像hashid
+	ImageName        []string                 `json:"image_name"`        // 镜像名称
+	MountDestination []string                 `json:"mount_destination"` // 宿主机路径
+	MountSource      []string                 `json:"mount_source"`      // 容器路径
+	Offset           int                      `json:"offset"`            // 偏移量
+	Oid              []float64                `json:"oid"`               // 机构 ID
+	OrderBy          map[string]interface{}   `json:"order_by"`          // 排序规则
+	PrivatePort      []string                 `json:"private_port"`      // 容器端口
+	PublicPort       []string                 `json:"public_port"`       // 宿主机端口
+	StartedAt        []string                 `json:"started_at"`        // 容器开始时间
 }
-

@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetWhitelistRequestCmd = &cobra.Command{
 }
 
 func init() {
-		GetWhitelistRequestCmd.Flags().Float64Var(&getWhitelistRequestParams.SubtaskId, "subtask-id", 0, "子任务 ID")
+	GetWhitelistRequestCmd.Flags().Float64Var(&getWhitelistRequestParams.SubtaskId, "subtask-id", 0, "子任务 ID")
 }
-
 
 // GetWhitelistRequestParams 请求参数
 type GetWhitelistRequestParams struct {
 	SubtaskId float64 `json:"subtask_id"` // 子任务 ID
 }
-

@@ -3,14 +3,12 @@
 package admin_strategy
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetLoginControlStrategyCmd = &cobra.Command{
 	Use:   "get_login_control_strategy",
@@ -31,5 +29,3 @@ var GetLoginControlStrategyCmd = &cobra.Command{
 func init() {
 
 }
-
-

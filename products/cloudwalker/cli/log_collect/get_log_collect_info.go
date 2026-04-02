@@ -3,8 +3,8 @@
 package log_collect
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetLogCollectInfoCmd = &cobra.Command{
 }
 
 func init() {
-		GetLogCollectInfoCmd.Flags().StringVar(&getLogCollectInfoParams.Id, "id", "", "日志采集 ID")
+	GetLogCollectInfoCmd.Flags().StringVar(&getLogCollectInfoParams.Id, "id", "", "日志采集 ID")
 }
-
 
 // GetLogCollectInfoParams 请求参数
 type GetLogCollectInfoParams struct {
 	Id string `json:"id"` // 日志采集 ID
 }
-

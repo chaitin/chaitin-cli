@@ -3,8 +3,8 @@
 package patch_info_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,68 +29,66 @@ var StatPatchInfoEventByPatchInfoCmd = &cobra.Command{
 }
 
 func init() {
-		StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.AffectPackage, "affect-package", nil, "受影响的软件包")
-		StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.Comment, "comment", nil, "用户自定义备注")
-		StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.CreatedAt, "created-at", nil, "创建时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		StatPatchInfoEventByPatchInfoCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.Cve, "cve", nil, "CVE 编号")
-		StatPatchInfoEventByPatchInfoCmd.Flags().Float64SliceVar(&statPatchInfoEventByPatchInfoParams.Gids, "gids", nil, "业务组 ID")
-		StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.GroupName, "group-name", nil, "业务组名")
-		StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.HostComment, "host-comment", nil, "主机备注")
-		StatPatchInfoEventByPatchInfoCmd.Flags().Float64SliceVar(&statPatchInfoEventByPatchInfoParams.HostId, "host-id", nil, "主机 ID")
-		StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.HostIp, "host-ip", nil, "主机 IP")
-		StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.HostName, "host-name", nil, "主机名称")
-		StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.HostState, "host-state", nil, "主机状态")
-		StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.HostTags, "host-tags", nil, "主机标签")
-		StatPatchInfoEventByPatchInfoCmd.Flags().Float64SliceVar(&statPatchInfoEventByPatchInfoParams.Id, "id", nil, "ID 用来在任务完成后按id筛选")
-		StatPatchInfoEventByPatchInfoCmd.Flags().Float64SliceVar(&statPatchInfoEventByPatchInfoParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.Name, "name", nil, "补丁名称")
-		StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.Number, "number", nil, "kb number")
-		StatPatchInfoEventByPatchInfoCmd.Flags().Float64SliceVar(&statPatchInfoEventByPatchInfoParams.Oid, "oid", nil, "oid")
-		StatPatchInfoEventByPatchInfoCmd.Flags().Float64SliceVar(&statPatchInfoEventByPatchInfoParams.PatchState, "patch-state", nil, "事件状态(1-risky,2-ignored,3-fixed,4-fixing,5-fix_failed)")
-		StatPatchInfoEventByPatchInfoCmd.Flags().Float64SliceVar(&statPatchInfoEventByPatchInfoParams.PlanId, "plan-id", nil, "计划ID")
-		StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.PublishTime, "publish-time", nil, "补丁发布时间")
-		// select is object type, use JSON string
-		var selectJSON string
-		StatPatchInfoEventByPatchInfoCmd.Flags().StringVar(&selectJSON, "select", "", "选项 (JSON, e.g. {})")
-		StatPatchInfoEventByPatchInfoCmd.Flags().BoolVar(&statPatchInfoEventByPatchInfoParams.SelectAll, "select-all", false, "是否全选")
-		StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.Trait, "trait", nil, "特征")
-		StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.Type, "type", nil, "补丁类型 KB/Ubuntu")
-		StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.UpdatedAt, "updated-at", nil, "更新时间")
-		StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.AffectPackage, "affect-package", nil, "受影响的软件包")
+	StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.Comment, "comment", nil, "用户自定义备注")
+	StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.CreatedAt, "created-at", nil, "创建时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	StatPatchInfoEventByPatchInfoCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.Cve, "cve", nil, "CVE 编号")
+	StatPatchInfoEventByPatchInfoCmd.Flags().Float64SliceVar(&statPatchInfoEventByPatchInfoParams.Gids, "gids", nil, "业务组 ID")
+	StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.GroupName, "group-name", nil, "业务组名")
+	StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.HostComment, "host-comment", nil, "主机备注")
+	StatPatchInfoEventByPatchInfoCmd.Flags().Float64SliceVar(&statPatchInfoEventByPatchInfoParams.HostId, "host-id", nil, "主机 ID")
+	StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.HostIp, "host-ip", nil, "主机 IP")
+	StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.HostName, "host-name", nil, "主机名称")
+	StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.HostState, "host-state", nil, "主机状态")
+	StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.HostTags, "host-tags", nil, "主机标签")
+	StatPatchInfoEventByPatchInfoCmd.Flags().Float64SliceVar(&statPatchInfoEventByPatchInfoParams.Id, "id", nil, "ID 用来在任务完成后按id筛选")
+	StatPatchInfoEventByPatchInfoCmd.Flags().Float64SliceVar(&statPatchInfoEventByPatchInfoParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.Name, "name", nil, "补丁名称")
+	StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.Number, "number", nil, "kb number")
+	StatPatchInfoEventByPatchInfoCmd.Flags().Float64SliceVar(&statPatchInfoEventByPatchInfoParams.Oid, "oid", nil, "oid")
+	StatPatchInfoEventByPatchInfoCmd.Flags().Float64SliceVar(&statPatchInfoEventByPatchInfoParams.PatchState, "patch-state", nil, "事件状态(1-risky,2-ignored,3-fixed,4-fixing,5-fix_failed)")
+	StatPatchInfoEventByPatchInfoCmd.Flags().Float64SliceVar(&statPatchInfoEventByPatchInfoParams.PlanId, "plan-id", nil, "计划ID")
+	StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.PublishTime, "publish-time", nil, "补丁发布时间")
+	// select is object type, use JSON string
+	var selectJSON string
+	StatPatchInfoEventByPatchInfoCmd.Flags().StringVar(&selectJSON, "select", "", "选项 (JSON, e.g. {})")
+	StatPatchInfoEventByPatchInfoCmd.Flags().BoolVar(&statPatchInfoEventByPatchInfoParams.SelectAll, "select-all", false, "是否全选")
+	StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.Trait, "trait", nil, "特征")
+	StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.Type, "type", nil, "补丁类型 KB/Ubuntu")
+	StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.UpdatedAt, "updated-at", nil, "更新时间")
+	StatPatchInfoEventByPatchInfoCmd.Flags().StringSliceVar(&statPatchInfoEventByPatchInfoParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // StatPatchInfoEventByPatchInfoParams 请求参数
 type StatPatchInfoEventByPatchInfoParams struct {
-	AffectPackage []string `json:"affect_package"` // 受影响的软件包
-	Comment []string `json:"comment"` // 用户自定义备注
-	CreatedAt []string `json:"created_at"` // 创建时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Cve []string `json:"cve"` // CVE 编号
-	Gids []float64 `json:"gids"` // 业务组 ID
-	GroupName []string `json:"group_name"` // 业务组名
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Id []float64 `json:"id"` // ID 用来在任务完成后按id筛选
-	Level []float64 `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	Name []string `json:"name"` // 补丁名称
-	Number []string `json:"number"` // kb number
-	Oid []float64 `json:"oid"` // oid
-	PatchState []float64 `json:"patch_state"` // 事件状态(1-risky,2-ignored,3-fixed,4-fixing,5-fix_failed)
-	PlanId []float64 `json:"plan_id"` // 计划ID
-	PublishTime []string `json:"publish_time"` // 补丁发布时间
-	Select map[string]interface{} `json:"select"` // 选项
-	SelectAll bool `json:"select_all"` // 是否全选
-	Trait []string `json:"trait"` // 特征
-	Type []string `json:"type"` // 补丁类型 KB/Ubuntu
-	UpdatedAt []string `json:"updated_at"` // 更新时间
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	AffectPackage []string                 `json:"affect_package"` // 受影响的软件包
+	Comment       []string                 `json:"comment"`        // 用户自定义备注
+	CreatedAt     []string                 `json:"created_at"`     // 创建时间
+	CustomAttr    []map[string]interface{} `json:"custom_attr"`    // 主机业务属性
+	Cve           []string                 `json:"cve"`            // CVE 编号
+	Gids          []float64                `json:"gids"`           // 业务组 ID
+	GroupName     []string                 `json:"group_name"`     // 业务组名
+	HostComment   []string                 `json:"host_comment"`   // 主机备注
+	HostId        []float64                `json:"host_id"`        // 主机 ID
+	HostIp        []string                 `json:"host_ip"`        // 主机 IP
+	HostName      []string                 `json:"host_name"`      // 主机名称
+	HostState     []string                 `json:"host_state"`     // 主机状态
+	HostTags      []string                 `json:"host_tags"`      // 主机标签
+	Id            []float64                `json:"id"`             // ID 用来在任务完成后按id筛选
+	Level         []float64                `json:"level"`          // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	Name          []string                 `json:"name"`           // 补丁名称
+	Number        []string                 `json:"number"`         // kb number
+	Oid           []float64                `json:"oid"`            // oid
+	PatchState    []float64                `json:"patch_state"`    // 事件状态(1-risky,2-ignored,3-fixed,4-fixing,5-fix_failed)
+	PlanId        []float64                `json:"plan_id"`        // 计划ID
+	PublishTime   []string                 `json:"publish_time"`   // 补丁发布时间
+	Select        map[string]interface{}   `json:"select"`         // 选项
+	SelectAll     bool                     `json:"select_all"`     // 是否全选
+	Trait         []string                 `json:"trait"`          // 特征
+	Type          []string                 `json:"type"`           // 补丁类型 KB/Ubuntu
+	UpdatedAt     []string                 `json:"updated_at"`     // 更新时间
+	WhiteRuleId   []string                 `json:"white_rule_id"`  // 白名单规则 ID
 }
-

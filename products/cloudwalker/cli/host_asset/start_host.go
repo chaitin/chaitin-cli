@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,124 +29,122 @@ var StartHostCmd = &cobra.Command{
 }
 
 func init() {
-		StartHostCmd.Flags().Float64SliceVar(&startHostParams.AgentInstallPlanId, "agent-install-plan-id", nil, "探针升级任务 ID")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.BashState, "bash-state", nil, "安全bash")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.BashVersion, "bash-version", nil, "安全bash版本")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.CapacityEnhancementDriveState, "capacity-enhancement-drive-state", nil, "能力增强驱动安装状态")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.CapacityEnhancementDriveVersion, "capacity-enhancement-drive-version", nil, "能力增强版本")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.Comment, "comment", nil, "本主")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.ConnectionMethod, "connection-method", nil, "探针连接方式：直接连接（待确认）、直接连接、正向代理、反向代理、正向+反向代理")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.Cpu, "cpu", nil, "探针cpu float")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.CpuCore, "cpu-core", nil, "CPU核心数")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.CreatedAt, "created-at", nil, "安装时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		StartHostCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		StartHostCmd.Flags().BoolVar(&startHostParams.EnableAutoDowngrade, "enable-auto-downgrade", false, "是否启用自动降级")
-		StartHostCmd.Flags().BoolVar(&startHostParams.EnableNetConnCollect, "enable-net-conn-collect", false, "是否启用连接采集")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.ExposedIp, "exposed-ip", nil, "主机 外网 IP")
-		StartHostCmd.Flags().Float64SliceVar(&startHostParams.Gids, "gids", nil, "业务组 ID")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.HostCpu, "host-cpu", nil, "主机CPU")
-		StartHostCmd.Flags().Float64SliceVar(&startHostParams.HostId, "host-id", nil, "主机 ID")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.HostIp, "host-ip", nil, "主机 IP")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.HostMemory, "host-memory", nil, "主机内存")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.HostName, "host-name", nil, "主机名")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.HostState, "host-state", nil, "探针状态")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.HostUptime, "host-uptime", nil, "主机开机时长(单位s)")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.InternalIp, "internal-ip", nil, "主机")
-		StartHostCmd.Flags().BoolVar(&startHostParams.IsOnline, "is-online", false, "是否在线")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.KernelVersion, "kernel-version", nil, "系统内核 (这个精确匹配不太适当)")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.LastOfflineDetectAt, "last-offline-detect-at", nil, "最近离线探测时间")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.LastOfflineReason, "last-offline-reason", nil, "最近离线原因")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.LastSeenAt, "last-seen-at", nil, "最后心跳时间")
-		StartHostCmd.Flags().Float64SliceVar(&startHostParams.LogLevel, "log-level", nil, "日志级别")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.LogSize, "log-size", nil, "日志存储量")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.MemSize, "mem-size", nil, "内存容量GB范围")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.Memory, "memory", nil, "探针内存, float")
-		StartHostCmd.Flags().Float64SliceVar(&startHostParams.OfflineDetectPlanId, "offline-detect-plan-id", nil, "离线探针任务 ID")
-		StartHostCmd.Flags().Float64SliceVar(&startHostParams.Oid, "oid", nil, "组织 ID")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.OrgName, "org-name", nil, "组织名称")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.Os, "os", nil, "主机操作系统")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.OsReleaseVersion, "os-release-version", nil, "系统版本")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.OverloadCpu, "overload-cpu", nil, "CPU 自动休眠阈值")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.OverloadMemory, "overload-memory", nil, "内存自动休眠阈值")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.ProxyAddress, "proxy-address", nil, "探针的代理地址（若该字段不为空，说明存在正向代理）")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.ResLimitCpu, "res-limit-cpu", nil, "CPU 资源限制")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.ResLimitDisk, "res-limit-disk", nil, "磁盘资源限制")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.ResLimitMemory, "res-limit-memory", nil, "内存资源限制")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.ResLimitNetwork, "res-limit-network", nil, "网络资源限制")
-		// select is complex type []map[string]interface{}, use JSON string
-		var selectJSON string
-		StartHostCmd.Flags().StringVar(&selectJSON, "select", "", "选择项目 (JSON, e.g. [{\"id\": 196}])")
-		StartHostCmd.Flags().BoolVar(&startHostParams.SelectAll, "select-all", false, "是否选取所有")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.ServerAddresses, "server-addresses", nil, "探针连接的服务端的地址（若该字段不是真正的服务端地址，说明存在反向代理）")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.Tags, "tags", nil, "特征")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.UpTime, "up-time", nil, "运行时间（秒范围）")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.UpgradeStatus, "upgrade-status", nil, "升级状态")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.VeinmindProtectAgentState, "veinmind-protect-agent-state", nil, "本地防护探针状态")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.VeinmindProtectAgentVersion, "veinmind-protect-agent-version", nil, "本地防护探针版本")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.VeinmindScanAgentState, "veinmind-scan-agent-state", nil, "旁路扫描探针状态")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.VeinmindScanAgentVersion, "veinmind-scan-agent-version", nil, "旁路扫描探针版本")
-		StartHostCmd.Flags().StringSliceVar(&startHostParams.Version, "version", nil, "探针版本")
+	StartHostCmd.Flags().Float64SliceVar(&startHostParams.AgentInstallPlanId, "agent-install-plan-id", nil, "探针升级任务 ID")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.BashState, "bash-state", nil, "安全bash")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.BashVersion, "bash-version", nil, "安全bash版本")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.CapacityEnhancementDriveState, "capacity-enhancement-drive-state", nil, "能力增强驱动安装状态")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.CapacityEnhancementDriveVersion, "capacity-enhancement-drive-version", nil, "能力增强版本")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.Comment, "comment", nil, "本主")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.ConnectionMethod, "connection-method", nil, "探针连接方式：直接连接（待确认）、直接连接、正向代理、反向代理、正向+反向代理")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.Cpu, "cpu", nil, "探针cpu float")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.CpuCore, "cpu-core", nil, "CPU核心数")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.CreatedAt, "created-at", nil, "安装时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	StartHostCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	StartHostCmd.Flags().BoolVar(&startHostParams.EnableAutoDowngrade, "enable-auto-downgrade", false, "是否启用自动降级")
+	StartHostCmd.Flags().BoolVar(&startHostParams.EnableNetConnCollect, "enable-net-conn-collect", false, "是否启用连接采集")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.ExposedIp, "exposed-ip", nil, "主机 外网 IP")
+	StartHostCmd.Flags().Float64SliceVar(&startHostParams.Gids, "gids", nil, "业务组 ID")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.HostCpu, "host-cpu", nil, "主机CPU")
+	StartHostCmd.Flags().Float64SliceVar(&startHostParams.HostId, "host-id", nil, "主机 ID")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.HostIp, "host-ip", nil, "主机 IP")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.HostMemory, "host-memory", nil, "主机内存")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.HostName, "host-name", nil, "主机名")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.HostState, "host-state", nil, "探针状态")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.HostUptime, "host-uptime", nil, "主机开机时长(单位s)")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.InternalIp, "internal-ip", nil, "主机")
+	StartHostCmd.Flags().BoolVar(&startHostParams.IsOnline, "is-online", false, "是否在线")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.KernelVersion, "kernel-version", nil, "系统内核 (这个精确匹配不太适当)")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.LastOfflineDetectAt, "last-offline-detect-at", nil, "最近离线探测时间")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.LastOfflineReason, "last-offline-reason", nil, "最近离线原因")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.LastSeenAt, "last-seen-at", nil, "最后心跳时间")
+	StartHostCmd.Flags().Float64SliceVar(&startHostParams.LogLevel, "log-level", nil, "日志级别")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.LogSize, "log-size", nil, "日志存储量")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.MemSize, "mem-size", nil, "内存容量GB范围")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.Memory, "memory", nil, "探针内存, float")
+	StartHostCmd.Flags().Float64SliceVar(&startHostParams.OfflineDetectPlanId, "offline-detect-plan-id", nil, "离线探针任务 ID")
+	StartHostCmd.Flags().Float64SliceVar(&startHostParams.Oid, "oid", nil, "组织 ID")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.OrgName, "org-name", nil, "组织名称")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.Os, "os", nil, "主机操作系统")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.OsReleaseVersion, "os-release-version", nil, "系统版本")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.OverloadCpu, "overload-cpu", nil, "CPU 自动休眠阈值")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.OverloadMemory, "overload-memory", nil, "内存自动休眠阈值")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.ProxyAddress, "proxy-address", nil, "探针的代理地址（若该字段不为空，说明存在正向代理）")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.ResLimitCpu, "res-limit-cpu", nil, "CPU 资源限制")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.ResLimitDisk, "res-limit-disk", nil, "磁盘资源限制")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.ResLimitMemory, "res-limit-memory", nil, "内存资源限制")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.ResLimitNetwork, "res-limit-network", nil, "网络资源限制")
+	// select is complex type []map[string]interface{}, use JSON string
+	var selectJSON string
+	StartHostCmd.Flags().StringVar(&selectJSON, "select", "", "选择项目 (JSON, e.g. [{\"id\": 196}])")
+	StartHostCmd.Flags().BoolVar(&startHostParams.SelectAll, "select-all", false, "是否选取所有")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.ServerAddresses, "server-addresses", nil, "探针连接的服务端的地址（若该字段不是真正的服务端地址，说明存在反向代理）")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.Tags, "tags", nil, "特征")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.UpTime, "up-time", nil, "运行时间（秒范围）")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.UpgradeStatus, "upgrade-status", nil, "升级状态")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.VeinmindProtectAgentState, "veinmind-protect-agent-state", nil, "本地防护探针状态")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.VeinmindProtectAgentVersion, "veinmind-protect-agent-version", nil, "本地防护探针版本")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.VeinmindScanAgentState, "veinmind-scan-agent-state", nil, "旁路扫描探针状态")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.VeinmindScanAgentVersion, "veinmind-scan-agent-version", nil, "旁路扫描探针版本")
+	StartHostCmd.Flags().StringSliceVar(&startHostParams.Version, "version", nil, "探针版本")
 }
-
 
 // StartHostParams 请求参数
 type StartHostParams struct {
-	AgentInstallPlanId []float64 `json:"agent_install_plan_id"` // 探针升级任务 ID
-	BashState []string `json:"bash_state"` // 安全bash
-	BashVersion []string `json:"bash_version"` // 安全bash版本
-	CapacityEnhancementDriveState []string `json:"capacity_enhancement_drive_state"` // 能力增强驱动安装状态
-	CapacityEnhancementDriveVersion []string `json:"capacity_enhancement_drive_version"` // 能力增强版本
-	Comment []string `json:"comment"` // 本主
-	ConnectionMethod []string `json:"connection_method"` // 探针连接方式：直接连接（待确认）、直接连接、正向代理、反向代理、正向+反向代理
-	Cpu []string `json:"cpu"` // 探针cpu float
-	CpuCore []string `json:"cpu_core"` // CPU核心数
-	CreatedAt []string `json:"created_at"` // 安装时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	EnableAutoDowngrade bool `json:"enable_auto_downgrade"` // 是否启用自动降级
-	EnableNetConnCollect bool `json:"enable_net_conn_collect"` // 是否启用连接采集
-	ExposedIp []string `json:"exposed_ip"` // 主机 外网 IP
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostCpu []string `json:"host_cpu"` // 主机CPU
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostMemory []string `json:"host_memory"` // 主机内存
-	HostName []string `json:"host_name"` // 主机名
-	HostState []string `json:"host_state"` // 探针状态
-	HostUptime []string `json:"host_uptime"` // 主机开机时长(单位s)
-	InternalIp []string `json:"internal_ip"` // 主机
-	IsOnline bool `json:"is_online"` // 是否在线
-	KernelVersion []string `json:"kernel_version"` // 系统内核 (这个精确匹配不太适当)
-	LastOfflineDetectAt []string `json:"last_offline_detect_at"` // 最近离线探测时间
-	LastOfflineReason []string `json:"last_offline_reason"` // 最近离线原因
-	LastSeenAt []string `json:"last_seen_at"` // 最后心跳时间
-	LogLevel []float64 `json:"log_level"` // 日志级别
-	LogSize []string `json:"log_size"` // 日志存储量
-	MemSize []string `json:"mem_size"` // 内存容量GB范围
-	Memory []string `json:"memory"` // 探针内存, float
-	OfflineDetectPlanId []float64 `json:"offline_detect_plan_id"` // 离线探针任务 ID
-	Oid []float64 `json:"oid"` // 组织 ID
-	OrgName []string `json:"org_name"` // 组织名称
-	Os []string `json:"os"` // 主机操作系统
-	OsReleaseVersion []string `json:"os_release_version"` // 系统版本
-	OverloadCpu []string `json:"overload_cpu"` // CPU 自动休眠阈值
-	OverloadMemory []string `json:"overload_memory"` // 内存自动休眠阈值
-	ProxyAddress []string `json:"proxy_address"` // 探针的代理地址（若该字段不为空，说明存在正向代理）
-	ResLimitCpu []string `json:"res_limit_cpu"` // CPU 资源限制
-	ResLimitDisk []string `json:"res_limit_disk"` // 磁盘资源限制
-	ResLimitMemory []string `json:"res_limit_memory"` // 内存资源限制
-	ResLimitNetwork []string `json:"res_limit_network"` // 网络资源限制
-	Select []map[string]interface{} `json:"select"` // 选择项目
-	SelectAll bool `json:"select_all"` // 是否选取所有
-	ServerAddresses []string `json:"server_addresses"` // 探针连接的服务端的地址（若该字段不是真正的服务端地址，说明存在反向代理）
-	Tags []string `json:"tags"` // 特征
-	UpTime []string `json:"up_time"` // 运行时间（秒范围）
-	UpgradeStatus []string `json:"upgrade_status"` // 升级状态
-	VeinmindProtectAgentState []string `json:"veinmind_protect_agent_state"` // 本地防护探针状态
-	VeinmindProtectAgentVersion []string `json:"veinmind_protect_agent_version"` // 本地防护探针版本
-	VeinmindScanAgentState []string `json:"veinmind_scan_agent_state"` // 旁路扫描探针状态
-	VeinmindScanAgentVersion []string `json:"veinmind_scan_agent_version"` // 旁路扫描探针版本
-	Version []string `json:"version"` // 探针版本
+	AgentInstallPlanId              []float64                `json:"agent_install_plan_id"`              // 探针升级任务 ID
+	BashState                       []string                 `json:"bash_state"`                         // 安全bash
+	BashVersion                     []string                 `json:"bash_version"`                       // 安全bash版本
+	CapacityEnhancementDriveState   []string                 `json:"capacity_enhancement_drive_state"`   // 能力增强驱动安装状态
+	CapacityEnhancementDriveVersion []string                 `json:"capacity_enhancement_drive_version"` // 能力增强版本
+	Comment                         []string                 `json:"comment"`                            // 本主
+	ConnectionMethod                []string                 `json:"connection_method"`                  // 探针连接方式：直接连接（待确认）、直接连接、正向代理、反向代理、正向+反向代理
+	Cpu                             []string                 `json:"cpu"`                                // 探针cpu float
+	CpuCore                         []string                 `json:"cpu_core"`                           // CPU核心数
+	CreatedAt                       []string                 `json:"created_at"`                         // 安装时间
+	CustomAttr                      []map[string]interface{} `json:"custom_attr"`                        // 主机业务属性
+	EnableAutoDowngrade             bool                     `json:"enable_auto_downgrade"`              // 是否启用自动降级
+	EnableNetConnCollect            bool                     `json:"enable_net_conn_collect"`            // 是否启用连接采集
+	ExposedIp                       []string                 `json:"exposed_ip"`                         // 主机 外网 IP
+	Gids                            []float64                `json:"gids"`                               // 业务组 ID
+	HostCpu                         []string                 `json:"host_cpu"`                           // 主机CPU
+	HostId                          []float64                `json:"host_id"`                            // 主机 ID
+	HostIp                          []string                 `json:"host_ip"`                            // 主机 IP
+	HostMemory                      []string                 `json:"host_memory"`                        // 主机内存
+	HostName                        []string                 `json:"host_name"`                          // 主机名
+	HostState                       []string                 `json:"host_state"`                         // 探针状态
+	HostUptime                      []string                 `json:"host_uptime"`                        // 主机开机时长(单位s)
+	InternalIp                      []string                 `json:"internal_ip"`                        // 主机
+	IsOnline                        bool                     `json:"is_online"`                          // 是否在线
+	KernelVersion                   []string                 `json:"kernel_version"`                     // 系统内核 (这个精确匹配不太适当)
+	LastOfflineDetectAt             []string                 `json:"last_offline_detect_at"`             // 最近离线探测时间
+	LastOfflineReason               []string                 `json:"last_offline_reason"`                // 最近离线原因
+	LastSeenAt                      []string                 `json:"last_seen_at"`                       // 最后心跳时间
+	LogLevel                        []float64                `json:"log_level"`                          // 日志级别
+	LogSize                         []string                 `json:"log_size"`                           // 日志存储量
+	MemSize                         []string                 `json:"mem_size"`                           // 内存容量GB范围
+	Memory                          []string                 `json:"memory"`                             // 探针内存, float
+	OfflineDetectPlanId             []float64                `json:"offline_detect_plan_id"`             // 离线探针任务 ID
+	Oid                             []float64                `json:"oid"`                                // 组织 ID
+	OrgName                         []string                 `json:"org_name"`                           // 组织名称
+	Os                              []string                 `json:"os"`                                 // 主机操作系统
+	OsReleaseVersion                []string                 `json:"os_release_version"`                 // 系统版本
+	OverloadCpu                     []string                 `json:"overload_cpu"`                       // CPU 自动休眠阈值
+	OverloadMemory                  []string                 `json:"overload_memory"`                    // 内存自动休眠阈值
+	ProxyAddress                    []string                 `json:"proxy_address"`                      // 探针的代理地址（若该字段不为空，说明存在正向代理）
+	ResLimitCpu                     []string                 `json:"res_limit_cpu"`                      // CPU 资源限制
+	ResLimitDisk                    []string                 `json:"res_limit_disk"`                     // 磁盘资源限制
+	ResLimitMemory                  []string                 `json:"res_limit_memory"`                   // 内存资源限制
+	ResLimitNetwork                 []string                 `json:"res_limit_network"`                  // 网络资源限制
+	Select                          []map[string]interface{} `json:"select"`                             // 选择项目
+	SelectAll                       bool                     `json:"select_all"`                         // 是否选取所有
+	ServerAddresses                 []string                 `json:"server_addresses"`                   // 探针连接的服务端的地址（若该字段不是真正的服务端地址，说明存在反向代理）
+	Tags                            []string                 `json:"tags"`                               // 特征
+	UpTime                          []string                 `json:"up_time"`                            // 运行时间（秒范围）
+	UpgradeStatus                   []string                 `json:"upgrade_status"`                     // 升级状态
+	VeinmindProtectAgentState       []string                 `json:"veinmind_protect_agent_state"`       // 本地防护探针状态
+	VeinmindProtectAgentVersion     []string                 `json:"veinmind_protect_agent_version"`     // 本地防护探针版本
+	VeinmindScanAgentState          []string                 `json:"veinmind_scan_agent_state"`          // 旁路扫描探针状态
+	VeinmindScanAgentVersion        []string                 `json:"veinmind_scan_agent_version"`        // 旁路扫描探针版本
+	Version                         []string                 `json:"version"`                            // 探针版本
 }
-

@@ -3,8 +3,8 @@
 package tamper_proof
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var GetModuleListCmd = &cobra.Command{
 }
 
 func init() {
-		GetModuleListCmd.Flags().IntVar(&getModuleListParams.Count, "count", 20, "count")
-		GetModuleListCmd.Flags().IntVar(&getModuleListParams.Offset, "offset", 0, "offset")
-		GetModuleListCmd.Flags().StringVar(&getModuleListParams.OsType, "os-type", "", "模块种类，linux || windows")
+	GetModuleListCmd.Flags().IntVar(&getModuleListParams.Count, "count", 20, "count")
+	GetModuleListCmd.Flags().IntVar(&getModuleListParams.Offset, "offset", 0, "offset")
+	GetModuleListCmd.Flags().StringVar(&getModuleListParams.OsType, "os-type", "", "模块种类，linux || windows")
 }
-
 
 // GetModuleListParams 请求参数
 type GetModuleListParams struct {
-	Count int `json:"count"` // count
-	Offset int `json:"offset"` // offset
+	Count  int    `json:"count"`   // count
+	Offset int    `json:"offset"`  // offset
 	OsType string `json:"os_type"` // 模块种类，linux || windows
 }
-

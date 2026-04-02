@@ -3,8 +3,8 @@
 package non_white_process
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,88 +29,86 @@ var WhiteEventCmd = &cobra.Command{
 }
 
 func init() {
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.BeginTime, "begin-time", nil, "启动时间")
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.Cmdline, "cmdline", nil, "命令行参数")
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.Comment, "comment", nil, "用户自定义备注")
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.ContainerHashId, "container-hash-id", nil, "容器ID")
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.CreatedAt, "created-at", nil, "创建时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		WhiteEventCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.Cwd, "cwd", nil, "执行目录")
-		WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.Egid, "egid", nil, "有效用户组ID")
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.Egname, "egname", nil, "有效用户组名")
-		WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.Euid, "euid", nil, "有效用户ID")
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.Euname, "euname", nil, "有效用户名")
-		// filter is complex type []map[string]interface{}, use JSON string
-		var filterJSON string
-		WhiteEventCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. [{\"cmdline\": \"\", \"host_id\": 0.0, \"id\": 0.0, \"name\": \"\"}])")
-		WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.Gid, "gid", nil, "用户组ID")
-		WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.Gids, "gids", nil, "业务组ID")
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.Gname, "gname", nil, "用户组")
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.GroupName, "group-name", nil, "业务组名")
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.HostComment, "host-comment", nil, "主机备注")
-		WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.HostIp, "host-ip", nil, "主机IP")
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.HostName, "host-name", nil, "主机名称")
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.HostState, "host-state", nil, "主机状态")
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.HostTags, "host-tags", nil, "主机标签")
-		WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.Ids, "ids", nil, "事件ID, 用于事件详情页面")
-		WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.Level, "level", nil, "风险等级(1-低危，2-中危，3-高危，4-严重)")
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.Name, "name", nil, "进程名称/命令名称")
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.NetApp, "net-app", nil, "网络应用名称")
-		WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.Oid, "oid", nil, "机构 ID")
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.Path, "path", nil, "可执行文件路径")
-		WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.Pid, "pid", nil, "pid")
-		WhiteEventCmd.Flags().BoolVar(&whiteEventParams.SelectAll, "select-all", false, "select_all")
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.Sid, "sid", nil, "sessionID")
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.SshClientIp, "ssh-client-ip", nil, "ssh 登陆地址")
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.SshUser, "ssh-user", nil, "ssh 登录用户")
-		WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
-		WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.State, "state", nil, "处置状态(1-有风险，2-已忽略，3-已处理)")
-		WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.Uid, "uid", nil, "用户ID")
-		WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.Uname, "uname", nil, "用户名")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.BeginTime, "begin-time", nil, "启动时间")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.Cmdline, "cmdline", nil, "命令行参数")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.Comment, "comment", nil, "用户自定义备注")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.ContainerHashId, "container-hash-id", nil, "容器ID")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.CreatedAt, "created-at", nil, "创建时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	WhiteEventCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.Cwd, "cwd", nil, "执行目录")
+	WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.Egid, "egid", nil, "有效用户组ID")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.Egname, "egname", nil, "有效用户组名")
+	WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.Euid, "euid", nil, "有效用户ID")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.Euname, "euname", nil, "有效用户名")
+	// filter is complex type []map[string]interface{}, use JSON string
+	var filterJSON string
+	WhiteEventCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. [{\"cmdline\": \"\", \"host_id\": 0.0, \"id\": 0.0, \"name\": \"\"}])")
+	WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.Gid, "gid", nil, "用户组ID")
+	WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.Gids, "gids", nil, "业务组ID")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.Gname, "gname", nil, "用户组")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.GroupName, "group-name", nil, "业务组名")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.HostComment, "host-comment", nil, "主机备注")
+	WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.HostIp, "host-ip", nil, "主机IP")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.HostName, "host-name", nil, "主机名称")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.HostState, "host-state", nil, "主机状态")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.HostTags, "host-tags", nil, "主机标签")
+	WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.Ids, "ids", nil, "事件ID, 用于事件详情页面")
+	WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.Level, "level", nil, "风险等级(1-低危，2-中危，3-高危，4-严重)")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.Name, "name", nil, "进程名称/命令名称")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.NetApp, "net-app", nil, "网络应用名称")
+	WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.Oid, "oid", nil, "机构 ID")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.Path, "path", nil, "可执行文件路径")
+	WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.Pid, "pid", nil, "pid")
+	WhiteEventCmd.Flags().BoolVar(&whiteEventParams.SelectAll, "select-all", false, "select_all")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.Sid, "sid", nil, "sessionID")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.SshClientIp, "ssh-client-ip", nil, "ssh 登陆地址")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.SshUser, "ssh-user", nil, "ssh 登录用户")
+	WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
+	WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.State, "state", nil, "处置状态(1-有风险，2-已忽略，3-已处理)")
+	WhiteEventCmd.Flags().Float64SliceVar(&whiteEventParams.Uid, "uid", nil, "用户ID")
+	WhiteEventCmd.Flags().StringSliceVar(&whiteEventParams.Uname, "uname", nil, "用户名")
 }
-
 
 // WhiteEventParams 请求参数
 type WhiteEventParams struct {
-	BeginTime []string `json:"begin_time"` // 启动时间
-	Cmdline []string `json:"cmdline"` // 命令行参数
-	Comment []string `json:"comment"` // 用户自定义备注
-	ContainerHashId []string `json:"container_hash_id"` // 容器ID
-	CreatedAt []string `json:"created_at"` // 创建时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Cwd []string `json:"cwd"` // 执行目录
-	Egid []float64 `json:"egid"` // 有效用户组ID
-	Egname []string `json:"egname"` // 有效用户组名
-	Euid []float64 `json:"euid"` // 有效用户ID
-	Euname []string `json:"euname"` // 有效用户名
-	Filter []map[string]interface{} `json:"filter"` // filter
-	Gid []float64 `json:"gid"` // 用户组ID
-	Gids []float64 `json:"gids"` // 业务组ID
-	Gname []string `json:"gname"` // 用户组
-	GroupName []string `json:"group_name"` // 业务组名
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID, 用于主机详情页面
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Ids []float64 `json:"ids"` // 事件ID, 用于事件详情页面
-	Level []float64 `json:"level"` // 风险等级(1-低危，2-中危，3-高危，4-严重)
-	Name []string `json:"name"` // 进程名称/命令名称
-	NetApp []string `json:"net_app"` // 网络应用名称
-	Oid []float64 `json:"oid"` // 机构 ID
-	Path []string `json:"path"` // 可执行文件路径
-	Pid []float64 `json:"pid"` // pid
-	SelectAll bool `json:"select_all"` // select_all
-	Sid []string `json:"sid"` // sessionID
-	SshClientIp []string `json:"ssh_client_ip"` // ssh 登陆地址
-	SshUser []string `json:"ssh_user"` // ssh 登录用户
-	StatEventId []float64 `json:"stat_event_id"` // 事件统计 ID
-	State []float64 `json:"state"` // 处置状态(1-有风险，2-已忽略，3-已处理)
-	Uid []float64 `json:"uid"` // 用户ID
-	Uname []string `json:"uname"` // 用户名
+	BeginTime       []string                 `json:"begin_time"`        // 启动时间
+	Cmdline         []string                 `json:"cmdline"`           // 命令行参数
+	Comment         []string                 `json:"comment"`           // 用户自定义备注
+	ContainerHashId []string                 `json:"container_hash_id"` // 容器ID
+	CreatedAt       []string                 `json:"created_at"`        // 创建时间
+	CustomAttr      []map[string]interface{} `json:"custom_attr"`       // 主机业务属性
+	Cwd             []string                 `json:"cwd"`               // 执行目录
+	Egid            []float64                `json:"egid"`              // 有效用户组ID
+	Egname          []string                 `json:"egname"`            // 有效用户组名
+	Euid            []float64                `json:"euid"`              // 有效用户ID
+	Euname          []string                 `json:"euname"`            // 有效用户名
+	Filter          []map[string]interface{} `json:"filter"`            // filter
+	Gid             []float64                `json:"gid"`               // 用户组ID
+	Gids            []float64                `json:"gids"`              // 业务组ID
+	Gname           []string                 `json:"gname"`             // 用户组
+	GroupName       []string                 `json:"group_name"`        // 业务组名
+	HostComment     []string                 `json:"host_comment"`      // 主机备注
+	HostId          []float64                `json:"host_id"`           // 主机ID, 用于主机详情页面
+	HostIp          []string                 `json:"host_ip"`           // 主机IP
+	HostName        []string                 `json:"host_name"`         // 主机名称
+	HostState       []string                 `json:"host_state"`        // 主机状态
+	HostTags        []string                 `json:"host_tags"`         // 主机标签
+	Ids             []float64                `json:"ids"`               // 事件ID, 用于事件详情页面
+	Level           []float64                `json:"level"`             // 风险等级(1-低危，2-中危，3-高危，4-严重)
+	Name            []string                 `json:"name"`              // 进程名称/命令名称
+	NetApp          []string                 `json:"net_app"`           // 网络应用名称
+	Oid             []float64                `json:"oid"`               // 机构 ID
+	Path            []string                 `json:"path"`              // 可执行文件路径
+	Pid             []float64                `json:"pid"`               // pid
+	SelectAll       bool                     `json:"select_all"`        // select_all
+	Sid             []string                 `json:"sid"`               // sessionID
+	SshClientIp     []string                 `json:"ssh_client_ip"`     // ssh 登陆地址
+	SshUser         []string                 `json:"ssh_user"`          // ssh 登录用户
+	StatEventId     []float64                `json:"stat_event_id"`     // 事件统计 ID
+	State           []float64                `json:"state"`             // 处置状态(1-有风险，2-已忽略，3-已处理)
+	Uid             []float64                `json:"uid"`               // 用户ID
+	Uname           []string                 `json:"uname"`             // 用户名
 }
-

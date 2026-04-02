@@ -3,14 +3,12 @@
 package endpoint
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var ApplyConfigCmd = &cobra.Command{
 	Use:   "apply_config",
@@ -31,5 +29,3 @@ var ApplyConfigCmd = &cobra.Command{
 func init() {
 
 }
-
-

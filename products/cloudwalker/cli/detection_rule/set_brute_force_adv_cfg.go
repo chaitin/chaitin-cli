@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,30 +29,28 @@ var SetBruteForceAdvCfgCmd = &cobra.Command{
 }
 
 func init() {
-		// ftp is object type, use JSON string
-		var ftpJSON string
-		SetBruteForceAdvCfgCmd.Flags().StringVar(&ftpJSON, "ftp", "", "FTP (JSON, e.g. {\"period\": 60, \"threshold\": 10})")
-		// rdp is object type, use JSON string
-		var rdpJSON string
-		SetBruteForceAdvCfgCmd.Flags().StringVar(&rdpJSON, "rdp", "", "RDP (JSON, e.g. {\"period\": 60, \"threshold\": 10})")
-		// smb is object type, use JSON string
-		var smbJSON string
-		SetBruteForceAdvCfgCmd.Flags().StringVar(&smbJSON, "smb", "", "SMB (JSON, e.g. {\"period\": 60, \"threshold\": 10})")
-		// ssh is object type, use JSON string
-		var sshJSON string
-		SetBruteForceAdvCfgCmd.Flags().StringVar(&sshJSON, "ssh", "", "SSH (JSON, e.g. {\"period\": 60, \"threshold\": 10})")
-		// winrm is object type, use JSON string
-		var winrmJSON string
-		SetBruteForceAdvCfgCmd.Flags().StringVar(&winrmJSON, "winrm", "", "WINRM (JSON, e.g. {\"period\": 60, \"threshold\": 10})")
+	// ftp is object type, use JSON string
+	var ftpJSON string
+	SetBruteForceAdvCfgCmd.Flags().StringVar(&ftpJSON, "ftp", "", "FTP (JSON, e.g. {\"period\": 60, \"threshold\": 10})")
+	// rdp is object type, use JSON string
+	var rdpJSON string
+	SetBruteForceAdvCfgCmd.Flags().StringVar(&rdpJSON, "rdp", "", "RDP (JSON, e.g. {\"period\": 60, \"threshold\": 10})")
+	// smb is object type, use JSON string
+	var smbJSON string
+	SetBruteForceAdvCfgCmd.Flags().StringVar(&smbJSON, "smb", "", "SMB (JSON, e.g. {\"period\": 60, \"threshold\": 10})")
+	// ssh is object type, use JSON string
+	var sshJSON string
+	SetBruteForceAdvCfgCmd.Flags().StringVar(&sshJSON, "ssh", "", "SSH (JSON, e.g. {\"period\": 60, \"threshold\": 10})")
+	// winrm is object type, use JSON string
+	var winrmJSON string
+	SetBruteForceAdvCfgCmd.Flags().StringVar(&winrmJSON, "winrm", "", "WINRM (JSON, e.g. {\"period\": 60, \"threshold\": 10})")
 }
-
 
 // SetBruteForceAdvCfgParams 请求参数
 type SetBruteForceAdvCfgParams struct {
-	Ftp map[string]interface{} `json:"ftp"` // FTP
-	Rdp map[string]interface{} `json:"rdp"` // RDP
-	Smb map[string]interface{} `json:"smb"` // SMB
-	Ssh map[string]interface{} `json:"ssh"` // SSH
+	Ftp   map[string]interface{} `json:"ftp"`   // FTP
+	Rdp   map[string]interface{} `json:"rdp"`   // RDP
+	Smb   map[string]interface{} `json:"smb"`   // SMB
+	Ssh   map[string]interface{} `json:"ssh"`   // SSH
 	Winrm map[string]interface{} `json:"winrm"` // WINRM
 }
-

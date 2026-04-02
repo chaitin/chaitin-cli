@@ -3,14 +3,12 @@
 package vuln
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetVulnTypesCmd = &cobra.Command{
 	Use:   "get_vuln_types",
@@ -31,5 +29,3 @@ var GetVulnTypesCmd = &cobra.Command{
 func init() {
 
 }
-
-

@@ -3,8 +3,8 @@
 package admin_strategy
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,20 +29,18 @@ var SetLdapStrategyCmd = &cobra.Command{
 }
 
 func init() {
-		SetLdapStrategyCmd.Flags().StringVar(&setLdapStrategyParams.Address, "address", "", "服务地址")
-		SetLdapStrategyCmd.Flags().StringVar(&setLdapStrategyParams.AttrName, "attr-name", "", "用户名识别字段")
-		SetLdapStrategyCmd.Flags().StringVar(&setLdapStrategyParams.BaseDn, "base-dn", "", "查询根DN")
-		SetLdapStrategyCmd.Flags().StringVar(&setLdapStrategyParams.BindDn, "bind-dn", "", "连接用户DN")
-		SetLdapStrategyCmd.Flags().StringVar(&setLdapStrategyParams.BindPwd, "bind-pwd", "", "连接用户密码")
+	SetLdapStrategyCmd.Flags().StringVar(&setLdapStrategyParams.Address, "address", "", "服务地址")
+	SetLdapStrategyCmd.Flags().StringVar(&setLdapStrategyParams.AttrName, "attr-name", "", "用户名识别字段")
+	SetLdapStrategyCmd.Flags().StringVar(&setLdapStrategyParams.BaseDn, "base-dn", "", "查询根DN")
+	SetLdapStrategyCmd.Flags().StringVar(&setLdapStrategyParams.BindDn, "bind-dn", "", "连接用户DN")
+	SetLdapStrategyCmd.Flags().StringVar(&setLdapStrategyParams.BindPwd, "bind-pwd", "", "连接用户密码")
 }
-
 
 // SetLdapStrategyParams 请求参数
 type SetLdapStrategyParams struct {
-	Address string `json:"address"` // 服务地址
+	Address  string `json:"address"`   // 服务地址
 	AttrName string `json:"attr_name"` // 用户名识别字段
-	BaseDn string `json:"base_dn"` // 查询根DN
-	BindDn string `json:"bind_dn"` // 连接用户DN
-	BindPwd string `json:"bind_pwd"` // 连接用户密码
+	BaseDn   string `json:"base_dn"`   // 查询根DN
+	BindDn   string `json:"bind_dn"`   // 连接用户DN
+	BindPwd  string `json:"bind_pwd"`  // 连接用户密码
 }
-

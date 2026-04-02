@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var SetConnCollectSpecialAddrIgnoreCmd = &cobra.Command{
 }
 
 func init() {
-		SetConnCollectSpecialAddrIgnoreCmd.Flags().BoolVar(&setConnCollectSpecialAddrIgnoreParams.FilterSpecialAddress, "filter-special-address", false, "是否过滤特殊地址")
+	SetConnCollectSpecialAddrIgnoreCmd.Flags().BoolVar(&setConnCollectSpecialAddrIgnoreParams.FilterSpecialAddress, "filter-special-address", false, "是否过滤特殊地址")
 }
-
 
 // SetConnCollectSpecialAddrIgnoreParams 请求参数
 type SetConnCollectSpecialAddrIgnoreParams struct {
 	FilterSpecialAddress bool `json:"filter_special_address"` // 是否过滤特殊地址
 }
-

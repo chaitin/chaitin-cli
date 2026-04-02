@@ -3,8 +3,8 @@
 package security_strategy
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetDefaultRejectTimeCmd = &cobra.Command{
 }
 
 func init() {
-		GetDefaultRejectTimeCmd.Flags().Float64Var(&getDefaultRejectTimeParams.AgentId, "agent-id", 0, "探针 id，若是批量处理，传 0")
+	GetDefaultRejectTimeCmd.Flags().Float64Var(&getDefaultRejectTimeParams.AgentId, "agent-id", 0, "探针 id，若是批量处理，传 0")
 }
-
 
 // GetDefaultRejectTimeParams 请求参数
 type GetDefaultRejectTimeParams struct {
 	AgentId float64 `json:"agent_id"` // 探针 id，若是批量处理，传 0
 }
-

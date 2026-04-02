@@ -3,8 +3,8 @@
 package asset_config
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,38 +29,36 @@ var ListWebScanRuleCmd = &cobra.Command{
 }
 
 func init() {
-		ListWebScanRuleCmd.Flags().IntVar(&listWebScanRuleParams.Count, "count", 20, "每页记录数量")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		ListWebScanRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		ListWebScanRuleCmd.Flags().BoolVar(&listWebScanRuleParams.Enable, "enable", false, "是否启用")
-		ListWebScanRuleCmd.Flags().StringSliceVar(&listWebScanRuleParams.HostComment, "host-comment", nil, "主机备注")
-		ListWebScanRuleCmd.Flags().Float64SliceVar(&listWebScanRuleParams.HostId, "host-id", nil, "主机ID")
-		ListWebScanRuleCmd.Flags().StringSliceVar(&listWebScanRuleParams.HostIp, "host-ip", nil, "主机IP")
-		ListWebScanRuleCmd.Flags().StringSliceVar(&listWebScanRuleParams.HostName, "host-name", nil, "主机名称")
-		ListWebScanRuleCmd.Flags().StringSliceVar(&listWebScanRuleParams.HostState, "host-state", nil, "主机状态")
-		ListWebScanRuleCmd.Flags().StringSliceVar(&listWebScanRuleParams.HostTag, "host-tag", nil, "主机标签")
-		ListWebScanRuleCmd.Flags().StringSliceVar(&listWebScanRuleParams.Id, "id", nil, "规则 ID")
-		ListWebScanRuleCmd.Flags().IntVar(&listWebScanRuleParams.Offset, "offset", 0, "页偏移")
-		ListWebScanRuleCmd.Flags().StringSliceVar(&listWebScanRuleParams.Path, "path", nil, "Web 路径")
-		ListWebScanRuleCmd.Flags().StringSliceVar(&listWebScanRuleParams.RuleName, "rule-name", nil, "规则名称")
+	ListWebScanRuleCmd.Flags().IntVar(&listWebScanRuleParams.Count, "count", 20, "每页记录数量")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	ListWebScanRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	ListWebScanRuleCmd.Flags().BoolVar(&listWebScanRuleParams.Enable, "enable", false, "是否启用")
+	ListWebScanRuleCmd.Flags().StringSliceVar(&listWebScanRuleParams.HostComment, "host-comment", nil, "主机备注")
+	ListWebScanRuleCmd.Flags().Float64SliceVar(&listWebScanRuleParams.HostId, "host-id", nil, "主机ID")
+	ListWebScanRuleCmd.Flags().StringSliceVar(&listWebScanRuleParams.HostIp, "host-ip", nil, "主机IP")
+	ListWebScanRuleCmd.Flags().StringSliceVar(&listWebScanRuleParams.HostName, "host-name", nil, "主机名称")
+	ListWebScanRuleCmd.Flags().StringSliceVar(&listWebScanRuleParams.HostState, "host-state", nil, "主机状态")
+	ListWebScanRuleCmd.Flags().StringSliceVar(&listWebScanRuleParams.HostTag, "host-tag", nil, "主机标签")
+	ListWebScanRuleCmd.Flags().StringSliceVar(&listWebScanRuleParams.Id, "id", nil, "规则 ID")
+	ListWebScanRuleCmd.Flags().IntVar(&listWebScanRuleParams.Offset, "offset", 0, "页偏移")
+	ListWebScanRuleCmd.Flags().StringSliceVar(&listWebScanRuleParams.Path, "path", nil, "Web 路径")
+	ListWebScanRuleCmd.Flags().StringSliceVar(&listWebScanRuleParams.RuleName, "rule-name", nil, "规则名称")
 }
-
 
 // ListWebScanRuleParams 请求参数
 type ListWebScanRuleParams struct {
-	Count int `json:"count"` // 每页记录数量
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Enable bool `json:"enable"` // 是否启用
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTag []string `json:"host_tag"` // 主机标签
-	Id []string `json:"id"` // 规则 ID
-	Offset int `json:"offset"` // 页偏移
-	Path []string `json:"path"` // Web 路径
-	RuleName []string `json:"rule_name"` // 规则名称
+	Count       int                      `json:"count"`        // 每页记录数量
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Enable      bool                     `json:"enable"`       // 是否启用
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机ID
+	HostIp      []string                 `json:"host_ip"`      // 主机IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTag     []string                 `json:"host_tag"`     // 主机标签
+	Id          []string                 `json:"id"`           // 规则 ID
+	Offset      int                      `json:"offset"`       // 页偏移
+	Path        []string                 `json:"path"`         // Web 路径
+	RuleName    []string                 `json:"rule_name"`    // 规则名称
 }
-

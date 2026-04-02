@@ -3,14 +3,12 @@
 package asset_config
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var ListAssetCollectConfigCmd = &cobra.Command{
 	Use:   "list_asset_collect_config",
@@ -31,5 +29,3 @@ var ListAssetCollectConfigCmd = &cobra.Command{
 func init() {
 
 }
-
-

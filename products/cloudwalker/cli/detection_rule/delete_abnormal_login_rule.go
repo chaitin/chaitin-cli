@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,38 +29,36 @@ var DeleteAbnormalLoginRuleCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteAbnormalLoginRuleCmd.Flags().StringSliceVar(&deleteAbnormalLoginRuleParams.AuthType, "auth-type", nil, "认证类型")
-		DeleteAbnormalLoginRuleCmd.Flags().StringSliceVar(&deleteAbnormalLoginRuleParams.Category, "category", nil, "规则类型")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		DeleteAbnormalLoginRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		DeleteAbnormalLoginRuleCmd.Flags().BoolVar(&deleteAbnormalLoginRuleParams.Enable, "enable", false, "是否启用")
-		DeleteAbnormalLoginRuleCmd.Flags().StringSliceVar(&deleteAbnormalLoginRuleParams.HostComment, "host-comment", nil, "主机备注")
-		DeleteAbnormalLoginRuleCmd.Flags().Float64SliceVar(&deleteAbnormalLoginRuleParams.HostId, "host-id", nil, "主机ID")
-		DeleteAbnormalLoginRuleCmd.Flags().StringSliceVar(&deleteAbnormalLoginRuleParams.HostIp, "host-ip", nil, "主机IP")
-		DeleteAbnormalLoginRuleCmd.Flags().StringSliceVar(&deleteAbnormalLoginRuleParams.HostName, "host-name", nil, "主机名称")
-		DeleteAbnormalLoginRuleCmd.Flags().StringSliceVar(&deleteAbnormalLoginRuleParams.HostState, "host-state", nil, "主机状态")
-		DeleteAbnormalLoginRuleCmd.Flags().StringSliceVar(&deleteAbnormalLoginRuleParams.HostTag, "host-tag", nil, "主机标签")
-		DeleteAbnormalLoginRuleCmd.Flags().StringSliceVar(&deleteAbnormalLoginRuleParams.Id, "id", nil, "规则 ID")
-		DeleteAbnormalLoginRuleCmd.Flags().StringSliceVar(&deleteAbnormalLoginRuleParams.Method, "method", nil, "匹配方式")
-		DeleteAbnormalLoginRuleCmd.Flags().StringSliceVar(&deleteAbnormalLoginRuleParams.RuleName, "rule-name", nil, "规则名称")
+	DeleteAbnormalLoginRuleCmd.Flags().StringSliceVar(&deleteAbnormalLoginRuleParams.AuthType, "auth-type", nil, "认证类型")
+	DeleteAbnormalLoginRuleCmd.Flags().StringSliceVar(&deleteAbnormalLoginRuleParams.Category, "category", nil, "规则类型")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	DeleteAbnormalLoginRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	DeleteAbnormalLoginRuleCmd.Flags().BoolVar(&deleteAbnormalLoginRuleParams.Enable, "enable", false, "是否启用")
+	DeleteAbnormalLoginRuleCmd.Flags().StringSliceVar(&deleteAbnormalLoginRuleParams.HostComment, "host-comment", nil, "主机备注")
+	DeleteAbnormalLoginRuleCmd.Flags().Float64SliceVar(&deleteAbnormalLoginRuleParams.HostId, "host-id", nil, "主机ID")
+	DeleteAbnormalLoginRuleCmd.Flags().StringSliceVar(&deleteAbnormalLoginRuleParams.HostIp, "host-ip", nil, "主机IP")
+	DeleteAbnormalLoginRuleCmd.Flags().StringSliceVar(&deleteAbnormalLoginRuleParams.HostName, "host-name", nil, "主机名称")
+	DeleteAbnormalLoginRuleCmd.Flags().StringSliceVar(&deleteAbnormalLoginRuleParams.HostState, "host-state", nil, "主机状态")
+	DeleteAbnormalLoginRuleCmd.Flags().StringSliceVar(&deleteAbnormalLoginRuleParams.HostTag, "host-tag", nil, "主机标签")
+	DeleteAbnormalLoginRuleCmd.Flags().StringSliceVar(&deleteAbnormalLoginRuleParams.Id, "id", nil, "规则 ID")
+	DeleteAbnormalLoginRuleCmd.Flags().StringSliceVar(&deleteAbnormalLoginRuleParams.Method, "method", nil, "匹配方式")
+	DeleteAbnormalLoginRuleCmd.Flags().StringSliceVar(&deleteAbnormalLoginRuleParams.RuleName, "rule-name", nil, "规则名称")
 }
-
 
 // DeleteAbnormalLoginRuleParams 请求参数
 type DeleteAbnormalLoginRuleParams struct {
-	AuthType []string `json:"auth_type"` // 认证类型
-	Category []string `json:"category"` // 规则类型
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Enable bool `json:"enable"` // 是否启用
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTag []string `json:"host_tag"` // 主机标签
-	Id []string `json:"id"` // 规则 ID
-	Method []string `json:"method"` // 匹配方式
-	RuleName []string `json:"rule_name"` // 规则名称
+	AuthType    []string                 `json:"auth_type"`    // 认证类型
+	Category    []string                 `json:"category"`     // 规则类型
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Enable      bool                     `json:"enable"`       // 是否启用
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机ID
+	HostIp      []string                 `json:"host_ip"`      // 主机IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTag     []string                 `json:"host_tag"`     // 主机标签
+	Id          []string                 `json:"id"`           // 规则 ID
+	Method      []string                 `json:"method"`       // 匹配方式
+	RuleName    []string                 `json:"rule_name"`    // 规则名称
 }
-

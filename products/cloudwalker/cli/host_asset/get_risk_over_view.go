@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetRiskOverViewCmd = &cobra.Command{
 }
 
 func init() {
-		GetRiskOverViewCmd.Flags().IntVar(&getRiskOverViewParams.Id, "id", 0, "主机 ID")
+	GetRiskOverViewCmd.Flags().IntVar(&getRiskOverViewParams.Id, "id", 0, "主机 ID")
 }
-
 
 // GetRiskOverViewParams 请求参数
 type GetRiskOverViewParams struct {
 	Id int `json:"id"` // 主机 ID
 }
-

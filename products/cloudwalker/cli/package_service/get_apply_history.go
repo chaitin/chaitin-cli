@@ -3,8 +3,8 @@
 package package_service
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,18 +29,16 @@ var GetApplyHistoryCmd = &cobra.Command{
 }
 
 func init() {
-		GetApplyHistoryCmd.Flags().IntVar(&getApplyHistoryParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		GetApplyHistoryCmd.Flags().IntVar(&getApplyHistoryParams.Offset, "offset", 0, "页偏移, 默认为 0")
-		GetApplyHistoryCmd.Flags().StringSliceVar(&getApplyHistoryParams.Type, "type", nil, "安装包模块")
-		GetApplyHistoryCmd.Flags().StringSliceVar(&getApplyHistoryParams.Version, "version", nil, "安装包版本")
+	GetApplyHistoryCmd.Flags().IntVar(&getApplyHistoryParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	GetApplyHistoryCmd.Flags().IntVar(&getApplyHistoryParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	GetApplyHistoryCmd.Flags().StringSliceVar(&getApplyHistoryParams.Type, "type", nil, "安装包模块")
+	GetApplyHistoryCmd.Flags().StringSliceVar(&getApplyHistoryParams.Version, "version", nil, "安装包版本")
 }
-
 
 // GetApplyHistoryParams 请求参数
 type GetApplyHistoryParams struct {
-	Count int `json:"count"` // 每页记录数量, 默认为 20
-	Offset int `json:"offset"` // 页偏移, 默认为 0
-	Type []string `json:"type"` // 安装包模块
+	Count   int      `json:"count"`   // 每页记录数量, 默认为 20
+	Offset  int      `json:"offset"`  // 页偏移, 默认为 0
+	Type    []string `json:"type"`    // 安装包模块
 	Version []string `json:"version"` // 安装包版本
 }
-

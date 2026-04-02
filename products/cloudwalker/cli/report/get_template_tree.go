@@ -3,8 +3,8 @@
 package report
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetTemplateTreeCmd = &cobra.Command{
 }
 
 func init() {
-		GetTemplateTreeCmd.Flags().StringVar(&getTemplateTreeParams.Type, "type", "", "模板类型")
+	GetTemplateTreeCmd.Flags().StringVar(&getTemplateTreeParams.Type, "type", "", "模板类型")
 }
-
 
 // GetTemplateTreeParams 请求参数
 type GetTemplateTreeParams struct {
 	Type string `json:"type"` // 模板类型
 }
-

@@ -3,8 +3,8 @@
 package patch_info
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var EditCustomSolutionCmd = &cobra.Command{
 }
 
 func init() {
-		EditCustomSolutionCmd.Flags().StringVar(&editCustomSolutionParams.Id, "id", "", "补丁 ID")
-		EditCustomSolutionCmd.Flags().StringVar(&editCustomSolutionParams.SolutionCustom, "solution-custom", "", "自定义解决方案")
+	EditCustomSolutionCmd.Flags().StringVar(&editCustomSolutionParams.Id, "id", "", "补丁 ID")
+	EditCustomSolutionCmd.Flags().StringVar(&editCustomSolutionParams.SolutionCustom, "solution-custom", "", "自定义解决方案")
 }
-
 
 // EditCustomSolutionParams 请求参数
 type EditCustomSolutionParams struct {
-	Id string `json:"id"` // 补丁 ID
+	Id             string `json:"id"`              // 补丁 ID
 	SolutionCustom string `json:"solution_custom"` // 自定义解决方案
 }
-

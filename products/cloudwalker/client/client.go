@@ -381,7 +381,7 @@ func formatObject(obj map[string]interface{}, indent string) string {
 	if hasTotal {
 		totalFieldCount = 1
 	}
-	if (totalFieldCount + arrFieldCount == len(obj)) && arr != nil {
+	if (totalFieldCount+arrFieldCount == len(obj)) && arr != nil {
 		return formatTable(obj, arr, indent)
 	}
 

@@ -3,8 +3,8 @@
 package process_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,94 +29,92 @@ var WhitelistProcessCmd = &cobra.Command{
 }
 
 func init() {
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.AppName, "app-name", nil, "应用名称")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.AppVersion, "app-version", nil, "应用版本")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.Cmdline, "cmdline", nil, "命令行参数")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.Container, "container", nil, "相关容器ID")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		WhitelistProcessCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.EffectiveGroup, "effective-group", nil, "进程所属有效用户组")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.EffectiveUser, "effective-user", nil, "进程所属有效用户")
-		WhitelistProcessCmd.Flags().Float64SliceVar(&whitelistProcessParams.Egid, "egid", nil, "进程所属有效用户组id")
-		WhitelistProcessCmd.Flags().Float64SliceVar(&whitelistProcessParams.Euid, "euid", nil, "进程所属有效用户id")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.FileAccessTime, "file-access-time", nil, "文件最近访问时间")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.FileBirth, "file-birth", nil, "文件创建时间")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.FileChangeTime, "file-change-time", nil, "文件属性修改时间")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.FileModifyTime, "file-modify-time", nil, "文件内容修改时间")
-		// filter is complex type []map[string]interface{}, use JSON string
-		var filterJSON string
-		WhitelistProcessCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. [{\"effective_user\": \"System\", \"host_id\": 196, \"id\": 85521, \"name\": \"winlogon.exe\", \"path\": \"C:\\Windows\\System32\\winlogon.exe\"}])")
-		WhitelistProcessCmd.Flags().Float64SliceVar(&whitelistProcessParams.Gid, "gid", nil, "进程所属组id")
-		WhitelistProcessCmd.Flags().Float64SliceVar(&whitelistProcessParams.Gids, "gids", nil, "业务组 ID 列表")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.Group, "group", nil, "进程所属组")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.HostComment, "host-comment", nil, "主机备注")
-		WhitelistProcessCmd.Flags().Float64SliceVar(&whitelistProcessParams.HostId, "host-id", nil, "主机 ID")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.HostIp, "host-ip", nil, "主机 IP")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.HostName, "host-name", nil, "主机名称")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.HostState, "host-state", nil, "主机状态")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.HostTags, "host-tags", nil, "主机标签")
-		WhitelistProcessCmd.Flags().BoolVar(&whitelistProcessParams.InstallByPm, "install-by-pm", false, "是否通过包安装")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.Md5, "md5", nil, "可执行文件md5")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.Name, "name", nil, "进程名称")
-		WhitelistProcessCmd.Flags().Float64SliceVar(&whitelistProcessParams.Oid, "oid", nil, "机构 ID")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.Path, "path", nil, "可执行文件路径")
-		WhitelistProcessCmd.Flags().Float64SliceVar(&whitelistProcessParams.Pid, "pid", nil, "进程pid")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.PortNum, "port-num", nil, "端口数量范围")
-		WhitelistProcessCmd.Flags().Float64SliceVar(&whitelistProcessParams.Ppid, "ppid", nil, "进程ppid")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.Safety, "safety", nil, "安全性，枚举")
-		WhitelistProcessCmd.Flags().BoolVar(&whitelistProcessParams.SelectAll, "select-all", false, "是否获取所有")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.Sha256, "sha256", nil, "可执行文件sha256")
-		WhitelistProcessCmd.Flags().BoolVar(&whitelistProcessParams.SingleProcess, "single-process", false, "单例进程")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.Status, "status", nil, "进程状态，先输入字符串匹配。不是枚举，状态比较多不同操作系统不太一样")
-		WhitelistProcessCmd.Flags().Float64SliceVar(&whitelistProcessParams.Uid, "uid", nil, "进程所属用户id")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.Uptime, "uptime", nil, "进程启动时间")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.User, "user", nil, "进程所属用户")
-		WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.WorkDir, "work-dir", nil, "运行目录")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.AppName, "app-name", nil, "应用名称")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.AppVersion, "app-version", nil, "应用版本")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.Cmdline, "cmdline", nil, "命令行参数")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.Container, "container", nil, "相关容器ID")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	WhitelistProcessCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.EffectiveGroup, "effective-group", nil, "进程所属有效用户组")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.EffectiveUser, "effective-user", nil, "进程所属有效用户")
+	WhitelistProcessCmd.Flags().Float64SliceVar(&whitelistProcessParams.Egid, "egid", nil, "进程所属有效用户组id")
+	WhitelistProcessCmd.Flags().Float64SliceVar(&whitelistProcessParams.Euid, "euid", nil, "进程所属有效用户id")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.FileAccessTime, "file-access-time", nil, "文件最近访问时间")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.FileBirth, "file-birth", nil, "文件创建时间")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.FileChangeTime, "file-change-time", nil, "文件属性修改时间")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.FileModifyTime, "file-modify-time", nil, "文件内容修改时间")
+	// filter is complex type []map[string]interface{}, use JSON string
+	var filterJSON string
+	WhitelistProcessCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. [{\"effective_user\": \"System\", \"host_id\": 196, \"id\": 85521, \"name\": \"winlogon.exe\", \"path\": \"C:\\Windows\\System32\\winlogon.exe\"}])")
+	WhitelistProcessCmd.Flags().Float64SliceVar(&whitelistProcessParams.Gid, "gid", nil, "进程所属组id")
+	WhitelistProcessCmd.Flags().Float64SliceVar(&whitelistProcessParams.Gids, "gids", nil, "业务组 ID 列表")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.Group, "group", nil, "进程所属组")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.HostComment, "host-comment", nil, "主机备注")
+	WhitelistProcessCmd.Flags().Float64SliceVar(&whitelistProcessParams.HostId, "host-id", nil, "主机 ID")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.HostIp, "host-ip", nil, "主机 IP")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.HostName, "host-name", nil, "主机名称")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.HostState, "host-state", nil, "主机状态")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.HostTags, "host-tags", nil, "主机标签")
+	WhitelistProcessCmd.Flags().BoolVar(&whitelistProcessParams.InstallByPm, "install-by-pm", false, "是否通过包安装")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.Md5, "md5", nil, "可执行文件md5")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.Name, "name", nil, "进程名称")
+	WhitelistProcessCmd.Flags().Float64SliceVar(&whitelistProcessParams.Oid, "oid", nil, "机构 ID")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.Path, "path", nil, "可执行文件路径")
+	WhitelistProcessCmd.Flags().Float64SliceVar(&whitelistProcessParams.Pid, "pid", nil, "进程pid")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.PortNum, "port-num", nil, "端口数量范围")
+	WhitelistProcessCmd.Flags().Float64SliceVar(&whitelistProcessParams.Ppid, "ppid", nil, "进程ppid")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.Safety, "safety", nil, "安全性，枚举")
+	WhitelistProcessCmd.Flags().BoolVar(&whitelistProcessParams.SelectAll, "select-all", false, "是否获取所有")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.Sha256, "sha256", nil, "可执行文件sha256")
+	WhitelistProcessCmd.Flags().BoolVar(&whitelistProcessParams.SingleProcess, "single-process", false, "单例进程")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.Status, "status", nil, "进程状态，先输入字符串匹配。不是枚举，状态比较多不同操作系统不太一样")
+	WhitelistProcessCmd.Flags().Float64SliceVar(&whitelistProcessParams.Uid, "uid", nil, "进程所属用户id")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.Uptime, "uptime", nil, "进程启动时间")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.User, "user", nil, "进程所属用户")
+	WhitelistProcessCmd.Flags().StringSliceVar(&whitelistProcessParams.WorkDir, "work-dir", nil, "运行目录")
 }
-
 
 // WhitelistProcessParams 请求参数
 type WhitelistProcessParams struct {
-	AppName []string `json:"app_name"` // 应用名称
-	AppVersion []string `json:"app_version"` // 应用版本
-	Cmdline []string `json:"cmdline"` // 命令行参数
-	Container []string `json:"container"` // 相关容器ID
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	EffectiveGroup []string `json:"effective_group"` // 进程所属有效用户组
-	EffectiveUser []string `json:"effective_user"` // 进程所属有效用户
-	Egid []float64 `json:"egid"` // 进程所属有效用户组id
-	Euid []float64 `json:"euid"` // 进程所属有效用户id
-	FileAccessTime []string `json:"file_access_time"` // 文件最近访问时间
-	FileBirth []string `json:"file_birth"` // 文件创建时间
-	FileChangeTime []string `json:"file_change_time"` // 文件属性修改时间
-	FileModifyTime []string `json:"file_modify_time"` // 文件内容修改时间
-	Filter []map[string]interface{} `json:"filter"` // filter
-	Gid []float64 `json:"gid"` // 进程所属组id
-	Gids []float64 `json:"gids"` // 业务组 ID 列表
-	Group []string `json:"group"` // 进程所属组
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	InstallByPm bool `json:"install_by_pm"` // 是否通过包安装
-	Md5 []string `json:"md5"` // 可执行文件md5
-	Name []string `json:"name"` // 进程名称
-	Oid []float64 `json:"oid"` // 机构 ID
-	Path []string `json:"path"` // 可执行文件路径
-	Pid []float64 `json:"pid"` // 进程pid
-	PortNum []string `json:"port_num"` // 端口数量范围
-	Ppid []float64 `json:"ppid"` // 进程ppid
-	Safety []string `json:"safety"` // 安全性，枚举
-	SelectAll bool `json:"select_all"` // 是否获取所有
-	Sha256 []string `json:"sha256"` // 可执行文件sha256
-	SingleProcess bool `json:"single_process"` // 单例进程
-	Status []string `json:"status"` // 进程状态，先输入字符串匹配。不是枚举，状态比较多不同操作系统不太一样
-	Uid []float64 `json:"uid"` // 进程所属用户id
-	Uptime []string `json:"uptime"` // 进程启动时间
-	User []string `json:"user"` // 进程所属用户
-	WorkDir []string `json:"work_dir"` // 运行目录
+	AppName        []string                 `json:"app_name"`         // 应用名称
+	AppVersion     []string                 `json:"app_version"`      // 应用版本
+	Cmdline        []string                 `json:"cmdline"`          // 命令行参数
+	Container      []string                 `json:"container"`        // 相关容器ID
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	EffectiveGroup []string                 `json:"effective_group"`  // 进程所属有效用户组
+	EffectiveUser  []string                 `json:"effective_user"`   // 进程所属有效用户
+	Egid           []float64                `json:"egid"`             // 进程所属有效用户组id
+	Euid           []float64                `json:"euid"`             // 进程所属有效用户id
+	FileAccessTime []string                 `json:"file_access_time"` // 文件最近访问时间
+	FileBirth      []string                 `json:"file_birth"`       // 文件创建时间
+	FileChangeTime []string                 `json:"file_change_time"` // 文件属性修改时间
+	FileModifyTime []string                 `json:"file_modify_time"` // 文件内容修改时间
+	Filter         []map[string]interface{} `json:"filter"`           // filter
+	Gid            []float64                `json:"gid"`              // 进程所属组id
+	Gids           []float64                `json:"gids"`             // 业务组 ID 列表
+	Group          []string                 `json:"group"`            // 进程所属组
+	HostComment    []string                 `json:"host_comment"`     // 主机备注
+	HostId         []float64                `json:"host_id"`          // 主机 ID
+	HostIp         []string                 `json:"host_ip"`          // 主机 IP
+	HostName       []string                 `json:"host_name"`        // 主机名称
+	HostState      []string                 `json:"host_state"`       // 主机状态
+	HostTags       []string                 `json:"host_tags"`        // 主机标签
+	InstallByPm    bool                     `json:"install_by_pm"`    // 是否通过包安装
+	Md5            []string                 `json:"md5"`              // 可执行文件md5
+	Name           []string                 `json:"name"`             // 进程名称
+	Oid            []float64                `json:"oid"`              // 机构 ID
+	Path           []string                 `json:"path"`             // 可执行文件路径
+	Pid            []float64                `json:"pid"`              // 进程pid
+	PortNum        []string                 `json:"port_num"`         // 端口数量范围
+	Ppid           []float64                `json:"ppid"`             // 进程ppid
+	Safety         []string                 `json:"safety"`           // 安全性，枚举
+	SelectAll      bool                     `json:"select_all"`       // 是否获取所有
+	Sha256         []string                 `json:"sha256"`           // 可执行文件sha256
+	SingleProcess  bool                     `json:"single_process"`   // 单例进程
+	Status         []string                 `json:"status"`           // 进程状态，先输入字符串匹配。不是枚举，状态比较多不同操作系统不太一样
+	Uid            []float64                `json:"uid"`              // 进程所属用户id
+	Uptime         []string                 `json:"uptime"`           // 进程启动时间
+	User           []string                 `json:"user"`             // 进程所属用户
+	WorkDir        []string                 `json:"work_dir"`         // 运行目录
 }
-

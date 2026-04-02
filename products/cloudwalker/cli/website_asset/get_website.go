@@ -3,8 +3,8 @@
 package website_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetWebsiteCmd = &cobra.Command{
 }
 
 func init() {
-		GetWebsiteCmd.Flags().IntVar(&getWebsiteParams.Id, "id", 0, "ID")
+	GetWebsiteCmd.Flags().IntVar(&getWebsiteParams.Id, "id", 0, "ID")
 }
-
 
 // GetWebsiteParams 请求参数
 type GetWebsiteParams struct {
 	Id int `json:"id"` // ID
 }
-

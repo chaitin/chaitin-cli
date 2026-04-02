@@ -3,8 +3,8 @@
 package asset_startup
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetRefreshDateTimeCmd = &cobra.Command{
 }
 
 func init() {
-		GetRefreshDateTimeCmd.Flags().IntVar(&getRefreshDateTimeParams.HostId, "host-id", 0, "主机 ID")
+	GetRefreshDateTimeCmd.Flags().IntVar(&getRefreshDateTimeParams.HostId, "host-id", 0, "主机 ID")
 }
-
 
 // GetRefreshDateTimeParams 请求参数
 type GetRefreshDateTimeParams struct {
 	HostId int `json:"host_id"` // 主机 ID
 }
-

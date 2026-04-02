@@ -3,8 +3,8 @@
 package whitelist
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var EnablementWhitelistCmd = &cobra.Command{
 }
 
 func init() {
-		EnablementWhitelistCmd.Flags().BoolVar(&enablementWhitelistParams.Enable, "enable", false, "是否启用")
-		// filter is object type, use JSON string
-		var filterJSON string
-		EnablementWhitelistCmd.Flags().StringVar(&filterJSON, "filter", "", "规则过滤器 (JSON, e.g. {\"created_at\": [\"\"], \"custom_attr\": [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}], \"enable\": true, \"...\": \"...\"})")
+	EnablementWhitelistCmd.Flags().BoolVar(&enablementWhitelistParams.Enable, "enable", false, "是否启用")
+	// filter is object type, use JSON string
+	var filterJSON string
+	EnablementWhitelistCmd.Flags().StringVar(&filterJSON, "filter", "", "规则过滤器 (JSON, e.g. {\"created_at\": [\"\"], \"custom_attr\": [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}], \"enable\": true, \"...\": \"...\"})")
 }
-
 
 // EnablementWhitelistParams 请求参数
 type EnablementWhitelistParams struct {
-	Enable bool `json:"enable"` // 是否启用
+	Enable bool                   `json:"enable"` // 是否启用
 	Filter map[string]interface{} `json:"filter"` // 规则过滤器
 }
-

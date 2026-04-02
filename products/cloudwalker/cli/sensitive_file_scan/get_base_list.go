@@ -3,8 +3,8 @@
 package sensitive_file_scan
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,34 +29,32 @@ var GetBaseListCmd = &cobra.Command{
 }
 
 func init() {
-		GetBaseListCmd.Flags().StringSliceVar(&getBaseListParams.Comment, "comment", nil, "主机备注")
-		GetBaseListCmd.Flags().IntVar(&getBaseListParams.Count, "count", 20, "数量")
-		GetBaseListCmd.Flags().StringSliceVar(&getBaseListParams.HostIp, "host-ip", nil, "主机 IP")
-		GetBaseListCmd.Flags().StringSliceVar(&getBaseListParams.HostName, "host-name", nil, "主机名称")
-		GetBaseListCmd.Flags().StringSliceVar(&getBaseListParams.HostState, "host-state", nil, "主机状态")
-		GetBaseListCmd.Flags().StringSliceVar(&getBaseListParams.LastCompletedAt, "last-completed-at", nil, "最近更新完成时间")
-		GetBaseListCmd.Flags().IntVar(&getBaseListParams.Offset, "offset", 0, "偏移量")
-		GetBaseListCmd.Flags().StringSliceVar(&getBaseListParams.Os, "os", nil, "操作系统")
-		GetBaseListCmd.Flags().Float64SliceVar(&getBaseListParams.PlanId, "plan-id", nil, "任务 id")
-		GetBaseListCmd.Flags().Float64SliceVar(&getBaseListParams.State, "state", nil, "执行状态")
-		GetBaseListCmd.Flags().StringSliceVar(&getBaseListParams.Tags, "tags", nil, "特征")
-		GetBaseListCmd.Flags().StringSliceVar(&getBaseListParams.UpdatedAt, "updated-at", nil, "最后操作时间")
+	GetBaseListCmd.Flags().StringSliceVar(&getBaseListParams.Comment, "comment", nil, "主机备注")
+	GetBaseListCmd.Flags().IntVar(&getBaseListParams.Count, "count", 20, "数量")
+	GetBaseListCmd.Flags().StringSliceVar(&getBaseListParams.HostIp, "host-ip", nil, "主机 IP")
+	GetBaseListCmd.Flags().StringSliceVar(&getBaseListParams.HostName, "host-name", nil, "主机名称")
+	GetBaseListCmd.Flags().StringSliceVar(&getBaseListParams.HostState, "host-state", nil, "主机状态")
+	GetBaseListCmd.Flags().StringSliceVar(&getBaseListParams.LastCompletedAt, "last-completed-at", nil, "最近更新完成时间")
+	GetBaseListCmd.Flags().IntVar(&getBaseListParams.Offset, "offset", 0, "偏移量")
+	GetBaseListCmd.Flags().StringSliceVar(&getBaseListParams.Os, "os", nil, "操作系统")
+	GetBaseListCmd.Flags().Float64SliceVar(&getBaseListParams.PlanId, "plan-id", nil, "任务 id")
+	GetBaseListCmd.Flags().Float64SliceVar(&getBaseListParams.State, "state", nil, "执行状态")
+	GetBaseListCmd.Flags().StringSliceVar(&getBaseListParams.Tags, "tags", nil, "特征")
+	GetBaseListCmd.Flags().StringSliceVar(&getBaseListParams.UpdatedAt, "updated-at", nil, "最后操作时间")
 }
-
 
 // GetBaseListParams 请求参数
 type GetBaseListParams struct {
-	Comment []string `json:"comment"` // 主机备注
-	Count int `json:"count"` // 数量
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	LastCompletedAt []string `json:"last_completed_at"` // 最近更新完成时间
-	Offset int `json:"offset"` // 偏移量
-	Os []string `json:"os"` // 操作系统
-	PlanId []float64 `json:"plan_id"` // 任务 id
-	State []float64 `json:"state"` // 执行状态
-	Tags []string `json:"tags"` // 特征
-	UpdatedAt []string `json:"updated_at"` // 最后操作时间
+	Comment         []string  `json:"comment"`           // 主机备注
+	Count           int       `json:"count"`             // 数量
+	HostIp          []string  `json:"host_ip"`           // 主机 IP
+	HostName        []string  `json:"host_name"`         // 主机名称
+	HostState       []string  `json:"host_state"`        // 主机状态
+	LastCompletedAt []string  `json:"last_completed_at"` // 最近更新完成时间
+	Offset          int       `json:"offset"`            // 偏移量
+	Os              []string  `json:"os"`                // 操作系统
+	PlanId          []float64 `json:"plan_id"`           // 任务 id
+	State           []float64 `json:"state"`             // 执行状态
+	Tags            []string  `json:"tags"`              // 特征
+	UpdatedAt       []string  `json:"updated_at"`        // 最后操作时间
 }
-

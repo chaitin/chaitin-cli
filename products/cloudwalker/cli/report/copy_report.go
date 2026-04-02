@@ -3,8 +3,8 @@
 package report
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var CopyReportCmd = &cobra.Command{
 }
 
 func init() {
-		CopyReportCmd.Flags().IntVar(&copyReportParams.Id, "id", 0, "ID")
+	CopyReportCmd.Flags().IntVar(&copyReportParams.Id, "id", 0, "ID")
 }
-
 
 // CopyReportParams 请求参数
 type CopyReportParams struct {
 	Id int `json:"id"` // ID
 }
-

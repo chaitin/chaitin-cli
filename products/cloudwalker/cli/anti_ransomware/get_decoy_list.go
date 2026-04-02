@@ -3,8 +3,8 @@
 package anti_ransomware
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetDecoyListCmd = &cobra.Command{
 }
 
 func init() {
-		GetDecoyListCmd.Flags().IntVar(&getDecoyListParams.HostId, "host-id", 0, "主机 ID")
+	GetDecoyListCmd.Flags().IntVar(&getDecoyListParams.HostId, "host-id", 0, "主机 ID")
 }
-
 
 // GetDecoyListParams 请求参数
 type GetDecoyListParams struct {
 	HostId int `json:"host_id"` // 主机 ID
 }
-

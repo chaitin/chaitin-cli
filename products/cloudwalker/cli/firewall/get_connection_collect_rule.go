@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,18 +29,16 @@ var GetConnectionCollectRuleCmd = &cobra.Command{
 }
 
 func init() {
-		// filter is object type, use JSON string
-		var filterJSON string
-		GetConnectionCollectRuleCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选条件 (JSON, e.g. {\"created_at\": [\"xxxxxxxxx\"], \"enable\": true, \"host_ip\": [\"192.168.1.1\"], \"...\": \"...\"})")
-		// page is object type, use JSON string
-		var pageJSON string
-		GetConnectionCollectRuleCmd.Flags().StringVar(&pageJSON, "page", "", "分页参数 (JSON, e.g. {\"count\": 20, \"offset\": 0, \"order\": {\"column\": \"level\", \"order\": \"ASC\"}})")
+	// filter is object type, use JSON string
+	var filterJSON string
+	GetConnectionCollectRuleCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选条件 (JSON, e.g. {\"created_at\": [\"xxxxxxxxx\"], \"enable\": true, \"host_ip\": [\"192.168.1.1\"], \"...\": \"...\"})")
+	// page is object type, use JSON string
+	var pageJSON string
+	GetConnectionCollectRuleCmd.Flags().StringVar(&pageJSON, "page", "", "分页参数 (JSON, e.g. {\"count\": 20, \"offset\": 0, \"order\": {\"column\": \"level\", \"order\": \"ASC\"}})")
 }
-
 
 // GetConnectionCollectRuleParams 请求参数
 type GetConnectionCollectRuleParams struct {
 	Filter map[string]interface{} `json:"filter"` // 筛选条件
-	Page map[string]interface{} `json:"page"` // 分页参数
+	Page   map[string]interface{} `json:"page"`   // 分页参数
 }
-

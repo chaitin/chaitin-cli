@@ -3,8 +3,8 @@
 package security_check
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var GetPluginListCmd = &cobra.Command{
 }
 
 func init() {
-		GetPluginListCmd.Flags().IntVar(&getPluginListParams.Count, "count", 20, "数量")
-		GetPluginListCmd.Flags().IntVar(&getPluginListParams.Offset, "offset", 0, "偏移量")
+	GetPluginListCmd.Flags().IntVar(&getPluginListParams.Count, "count", 20, "数量")
+	GetPluginListCmd.Flags().IntVar(&getPluginListParams.Offset, "offset", 0, "偏移量")
 }
-
 
 // GetPluginListParams 请求参数
 type GetPluginListParams struct {
-	Count int `json:"count"` // 数量
+	Count  int `json:"count"`  // 数量
 	Offset int `json:"offset"` // 偏移量
 }
-

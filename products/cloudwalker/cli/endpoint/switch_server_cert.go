@@ -3,8 +3,8 @@
 package endpoint
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var SwitchServerCertCmd = &cobra.Command{
 }
 
 func init() {
-		SwitchServerCertCmd.Flags().StringVar(&switchServerCertParams.CertName, "cert-name", "", "证书名称")
+	SwitchServerCertCmd.Flags().StringVar(&switchServerCertParams.CertName, "cert-name", "", "证书名称")
 }
-
 
 // SwitchServerCertParams 请求参数
 type SwitchServerCertParams struct {
 	CertName string `json:"cert_name"` // 证书名称
 }
-

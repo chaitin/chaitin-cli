@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var CreateItemCmd = &cobra.Command{
 }
 
 func init() {
-		// items is complex type []map[string]interface{}, use JSON string
-		var itemsJSON string
-		CreateItemCmd.Flags().StringVar(&itemsJSON, "items", "", "要新增的核查项 (JSON, e.g. [{\"args\": \"\", \"logic_id\": \"754821f3-06db-455f-9d58-89421216fcf2\"}])")
-		CreateItemCmd.Flags().StringVar(&createItemParams.SetId, "set-id", "", "核查策略 ID")
+	// items is complex type []map[string]interface{}, use JSON string
+	var itemsJSON string
+	CreateItemCmd.Flags().StringVar(&itemsJSON, "items", "", "要新增的核查项 (JSON, e.g. [{\"args\": \"\", \"logic_id\": \"754821f3-06db-455f-9d58-89421216fcf2\"}])")
+	CreateItemCmd.Flags().StringVar(&createItemParams.SetId, "set-id", "", "核查策略 ID")
 }
-
 
 // CreateItemParams 请求参数
 type CreateItemParams struct {
-	Items []map[string]interface{} `json:"items"` // 要新增的核查项
-	SetId string `json:"set_id"` // 核查策略 ID
+	Items []map[string]interface{} `json:"items"`  // 要新增的核查项
+	SetId string                   `json:"set_id"` // 核查策略 ID
 }
-

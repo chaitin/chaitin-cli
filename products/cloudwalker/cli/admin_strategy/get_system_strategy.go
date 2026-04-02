@@ -3,14 +3,12 @@
 package admin_strategy
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetSystemStrategyCmd = &cobra.Command{
 	Use:   "get_system_strategy",
@@ -31,5 +29,3 @@ var GetSystemStrategyCmd = &cobra.Command{
 func init() {
 
 }
-
-

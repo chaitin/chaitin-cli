@@ -3,8 +3,8 @@
 package asset_config
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,46 +29,44 @@ var ListSoftwareIdentRuleCmd = &cobra.Command{
 }
 
 func init() {
-		ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.Category, "category", nil, "分类")
-		ListSoftwareIdentRuleCmd.Flags().IntVar(&listSoftwareIdentRuleParams.Count, "count", 20, "每页记录数量")
-		ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.CreatedAt, "created-at", nil, "创建时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		ListSoftwareIdentRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.HostComment, "host-comment", nil, "主机备注")
-		ListSoftwareIdentRuleCmd.Flags().Float64SliceVar(&listSoftwareIdentRuleParams.HostId, "host-id", nil, "主机ID")
-		ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.HostIp, "host-ip", nil, "主机IP")
-		ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.HostName, "host-name", nil, "主机名称")
-		ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.HostState, "host-state", nil, "主机状态")
-		ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.HostTag, "host-tag", nil, "主机标签")
-		ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.Id, "id", nil, "规则 ID")
-		ListSoftwareIdentRuleCmd.Flags().IntVar(&listSoftwareIdentRuleParams.Offset, "offset", 0, "页偏移")
-		ListSoftwareIdentRuleCmd.Flags().Float64SliceVar(&listSoftwareIdentRuleParams.Oid, "oid", nil, "组织ID")
-		ListSoftwareIdentRuleCmd.Flags().Float64SliceVar(&listSoftwareIdentRuleParams.Platform, "platform", nil, "作用平台")
-		ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.RuleName, "rule-name", nil, "规则名称")
-		ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.SoftwareName, "software-name", nil, "软件名称")
-		ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.UpdatedAt, "updated-at", nil, "更新时间")
+	ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.Category, "category", nil, "分类")
+	ListSoftwareIdentRuleCmd.Flags().IntVar(&listSoftwareIdentRuleParams.Count, "count", 20, "每页记录数量")
+	ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.CreatedAt, "created-at", nil, "创建时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	ListSoftwareIdentRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.HostComment, "host-comment", nil, "主机备注")
+	ListSoftwareIdentRuleCmd.Flags().Float64SliceVar(&listSoftwareIdentRuleParams.HostId, "host-id", nil, "主机ID")
+	ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.HostIp, "host-ip", nil, "主机IP")
+	ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.HostName, "host-name", nil, "主机名称")
+	ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.HostState, "host-state", nil, "主机状态")
+	ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.HostTag, "host-tag", nil, "主机标签")
+	ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.Id, "id", nil, "规则 ID")
+	ListSoftwareIdentRuleCmd.Flags().IntVar(&listSoftwareIdentRuleParams.Offset, "offset", 0, "页偏移")
+	ListSoftwareIdentRuleCmd.Flags().Float64SliceVar(&listSoftwareIdentRuleParams.Oid, "oid", nil, "组织ID")
+	ListSoftwareIdentRuleCmd.Flags().Float64SliceVar(&listSoftwareIdentRuleParams.Platform, "platform", nil, "作用平台")
+	ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.RuleName, "rule-name", nil, "规则名称")
+	ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.SoftwareName, "software-name", nil, "软件名称")
+	ListSoftwareIdentRuleCmd.Flags().StringSliceVar(&listSoftwareIdentRuleParams.UpdatedAt, "updated-at", nil, "更新时间")
 }
-
 
 // ListSoftwareIdentRuleParams 请求参数
 type ListSoftwareIdentRuleParams struct {
-	Category []string `json:"category"` // 分类
-	Count int `json:"count"` // 每页记录数量
-	CreatedAt []string `json:"created_at"` // 创建时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTag []string `json:"host_tag"` // 主机标签
-	Id []string `json:"id"` // 规则 ID
-	Offset int `json:"offset"` // 页偏移
-	Oid []float64 `json:"oid"` // 组织ID
-	Platform []float64 `json:"platform"` // 作用平台
-	RuleName []string `json:"rule_name"` // 规则名称
-	SoftwareName []string `json:"software_name"` // 软件名称
-	UpdatedAt []string `json:"updated_at"` // 更新时间
+	Category     []string                 `json:"category"`      // 分类
+	Count        int                      `json:"count"`         // 每页记录数量
+	CreatedAt    []string                 `json:"created_at"`    // 创建时间
+	CustomAttr   []map[string]interface{} `json:"custom_attr"`   // 主机业务属性
+	HostComment  []string                 `json:"host_comment"`  // 主机备注
+	HostId       []float64                `json:"host_id"`       // 主机ID
+	HostIp       []string                 `json:"host_ip"`       // 主机IP
+	HostName     []string                 `json:"host_name"`     // 主机名称
+	HostState    []string                 `json:"host_state"`    // 主机状态
+	HostTag      []string                 `json:"host_tag"`      // 主机标签
+	Id           []string                 `json:"id"`            // 规则 ID
+	Offset       int                      `json:"offset"`        // 页偏移
+	Oid          []float64                `json:"oid"`           // 组织ID
+	Platform     []float64                `json:"platform"`      // 作用平台
+	RuleName     []string                 `json:"rule_name"`     // 规则名称
+	SoftwareName []string                 `json:"software_name"` // 软件名称
+	UpdatedAt    []string                 `json:"updated_at"`    // 更新时间
 }
-

@@ -3,8 +3,8 @@
 package port_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var DeletePortCmd = &cobra.Command{
 }
 
 func init() {
-		DeletePortCmd.Flags().Float64SliceVar(&deletePortParams.Ids, "ids", nil, "ID 列表")
+	DeletePortCmd.Flags().Float64SliceVar(&deletePortParams.Ids, "ids", nil, "ID 列表")
 }
-
 
 // DeletePortParams 请求参数
 type DeletePortParams struct {
 	Ids []float64 `json:"ids"` // ID 列表
 }
-

@@ -3,8 +3,8 @@
 package package_service
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,18 +29,16 @@ var ListPackagesCmd = &cobra.Command{
 }
 
 func init() {
-		ListPackagesCmd.Flags().IntVar(&listPackagesParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		ListPackagesCmd.Flags().IntVar(&listPackagesParams.Offset, "offset", 0, "页偏移, 默认为 0")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		ListPackagesCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	ListPackagesCmd.Flags().IntVar(&listPackagesParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	ListPackagesCmd.Flags().IntVar(&listPackagesParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	ListPackagesCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
 }
-
 
 // ListPackagesParams 请求参数
 type ListPackagesParams struct {
-	Count int `json:"count"` // 每页记录数量, 默认为 20
-	Offset int `json:"offset"` // 页偏移, 默认为 0
+	Count   int                    `json:"count"`    // 每页记录数量, 默认为 20
+	Offset  int                    `json:"offset"`   // 页偏移, 默认为 0
 	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
 }
-

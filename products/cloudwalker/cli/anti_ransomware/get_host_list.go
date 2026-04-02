@@ -3,8 +3,8 @@
 package anti_ransomware
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,58 +29,56 @@ var GetHostListCmd = &cobra.Command{
 }
 
 func init() {
-		GetHostListCmd.Flags().IntVar(&getHostListParams.Count, "count", 20, "返回规则的数量")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetHostListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetHostListCmd.Flags().StringSliceVar(&getHostListParams.DecoyCount, "decoy-count", nil, "诱饵数量，范围筛选")
-		GetHostListCmd.Flags().StringSliceVar(&getHostListParams.DecoyFileSize, "decoy-file-size", nil, "诱饵文件大小，范围筛选")
-		GetHostListCmd.Flags().StringSliceVar(&getHostListParams.DecoyPath, "decoy-path", nil, "诱饵路径")
-		GetHostListCmd.Flags().StringSliceVar(&getHostListParams.ExposedIp, "exposed-ip", nil, "主机外网 IP")
-		GetHostListCmd.Flags().Float64SliceVar(&getHostListParams.Gids, "gids", nil, "业务组 ID")
-		GetHostListCmd.Flags().Float64SliceVar(&getHostListParams.GroupId, "group-id", nil, "业务组")
-		GetHostListCmd.Flags().StringSliceVar(&getHostListParams.GroupName, "group-name", nil, "业务组名")
-		GetHostListCmd.Flags().BoolVar(&getHostListParams.HasErr, "has-err", false, "是否有错误")
-		GetHostListCmd.Flags().StringSliceVar(&getHostListParams.HostComment, "host-comment", nil, "主机备注")
-		GetHostListCmd.Flags().Float64SliceVar(&getHostListParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
-		GetHostListCmd.Flags().StringSliceVar(&getHostListParams.HostIp, "host-ip", nil, "主机IP")
-		GetHostListCmd.Flags().StringSliceVar(&getHostListParams.HostName, "host-name", nil, "主机名称")
-		GetHostListCmd.Flags().StringSliceVar(&getHostListParams.HostState, "host-state", nil, "主机状态")
-		GetHostListCmd.Flags().StringSliceVar(&getHostListParams.HostTags, "host-tags", nil, "主机标签")
-		GetHostListCmd.Flags().Float64SliceVar(&getHostListParams.Mode, "mode", nil, "防护模式，0 仅告警，1 告警并防护")
-		GetHostListCmd.Flags().StringSliceVar(&getHostListParams.Name, "name", nil, "主机名")
-		GetHostListCmd.Flags().IntVar(&getHostListParams.Offset, "offset", 0, "返回规则的偏移值")
-		GetHostListCmd.Flags().Float64SliceVar(&getHostListParams.Oid, "oid", nil, "机构ID")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetHostListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetHostListCmd.Flags().Float64SliceVar(&getHostListParams.State, "state", nil, "防护状态：0 防护中，1 不生效")
+	GetHostListCmd.Flags().IntVar(&getHostListParams.Count, "count", 20, "返回规则的数量")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetHostListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetHostListCmd.Flags().StringSliceVar(&getHostListParams.DecoyCount, "decoy-count", nil, "诱饵数量，范围筛选")
+	GetHostListCmd.Flags().StringSliceVar(&getHostListParams.DecoyFileSize, "decoy-file-size", nil, "诱饵文件大小，范围筛选")
+	GetHostListCmd.Flags().StringSliceVar(&getHostListParams.DecoyPath, "decoy-path", nil, "诱饵路径")
+	GetHostListCmd.Flags().StringSliceVar(&getHostListParams.ExposedIp, "exposed-ip", nil, "主机外网 IP")
+	GetHostListCmd.Flags().Float64SliceVar(&getHostListParams.Gids, "gids", nil, "业务组 ID")
+	GetHostListCmd.Flags().Float64SliceVar(&getHostListParams.GroupId, "group-id", nil, "业务组")
+	GetHostListCmd.Flags().StringSliceVar(&getHostListParams.GroupName, "group-name", nil, "业务组名")
+	GetHostListCmd.Flags().BoolVar(&getHostListParams.HasErr, "has-err", false, "是否有错误")
+	GetHostListCmd.Flags().StringSliceVar(&getHostListParams.HostComment, "host-comment", nil, "主机备注")
+	GetHostListCmd.Flags().Float64SliceVar(&getHostListParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
+	GetHostListCmd.Flags().StringSliceVar(&getHostListParams.HostIp, "host-ip", nil, "主机IP")
+	GetHostListCmd.Flags().StringSliceVar(&getHostListParams.HostName, "host-name", nil, "主机名称")
+	GetHostListCmd.Flags().StringSliceVar(&getHostListParams.HostState, "host-state", nil, "主机状态")
+	GetHostListCmd.Flags().StringSliceVar(&getHostListParams.HostTags, "host-tags", nil, "主机标签")
+	GetHostListCmd.Flags().Float64SliceVar(&getHostListParams.Mode, "mode", nil, "防护模式，0 仅告警，1 告警并防护")
+	GetHostListCmd.Flags().StringSliceVar(&getHostListParams.Name, "name", nil, "主机名")
+	GetHostListCmd.Flags().IntVar(&getHostListParams.Offset, "offset", 0, "返回规则的偏移值")
+	GetHostListCmd.Flags().Float64SliceVar(&getHostListParams.Oid, "oid", nil, "机构ID")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetHostListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetHostListCmd.Flags().Float64SliceVar(&getHostListParams.State, "state", nil, "防护状态：0 防护中，1 不生效")
 }
-
 
 // GetHostListParams 请求参数
 type GetHostListParams struct {
-	Count int `json:"count"` // 返回规则的数量
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	DecoyCount []string `json:"decoy_count"` // 诱饵数量，范围筛选
-	DecoyFileSize []string `json:"decoy_file_size"` // 诱饵文件大小，范围筛选
-	DecoyPath []string `json:"decoy_path"` // 诱饵路径
-	ExposedIp []string `json:"exposed_ip"` // 主机外网 IP
-	Gids []float64 `json:"gids"` // 业务组 ID
-	GroupId []float64 `json:"group_id"` // 业务组
-	GroupName []string `json:"group_name"` // 业务组名
-	HasErr bool `json:"has_err"` // 是否有错误
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID, 用于主机详情页面
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Mode []float64 `json:"mode"` // 防护模式，0 仅告警，1 告警并防护
-	Name []string `json:"name"` // 主机名
-	Offset int `json:"offset"` // 返回规则的偏移值
-	Oid []float64 `json:"oid"` // 机构ID
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	State []float64 `json:"state"` // 防护状态：0 防护中，1 不生效
+	Count         int                      `json:"count"`           // 返回规则的数量
+	CustomAttr    []map[string]interface{} `json:"custom_attr"`     // 主机业务属性
+	DecoyCount    []string                 `json:"decoy_count"`     // 诱饵数量，范围筛选
+	DecoyFileSize []string                 `json:"decoy_file_size"` // 诱饵文件大小，范围筛选
+	DecoyPath     []string                 `json:"decoy_path"`      // 诱饵路径
+	ExposedIp     []string                 `json:"exposed_ip"`      // 主机外网 IP
+	Gids          []float64                `json:"gids"`            // 业务组 ID
+	GroupId       []float64                `json:"group_id"`        // 业务组
+	GroupName     []string                 `json:"group_name"`      // 业务组名
+	HasErr        bool                     `json:"has_err"`         // 是否有错误
+	HostComment   []string                 `json:"host_comment"`    // 主机备注
+	HostId        []float64                `json:"host_id"`         // 主机ID, 用于主机详情页面
+	HostIp        []string                 `json:"host_ip"`         // 主机IP
+	HostName      []string                 `json:"host_name"`       // 主机名称
+	HostState     []string                 `json:"host_state"`      // 主机状态
+	HostTags      []string                 `json:"host_tags"`       // 主机标签
+	Mode          []float64                `json:"mode"`            // 防护模式，0 仅告警，1 告警并防护
+	Name          []string                 `json:"name"`            // 主机名
+	Offset        int                      `json:"offset"`          // 返回规则的偏移值
+	Oid           []float64                `json:"oid"`             // 机构ID
+	OrderBy       map[string]interface{}   `json:"order_by"`        // 排序规则
+	State         []float64                `json:"state"`           // 防护状态：0 防护中，1 不生效
 }
-

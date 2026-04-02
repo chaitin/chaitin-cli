@@ -3,8 +3,8 @@
 package security_strategy
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var SetGroupStrategyCmd = &cobra.Command{
 }
 
 func init() {
-		SetGroupStrategyCmd.Flags().IntSliceVar(&setGroupStrategyParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		SetGroupStrategyCmd.Flags().StringVar(&setGroupStrategyParams.StrategyId, "strategy-id", "", "安全策略 id")
+	SetGroupStrategyCmd.Flags().IntSliceVar(&setGroupStrategyParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	SetGroupStrategyCmd.Flags().StringVar(&setGroupStrategyParams.StrategyId, "strategy-id", "", "安全策略 id")
 }
-
 
 // SetGroupStrategyParams 请求参数
 type SetGroupStrategyParams struct {
-	BusinessGroupRange []int `json:"business_group_range"` // 业务组范围
-	StrategyId string `json:"strategy_id"` // 安全策略 id
+	BusinessGroupRange []int  `json:"business_group_range"` // 业务组范围
+	StrategyId         string `json:"strategy_id"`          // 安全策略 id
 }
-

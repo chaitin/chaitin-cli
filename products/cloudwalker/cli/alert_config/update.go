@@ -3,8 +3,8 @@
 package alert_config
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var UpdateCmd = &cobra.Command{
 }
 
 func init() {
-		UpdateCmd.Flags().StringVar(&updateParams.Config, "config", "", "config")
-		UpdateCmd.Flags().IntVar(&updateParams.Id, "id", 0, "id")
-		UpdateCmd.Flags().StringVar(&updateParams.Name, "name", "", "告警名称")
+	UpdateCmd.Flags().StringVar(&updateParams.Config, "config", "", "config")
+	UpdateCmd.Flags().IntVar(&updateParams.Id, "id", 0, "id")
+	UpdateCmd.Flags().StringVar(&updateParams.Name, "name", "", "告警名称")
 }
-
 
 // UpdateParams 请求参数
 type UpdateParams struct {
 	Config string `json:"config"` // config
-	Id int `json:"id"` // id
-	Name string `json:"name"` // 告警名称
+	Id     int    `json:"id"`     // id
+	Name   string `json:"name"`   // 告警名称
 }
-

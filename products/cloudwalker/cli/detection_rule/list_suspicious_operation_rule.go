@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,42 +29,40 @@ var ListSuspiciousOperationRuleCmd = &cobra.Command{
 }
 
 func init() {
-		ListSuspiciousOperationRuleCmd.Flags().IntVar(&listSuspiciousOperationRuleParams.Count, "count", 20, "每页记录数量")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		ListSuspiciousOperationRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		ListSuspiciousOperationRuleCmd.Flags().BoolVar(&listSuspiciousOperationRuleParams.Enable, "enable", false, "是否启用")
-		ListSuspiciousOperationRuleCmd.Flags().StringSliceVar(&listSuspiciousOperationRuleParams.HostComment, "host-comment", nil, "主机备注")
-		ListSuspiciousOperationRuleCmd.Flags().Float64SliceVar(&listSuspiciousOperationRuleParams.HostId, "host-id", nil, "主机ID")
-		ListSuspiciousOperationRuleCmd.Flags().StringSliceVar(&listSuspiciousOperationRuleParams.HostIp, "host-ip", nil, "主机IP")
-		ListSuspiciousOperationRuleCmd.Flags().StringSliceVar(&listSuspiciousOperationRuleParams.HostName, "host-name", nil, "主机名称")
-		ListSuspiciousOperationRuleCmd.Flags().StringSliceVar(&listSuspiciousOperationRuleParams.HostState, "host-state", nil, "主机状态")
-		ListSuspiciousOperationRuleCmd.Flags().StringSliceVar(&listSuspiciousOperationRuleParams.HostTag, "host-tag", nil, "主机标签")
-		ListSuspiciousOperationRuleCmd.Flags().StringSliceVar(&listSuspiciousOperationRuleParams.Id, "id", nil, "规则 ID")
-		ListSuspiciousOperationRuleCmd.Flags().BoolVar(&listSuspiciousOperationRuleParams.IsBuiltin, "is-builtin", false, "是否为内置规则")
-		ListSuspiciousOperationRuleCmd.Flags().Float64SliceVar(&listSuspiciousOperationRuleParams.Level, "level", nil, "风险等级")
-		ListSuspiciousOperationRuleCmd.Flags().IntVar(&listSuspiciousOperationRuleParams.Offset, "offset", 0, "页偏移")
-		ListSuspiciousOperationRuleCmd.Flags().StringSliceVar(&listSuspiciousOperationRuleParams.Platform, "platform", nil, "平台")
-		ListSuspiciousOperationRuleCmd.Flags().StringSliceVar(&listSuspiciousOperationRuleParams.RuleName, "rule-name", nil, "规则名称")
+	ListSuspiciousOperationRuleCmd.Flags().IntVar(&listSuspiciousOperationRuleParams.Count, "count", 20, "每页记录数量")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	ListSuspiciousOperationRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	ListSuspiciousOperationRuleCmd.Flags().BoolVar(&listSuspiciousOperationRuleParams.Enable, "enable", false, "是否启用")
+	ListSuspiciousOperationRuleCmd.Flags().StringSliceVar(&listSuspiciousOperationRuleParams.HostComment, "host-comment", nil, "主机备注")
+	ListSuspiciousOperationRuleCmd.Flags().Float64SliceVar(&listSuspiciousOperationRuleParams.HostId, "host-id", nil, "主机ID")
+	ListSuspiciousOperationRuleCmd.Flags().StringSliceVar(&listSuspiciousOperationRuleParams.HostIp, "host-ip", nil, "主机IP")
+	ListSuspiciousOperationRuleCmd.Flags().StringSliceVar(&listSuspiciousOperationRuleParams.HostName, "host-name", nil, "主机名称")
+	ListSuspiciousOperationRuleCmd.Flags().StringSliceVar(&listSuspiciousOperationRuleParams.HostState, "host-state", nil, "主机状态")
+	ListSuspiciousOperationRuleCmd.Flags().StringSliceVar(&listSuspiciousOperationRuleParams.HostTag, "host-tag", nil, "主机标签")
+	ListSuspiciousOperationRuleCmd.Flags().StringSliceVar(&listSuspiciousOperationRuleParams.Id, "id", nil, "规则 ID")
+	ListSuspiciousOperationRuleCmd.Flags().BoolVar(&listSuspiciousOperationRuleParams.IsBuiltin, "is-builtin", false, "是否为内置规则")
+	ListSuspiciousOperationRuleCmd.Flags().Float64SliceVar(&listSuspiciousOperationRuleParams.Level, "level", nil, "风险等级")
+	ListSuspiciousOperationRuleCmd.Flags().IntVar(&listSuspiciousOperationRuleParams.Offset, "offset", 0, "页偏移")
+	ListSuspiciousOperationRuleCmd.Flags().StringSliceVar(&listSuspiciousOperationRuleParams.Platform, "platform", nil, "平台")
+	ListSuspiciousOperationRuleCmd.Flags().StringSliceVar(&listSuspiciousOperationRuleParams.RuleName, "rule-name", nil, "规则名称")
 }
-
 
 // ListSuspiciousOperationRuleParams 请求参数
 type ListSuspiciousOperationRuleParams struct {
-	Count int `json:"count"` // 每页记录数量
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Enable bool `json:"enable"` // 是否启用
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTag []string `json:"host_tag"` // 主机标签
-	Id []string `json:"id"` // 规则 ID
-	IsBuiltin bool `json:"is_builtin"` // 是否为内置规则
-	Level []float64 `json:"level"` // 风险等级
-	Offset int `json:"offset"` // 页偏移
-	Platform []string `json:"platform"` // 平台
-	RuleName []string `json:"rule_name"` // 规则名称
+	Count       int                      `json:"count"`        // 每页记录数量
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Enable      bool                     `json:"enable"`       // 是否启用
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机ID
+	HostIp      []string                 `json:"host_ip"`      // 主机IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTag     []string                 `json:"host_tag"`     // 主机标签
+	Id          []string                 `json:"id"`           // 规则 ID
+	IsBuiltin   bool                     `json:"is_builtin"`   // 是否为内置规则
+	Level       []float64                `json:"level"`        // 风险等级
+	Offset      int                      `json:"offset"`       // 页偏移
+	Platform    []string                 `json:"platform"`     // 平台
+	RuleName    []string                 `json:"rule_name"`    // 规则名称
 }
-

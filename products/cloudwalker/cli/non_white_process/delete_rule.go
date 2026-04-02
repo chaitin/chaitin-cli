@@ -3,8 +3,8 @@
 package non_white_process
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,34 +29,32 @@ var DeleteRuleCmd = &cobra.Command{
 }
 
 func init() {
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		DeleteRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		DeleteRuleCmd.Flags().StringSliceVar(&deleteRuleParams.HostComment, "host-comment", nil, "主机备注")
-		DeleteRuleCmd.Flags().Float64SliceVar(&deleteRuleParams.HostId, "host-id", nil, "主机ID")
-		DeleteRuleCmd.Flags().StringSliceVar(&deleteRuleParams.HostIp, "host-ip", nil, "主机IP")
-		DeleteRuleCmd.Flags().StringSliceVar(&deleteRuleParams.HostName, "host-name", nil, "主机名称")
-		DeleteRuleCmd.Flags().StringSliceVar(&deleteRuleParams.HostState, "host-state", nil, "主机状态")
-		DeleteRuleCmd.Flags().StringSliceVar(&deleteRuleParams.HostTag, "host-tag", nil, "主机标签")
-		DeleteRuleCmd.Flags().StringSliceVar(&deleteRuleParams.Id, "id", nil, "ID")
-		DeleteRuleCmd.Flags().StringSliceVar(&deleteRuleParams.LastStudyAt, "last-study-at", nil, "最后学习时间")
-		DeleteRuleCmd.Flags().StringSliceVar(&deleteRuleParams.RuleName, "rule-name", nil, "规则名称")
-		DeleteRuleCmd.Flags().StringSliceVar(&deleteRuleParams.Status, "status", nil, "检测模式")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	DeleteRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	DeleteRuleCmd.Flags().StringSliceVar(&deleteRuleParams.HostComment, "host-comment", nil, "主机备注")
+	DeleteRuleCmd.Flags().Float64SliceVar(&deleteRuleParams.HostId, "host-id", nil, "主机ID")
+	DeleteRuleCmd.Flags().StringSliceVar(&deleteRuleParams.HostIp, "host-ip", nil, "主机IP")
+	DeleteRuleCmd.Flags().StringSliceVar(&deleteRuleParams.HostName, "host-name", nil, "主机名称")
+	DeleteRuleCmd.Flags().StringSliceVar(&deleteRuleParams.HostState, "host-state", nil, "主机状态")
+	DeleteRuleCmd.Flags().StringSliceVar(&deleteRuleParams.HostTag, "host-tag", nil, "主机标签")
+	DeleteRuleCmd.Flags().StringSliceVar(&deleteRuleParams.Id, "id", nil, "ID")
+	DeleteRuleCmd.Flags().StringSliceVar(&deleteRuleParams.LastStudyAt, "last-study-at", nil, "最后学习时间")
+	DeleteRuleCmd.Flags().StringSliceVar(&deleteRuleParams.RuleName, "rule-name", nil, "规则名称")
+	DeleteRuleCmd.Flags().StringSliceVar(&deleteRuleParams.Status, "status", nil, "检测模式")
 }
-
 
 // DeleteRuleParams 请求参数
 type DeleteRuleParams struct {
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTag []string `json:"host_tag"` // 主机标签
-	Id []string `json:"id"` // ID
-	LastStudyAt []string `json:"last_study_at"` // 最后学习时间
-	RuleName []string `json:"rule_name"` // 规则名称
-	Status []string `json:"status"` // 检测模式
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`   // 主机业务属性
+	HostComment []string                 `json:"host_comment"`  // 主机备注
+	HostId      []float64                `json:"host_id"`       // 主机ID
+	HostIp      []string                 `json:"host_ip"`       // 主机IP
+	HostName    []string                 `json:"host_name"`     // 主机名称
+	HostState   []string                 `json:"host_state"`    // 主机状态
+	HostTag     []string                 `json:"host_tag"`      // 主机标签
+	Id          []string                 `json:"id"`            // ID
+	LastStudyAt []string                 `json:"last_study_at"` // 最后学习时间
+	RuleName    []string                 `json:"rule_name"`     // 规则名称
+	Status      []string                 `json:"status"`        // 检测模式
 }
-

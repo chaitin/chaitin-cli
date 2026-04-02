@@ -3,8 +3,8 @@
 package elevation_process_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,60 +29,58 @@ var ProcessKillCmd = &cobra.Command{
 }
 
 func init() {
-		ProcessKillCmd.Flags().StringSliceVar(&processKillParams.AggExename, "agg-exename", nil, "进程名")
-		ProcessKillCmd.Flags().Float64SliceVar(&processKillParams.AggHostId, "agg-host-id", nil, "主机Id")
-		ProcessKillCmd.Flags().Float64SliceVar(&processKillParams.AggId, "agg-id", nil, "事件Id")
-		ProcessKillCmd.Flags().StringSliceVar(&processKillParams.AggOriginEffectUser, "agg-origin-effect-user", nil, "用户名")
-		ProcessKillCmd.Flags().StringSliceVar(&processKillParams.Comment, "comment", nil, "用户自定义备注")
-		ProcessKillCmd.Flags().StringSliceVar(&processKillParams.CreatedAt, "created-at", nil, "首次发现时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		ProcessKillCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		ProcessKillCmd.Flags().StringSliceVar(&processKillParams.Exename, "exename", nil, "进程名")
-		ProcessKillCmd.Flags().Float64SliceVar(&processKillParams.Gids, "gids", nil, "业务组 ID")
-		ProcessKillCmd.Flags().StringSliceVar(&processKillParams.HostComment, "host-comment", nil, "主机备注")
-		ProcessKillCmd.Flags().Float64SliceVar(&processKillParams.HostId, "host-id", nil, "主机 ID")
-		ProcessKillCmd.Flags().StringSliceVar(&processKillParams.HostIp, "host-ip", nil, "主机 IP")
-		ProcessKillCmd.Flags().StringSliceVar(&processKillParams.HostName, "host-name", nil, "主机名称")
-		ProcessKillCmd.Flags().StringSliceVar(&processKillParams.HostState, "host-state", nil, "主机状态")
-		ProcessKillCmd.Flags().StringSliceVar(&processKillParams.HostTags, "host-tags", nil, "主机标签")
-		ProcessKillCmd.Flags().Float64SliceVar(&processKillParams.Ids, "ids", nil, "事件 ID")
-		ProcessKillCmd.Flags().IntSliceVar(&processKillParams.Level, "level", nil, "风险等级(1-低危，2-中危，3-高危，4-严重)")
-		ProcessKillCmd.Flags().Float64SliceVar(&processKillParams.Oid, "oid", nil, "机构 ID")
-		ProcessKillCmd.Flags().StringSliceVar(&processKillParams.OriginUser, "origin-user", nil, "提权源用户")
-		ProcessKillCmd.Flags().BoolVar(&processKillParams.SelectAll, "select-all", false, "是否选中所有")
-		ProcessKillCmd.Flags().Float64SliceVar(&processKillParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
-		ProcessKillCmd.Flags().IntSliceVar(&processKillParams.State, "state", nil, "处置状态(1-有风险，2-已忽略，3-已处理)")
-		ProcessKillCmd.Flags().StringSliceVar(&processKillParams.TargetUser, "target-user", nil, "提权目标用户")
-		ProcessKillCmd.Flags().StringSliceVar(&processKillParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	ProcessKillCmd.Flags().StringSliceVar(&processKillParams.AggExename, "agg-exename", nil, "进程名")
+	ProcessKillCmd.Flags().Float64SliceVar(&processKillParams.AggHostId, "agg-host-id", nil, "主机Id")
+	ProcessKillCmd.Flags().Float64SliceVar(&processKillParams.AggId, "agg-id", nil, "事件Id")
+	ProcessKillCmd.Flags().StringSliceVar(&processKillParams.AggOriginEffectUser, "agg-origin-effect-user", nil, "用户名")
+	ProcessKillCmd.Flags().StringSliceVar(&processKillParams.Comment, "comment", nil, "用户自定义备注")
+	ProcessKillCmd.Flags().StringSliceVar(&processKillParams.CreatedAt, "created-at", nil, "首次发现时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	ProcessKillCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	ProcessKillCmd.Flags().StringSliceVar(&processKillParams.Exename, "exename", nil, "进程名")
+	ProcessKillCmd.Flags().Float64SliceVar(&processKillParams.Gids, "gids", nil, "业务组 ID")
+	ProcessKillCmd.Flags().StringSliceVar(&processKillParams.HostComment, "host-comment", nil, "主机备注")
+	ProcessKillCmd.Flags().Float64SliceVar(&processKillParams.HostId, "host-id", nil, "主机 ID")
+	ProcessKillCmd.Flags().StringSliceVar(&processKillParams.HostIp, "host-ip", nil, "主机 IP")
+	ProcessKillCmd.Flags().StringSliceVar(&processKillParams.HostName, "host-name", nil, "主机名称")
+	ProcessKillCmd.Flags().StringSliceVar(&processKillParams.HostState, "host-state", nil, "主机状态")
+	ProcessKillCmd.Flags().StringSliceVar(&processKillParams.HostTags, "host-tags", nil, "主机标签")
+	ProcessKillCmd.Flags().Float64SliceVar(&processKillParams.Ids, "ids", nil, "事件 ID")
+	ProcessKillCmd.Flags().IntSliceVar(&processKillParams.Level, "level", nil, "风险等级(1-低危，2-中危，3-高危，4-严重)")
+	ProcessKillCmd.Flags().Float64SliceVar(&processKillParams.Oid, "oid", nil, "机构 ID")
+	ProcessKillCmd.Flags().StringSliceVar(&processKillParams.OriginUser, "origin-user", nil, "提权源用户")
+	ProcessKillCmd.Flags().BoolVar(&processKillParams.SelectAll, "select-all", false, "是否选中所有")
+	ProcessKillCmd.Flags().Float64SliceVar(&processKillParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
+	ProcessKillCmd.Flags().IntSliceVar(&processKillParams.State, "state", nil, "处置状态(1-有风险，2-已忽略，3-已处理)")
+	ProcessKillCmd.Flags().StringSliceVar(&processKillParams.TargetUser, "target-user", nil, "提权目标用户")
+	ProcessKillCmd.Flags().StringSliceVar(&processKillParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // ProcessKillParams 请求参数
 type ProcessKillParams struct {
-	AggExename []string `json:"agg_exename"` // 进程名
-	AggHostId []float64 `json:"agg_host_id"` // 主机Id
-	AggId []float64 `json:"agg_id"` // 事件Id
-	AggOriginEffectUser []string `json:"agg_origin_effect_user"` // 用户名
-	Comment []string `json:"comment"` // 用户自定义备注
-	CreatedAt []string `json:"created_at"` // 首次发现时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Exename []string `json:"exename"` // 进程名
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Ids []float64 `json:"ids"` // 事件 ID
-	Level []int `json:"level"` // 风险等级(1-低危，2-中危，3-高危，4-严重)
-	Oid []float64 `json:"oid"` // 机构 ID
-	OriginUser []string `json:"origin_user"` // 提权源用户
-	SelectAll bool `json:"select_all"` // 是否选中所有
-	StatEventId []float64 `json:"stat_event_id"` // 事件统计 ID
-	State []int `json:"state"` // 处置状态(1-有风险，2-已忽略，3-已处理)
-	TargetUser []string `json:"target_user"` // 提权目标用户
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	AggExename          []string                 `json:"agg_exename"`            // 进程名
+	AggHostId           []float64                `json:"agg_host_id"`            // 主机Id
+	AggId               []float64                `json:"agg_id"`                 // 事件Id
+	AggOriginEffectUser []string                 `json:"agg_origin_effect_user"` // 用户名
+	Comment             []string                 `json:"comment"`                // 用户自定义备注
+	CreatedAt           []string                 `json:"created_at"`             // 首次发现时间
+	CustomAttr          []map[string]interface{} `json:"custom_attr"`            // 主机业务属性
+	Exename             []string                 `json:"exename"`                // 进程名
+	Gids                []float64                `json:"gids"`                   // 业务组 ID
+	HostComment         []string                 `json:"host_comment"`           // 主机备注
+	HostId              []float64                `json:"host_id"`                // 主机 ID
+	HostIp              []string                 `json:"host_ip"`                // 主机 IP
+	HostName            []string                 `json:"host_name"`              // 主机名称
+	HostState           []string                 `json:"host_state"`             // 主机状态
+	HostTags            []string                 `json:"host_tags"`              // 主机标签
+	Ids                 []float64                `json:"ids"`                    // 事件 ID
+	Level               []int                    `json:"level"`                  // 风险等级(1-低危，2-中危，3-高危，4-严重)
+	Oid                 []float64                `json:"oid"`                    // 机构 ID
+	OriginUser          []string                 `json:"origin_user"`            // 提权源用户
+	SelectAll           bool                     `json:"select_all"`             // 是否选中所有
+	StatEventId         []float64                `json:"stat_event_id"`          // 事件统计 ID
+	State               []int                    `json:"state"`                  // 处置状态(1-有风险，2-已忽略，3-已处理)
+	TargetUser          []string                 `json:"target_user"`            // 提权目标用户
+	WhiteRuleId         []string                 `json:"white_rule_id"`          // 白名单规则 ID
 }
-

@@ -3,8 +3,8 @@
 package package_service
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var UpsertProxyHostCmd = &cobra.Command{
 }
 
 func init() {
-		UpsertProxyHostCmd.Flags().BoolVar(&upsertProxyHostParams.Enable, "enable", false, "是否启用")
-		UpsertProxyHostCmd.Flags().StringVar(&upsertProxyHostParams.ProxyHost, "proxy-host", "", "代理主机")
+	UpsertProxyHostCmd.Flags().BoolVar(&upsertProxyHostParams.Enable, "enable", false, "是否启用")
+	UpsertProxyHostCmd.Flags().StringVar(&upsertProxyHostParams.ProxyHost, "proxy-host", "", "代理主机")
 }
-
 
 // UpsertProxyHostParams 请求参数
 type UpsertProxyHostParams struct {
-	Enable bool `json:"enable"` // 是否启用
+	Enable    bool   `json:"enable"`     // 是否启用
 	ProxyHost string `json:"proxy_host"` // 代理主机
 }
-

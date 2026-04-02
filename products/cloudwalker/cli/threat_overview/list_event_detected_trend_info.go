@@ -3,8 +3,8 @@
 package threat_overview
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var ListEventDetectedTrendInfoCmd = &cobra.Command{
 }
 
 func init() {
-		ListEventDetectedTrendInfoCmd.Flags().Float64SliceVar(&listEventDetectedTrendInfoParams.Gids, "gids", nil, "ID")
-		ListEventDetectedTrendInfoCmd.Flags().Float64SliceVar(&listEventDetectedTrendInfoParams.Level, "level", nil, "level")
-		ListEventDetectedTrendInfoCmd.Flags().IntVar(&listEventDetectedTrendInfoParams.Period, "period", 0, "统计周期")
+	ListEventDetectedTrendInfoCmd.Flags().Float64SliceVar(&listEventDetectedTrendInfoParams.Gids, "gids", nil, "ID")
+	ListEventDetectedTrendInfoCmd.Flags().Float64SliceVar(&listEventDetectedTrendInfoParams.Level, "level", nil, "level")
+	ListEventDetectedTrendInfoCmd.Flags().IntVar(&listEventDetectedTrendInfoParams.Period, "period", 0, "统计周期")
 }
-
 
 // ListEventDetectedTrendInfoParams 请求参数
 type ListEventDetectedTrendInfoParams struct {
-	Gids []float64 `json:"gids"` // ID
-	Level []float64 `json:"level"` // level
-	Period int `json:"period"` // 统计周期
+	Gids   []float64 `json:"gids"`   // ID
+	Level  []float64 `json:"level"`  // level
+	Period int       `json:"period"` // 统计周期
 }
-

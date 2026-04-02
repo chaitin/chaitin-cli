@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,28 +29,26 @@ var CreateConnectionCollectRuleCmd = &cobra.Command{
 }
 
 func init() {
-		CreateConnectionCollectRuleCmd.Flags().Float64SliceVar(&createConnectionCollectRuleParams.AgentRange, "agent-range", nil, "主机范围")
-		CreateConnectionCollectRuleCmd.Flags().Float64SliceVar(&createConnectionCollectRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		CreateConnectionCollectRuleCmd.Flags().StringSliceVar(&createConnectionCollectRuleParams.Cidrs, "cidrs", nil, "地址")
-		CreateConnectionCollectRuleCmd.Flags().BoolVar(&createConnectionCollectRuleParams.Enable, "enable", false, "是否启用")
-		CreateConnectionCollectRuleCmd.Flags().BoolVar(&createConnectionCollectRuleParams.Global, "global", false, "是否绑定全局探针")
-		CreateConnectionCollectRuleCmd.Flags().StringVar(&createConnectionCollectRuleParams.Link, "link", "", "过滤方向")
-		CreateConnectionCollectRuleCmd.Flags().StringSliceVar(&createConnectionCollectRuleParams.Ports, "ports", nil, "端口")
-		CreateConnectionCollectRuleCmd.Flags().StringVar(&createConnectionCollectRuleParams.Protocol, "protocol", "", "协议")
-		CreateConnectionCollectRuleCmd.Flags().StringVar(&createConnectionCollectRuleParams.RuleName, "rule-name", "", "规则名称")
+	CreateConnectionCollectRuleCmd.Flags().Float64SliceVar(&createConnectionCollectRuleParams.AgentRange, "agent-range", nil, "主机范围")
+	CreateConnectionCollectRuleCmd.Flags().Float64SliceVar(&createConnectionCollectRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	CreateConnectionCollectRuleCmd.Flags().StringSliceVar(&createConnectionCollectRuleParams.Cidrs, "cidrs", nil, "地址")
+	CreateConnectionCollectRuleCmd.Flags().BoolVar(&createConnectionCollectRuleParams.Enable, "enable", false, "是否启用")
+	CreateConnectionCollectRuleCmd.Flags().BoolVar(&createConnectionCollectRuleParams.Global, "global", false, "是否绑定全局探针")
+	CreateConnectionCollectRuleCmd.Flags().StringVar(&createConnectionCollectRuleParams.Link, "link", "", "过滤方向")
+	CreateConnectionCollectRuleCmd.Flags().StringSliceVar(&createConnectionCollectRuleParams.Ports, "ports", nil, "端口")
+	CreateConnectionCollectRuleCmd.Flags().StringVar(&createConnectionCollectRuleParams.Protocol, "protocol", "", "协议")
+	CreateConnectionCollectRuleCmd.Flags().StringVar(&createConnectionCollectRuleParams.RuleName, "rule-name", "", "规则名称")
 }
-
 
 // CreateConnectionCollectRuleParams 请求参数
 type CreateConnectionCollectRuleParams struct {
-	AgentRange []float64 `json:"agent_range"` // 主机范围
+	AgentRange         []float64 `json:"agent_range"`          // 主机范围
 	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Cidrs []string `json:"cidrs"` // 地址
-	Enable bool `json:"enable"` // 是否启用
-	Global bool `json:"global"` // 是否绑定全局探针
-	Link string `json:"link"` // 过滤方向
-	Ports []string `json:"ports"` // 端口
-	Protocol string `json:"protocol"` // 协议
-	RuleName string `json:"rule_name"` // 规则名称
+	Cidrs              []string  `json:"cidrs"`                // 地址
+	Enable             bool      `json:"enable"`               // 是否启用
+	Global             bool      `json:"global"`               // 是否绑定全局探针
+	Link               string    `json:"link"`                 // 过滤方向
+	Ports              []string  `json:"ports"`                // 端口
+	Protocol           string    `json:"protocol"`             // 协议
+	RuleName           string    `json:"rule_name"`            // 规则名称
 }
-

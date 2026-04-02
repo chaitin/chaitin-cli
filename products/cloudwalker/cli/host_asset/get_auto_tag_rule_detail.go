@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetAutoTagRuleDetailCmd = &cobra.Command{
 }
 
 func init() {
-		GetAutoTagRuleDetailCmd.Flags().StringVar(&getAutoTagRuleDetailParams.Id, "id", "", "规则ID")
+	GetAutoTagRuleDetailCmd.Flags().StringVar(&getAutoTagRuleDetailParams.Id, "id", "", "规则ID")
 }
-
 
 // GetAutoTagRuleDetailParams 请求参数
 type GetAutoTagRuleDetailParams struct {
 	Id string `json:"id"` // 规则ID
 }
-

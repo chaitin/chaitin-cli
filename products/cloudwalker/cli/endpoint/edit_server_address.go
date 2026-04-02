@@ -3,8 +3,8 @@
 package endpoint
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var EditServerAddressCmd = &cobra.Command{
 }
 
 func init() {
-		EditServerAddressCmd.Flags().StringSliceVar(&editServerAddressParams.ServerAddresses, "server-addresses", nil, "服务端地址")
+	EditServerAddressCmd.Flags().StringSliceVar(&editServerAddressParams.ServerAddresses, "server-addresses", nil, "服务端地址")
 }
-
 
 // EditServerAddressParams 请求参数
 type EditServerAddressParams struct {
 	ServerAddresses []string `json:"server_addresses"` // 服务端地址
 }
-

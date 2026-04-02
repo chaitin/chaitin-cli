@@ -3,14 +3,12 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetAntiUninstallConfigCmd = &cobra.Command{
 	Use:   "get_anti_uninstall_config",
@@ -31,5 +29,3 @@ var GetAntiUninstallConfigCmd = &cobra.Command{
 func init() {
 
 }
-
-

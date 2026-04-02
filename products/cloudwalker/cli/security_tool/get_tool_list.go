@@ -3,8 +3,8 @@
 package security_tool
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,20 +29,18 @@ var GetToolListCmd = &cobra.Command{
 }
 
 func init() {
-		GetToolListCmd.Flags().IntVar(&getToolListParams.Count, "count", 20, "数量")
-		GetToolListCmd.Flags().StringSliceVar(&getToolListParams.Name, "name", nil, "工具名称")
-		GetToolListCmd.Flags().IntVar(&getToolListParams.Offset, "offset", 0, "偏移量")
-		GetToolListCmd.Flags().StringSliceVar(&getToolListParams.Type, "type", nil, "工具类型")
-		GetToolListCmd.Flags().StringSliceVar(&getToolListParams.UpdatedAt, "updated-at", nil, "更新时间")
+	GetToolListCmd.Flags().IntVar(&getToolListParams.Count, "count", 20, "数量")
+	GetToolListCmd.Flags().StringSliceVar(&getToolListParams.Name, "name", nil, "工具名称")
+	GetToolListCmd.Flags().IntVar(&getToolListParams.Offset, "offset", 0, "偏移量")
+	GetToolListCmd.Flags().StringSliceVar(&getToolListParams.Type, "type", nil, "工具类型")
+	GetToolListCmd.Flags().StringSliceVar(&getToolListParams.UpdatedAt, "updated-at", nil, "更新时间")
 }
-
 
 // GetToolListParams 请求参数
 type GetToolListParams struct {
-	Count int `json:"count"` // 数量
-	Name []string `json:"name"` // 工具名称
-	Offset int `json:"offset"` // 偏移量
-	Type []string `json:"type"` // 工具类型
+	Count     int      `json:"count"`      // 数量
+	Name      []string `json:"name"`       // 工具名称
+	Offset    int      `json:"offset"`     // 偏移量
+	Type      []string `json:"type"`       // 工具类型
 	UpdatedAt []string `json:"updated_at"` // 更新时间
 }
-

@@ -3,14 +3,12 @@
 package abnormal_login_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetGeographicalLocationCmd = &cobra.Command{
 	Use:   "get_geographical_location",
@@ -31,5 +29,3 @@ var GetGeographicalLocationCmd = &cobra.Command{
 func init() {
 
 }
-
-

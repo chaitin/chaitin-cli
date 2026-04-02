@@ -3,8 +3,8 @@
 package agent_detector
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,42 +29,40 @@ var ListDetectorAgentCmd = &cobra.Command{
 }
 
 func init() {
-		ListDetectorAgentCmd.Flags().IntVar(&listDetectorAgentParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		ListDetectorAgentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		ListDetectorAgentCmd.Flags().Float64SliceVar(&listDetectorAgentParams.GroupId, "group-id", nil, "业务组 ID")
-		ListDetectorAgentCmd.Flags().StringSliceVar(&listDetectorAgentParams.HostComment, "host-comment", nil, "主机备注")
-		ListDetectorAgentCmd.Flags().Float64SliceVar(&listDetectorAgentParams.HostId, "host-id", nil, "主机 ID")
-		ListDetectorAgentCmd.Flags().StringSliceVar(&listDetectorAgentParams.HostIp, "host-ip", nil, "主机 IP")
-		ListDetectorAgentCmd.Flags().StringSliceVar(&listDetectorAgentParams.HostName, "host-name", nil, "主机名称")
-		ListDetectorAgentCmd.Flags().StringSliceVar(&listDetectorAgentParams.HostOsName, "host-os-name", nil, "主机操作系统名称")
-		ListDetectorAgentCmd.Flags().StringSliceVar(&listDetectorAgentParams.HostState, "host-state", nil, "主机状态")
-		ListDetectorAgentCmd.Flags().StringSliceVar(&listDetectorAgentParams.HostTags, "host-tags", nil, "主机标签")
-		ListDetectorAgentCmd.Flags().StringSliceVar(&listDetectorAgentParams.InstalledAt, "installed-at", nil, "安装时间")
-		ListDetectorAgentCmd.Flags().BoolVar(&listDetectorAgentParams.Newest, "newest", false, "是否是最新版本")
-		ListDetectorAgentCmd.Flags().IntVar(&listDetectorAgentParams.Offset, "offset", 0, "页偏移, 默认为 0")
-		ListDetectorAgentCmd.Flags().StringSliceVar(&listDetectorAgentParams.State, "state", nil, "探针状态")
-		ListDetectorAgentCmd.Flags().StringSliceVar(&listDetectorAgentParams.UpgradedAt, "upgraded-at", nil, "升级时间")
+	ListDetectorAgentCmd.Flags().IntVar(&listDetectorAgentParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	ListDetectorAgentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	ListDetectorAgentCmd.Flags().Float64SliceVar(&listDetectorAgentParams.GroupId, "group-id", nil, "业务组 ID")
+	ListDetectorAgentCmd.Flags().StringSliceVar(&listDetectorAgentParams.HostComment, "host-comment", nil, "主机备注")
+	ListDetectorAgentCmd.Flags().Float64SliceVar(&listDetectorAgentParams.HostId, "host-id", nil, "主机 ID")
+	ListDetectorAgentCmd.Flags().StringSliceVar(&listDetectorAgentParams.HostIp, "host-ip", nil, "主机 IP")
+	ListDetectorAgentCmd.Flags().StringSliceVar(&listDetectorAgentParams.HostName, "host-name", nil, "主机名称")
+	ListDetectorAgentCmd.Flags().StringSliceVar(&listDetectorAgentParams.HostOsName, "host-os-name", nil, "主机操作系统名称")
+	ListDetectorAgentCmd.Flags().StringSliceVar(&listDetectorAgentParams.HostState, "host-state", nil, "主机状态")
+	ListDetectorAgentCmd.Flags().StringSliceVar(&listDetectorAgentParams.HostTags, "host-tags", nil, "主机标签")
+	ListDetectorAgentCmd.Flags().StringSliceVar(&listDetectorAgentParams.InstalledAt, "installed-at", nil, "安装时间")
+	ListDetectorAgentCmd.Flags().BoolVar(&listDetectorAgentParams.Newest, "newest", false, "是否是最新版本")
+	ListDetectorAgentCmd.Flags().IntVar(&listDetectorAgentParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	ListDetectorAgentCmd.Flags().StringSliceVar(&listDetectorAgentParams.State, "state", nil, "探针状态")
+	ListDetectorAgentCmd.Flags().StringSliceVar(&listDetectorAgentParams.UpgradedAt, "upgraded-at", nil, "升级时间")
 }
-
 
 // ListDetectorAgentParams 请求参数
 type ListDetectorAgentParams struct {
-	Count int `json:"count"` // 每页记录数量, 默认为 20
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	GroupId []float64 `json:"group_id"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostOsName []string `json:"host_os_name"` // 主机操作系统名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	InstalledAt []string `json:"installed_at"` // 安装时间
-	Newest bool `json:"newest"` // 是否是最新版本
-	Offset int `json:"offset"` // 页偏移, 默认为 0
-	State []string `json:"state"` // 探针状态
-	UpgradedAt []string `json:"upgraded_at"` // 升级时间
+	Count       int                      `json:"count"`        // 每页记录数量, 默认为 20
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	GroupId     []float64                `json:"group_id"`     // 业务组 ID
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机 ID
+	HostIp      []string                 `json:"host_ip"`      // 主机 IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostOsName  []string                 `json:"host_os_name"` // 主机操作系统名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTags    []string                 `json:"host_tags"`    // 主机标签
+	InstalledAt []string                 `json:"installed_at"` // 安装时间
+	Newest      bool                     `json:"newest"`       // 是否是最新版本
+	Offset      int                      `json:"offset"`       // 页偏移, 默认为 0
+	State       []string                 `json:"state"`        // 探针状态
+	UpgradedAt  []string                 `json:"upgraded_at"`  // 升级时间
 }
-

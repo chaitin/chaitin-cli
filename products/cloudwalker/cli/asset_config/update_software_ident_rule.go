@@ -3,8 +3,8 @@
 package asset_config
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,44 +29,42 @@ var UpdateSoftwareIdentRuleCmd = &cobra.Command{
 }
 
 func init() {
-		UpdateSoftwareIdentRuleCmd.Flags().Float64SliceVar(&updateSoftwareIdentRuleParams.AgentRange, "agent-range", nil, "主机范围")
-		UpdateSoftwareIdentRuleCmd.Flags().Float64SliceVar(&updateSoftwareIdentRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		UpdateSoftwareIdentRuleCmd.Flags().StringVar(&updateSoftwareIdentRuleParams.Category, "category", "", "软件分类")
-		UpdateSoftwareIdentRuleCmd.Flags().StringVar(&updateSoftwareIdentRuleParams.Description, "description", "", "软件描述")
-		UpdateSoftwareIdentRuleCmd.Flags().IntVar(&updateSoftwareIdentRuleParams.DetectType, "detect-type", 0, "检测类型 1:采集进程匹配 2:读取文件匹配")
-		// file_pattern is object type, use JSON string
-		var filePatternJSON string
-		UpdateSoftwareIdentRuleCmd.Flags().StringVar(&filePatternJSON, "file-pattern", "", "file_pattern (JSON, e.g. {\"path\": [\"\"], \"regex\": \"\"})")
-		UpdateSoftwareIdentRuleCmd.Flags().BoolVar(&updateSoftwareIdentRuleParams.Global, "global", false, "是否绑定全局探针")
-		UpdateSoftwareIdentRuleCmd.Flags().StringVar(&updateSoftwareIdentRuleParams.Id, "id", "", "软件资产识别 ID")
-		UpdateSoftwareIdentRuleCmd.Flags().IntVar(&updateSoftwareIdentRuleParams.Platform, "platform", 0, "适用平台 1:windows 2:linux 5:all")
-		// process_pattern is object type, use JSON string
-		var processPatternJSON string
-		UpdateSoftwareIdentRuleCmd.Flags().StringVar(&processPatternJSON, "process-pattern", "", "process_pattern (JSON, e.g. {\"parent_process_cmd\": {\"operate\": 0, \"value\": [\"\"]}, \"parent_process_name\": {\"operate\": 0, \"value\": [\"\"]}, \"process_cmd\": {\"operate\": 0, \"value\": [\"\"]}, \"process_name\": {\"operate\": 0, \"value\": [\"\"]}})")
-		UpdateSoftwareIdentRuleCmd.Flags().StringVar(&updateSoftwareIdentRuleParams.Provider, "provider", "", "提供厂商")
-		UpdateSoftwareIdentRuleCmd.Flags().StringVar(&updateSoftwareIdentRuleParams.RuleName, "rule-name", "", "规则名称")
-		UpdateSoftwareIdentRuleCmd.Flags().StringVar(&updateSoftwareIdentRuleParams.SoftwareName, "software-name", "", "软件名称")
-		// version_pattern is object type, use JSON string
-		var versionPatternJSON string
-		UpdateSoftwareIdentRuleCmd.Flags().StringVar(&versionPatternJSON, "version-pattern", "", "version_pattern (JSON, e.g. {\"path\": [\"\"], \"regex\": \"\"})")
+	UpdateSoftwareIdentRuleCmd.Flags().Float64SliceVar(&updateSoftwareIdentRuleParams.AgentRange, "agent-range", nil, "主机范围")
+	UpdateSoftwareIdentRuleCmd.Flags().Float64SliceVar(&updateSoftwareIdentRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	UpdateSoftwareIdentRuleCmd.Flags().StringVar(&updateSoftwareIdentRuleParams.Category, "category", "", "软件分类")
+	UpdateSoftwareIdentRuleCmd.Flags().StringVar(&updateSoftwareIdentRuleParams.Description, "description", "", "软件描述")
+	UpdateSoftwareIdentRuleCmd.Flags().IntVar(&updateSoftwareIdentRuleParams.DetectType, "detect-type", 0, "检测类型 1:采集进程匹配 2:读取文件匹配")
+	// file_pattern is object type, use JSON string
+	var filePatternJSON string
+	UpdateSoftwareIdentRuleCmd.Flags().StringVar(&filePatternJSON, "file-pattern", "", "file_pattern (JSON, e.g. {\"path\": [\"\"], \"regex\": \"\"})")
+	UpdateSoftwareIdentRuleCmd.Flags().BoolVar(&updateSoftwareIdentRuleParams.Global, "global", false, "是否绑定全局探针")
+	UpdateSoftwareIdentRuleCmd.Flags().StringVar(&updateSoftwareIdentRuleParams.Id, "id", "", "软件资产识别 ID")
+	UpdateSoftwareIdentRuleCmd.Flags().IntVar(&updateSoftwareIdentRuleParams.Platform, "platform", 0, "适用平台 1:windows 2:linux 5:all")
+	// process_pattern is object type, use JSON string
+	var processPatternJSON string
+	UpdateSoftwareIdentRuleCmd.Flags().StringVar(&processPatternJSON, "process-pattern", "", "process_pattern (JSON, e.g. {\"parent_process_cmd\": {\"operate\": 0, \"value\": [\"\"]}, \"parent_process_name\": {\"operate\": 0, \"value\": [\"\"]}, \"process_cmd\": {\"operate\": 0, \"value\": [\"\"]}, \"process_name\": {\"operate\": 0, \"value\": [\"\"]}})")
+	UpdateSoftwareIdentRuleCmd.Flags().StringVar(&updateSoftwareIdentRuleParams.Provider, "provider", "", "提供厂商")
+	UpdateSoftwareIdentRuleCmd.Flags().StringVar(&updateSoftwareIdentRuleParams.RuleName, "rule-name", "", "规则名称")
+	UpdateSoftwareIdentRuleCmd.Flags().StringVar(&updateSoftwareIdentRuleParams.SoftwareName, "software-name", "", "软件名称")
+	// version_pattern is object type, use JSON string
+	var versionPatternJSON string
+	UpdateSoftwareIdentRuleCmd.Flags().StringVar(&versionPatternJSON, "version-pattern", "", "version_pattern (JSON, e.g. {\"path\": [\"\"], \"regex\": \"\"})")
 }
-
 
 // UpdateSoftwareIdentRuleParams 请求参数
 type UpdateSoftwareIdentRuleParams struct {
-	AgentRange []float64 `json:"agent_range"` // 主机范围
-	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Category string `json:"category"` // 软件分类
-	Description string `json:"description"` // 软件描述
-	DetectType int `json:"detect_type"` // 检测类型 1:采集进程匹配 2:读取文件匹配
-	FilePattern map[string]interface{} `json:"file_pattern"` // file_pattern
-	Global bool `json:"global"` // 是否绑定全局探针
-	Id string `json:"id"` // 软件资产识别 ID
-	Platform int `json:"platform"` // 适用平台 1:windows 2:linux 5:all
-	ProcessPattern map[string]interface{} `json:"process_pattern"` // process_pattern
-	Provider string `json:"provider"` // 提供厂商
-	RuleName string `json:"rule_name"` // 规则名称
-	SoftwareName string `json:"software_name"` // 软件名称
-	VersionPattern map[string]interface{} `json:"version_pattern"` // version_pattern
+	AgentRange         []float64              `json:"agent_range"`          // 主机范围
+	BusinessGroupRange []float64              `json:"business_group_range"` // 业务组范围
+	Category           string                 `json:"category"`             // 软件分类
+	Description        string                 `json:"description"`          // 软件描述
+	DetectType         int                    `json:"detect_type"`          // 检测类型 1:采集进程匹配 2:读取文件匹配
+	FilePattern        map[string]interface{} `json:"file_pattern"`         // file_pattern
+	Global             bool                   `json:"global"`               // 是否绑定全局探针
+	Id                 string                 `json:"id"`                   // 软件资产识别 ID
+	Platform           int                    `json:"platform"`             // 适用平台 1:windows 2:linux 5:all
+	ProcessPattern     map[string]interface{} `json:"process_pattern"`      // process_pattern
+	Provider           string                 `json:"provider"`             // 提供厂商
+	RuleName           string                 `json:"rule_name"`            // 规则名称
+	SoftwareName       string                 `json:"software_name"`        // 软件名称
+	VersionPattern     map[string]interface{} `json:"version_pattern"`      // version_pattern
 }
-

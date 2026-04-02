@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,22 +29,20 @@ var SetSuspiciousOperationAdvCfgCmd = &cobra.Command{
 }
 
 func init() {
-		SetSuspiciousOperationAdvCfgCmd.Flags().BoolVar(&setSuspiciousOperationAdvCfgParams.BuiltinEnable, "builtin-enable", false, "内置规则是否启用")
-		SetSuspiciousOperationAdvCfgCmd.Flags().BoolVar(&setSuspiciousOperationAdvCfgParams.CustomEnvEnable, "custom-env-enable", false, "自定义环境变量是否启用")
-		// engine is complex type []map[string]interface{}, use JSON string
-		var engineJSON string
-		SetSuspiciousOperationAdvCfgCmd.Flags().StringVar(&engineJSON, "engine", "", "智能检测引擎 (JSON, e.g. [{\"enable\": true, \"id\": 1, \"name\": \"RCE 检测\", \"threshold\": \"low\"}])")
-		// env_name is object type, use JSON string
-		var envNameJSON string
-		SetSuspiciousOperationAdvCfgCmd.Flags().StringVar(&envNameJSON, "env-name", "", "环境变量名称 (JSON, e.g. {\"env_ssh_hostname\": \"SSH_HOSTNAME\", \"env_ssh_ip_addr\": \"SSH_IP_ADDR\", \"env_ssh_tty\": \"SSH_TTY\", \"env_ssh_username\": \"SSH_USERNAME\"})")
+	SetSuspiciousOperationAdvCfgCmd.Flags().BoolVar(&setSuspiciousOperationAdvCfgParams.BuiltinEnable, "builtin-enable", false, "内置规则是否启用")
+	SetSuspiciousOperationAdvCfgCmd.Flags().BoolVar(&setSuspiciousOperationAdvCfgParams.CustomEnvEnable, "custom-env-enable", false, "自定义环境变量是否启用")
+	// engine is complex type []map[string]interface{}, use JSON string
+	var engineJSON string
+	SetSuspiciousOperationAdvCfgCmd.Flags().StringVar(&engineJSON, "engine", "", "智能检测引擎 (JSON, e.g. [{\"enable\": true, \"id\": 1, \"name\": \"RCE 检测\", \"threshold\": \"low\"}])")
+	// env_name is object type, use JSON string
+	var envNameJSON string
+	SetSuspiciousOperationAdvCfgCmd.Flags().StringVar(&envNameJSON, "env-name", "", "环境变量名称 (JSON, e.g. {\"env_ssh_hostname\": \"SSH_HOSTNAME\", \"env_ssh_ip_addr\": \"SSH_IP_ADDR\", \"env_ssh_tty\": \"SSH_TTY\", \"env_ssh_username\": \"SSH_USERNAME\"})")
 }
-
 
 // SetSuspiciousOperationAdvCfgParams 请求参数
 type SetSuspiciousOperationAdvCfgParams struct {
-	BuiltinEnable bool `json:"builtin_enable"` // 内置规则是否启用
-	CustomEnvEnable bool `json:"custom_env_enable"` // 自定义环境变量是否启用
-	Engine []map[string]interface{} `json:"engine"` // 智能检测引擎
-	EnvName map[string]interface{} `json:"env_name"` // 环境变量名称
+	BuiltinEnable   bool                     `json:"builtin_enable"`    // 内置规则是否启用
+	CustomEnvEnable bool                     `json:"custom_env_enable"` // 自定义环境变量是否启用
+	Engine          []map[string]interface{} `json:"engine"`            // 智能检测引擎
+	EnvName         map[string]interface{}   `json:"env_name"`          // 环境变量名称
 }
-

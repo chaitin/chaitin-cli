@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GenerateWhiteRuleCmd = &cobra.Command{
 }
 
 func init() {
-		GenerateWhiteRuleCmd.Flags().IntVar(&generateWhiteRuleParams.Id, "id", 0, "事件 ID")
+	GenerateWhiteRuleCmd.Flags().IntVar(&generateWhiteRuleParams.Id, "id", 0, "事件 ID")
 }
-
 
 // GenerateWhiteRuleParams 请求参数
 type GenerateWhiteRuleParams struct {
 	Id int `json:"id"` // 事件 ID
 }
-

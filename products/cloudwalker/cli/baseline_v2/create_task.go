@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,28 +29,26 @@ var CreateTaskCmd = &cobra.Command{
 }
 
 func init() {
-		CreateTaskCmd.Flags().Float64SliceVar(&createTaskParams.AgentRange, "agent-range", nil, "探针范围")
-		CreateTaskCmd.Flags().Float64SliceVar(&createTaskParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		CreateTaskCmd.Flags().StringVar(&createTaskParams.Comment, "comment", "", "备注")
-		// cron is object type, use JSON string
-		var cronJSON string
-		CreateTaskCmd.Flags().StringVar(&cronJSON, "cron", "", "定时器, null 意为一次性任务 (JSON, e.g. {\"interval\": 1, \"now\": true, \"plan_time\": 1667461108.618155, \"trigger_method\": \"day\", \"week_selector\": [0]})")
-		CreateTaskCmd.Flags().StringSliceVar(&createTaskParams.HostTagRange, "host-tag-range", nil, "主机标签范围")
-		CreateTaskCmd.Flags().StringVar(&createTaskParams.Name, "name", "", "任务名称")
-		CreateTaskCmd.Flags().StringSliceVar(&createTaskParams.SetId, "set-id", nil, "策略 ID")
-		CreateTaskCmd.Flags().IntVar(&createTaskParams.Timeout, "timeout", 0, "最大运行时间(秒)")
+	CreateTaskCmd.Flags().Float64SliceVar(&createTaskParams.AgentRange, "agent-range", nil, "探针范围")
+	CreateTaskCmd.Flags().Float64SliceVar(&createTaskParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	CreateTaskCmd.Flags().StringVar(&createTaskParams.Comment, "comment", "", "备注")
+	// cron is object type, use JSON string
+	var cronJSON string
+	CreateTaskCmd.Flags().StringVar(&cronJSON, "cron", "", "定时器, null 意为一次性任务 (JSON, e.g. {\"interval\": 1, \"now\": true, \"plan_time\": 1667461108.618155, \"trigger_method\": \"day\", \"week_selector\": [0]})")
+	CreateTaskCmd.Flags().StringSliceVar(&createTaskParams.HostTagRange, "host-tag-range", nil, "主机标签范围")
+	CreateTaskCmd.Flags().StringVar(&createTaskParams.Name, "name", "", "任务名称")
+	CreateTaskCmd.Flags().StringSliceVar(&createTaskParams.SetId, "set-id", nil, "策略 ID")
+	CreateTaskCmd.Flags().IntVar(&createTaskParams.Timeout, "timeout", 0, "最大运行时间(秒)")
 }
-
 
 // CreateTaskParams 请求参数
 type CreateTaskParams struct {
-	AgentRange []float64 `json:"agent_range"` // 探针范围
-	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Comment string `json:"comment"` // 备注
-	Cron map[string]interface{} `json:"cron"` // 定时器, null 意为一次性任务
-	HostTagRange []string `json:"host_tag_range"` // 主机标签范围
-	Name string `json:"name"` // 任务名称
-	SetId []string `json:"set_id"` // 策略 ID
-	Timeout int `json:"timeout"` // 最大运行时间(秒)
+	AgentRange         []float64              `json:"agent_range"`          // 探针范围
+	BusinessGroupRange []float64              `json:"business_group_range"` // 业务组范围
+	Comment            string                 `json:"comment"`              // 备注
+	Cron               map[string]interface{} `json:"cron"`                 // 定时器, null 意为一次性任务
+	HostTagRange       []string               `json:"host_tag_range"`       // 主机标签范围
+	Name               string                 `json:"name"`                 // 任务名称
+	SetId              []string               `json:"set_id"`               // 策略 ID
+	Timeout            int                    `json:"timeout"`              // 最大运行时间(秒)
 }
-

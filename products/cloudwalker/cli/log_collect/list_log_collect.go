@@ -3,8 +3,8 @@
 package log_collect
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var ListLogCollectCmd = &cobra.Command{
 }
 
 func init() {
-		ListLogCollectCmd.Flags().IntVar(&listLogCollectParams.Count, "count", 20, "每页记录数量")
-		ListLogCollectCmd.Flags().IntVar(&listLogCollectParams.Offset, "offset", 0, "页偏移")
+	ListLogCollectCmd.Flags().IntVar(&listLogCollectParams.Count, "count", 20, "每页记录数量")
+	ListLogCollectCmd.Flags().IntVar(&listLogCollectParams.Offset, "offset", 0, "页偏移")
 }
-
 
 // ListLogCollectParams 请求参数
 type ListLogCollectParams struct {
-	Count int `json:"count"` // 每页记录数量
+	Count  int `json:"count"`  // 每页记录数量
 	Offset int `json:"offset"` // 页偏移
 }
-

@@ -3,8 +3,8 @@
 package docker_image
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var GetImageCmd = &cobra.Command{
 }
 
 func init() {
-		GetImageCmd.Flags().StringVar(&getImageParams.HashId, "hash-id", "", "镜像ID")
-		GetImageCmd.Flags().Float64Var(&getImageParams.Id, "id", 0, "id")
+	GetImageCmd.Flags().StringVar(&getImageParams.HashId, "hash-id", "", "镜像ID")
+	GetImageCmd.Flags().Float64Var(&getImageParams.Id, "id", 0, "id")
 }
-
 
 // GetImageParams 请求参数
 type GetImageParams struct {
-	HashId string `json:"hash_id"` // 镜像ID
-	Id float64 `json:"id"` // id
+	HashId string  `json:"hash_id"` // 镜像ID
+	Id     float64 `json:"id"`      // id
 }
-

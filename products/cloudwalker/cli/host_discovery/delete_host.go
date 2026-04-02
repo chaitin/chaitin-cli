@@ -3,8 +3,8 @@
 package host_discovery
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,38 +29,36 @@ var DeleteHostCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteHostCmd.Flags().BoolSliceVar(&deleteHostParams.AgentInstalled, "agent-installed", nil, "探针安装情况")
-		// filter is complex type []map[string]interface{}, use JSON string
-		var filterJSON string
-		DeleteHostCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. [{\"id\": 100}])")
-		DeleteHostCmd.Flags().StringSliceVar(&deleteHostParams.Ip, "ip", nil, "IP 地址")
-		DeleteHostCmd.Flags().StringSliceVar(&deleteHostParams.LatestScanTime, "latest-scan-time", nil, "最近扫描时间")
-		DeleteHostCmd.Flags().StringSliceVar(&deleteHostParams.Mac, "mac", nil, "mac 地址")
-		DeleteHostCmd.Flags().StringSliceVar(&deleteHostParams.Os, "os", nil, "操作系统")
-		DeleteHostCmd.Flags().Float64SliceVar(&deleteHostParams.PlanId, "plan-id", nil, "任务 id")
-		DeleteHostCmd.Flags().StringSliceVar(&deleteHostParams.ScanEnd, "scan-end", nil, "扫描端")
-		DeleteHostCmd.Flags().StringSliceVar(&deleteHostParams.ScanMethod, "scan-method", nil, "发现方式")
-		DeleteHostCmd.Flags().Float64SliceVar(&deleteHostParams.ScannerHostId, "scanner-host-id", nil, "扫描器主机 id")
-		DeleteHostCmd.Flags().StringSliceVar(&deleteHostParams.ScannerHostIp, "scanner-host-ip", nil, "扫描器主机 ip")
-		DeleteHostCmd.Flags().BoolVar(&deleteHostParams.SelectAll, "select-all", false, "是否全选")
-		DeleteHostCmd.Flags().StringSliceVar(&deleteHostParams.ServerGroup, "server-group", nil, "扫描器所在接入的服务器地址")
+	DeleteHostCmd.Flags().BoolSliceVar(&deleteHostParams.AgentInstalled, "agent-installed", nil, "探针安装情况")
+	// filter is complex type []map[string]interface{}, use JSON string
+	var filterJSON string
+	DeleteHostCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. [{\"id\": 100}])")
+	DeleteHostCmd.Flags().StringSliceVar(&deleteHostParams.Ip, "ip", nil, "IP 地址")
+	DeleteHostCmd.Flags().StringSliceVar(&deleteHostParams.LatestScanTime, "latest-scan-time", nil, "最近扫描时间")
+	DeleteHostCmd.Flags().StringSliceVar(&deleteHostParams.Mac, "mac", nil, "mac 地址")
+	DeleteHostCmd.Flags().StringSliceVar(&deleteHostParams.Os, "os", nil, "操作系统")
+	DeleteHostCmd.Flags().Float64SliceVar(&deleteHostParams.PlanId, "plan-id", nil, "任务 id")
+	DeleteHostCmd.Flags().StringSliceVar(&deleteHostParams.ScanEnd, "scan-end", nil, "扫描端")
+	DeleteHostCmd.Flags().StringSliceVar(&deleteHostParams.ScanMethod, "scan-method", nil, "发现方式")
+	DeleteHostCmd.Flags().Float64SliceVar(&deleteHostParams.ScannerHostId, "scanner-host-id", nil, "扫描器主机 id")
+	DeleteHostCmd.Flags().StringSliceVar(&deleteHostParams.ScannerHostIp, "scanner-host-ip", nil, "扫描器主机 ip")
+	DeleteHostCmd.Flags().BoolVar(&deleteHostParams.SelectAll, "select-all", false, "是否全选")
+	DeleteHostCmd.Flags().StringSliceVar(&deleteHostParams.ServerGroup, "server-group", nil, "扫描器所在接入的服务器地址")
 }
-
 
 // DeleteHostParams 请求参数
 type DeleteHostParams struct {
-	AgentInstalled []bool `json:"agent_installed"` // 探针安装情况
-	Filter []map[string]interface{} `json:"filter"` // filter
-	Ip []string `json:"ip"` // IP 地址
-	LatestScanTime []string `json:"latest_scan_time"` // 最近扫描时间
-	Mac []string `json:"mac"` // mac 地址
-	Os []string `json:"os"` // 操作系统
-	PlanId []float64 `json:"plan_id"` // 任务 id
-	ScanEnd []string `json:"scan_end"` // 扫描端
-	ScanMethod []string `json:"scan_method"` // 发现方式
-	ScannerHostId []float64 `json:"scanner_host_id"` // 扫描器主机 id
-	ScannerHostIp []string `json:"scanner_host_ip"` // 扫描器主机 ip
-	SelectAll bool `json:"select_all"` // 是否全选
-	ServerGroup []string `json:"server_group"` // 扫描器所在接入的服务器地址
+	AgentInstalled []bool                   `json:"agent_installed"`  // 探针安装情况
+	Filter         []map[string]interface{} `json:"filter"`           // filter
+	Ip             []string                 `json:"ip"`               // IP 地址
+	LatestScanTime []string                 `json:"latest_scan_time"` // 最近扫描时间
+	Mac            []string                 `json:"mac"`              // mac 地址
+	Os             []string                 `json:"os"`               // 操作系统
+	PlanId         []float64                `json:"plan_id"`          // 任务 id
+	ScanEnd        []string                 `json:"scan_end"`         // 扫描端
+	ScanMethod     []string                 `json:"scan_method"`      // 发现方式
+	ScannerHostId  []float64                `json:"scanner_host_id"`  // 扫描器主机 id
+	ScannerHostIp  []string                 `json:"scanner_host_ip"`  // 扫描器主机 ip
+	SelectAll      bool                     `json:"select_all"`       // 是否全选
+	ServerGroup    []string                 `json:"server_group"`     // 扫描器所在接入的服务器地址
 }
-

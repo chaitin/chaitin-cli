@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var DeleteEventArchiveCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteEventArchiveCmd.Flags().Float64SliceVar(&deleteEventArchiveParams.Id, "ID", nil, "归档ID")
+	DeleteEventArchiveCmd.Flags().Float64SliceVar(&deleteEventArchiveParams.Id, "ID", nil, "归档ID")
 }
-
 
 // DeleteEventArchiveParams 请求参数
 type DeleteEventArchiveParams struct {
 	Id []float64 `json:"ID"` // 归档ID
 }
-

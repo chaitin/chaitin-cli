@@ -3,8 +3,8 @@
 package agent_module
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,28 +29,26 @@ var SetResourceLimitCmd = &cobra.Command{
 }
 
 func init() {
-		SetResourceLimitCmd.Flags().IntVar(&setResourceLimitParams.Cpu, "cpu", 0, "CPU 占用率")
-		SetResourceLimitCmd.Flags().IntVar(&setResourceLimitParams.Disk, "disk", 0, "磁盘使用上限，单位 KB/s")
-		// filter is object type, use JSON string
-		var filterJSON string
-		SetResourceLimitCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"agent_install_plan_id\": [1, 2], \"agent_mem_size\": [\"1GB\"], \"agent_memory_rate\": [\"0.03298633\"], \"...\": \"...\"})")
-		SetResourceLimitCmd.Flags().IntVar(&setResourceLimitParams.Memory, "memory", 0, "内存占用量，单位 MB")
-		SetResourceLimitCmd.Flags().StringVar(&setResourceLimitParams.Mode, "mode", "", "模式")
-		SetResourceLimitCmd.Flags().IntVar(&setResourceLimitParams.Network, "network", 0, "网络使用上限，单位 KB/s")
-		// select_filter is object type, use JSON string
-		var selectFilterJSON string
-		SetResourceLimitCmd.Flags().StringVar(&selectFilterJSON, "select-filter", "", "是否全选&主机ID (JSON, e.g. {\"select\": [{\"id\": 196}], \"select_all\": true})")
+	SetResourceLimitCmd.Flags().IntVar(&setResourceLimitParams.Cpu, "cpu", 0, "CPU 占用率")
+	SetResourceLimitCmd.Flags().IntVar(&setResourceLimitParams.Disk, "disk", 0, "磁盘使用上限，单位 KB/s")
+	// filter is object type, use JSON string
+	var filterJSON string
+	SetResourceLimitCmd.Flags().StringVar(&filterJSON, "filter", "", "筛选器 (JSON, e.g. {\"agent_install_plan_id\": [1, 2], \"agent_mem_size\": [\"1GB\"], \"agent_memory_rate\": [\"0.03298633\"], \"...\": \"...\"})")
+	SetResourceLimitCmd.Flags().IntVar(&setResourceLimitParams.Memory, "memory", 0, "内存占用量，单位 MB")
+	SetResourceLimitCmd.Flags().StringVar(&setResourceLimitParams.Mode, "mode", "", "模式")
+	SetResourceLimitCmd.Flags().IntVar(&setResourceLimitParams.Network, "network", 0, "网络使用上限，单位 KB/s")
+	// select_filter is object type, use JSON string
+	var selectFilterJSON string
+	SetResourceLimitCmd.Flags().StringVar(&selectFilterJSON, "select-filter", "", "是否全选&主机ID (JSON, e.g. {\"select\": [{\"id\": 196}], \"select_all\": true})")
 }
-
 
 // SetResourceLimitParams 请求参数
 type SetResourceLimitParams struct {
-	Cpu int `json:"cpu"` // CPU 占用率
-	Disk int `json:"disk"` // 磁盘使用上限，单位 KB/s
-	Filter map[string]interface{} `json:"filter"` // 筛选器
-	Memory int `json:"memory"` // 内存占用量，单位 MB
-	Mode string `json:"mode"` // 模式
-	Network int `json:"network"` // 网络使用上限，单位 KB/s
+	Cpu          int                    `json:"cpu"`           // CPU 占用率
+	Disk         int                    `json:"disk"`          // 磁盘使用上限，单位 KB/s
+	Filter       map[string]interface{} `json:"filter"`        // 筛选器
+	Memory       int                    `json:"memory"`        // 内存占用量，单位 MB
+	Mode         string                 `json:"mode"`          // 模式
+	Network      int                    `json:"network"`       // 网络使用上限，单位 KB/s
 	SelectFilter map[string]interface{} `json:"select_filter"` // 是否全选&主机ID
 }
-

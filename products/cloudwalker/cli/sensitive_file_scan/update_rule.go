@@ -3,8 +3,8 @@
 package sensitive_file_scan
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,26 +29,24 @@ var UpdateRuleCmd = &cobra.Command{
 }
 
 func init() {
-		UpdateRuleCmd.Flags().StringSliceVar(&updateRuleParams.Action, "action", nil, "动作")
-		// exclude_rule is complex type []map[string]interface{}, use JSON string
-		var excludeRuleJSON string
-		UpdateRuleCmd.Flags().StringVar(&excludeRuleJSON, "exclude-rule", "", "排除规则 (JSON, e.g. [{\"method\": \"prefix\", \"rule\": \"/etc/passwd\"}])")
-		UpdateRuleCmd.Flags().StringVar(&updateRuleParams.Id, "id", "", "规则 id")
-		UpdateRuleCmd.Flags().Float64Var(&updateRuleParams.Level, "level", 0, "级别")
-		UpdateRuleCmd.Flags().StringSliceVar(&updateRuleParams.Path, "path", nil, "路径")
-		UpdateRuleCmd.Flags().BoolVar(&updateRuleParams.Recursive, "recursive", false, "递归监控子目录")
-		UpdateRuleCmd.Flags().StringVar(&updateRuleParams.RuleName, "rule-name", "", "规则名称")
+	UpdateRuleCmd.Flags().StringSliceVar(&updateRuleParams.Action, "action", nil, "动作")
+	// exclude_rule is complex type []map[string]interface{}, use JSON string
+	var excludeRuleJSON string
+	UpdateRuleCmd.Flags().StringVar(&excludeRuleJSON, "exclude-rule", "", "排除规则 (JSON, e.g. [{\"method\": \"prefix\", \"rule\": \"/etc/passwd\"}])")
+	UpdateRuleCmd.Flags().StringVar(&updateRuleParams.Id, "id", "", "规则 id")
+	UpdateRuleCmd.Flags().Float64Var(&updateRuleParams.Level, "level", 0, "级别")
+	UpdateRuleCmd.Flags().StringSliceVar(&updateRuleParams.Path, "path", nil, "路径")
+	UpdateRuleCmd.Flags().BoolVar(&updateRuleParams.Recursive, "recursive", false, "递归监控子目录")
+	UpdateRuleCmd.Flags().StringVar(&updateRuleParams.RuleName, "rule-name", "", "规则名称")
 }
-
 
 // UpdateRuleParams 请求参数
 type UpdateRuleParams struct {
-	Action []string `json:"action"` // 动作
+	Action      []string                 `json:"action"`       // 动作
 	ExcludeRule []map[string]interface{} `json:"exclude_rule"` // 排除规则
-	Id string `json:"id"` // 规则 id
-	Level float64 `json:"level"` // 级别
-	Path []string `json:"path"` // 路径
-	Recursive bool `json:"recursive"` // 递归监控子目录
-	RuleName string `json:"rule_name"` // 规则名称
+	Id          string                   `json:"id"`           // 规则 id
+	Level       float64                  `json:"level"`        // 级别
+	Path        []string                 `json:"path"`         // 路径
+	Recursive   bool                     `json:"recursive"`    // 递归监控子目录
+	RuleName    string                   `json:"rule_name"`    // 规则名称
 }
-

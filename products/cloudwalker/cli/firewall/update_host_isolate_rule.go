@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,28 +29,26 @@ var UpdateHostIsolateRuleCmd = &cobra.Command{
 }
 
 func init() {
-		UpdateHostIsolateRuleCmd.Flags().Float64SliceVar(&updateHostIsolateRuleParams.AgentRange, "agent-range", nil, "主机范围")
-		UpdateHostIsolateRuleCmd.Flags().Float64SliceVar(&updateHostIsolateRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		UpdateHostIsolateRuleCmd.Flags().BoolVar(&updateHostIsolateRuleParams.Enable, "enable", false, "是否开启规则")
-		UpdateHostIsolateRuleCmd.Flags().BoolVar(&updateHostIsolateRuleParams.Global, "global", false, "是否绑定全局探针")
-		UpdateHostIsolateRuleCmd.Flags().IntVar(&updateHostIsolateRuleParams.Id, "id", 0, "规则ID")
-		UpdateHostIsolateRuleCmd.Flags().StringVar(&updateHostIsolateRuleParams.Link, "link", "", "隔离方向")
-		UpdateHostIsolateRuleCmd.Flags().StringVar(&updateHostIsolateRuleParams.Name, "name", "", "规则名")
-		UpdateHostIsolateRuleCmd.Flags().StringSliceVar(&updateHostIsolateRuleParams.WhiteIp, "white-ip", nil, "白名单IP")
-		UpdateHostIsolateRuleCmd.Flags().StringSliceVar(&updateHostIsolateRuleParams.WhitePort, "white-port", nil, "白名单端口范围")
+	UpdateHostIsolateRuleCmd.Flags().Float64SliceVar(&updateHostIsolateRuleParams.AgentRange, "agent-range", nil, "主机范围")
+	UpdateHostIsolateRuleCmd.Flags().Float64SliceVar(&updateHostIsolateRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	UpdateHostIsolateRuleCmd.Flags().BoolVar(&updateHostIsolateRuleParams.Enable, "enable", false, "是否开启规则")
+	UpdateHostIsolateRuleCmd.Flags().BoolVar(&updateHostIsolateRuleParams.Global, "global", false, "是否绑定全局探针")
+	UpdateHostIsolateRuleCmd.Flags().IntVar(&updateHostIsolateRuleParams.Id, "id", 0, "规则ID")
+	UpdateHostIsolateRuleCmd.Flags().StringVar(&updateHostIsolateRuleParams.Link, "link", "", "隔离方向")
+	UpdateHostIsolateRuleCmd.Flags().StringVar(&updateHostIsolateRuleParams.Name, "name", "", "规则名")
+	UpdateHostIsolateRuleCmd.Flags().StringSliceVar(&updateHostIsolateRuleParams.WhiteIp, "white-ip", nil, "白名单IP")
+	UpdateHostIsolateRuleCmd.Flags().StringSliceVar(&updateHostIsolateRuleParams.WhitePort, "white-port", nil, "白名单端口范围")
 }
-
 
 // UpdateHostIsolateRuleParams 请求参数
 type UpdateHostIsolateRuleParams struct {
-	AgentRange []float64 `json:"agent_range"` // 主机范围
+	AgentRange         []float64 `json:"agent_range"`          // 主机范围
 	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Enable bool `json:"enable"` // 是否开启规则
-	Global bool `json:"global"` // 是否绑定全局探针
-	Id int `json:"id"` // 规则ID
-	Link string `json:"link"` // 隔离方向
-	Name string `json:"name"` // 规则名
-	WhiteIp []string `json:"white_ip"` // 白名单IP
-	WhitePort []string `json:"white_port"` // 白名单端口范围
+	Enable             bool      `json:"enable"`               // 是否开启规则
+	Global             bool      `json:"global"`               // 是否绑定全局探针
+	Id                 int       `json:"id"`                   // 规则ID
+	Link               string    `json:"link"`                 // 隔离方向
+	Name               string    `json:"name"`                 // 规则名
+	WhiteIp            []string  `json:"white_ip"`             // 白名单IP
+	WhitePort          []string  `json:"white_port"`           // 白名单端口范围
 }
-

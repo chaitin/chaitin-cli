@@ -3,8 +3,8 @@
 package user_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,52 +29,50 @@ var GetWindowsDomainUserListCmd = &cobra.Command{
 }
 
 func init() {
-		GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.BackupDomainController, "backup-domain-controller", nil, "备域控服务器")
-		GetWindowsDomainUserListCmd.Flags().IntVar(&getWindowsDomainUserListParams.Count, "count", 20, "数量")
-		GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.Domain, "domain", nil, "域")
-		GetWindowsDomainUserListCmd.Flags().BoolSliceVar(&getWindowsDomainUserListParams.Enabled, "enabled", nil, "是否启用，true代表启用，false代表禁用")
-		// filter is complex type []map[string]interface{}, use JSON string
-		var filterJSON string
-		GetWindowsDomainUserListCmd.Flags().StringVar(&filterJSON, "filter", "", "已选中的项目 (JSON, e.g. [{\"domain\": \"test222\", \"id\": 123, \"username\": \"test222\"}])")
-		GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.LastLogin, "last-login", nil, "上次登录时间")
-		GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.LastLoginHostIp, "last-login-host-ip", nil, "域账户最近登录主机的 ip")
-		GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.LastLoginHostName, "last-login-host-name", nil, "域账户最近登录主机的名称")
-		GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.LastLogout, "last-logout", nil, "上次登出时间")
-		GetWindowsDomainUserListCmd.Flags().IntVar(&getWindowsDomainUserListParams.Offset, "offset", 0, "偏移量")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetWindowsDomainUserListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.PasswordModify, "password-modify", nil, "上次修改密码时间")
-		GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.PrimaryDomainController, "primary-domain-controller", nil, "主域控服务器")
-		GetWindowsDomainUserListCmd.Flags().BoolVar(&getWindowsDomainUserListParams.SelectAll, "select-all", false, "是否选中所有")
-		GetWindowsDomainUserListCmd.Flags().Float64SliceVar(&getWindowsDomainUserListParams.Sid, "sid", nil, "SID")
-		GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.UserExpire, "user-expire", nil, "用户失效时间")
-		GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.UserGroup, "user-group", nil, "用户组名")
-		GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.UserType, "user-type", nil, "用户类型")
-		GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.Username, "username", nil, "用户名")
+	GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.BackupDomainController, "backup-domain-controller", nil, "备域控服务器")
+	GetWindowsDomainUserListCmd.Flags().IntVar(&getWindowsDomainUserListParams.Count, "count", 20, "数量")
+	GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.Domain, "domain", nil, "域")
+	GetWindowsDomainUserListCmd.Flags().BoolSliceVar(&getWindowsDomainUserListParams.Enabled, "enabled", nil, "是否启用，true代表启用，false代表禁用")
+	// filter is complex type []map[string]interface{}, use JSON string
+	var filterJSON string
+	GetWindowsDomainUserListCmd.Flags().StringVar(&filterJSON, "filter", "", "已选中的项目 (JSON, e.g. [{\"domain\": \"test222\", \"id\": 123, \"username\": \"test222\"}])")
+	GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.LastLogin, "last-login", nil, "上次登录时间")
+	GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.LastLoginHostIp, "last-login-host-ip", nil, "域账户最近登录主机的 ip")
+	GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.LastLoginHostName, "last-login-host-name", nil, "域账户最近登录主机的名称")
+	GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.LastLogout, "last-logout", nil, "上次登出时间")
+	GetWindowsDomainUserListCmd.Flags().IntVar(&getWindowsDomainUserListParams.Offset, "offset", 0, "偏移量")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetWindowsDomainUserListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.PasswordModify, "password-modify", nil, "上次修改密码时间")
+	GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.PrimaryDomainController, "primary-domain-controller", nil, "主域控服务器")
+	GetWindowsDomainUserListCmd.Flags().BoolVar(&getWindowsDomainUserListParams.SelectAll, "select-all", false, "是否选中所有")
+	GetWindowsDomainUserListCmd.Flags().Float64SliceVar(&getWindowsDomainUserListParams.Sid, "sid", nil, "SID")
+	GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.UserExpire, "user-expire", nil, "用户失效时间")
+	GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.UserGroup, "user-group", nil, "用户组名")
+	GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.UserType, "user-type", nil, "用户类型")
+	GetWindowsDomainUserListCmd.Flags().StringSliceVar(&getWindowsDomainUserListParams.Username, "username", nil, "用户名")
 }
-
 
 // GetWindowsDomainUserListParams 请求参数
 type GetWindowsDomainUserListParams struct {
-	BackupDomainController []string `json:"backup_domain_controller"` // 备域控服务器
-	Count int `json:"count"` // 数量
-	Domain []string `json:"domain"` // 域
-	Enabled []bool `json:"enabled"` // 是否启用，true代表启用，false代表禁用
-	Filter []map[string]interface{} `json:"filter"` // 已选中的项目
-	LastLogin []string `json:"last_login"` // 上次登录时间
-	LastLoginHostIp []string `json:"last_login_host_ip"` // 域账户最近登录主机的 ip
-	LastLoginHostName []string `json:"last_login_host_name"` // 域账户最近登录主机的名称
-	LastLogout []string `json:"last_logout"` // 上次登出时间
-	Offset int `json:"offset"` // 偏移量
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	PasswordModify []string `json:"password_modify"` // 上次修改密码时间
-	PrimaryDomainController []string `json:"primary_domain_controller"` // 主域控服务器
-	SelectAll bool `json:"select_all"` // 是否选中所有
-	Sid []float64 `json:"sid"` // SID
-	UserExpire []string `json:"user_expire"` // 用户失效时间
-	UserGroup []string `json:"user_group"` // 用户组名
-	UserType []string `json:"user_type"` // 用户类型
-	Username []string `json:"username"` // 用户名
+	BackupDomainController  []string                 `json:"backup_domain_controller"`  // 备域控服务器
+	Count                   int                      `json:"count"`                     // 数量
+	Domain                  []string                 `json:"domain"`                    // 域
+	Enabled                 []bool                   `json:"enabled"`                   // 是否启用，true代表启用，false代表禁用
+	Filter                  []map[string]interface{} `json:"filter"`                    // 已选中的项目
+	LastLogin               []string                 `json:"last_login"`                // 上次登录时间
+	LastLoginHostIp         []string                 `json:"last_login_host_ip"`        // 域账户最近登录主机的 ip
+	LastLoginHostName       []string                 `json:"last_login_host_name"`      // 域账户最近登录主机的名称
+	LastLogout              []string                 `json:"last_logout"`               // 上次登出时间
+	Offset                  int                      `json:"offset"`                    // 偏移量
+	OrderBy                 map[string]interface{}   `json:"order_by"`                  // 排序规则
+	PasswordModify          []string                 `json:"password_modify"`           // 上次修改密码时间
+	PrimaryDomainController []string                 `json:"primary_domain_controller"` // 主域控服务器
+	SelectAll               bool                     `json:"select_all"`                // 是否选中所有
+	Sid                     []float64                `json:"sid"`                       // SID
+	UserExpire              []string                 `json:"user_expire"`               // 用户失效时间
+	UserGroup               []string                 `json:"user_group"`                // 用户组名
+	UserType                []string                 `json:"user_type"`                 // 用户类型
+	Username                []string                 `json:"username"`                  // 用户名
 }
-

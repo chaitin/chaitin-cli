@@ -3,8 +3,8 @@
 package emergency_vuln_v1
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,76 +29,74 @@ var GetVulnByHostListCmd = &cobra.Command{
 }
 
 func init() {
-		GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.AppProduct, "app-product", nil, "影响软件")
-		GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.AppVersion, "app-version", nil, "软件版本号")
-		GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.Cnnvd, "cnnvd", nil, "CNNVD编号")
-		GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.Cnvd, "cnvd", nil, "CNVD编号")
-		GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.Comment, "comment", nil, "用户自定义备注")
-		GetVulnByHostListCmd.Flags().IntVar(&getVulnByHostListParams.Count, "count", 20, "数量")
-		GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.CreatedAt, "created-at", nil, "创建时间")
-		GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.CtId, "ct-id", nil, "长亭ID")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetVulnByHostListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.Cve, "cve", nil, "CVE编号")
-		GetVulnByHostListCmd.Flags().Float64SliceVar(&getVulnByHostListParams.Gid, "gid", nil, "业务组ID")
-		GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.GroupName, "group-name", nil, "业务组名")
-		GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.HostComment, "host-comment", nil, "主机备注")
-		GetVulnByHostListCmd.Flags().Float64SliceVar(&getVulnByHostListParams.HostId, "host-id", nil, "主机ID")
-		GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.HostIp, "host-ip", nil, "主机IP")
-		GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.HostName, "host-name", nil, "主机名称")
-		GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.HostState, "host-state", nil, "主机状态")
-		GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.HostTags, "host-tags", nil, "主机标签")
-		GetVulnByHostListCmd.Flags().Float64SliceVar(&getVulnByHostListParams.Id, "id", nil, "事件ID列表")
-		GetVulnByHostListCmd.Flags().IntSliceVar(&getVulnByHostListParams.Level, "level", nil, "漏洞级别")
-		GetVulnByHostListCmd.Flags().IntVar(&getVulnByHostListParams.Offset, "offset", 0, "偏移量")
-		GetVulnByHostListCmd.Flags().Float64SliceVar(&getVulnByHostListParams.Oid, "oid", nil, "机构ID")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetVulnByHostListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetVulnByHostListCmd.Flags().Float64SliceVar(&getVulnByHostListParams.PlanId, "plan-id", nil, "任务 id")
-		GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.PluginId, "plugin-id", nil, "插件ID")
-		GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.RiskPoint, "risk-point", nil, "风险点")
-		GetVulnByHostListCmd.Flags().IntSliceVar(&getVulnByHostListParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
-		GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.Tags, "tags", nil, "漏洞标签")
-		GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.UpdatedAt, "updated-at", nil, "更新时间")
-		GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.VulnName, "vuln-name", nil, "漏洞名称")
-		GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.WhiteRuleId, "white-rule-id", nil, "白名单规则ID")
+	GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.AppProduct, "app-product", nil, "影响软件")
+	GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.AppVersion, "app-version", nil, "软件版本号")
+	GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.Cnnvd, "cnnvd", nil, "CNNVD编号")
+	GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.Cnvd, "cnvd", nil, "CNVD编号")
+	GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.Comment, "comment", nil, "用户自定义备注")
+	GetVulnByHostListCmd.Flags().IntVar(&getVulnByHostListParams.Count, "count", 20, "数量")
+	GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.CreatedAt, "created-at", nil, "创建时间")
+	GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.CtId, "ct-id", nil, "长亭ID")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetVulnByHostListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.Cve, "cve", nil, "CVE编号")
+	GetVulnByHostListCmd.Flags().Float64SliceVar(&getVulnByHostListParams.Gid, "gid", nil, "业务组ID")
+	GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.GroupName, "group-name", nil, "业务组名")
+	GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.HostComment, "host-comment", nil, "主机备注")
+	GetVulnByHostListCmd.Flags().Float64SliceVar(&getVulnByHostListParams.HostId, "host-id", nil, "主机ID")
+	GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.HostIp, "host-ip", nil, "主机IP")
+	GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.HostName, "host-name", nil, "主机名称")
+	GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.HostState, "host-state", nil, "主机状态")
+	GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.HostTags, "host-tags", nil, "主机标签")
+	GetVulnByHostListCmd.Flags().Float64SliceVar(&getVulnByHostListParams.Id, "id", nil, "事件ID列表")
+	GetVulnByHostListCmd.Flags().IntSliceVar(&getVulnByHostListParams.Level, "level", nil, "漏洞级别")
+	GetVulnByHostListCmd.Flags().IntVar(&getVulnByHostListParams.Offset, "offset", 0, "偏移量")
+	GetVulnByHostListCmd.Flags().Float64SliceVar(&getVulnByHostListParams.Oid, "oid", nil, "机构ID")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetVulnByHostListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetVulnByHostListCmd.Flags().Float64SliceVar(&getVulnByHostListParams.PlanId, "plan-id", nil, "任务 id")
+	GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.PluginId, "plugin-id", nil, "插件ID")
+	GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.RiskPoint, "risk-point", nil, "风险点")
+	GetVulnByHostListCmd.Flags().IntSliceVar(&getVulnByHostListParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.Tags, "tags", nil, "漏洞标签")
+	GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.UpdatedAt, "updated-at", nil, "更新时间")
+	GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.VulnName, "vuln-name", nil, "漏洞名称")
+	GetVulnByHostListCmd.Flags().StringSliceVar(&getVulnByHostListParams.WhiteRuleId, "white-rule-id", nil, "白名单规则ID")
 }
-
 
 // GetVulnByHostListParams 请求参数
 type GetVulnByHostListParams struct {
-	AppProduct []string `json:"app_product"` // 影响软件
-	AppVersion []string `json:"app_version"` // 软件版本号
-	Cnnvd []string `json:"cnnvd"` // CNNVD编号
-	Cnvd []string `json:"cnvd"` // CNVD编号
-	Comment []string `json:"comment"` // 用户自定义备注
-	Count int `json:"count"` // 数量
-	CreatedAt []string `json:"created_at"` // 创建时间
-	CtId []string `json:"ct_id"` // 长亭ID
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Cve []string `json:"cve"` // CVE编号
-	Gid []float64 `json:"gid"` // 业务组ID
-	GroupName []string `json:"group_name"` // 业务组名
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Id []float64 `json:"id"` // 事件ID列表
-	Level []int `json:"level"` // 漏洞级别
-	Offset int `json:"offset"` // 偏移量
-	Oid []float64 `json:"oid"` // 机构ID
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	PlanId []float64 `json:"plan_id"` // 任务 id
-	PluginId []string `json:"plugin_id"` // 插件ID
-	RiskPoint []string `json:"risk_point"` // 风险点
-	State []int `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
-	Tags []string `json:"tags"` // 漏洞标签
-	UpdatedAt []string `json:"updated_at"` // 更新时间
-	VulnName []string `json:"vuln_name"` // 漏洞名称
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则ID
+	AppProduct  []string                 `json:"app_product"`   // 影响软件
+	AppVersion  []string                 `json:"app_version"`   // 软件版本号
+	Cnnvd       []string                 `json:"cnnvd"`         // CNNVD编号
+	Cnvd        []string                 `json:"cnvd"`          // CNVD编号
+	Comment     []string                 `json:"comment"`       // 用户自定义备注
+	Count       int                      `json:"count"`         // 数量
+	CreatedAt   []string                 `json:"created_at"`    // 创建时间
+	CtId        []string                 `json:"ct_id"`         // 长亭ID
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`   // 主机业务属性
+	Cve         []string                 `json:"cve"`           // CVE编号
+	Gid         []float64                `json:"gid"`           // 业务组ID
+	GroupName   []string                 `json:"group_name"`    // 业务组名
+	HostComment []string                 `json:"host_comment"`  // 主机备注
+	HostId      []float64                `json:"host_id"`       // 主机ID
+	HostIp      []string                 `json:"host_ip"`       // 主机IP
+	HostName    []string                 `json:"host_name"`     // 主机名称
+	HostState   []string                 `json:"host_state"`    // 主机状态
+	HostTags    []string                 `json:"host_tags"`     // 主机标签
+	Id          []float64                `json:"id"`            // 事件ID列表
+	Level       []int                    `json:"level"`         // 漏洞级别
+	Offset      int                      `json:"offset"`        // 偏移量
+	Oid         []float64                `json:"oid"`           // 机构ID
+	OrderBy     map[string]interface{}   `json:"order_by"`      // 排序规则
+	PlanId      []float64                `json:"plan_id"`       // 任务 id
+	PluginId    []string                 `json:"plugin_id"`     // 插件ID
+	RiskPoint   []string                 `json:"risk_point"`    // 风险点
+	State       []int                    `json:"state"`         // 事件状态(1-有风险，2-已忽略，3-已处理)
+	Tags        []string                 `json:"tags"`          // 漏洞标签
+	UpdatedAt   []string                 `json:"updated_at"`    // 更新时间
+	VulnName    []string                 `json:"vuln_name"`     // 漏洞名称
+	WhiteRuleId []string                 `json:"white_rule_id"` // 白名单规则ID
 }
-

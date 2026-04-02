@@ -3,14 +3,12 @@
 package webshell_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetOverviewCmd = &cobra.Command{
 	Use:   "get_overview",
@@ -31,5 +29,3 @@ var GetOverviewCmd = &cobra.Command{
 func init() {
 
 }
-
-

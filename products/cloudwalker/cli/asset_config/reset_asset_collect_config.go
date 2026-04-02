@@ -3,8 +3,8 @@
 package asset_config
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var ResetAssetCollectConfigCmd = &cobra.Command{
 }
 
 func init() {
-		// rule is complex type []map[string]interface{}, use JSON string
-		var ruleJSON string
-		ResetAssetCollectConfigCmd.Flags().StringVar(&ruleJSON, "rule", "", "重置规则，未提交的规则将重置为默认值 (JSON, e.g. [{\"enable\": false, \"interval\": 0, \"type\": \"\"}])")
+	// rule is complex type []map[string]interface{}, use JSON string
+	var ruleJSON string
+	ResetAssetCollectConfigCmd.Flags().StringVar(&ruleJSON, "rule", "", "重置规则，未提交的规则将重置为默认值 (JSON, e.g. [{\"enable\": false, \"interval\": 0, \"type\": \"\"}])")
 }
-
 
 // ResetAssetCollectConfigParams 请求参数
 type ResetAssetCollectConfigParams struct {
 	Rule []map[string]interface{} `json:"rule"` // 重置规则，未提交的规则将重置为默认值
 }
-

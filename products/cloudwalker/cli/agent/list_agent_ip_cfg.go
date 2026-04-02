@@ -3,8 +3,8 @@
 package agent
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,40 +29,38 @@ var ListAgentIpCfgCmd = &cobra.Command{
 }
 
 func init() {
-		ListAgentIpCfgCmd.Flags().IntVar(&listAgentIpCfgParams.Count, "count", 20, "每页记录数量")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		ListAgentIpCfgCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		ListAgentIpCfgCmd.Flags().BoolSliceVar(&listAgentIpCfgParams.Enable, "enable", nil, "是否启用")
-		ListAgentIpCfgCmd.Flags().StringSliceVar(&listAgentIpCfgParams.HostComment, "host-comment", nil, "主机备注")
-		ListAgentIpCfgCmd.Flags().Float64SliceVar(&listAgentIpCfgParams.HostId, "host-id", nil, "主机ID")
-		ListAgentIpCfgCmd.Flags().StringSliceVar(&listAgentIpCfgParams.HostIp, "host-ip", nil, "主机IP")
-		ListAgentIpCfgCmd.Flags().StringSliceVar(&listAgentIpCfgParams.HostName, "host-name", nil, "主机名称")
-		ListAgentIpCfgCmd.Flags().StringSliceVar(&listAgentIpCfgParams.HostState, "host-state", nil, "主机状态")
-		ListAgentIpCfgCmd.Flags().StringSliceVar(&listAgentIpCfgParams.HostTag, "host-tag", nil, "主机标签")
-		ListAgentIpCfgCmd.Flags().IntSliceVar(&listAgentIpCfgParams.Id, "id", nil, "规则 ID")
-		ListAgentIpCfgCmd.Flags().StringSliceVar(&listAgentIpCfgParams.Mode, "mode", nil, "匹配模式, ip_protocol || ip_range || interface")
-		ListAgentIpCfgCmd.Flags().IntVar(&listAgentIpCfgParams.Offset, "offset", 0, "页偏移")
-		ListAgentIpCfgCmd.Flags().IntSliceVar(&listAgentIpCfgParams.Oid, "oid", nil, "组织 ID")
-		ListAgentIpCfgCmd.Flags().StringSliceVar(&listAgentIpCfgParams.RuleName, "rule-name", nil, "规则名称")
+	ListAgentIpCfgCmd.Flags().IntVar(&listAgentIpCfgParams.Count, "count", 20, "每页记录数量")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	ListAgentIpCfgCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	ListAgentIpCfgCmd.Flags().BoolSliceVar(&listAgentIpCfgParams.Enable, "enable", nil, "是否启用")
+	ListAgentIpCfgCmd.Flags().StringSliceVar(&listAgentIpCfgParams.HostComment, "host-comment", nil, "主机备注")
+	ListAgentIpCfgCmd.Flags().Float64SliceVar(&listAgentIpCfgParams.HostId, "host-id", nil, "主机ID")
+	ListAgentIpCfgCmd.Flags().StringSliceVar(&listAgentIpCfgParams.HostIp, "host-ip", nil, "主机IP")
+	ListAgentIpCfgCmd.Flags().StringSliceVar(&listAgentIpCfgParams.HostName, "host-name", nil, "主机名称")
+	ListAgentIpCfgCmd.Flags().StringSliceVar(&listAgentIpCfgParams.HostState, "host-state", nil, "主机状态")
+	ListAgentIpCfgCmd.Flags().StringSliceVar(&listAgentIpCfgParams.HostTag, "host-tag", nil, "主机标签")
+	ListAgentIpCfgCmd.Flags().IntSliceVar(&listAgentIpCfgParams.Id, "id", nil, "规则 ID")
+	ListAgentIpCfgCmd.Flags().StringSliceVar(&listAgentIpCfgParams.Mode, "mode", nil, "匹配模式, ip_protocol || ip_range || interface")
+	ListAgentIpCfgCmd.Flags().IntVar(&listAgentIpCfgParams.Offset, "offset", 0, "页偏移")
+	ListAgentIpCfgCmd.Flags().IntSliceVar(&listAgentIpCfgParams.Oid, "oid", nil, "组织 ID")
+	ListAgentIpCfgCmd.Flags().StringSliceVar(&listAgentIpCfgParams.RuleName, "rule-name", nil, "规则名称")
 }
-
 
 // ListAgentIpCfgParams 请求参数
 type ListAgentIpCfgParams struct {
-	Count int `json:"count"` // 每页记录数量
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Enable []bool `json:"enable"` // 是否启用
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTag []string `json:"host_tag"` // 主机标签
-	Id []int `json:"id"` // 规则 ID
-	Mode []string `json:"mode"` // 匹配模式, ip_protocol || ip_range || interface
-	Offset int `json:"offset"` // 页偏移
-	Oid []int `json:"oid"` // 组织 ID
-	RuleName []string `json:"rule_name"` // 规则名称
+	Count       int                      `json:"count"`        // 每页记录数量
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Enable      []bool                   `json:"enable"`       // 是否启用
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机ID
+	HostIp      []string                 `json:"host_ip"`      // 主机IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTag     []string                 `json:"host_tag"`     // 主机标签
+	Id          []int                    `json:"id"`           // 规则 ID
+	Mode        []string                 `json:"mode"`         // 匹配模式, ip_protocol || ip_range || interface
+	Offset      int                      `json:"offset"`       // 页偏移
+	Oid         []int                    `json:"oid"`          // 组织 ID
+	RuleName    []string                 `json:"rule_name"`    // 规则名称
 }
-

@@ -3,14 +3,12 @@
 package crontab
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetWeakPasswordTaskConfigCmd = &cobra.Command{
 	Use:   "get_weak_password_task_config",
@@ -31,5 +29,3 @@ var GetWeakPasswordTaskConfigCmd = &cobra.Command{
 func init() {
 
 }
-
-

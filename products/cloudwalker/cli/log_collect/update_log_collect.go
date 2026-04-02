@@ -3,8 +3,8 @@
 package log_collect
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,58 +29,56 @@ var UpdateLogCollectCmd = &cobra.Command{
 }
 
 func init() {
-		// account_change_log is object type, use JSON string
-		var accountChangeLogJSON string
-		UpdateLogCollectCmd.Flags().StringVar(&accountChangeLogJSON, "account-change-log", "", "账号变更日志 (JSON, e.g. {\"enable\": false, \"exclude_rules\": [{\"method\": \"\", \"name\": \"\", \"username\": [\"...\"]}]})")
-		UpdateLogCollectCmd.Flags().StringVar(&updateLogCollectParams.Addr, "addr", "", "地址")
-		UpdateLogCollectCmd.Flags().Float64SliceVar(&updateLogCollectParams.AgentRange, "agent-range", nil, "主机范围")
-		UpdateLogCollectCmd.Flags().Float64SliceVar(&updateLogCollectParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		// dns_request_log is object type, use JSON string
-		var dnsRequestLogJSON string
-		UpdateLogCollectCmd.Flags().StringVar(&dnsRequestLogJSON, "dns-request-log", "", "DNS 请求日志 (JSON, e.g. {\"enable\": false, \"exclude_rules\": [{\"keyword\": [\"...\"], \"method\": \"\", \"name\": \"\", \"suffix_domain\": [\"...\"]}]})")
-		UpdateLogCollectCmd.Flags().BoolVar(&updateLogCollectParams.Enable, "enable", false, "是否启用")
-		// file_change_log is object type, use JSON string
-		var fileChangeLogJSON string
-		UpdateLogCollectCmd.Flags().StringVar(&fileChangeLogJSON, "file-change-log", "", "文件变更日志 (JSON, e.g. {\"enable\": false, \"rules\": [{\"enable\": false, \"exclude_keyword\": [\"...\"], \"name\": \"\", \"path\": \"\"}]})")
-		UpdateLogCollectCmd.Flags().BoolVar(&updateLogCollectParams.Global, "global", false, "是否绑定全局探针")
-		UpdateLogCollectCmd.Flags().StringVar(&updateLogCollectParams.Id, "id", "", "日志采集 ID")
-		UpdateLogCollectCmd.Flags().StringVar(&updateLogCollectParams.MsgFormat, "msg-format", "", "消息格式")
-		UpdateLogCollectCmd.Flags().IntVar(&updateLogCollectParams.Port, "port", 0, "端口")
-		// port_listen_log is object type, use JSON string
-		var portListenLogJSON string
-		UpdateLogCollectCmd.Flags().StringVar(&portListenLogJSON, "port-listen-log", "", "端口监听日志 (JSON, e.g. {\"enable\": false, \"exclude_rules\": [{\"method\": \"\", \"name\": \"\", \"path\": [\"...\"], \"port_range\": [\"...\"]}]})")
-		// process_start_log is object type, use JSON string
-		var processStartLogJSON string
-		UpdateLogCollectCmd.Flags().StringVar(&processStartLogJSON, "process-start-log", "", "进程启动日志 (JSON, e.g. {\"enable\": false, \"exclude_rules\": [{\"method\": \"\", \"name\": \"\", \"path\": [\"...\"]}]})")
-		UpdateLogCollectCmd.Flags().StringVar(&updateLogCollectParams.Protocol, "protocol", "", "协议")
-		UpdateLogCollectCmd.Flags().StringVar(&updateLogCollectParams.Remark, "remark", "", "备注")
-		// system_login_log is object type, use JSON string
-		var systemLoginLogJSON string
-		UpdateLogCollectCmd.Flags().StringVar(&systemLoginLogJSON, "system-login-log", "", "系统登陆日志 (JSON, e.g. {\"enable\": false, \"exclude_rules\": [{\"auth_method\": \"\", \"method\": \"\", \"name\": \"\", \"source_ip\": [\"...\"], \"username\": [\"...\"]}]})")
-		// tcp_dial_log is object type, use JSON string
-		var tcpDialLogJSON string
-		UpdateLogCollectCmd.Flags().StringVar(&tcpDialLogJSON, "tcp-dial-log", "", "TCP 连接日志 (JSON, e.g. {\"enable\": false, \"exclude_rules\": [{\"method\": \"\", \"name\": \"\", \"target_cidr\": [\"...\"], \"target_port_range\": [\"...\"]}]})")
+	// account_change_log is object type, use JSON string
+	var accountChangeLogJSON string
+	UpdateLogCollectCmd.Flags().StringVar(&accountChangeLogJSON, "account-change-log", "", "账号变更日志 (JSON, e.g. {\"enable\": false, \"exclude_rules\": [{\"method\": \"\", \"name\": \"\", \"username\": [\"...\"]}]})")
+	UpdateLogCollectCmd.Flags().StringVar(&updateLogCollectParams.Addr, "addr", "", "地址")
+	UpdateLogCollectCmd.Flags().Float64SliceVar(&updateLogCollectParams.AgentRange, "agent-range", nil, "主机范围")
+	UpdateLogCollectCmd.Flags().Float64SliceVar(&updateLogCollectParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	// dns_request_log is object type, use JSON string
+	var dnsRequestLogJSON string
+	UpdateLogCollectCmd.Flags().StringVar(&dnsRequestLogJSON, "dns-request-log", "", "DNS 请求日志 (JSON, e.g. {\"enable\": false, \"exclude_rules\": [{\"keyword\": [\"...\"], \"method\": \"\", \"name\": \"\", \"suffix_domain\": [\"...\"]}]})")
+	UpdateLogCollectCmd.Flags().BoolVar(&updateLogCollectParams.Enable, "enable", false, "是否启用")
+	// file_change_log is object type, use JSON string
+	var fileChangeLogJSON string
+	UpdateLogCollectCmd.Flags().StringVar(&fileChangeLogJSON, "file-change-log", "", "文件变更日志 (JSON, e.g. {\"enable\": false, \"rules\": [{\"enable\": false, \"exclude_keyword\": [\"...\"], \"name\": \"\", \"path\": \"\"}]})")
+	UpdateLogCollectCmd.Flags().BoolVar(&updateLogCollectParams.Global, "global", false, "是否绑定全局探针")
+	UpdateLogCollectCmd.Flags().StringVar(&updateLogCollectParams.Id, "id", "", "日志采集 ID")
+	UpdateLogCollectCmd.Flags().StringVar(&updateLogCollectParams.MsgFormat, "msg-format", "", "消息格式")
+	UpdateLogCollectCmd.Flags().IntVar(&updateLogCollectParams.Port, "port", 0, "端口")
+	// port_listen_log is object type, use JSON string
+	var portListenLogJSON string
+	UpdateLogCollectCmd.Flags().StringVar(&portListenLogJSON, "port-listen-log", "", "端口监听日志 (JSON, e.g. {\"enable\": false, \"exclude_rules\": [{\"method\": \"\", \"name\": \"\", \"path\": [\"...\"], \"port_range\": [\"...\"]}]})")
+	// process_start_log is object type, use JSON string
+	var processStartLogJSON string
+	UpdateLogCollectCmd.Flags().StringVar(&processStartLogJSON, "process-start-log", "", "进程启动日志 (JSON, e.g. {\"enable\": false, \"exclude_rules\": [{\"method\": \"\", \"name\": \"\", \"path\": [\"...\"]}]})")
+	UpdateLogCollectCmd.Flags().StringVar(&updateLogCollectParams.Protocol, "protocol", "", "协议")
+	UpdateLogCollectCmd.Flags().StringVar(&updateLogCollectParams.Remark, "remark", "", "备注")
+	// system_login_log is object type, use JSON string
+	var systemLoginLogJSON string
+	UpdateLogCollectCmd.Flags().StringVar(&systemLoginLogJSON, "system-login-log", "", "系统登陆日志 (JSON, e.g. {\"enable\": false, \"exclude_rules\": [{\"auth_method\": \"\", \"method\": \"\", \"name\": \"\", \"source_ip\": [\"...\"], \"username\": [\"...\"]}]})")
+	// tcp_dial_log is object type, use JSON string
+	var tcpDialLogJSON string
+	UpdateLogCollectCmd.Flags().StringVar(&tcpDialLogJSON, "tcp-dial-log", "", "TCP 连接日志 (JSON, e.g. {\"enable\": false, \"exclude_rules\": [{\"method\": \"\", \"name\": \"\", \"target_cidr\": [\"...\"], \"target_port_range\": [\"...\"]}]})")
 }
-
 
 // UpdateLogCollectParams 请求参数
 type UpdateLogCollectParams struct {
-	AccountChangeLog map[string]interface{} `json:"account_change_log"` // 账号变更日志
-	Addr string `json:"addr"` // 地址
-	AgentRange []float64 `json:"agent_range"` // 主机范围
-	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	DnsRequestLog map[string]interface{} `json:"dns_request_log"` // DNS 请求日志
-	Enable bool `json:"enable"` // 是否启用
-	FileChangeLog map[string]interface{} `json:"file_change_log"` // 文件变更日志
-	Global bool `json:"global"` // 是否绑定全局探针
-	Id string `json:"id"` // 日志采集 ID
-	MsgFormat string `json:"msg_format"` // 消息格式
-	Port int `json:"port"` // 端口
-	PortListenLog map[string]interface{} `json:"port_listen_log"` // 端口监听日志
-	ProcessStartLog map[string]interface{} `json:"process_start_log"` // 进程启动日志
-	Protocol string `json:"protocol"` // 协议
-	Remark string `json:"remark"` // 备注
-	SystemLoginLog map[string]interface{} `json:"system_login_log"` // 系统登陆日志
-	TcpDialLog map[string]interface{} `json:"tcp_dial_log"` // TCP 连接日志
+	AccountChangeLog   map[string]interface{} `json:"account_change_log"`   // 账号变更日志
+	Addr               string                 `json:"addr"`                 // 地址
+	AgentRange         []float64              `json:"agent_range"`          // 主机范围
+	BusinessGroupRange []float64              `json:"business_group_range"` // 业务组范围
+	DnsRequestLog      map[string]interface{} `json:"dns_request_log"`      // DNS 请求日志
+	Enable             bool                   `json:"enable"`               // 是否启用
+	FileChangeLog      map[string]interface{} `json:"file_change_log"`      // 文件变更日志
+	Global             bool                   `json:"global"`               // 是否绑定全局探针
+	Id                 string                 `json:"id"`                   // 日志采集 ID
+	MsgFormat          string                 `json:"msg_format"`           // 消息格式
+	Port               int                    `json:"port"`                 // 端口
+	PortListenLog      map[string]interface{} `json:"port_listen_log"`      // 端口监听日志
+	ProcessStartLog    map[string]interface{} `json:"process_start_log"`    // 进程启动日志
+	Protocol           string                 `json:"protocol"`             // 协议
+	Remark             string                 `json:"remark"`               // 备注
+	SystemLoginLog     map[string]interface{} `json:"system_login_log"`     // 系统登陆日志
+	TcpDialLog         map[string]interface{} `json:"tcp_dial_log"`         // TCP 连接日志
 }
-

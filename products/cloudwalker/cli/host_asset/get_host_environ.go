@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetHostEnvironCmd = &cobra.Command{
 }
 
 func init() {
-		GetHostEnvironCmd.Flags().IntVar(&getHostEnvironParams.Id, "id", 0, "ID")
+	GetHostEnvironCmd.Flags().IntVar(&getHostEnvironParams.Id, "id", 0, "ID")
 }
-
 
 // GetHostEnvironParams 请求参数
 type GetHostEnvironParams struct {
 	Id int `json:"id"` // ID
 }
-

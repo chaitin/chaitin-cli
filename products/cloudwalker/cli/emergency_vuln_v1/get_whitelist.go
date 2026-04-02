@@ -3,8 +3,8 @@
 package emergency_vuln_v1
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,74 +29,72 @@ var GetWhitelistCmd = &cobra.Command{
 }
 
 func init() {
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.AppProduct, "app-product", nil, "影响软件")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.AppVersion, "app-version", nil, "软件版本号")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.Cnnvd, "cnnvd", nil, "CNNVD编号")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.Cnvd, "cnvd", nil, "CNVD编号")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.Comment, "comment", nil, "用户自定义备注")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.CreatedAt, "created-at", nil, "创建时间")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.CtId, "ct-id", nil, "长亭ID")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetWhitelistCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.Cve, "cve", nil, "CVE编号")
-		GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.Gid, "gid", nil, "业务组ID")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.GroupName, "group-name", nil, "业务组名")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostComment, "host-comment", nil, "主机备注")
-		GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.HostId, "host-id", nil, "主机ID")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostIp, "host-ip", nil, "主机IP")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostName, "host-name", nil, "主机名称")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostState, "host-state", nil, "主机状态")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostTags, "host-tags", nil, "主机标签")
-		GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.Id, "id", nil, "事件ID列表")
-		GetWhitelistCmd.Flags().IntSliceVar(&getWhitelistParams.Level, "level", nil, "漏洞级别")
-		GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.Oid, "oid", nil, "机构ID")
-		GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.PlanId, "plan-id", nil, "任务 id")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.PluginId, "plugin-id", nil, "插件ID")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.RiskPoint, "risk-point", nil, "风险点")
-		// select is complex type []map[string]interface{}, use JSON string
-		var selectJSON string
-		GetWhitelistCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"event_id\": 120, \"host_id\": 111, \"vuln_id\": 111}])")
-		GetWhitelistCmd.Flags().BoolVar(&getWhitelistParams.SelectAll, "select-all", false, "select_all")
-		GetWhitelistCmd.Flags().IntSliceVar(&getWhitelistParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.Tags, "tags", nil, "漏洞标签")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.UpdatedAt, "updated-at", nil, "更新时间")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.VulnName, "vuln-name", nil, "漏洞名称")
-		GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.WhiteRuleId, "white-rule-id", nil, "白名单规则ID")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.AppProduct, "app-product", nil, "影响软件")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.AppVersion, "app-version", nil, "软件版本号")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.Cnnvd, "cnnvd", nil, "CNNVD编号")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.Cnvd, "cnvd", nil, "CNVD编号")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.Comment, "comment", nil, "用户自定义备注")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.CreatedAt, "created-at", nil, "创建时间")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.CtId, "ct-id", nil, "长亭ID")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetWhitelistCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.Cve, "cve", nil, "CVE编号")
+	GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.Gid, "gid", nil, "业务组ID")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.GroupName, "group-name", nil, "业务组名")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostComment, "host-comment", nil, "主机备注")
+	GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.HostId, "host-id", nil, "主机ID")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostIp, "host-ip", nil, "主机IP")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostName, "host-name", nil, "主机名称")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostState, "host-state", nil, "主机状态")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.HostTags, "host-tags", nil, "主机标签")
+	GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.Id, "id", nil, "事件ID列表")
+	GetWhitelistCmd.Flags().IntSliceVar(&getWhitelistParams.Level, "level", nil, "漏洞级别")
+	GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.Oid, "oid", nil, "机构ID")
+	GetWhitelistCmd.Flags().Float64SliceVar(&getWhitelistParams.PlanId, "plan-id", nil, "任务 id")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.PluginId, "plugin-id", nil, "插件ID")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.RiskPoint, "risk-point", nil, "风险点")
+	// select is complex type []map[string]interface{}, use JSON string
+	var selectJSON string
+	GetWhitelistCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"event_id\": 120, \"host_id\": 111, \"vuln_id\": 111}])")
+	GetWhitelistCmd.Flags().BoolVar(&getWhitelistParams.SelectAll, "select-all", false, "select_all")
+	GetWhitelistCmd.Flags().IntSliceVar(&getWhitelistParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.Tags, "tags", nil, "漏洞标签")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.UpdatedAt, "updated-at", nil, "更新时间")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.VulnName, "vuln-name", nil, "漏洞名称")
+	GetWhitelistCmd.Flags().StringSliceVar(&getWhitelistParams.WhiteRuleId, "white-rule-id", nil, "白名单规则ID")
 }
-
 
 // GetWhitelistParams 请求参数
 type GetWhitelistParams struct {
-	AppProduct []string `json:"app_product"` // 影响软件
-	AppVersion []string `json:"app_version"` // 软件版本号
-	Cnnvd []string `json:"cnnvd"` // CNNVD编号
-	Cnvd []string `json:"cnvd"` // CNVD编号
-	Comment []string `json:"comment"` // 用户自定义备注
-	CreatedAt []string `json:"created_at"` // 创建时间
-	CtId []string `json:"ct_id"` // 长亭ID
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Cve []string `json:"cve"` // CVE编号
-	Gid []float64 `json:"gid"` // 业务组ID
-	GroupName []string `json:"group_name"` // 业务组名
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Id []float64 `json:"id"` // 事件ID列表
-	Level []int `json:"level"` // 漏洞级别
-	Oid []float64 `json:"oid"` // 机构ID
-	PlanId []float64 `json:"plan_id"` // 任务 id
-	PluginId []string `json:"plugin_id"` // 插件ID
-	RiskPoint []string `json:"risk_point"` // 风险点
-	Select []map[string]interface{} `json:"select"` // select
-	SelectAll bool `json:"select_all"` // select_all
-	State []int `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
-	Tags []string `json:"tags"` // 漏洞标签
-	UpdatedAt []string `json:"updated_at"` // 更新时间
-	VulnName []string `json:"vuln_name"` // 漏洞名称
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则ID
+	AppProduct  []string                 `json:"app_product"`   // 影响软件
+	AppVersion  []string                 `json:"app_version"`   // 软件版本号
+	Cnnvd       []string                 `json:"cnnvd"`         // CNNVD编号
+	Cnvd        []string                 `json:"cnvd"`          // CNVD编号
+	Comment     []string                 `json:"comment"`       // 用户自定义备注
+	CreatedAt   []string                 `json:"created_at"`    // 创建时间
+	CtId        []string                 `json:"ct_id"`         // 长亭ID
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`   // 主机业务属性
+	Cve         []string                 `json:"cve"`           // CVE编号
+	Gid         []float64                `json:"gid"`           // 业务组ID
+	GroupName   []string                 `json:"group_name"`    // 业务组名
+	HostComment []string                 `json:"host_comment"`  // 主机备注
+	HostId      []float64                `json:"host_id"`       // 主机ID
+	HostIp      []string                 `json:"host_ip"`       // 主机IP
+	HostName    []string                 `json:"host_name"`     // 主机名称
+	HostState   []string                 `json:"host_state"`    // 主机状态
+	HostTags    []string                 `json:"host_tags"`     // 主机标签
+	Id          []float64                `json:"id"`            // 事件ID列表
+	Level       []int                    `json:"level"`         // 漏洞级别
+	Oid         []float64                `json:"oid"`           // 机构ID
+	PlanId      []float64                `json:"plan_id"`       // 任务 id
+	PluginId    []string                 `json:"plugin_id"`     // 插件ID
+	RiskPoint   []string                 `json:"risk_point"`    // 风险点
+	Select      []map[string]interface{} `json:"select"`        // select
+	SelectAll   bool                     `json:"select_all"`    // select_all
+	State       []int                    `json:"state"`         // 事件状态(1-有风险，2-已忽略，3-已处理)
+	Tags        []string                 `json:"tags"`          // 漏洞标签
+	UpdatedAt   []string                 `json:"updated_at"`    // 更新时间
+	VulnName    []string                 `json:"vuln_name"`     // 漏洞名称
+	WhiteRuleId []string                 `json:"white_rule_id"` // 白名单规则ID
 }
-

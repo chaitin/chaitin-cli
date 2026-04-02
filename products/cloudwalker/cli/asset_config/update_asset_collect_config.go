@@ -3,8 +3,8 @@
 package asset_config
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var UpdateAssetCollectConfigCmd = &cobra.Command{
 }
 
 func init() {
-		// configs is complex type []map[string]interface{}, use JSON string
-		var configsJSON string
-		UpdateAssetCollectConfigCmd.Flags().StringVar(&configsJSON, "configs", "", "configs (JSON, e.g. [{\"enable\": true, \"id\": \"\", \"interval\": 60, \"time_unit\": \"hour\"}])")
+	// configs is complex type []map[string]interface{}, use JSON string
+	var configsJSON string
+	UpdateAssetCollectConfigCmd.Flags().StringVar(&configsJSON, "configs", "", "configs (JSON, e.g. [{\"enable\": true, \"id\": \"\", \"interval\": 60, \"time_unit\": \"hour\"}])")
 }
-
 
 // UpdateAssetCollectConfigParams 请求参数
 type UpdateAssetCollectConfigParams struct {
 	Configs []map[string]interface{} `json:"configs"` // configs
 }
-

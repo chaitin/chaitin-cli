@@ -3,8 +3,8 @@
 package emergency_vuln_v1
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,20 +29,18 @@ var CreateWhitelistCmd = &cobra.Command{
 }
 
 func init() {
-		// select is complex type []map[string]interface{}, use JSON string
-		var selectJSON string
-		CreateWhitelistCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"event_id\": 120, \"host_id\": 111, \"vuln_id\": 111}])")
-		CreateWhitelistCmd.Flags().BoolVar(&createWhitelistParams.SelectAll, "select-all", false, "select_all")
-		// whitelist is object type, use JSON string
-		var whitelistJSON string
-		CreateWhitelistCmd.Flags().StringVar(&whitelistJSON, "whitelist", "", "whitelist (JSON, e.g. {\"agent_range\": [1, 2, 3], \"builtin_id\": \"1\", \"business_group_range\": [1, 2, 3], \"...\": \"...\"})")
+	// select is complex type []map[string]interface{}, use JSON string
+	var selectJSON string
+	CreateWhitelistCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"event_id\": 120, \"host_id\": 111, \"vuln_id\": 111}])")
+	CreateWhitelistCmd.Flags().BoolVar(&createWhitelistParams.SelectAll, "select-all", false, "select_all")
+	// whitelist is object type, use JSON string
+	var whitelistJSON string
+	CreateWhitelistCmd.Flags().StringVar(&whitelistJSON, "whitelist", "", "whitelist (JSON, e.g. {\"agent_range\": [1, 2, 3], \"builtin_id\": \"1\", \"business_group_range\": [1, 2, 3], \"...\": \"...\"})")
 }
-
 
 // CreateWhitelistParams 请求参数
 type CreateWhitelistParams struct {
-	Select []map[string]interface{} `json:"select"` // select
-	SelectAll bool `json:"select_all"` // select_all
-	Whitelist map[string]interface{} `json:"whitelist"` // whitelist
+	Select    []map[string]interface{} `json:"select"`     // select
+	SelectAll bool                     `json:"select_all"` // select_all
+	Whitelist map[string]interface{}   `json:"whitelist"`  // whitelist
 }
-

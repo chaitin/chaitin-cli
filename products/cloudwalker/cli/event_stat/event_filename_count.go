@@ -3,8 +3,8 @@
 package event_stat
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,46 +29,44 @@ var EventFilenameCountCmd = &cobra.Command{
 }
 
 func init() {
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		EventFilenameCountCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		EventFilenameCountCmd.Flags().StringSliceVar(&eventFilenameCountParams.EventType, "event-type", nil, "事件类型")
-		EventFilenameCountCmd.Flags().StringSliceVar(&eventFilenameCountParams.Filename, "filename", nil, "相关文件名")
-		EventFilenameCountCmd.Flags().Float64SliceVar(&eventFilenameCountParams.Gids, "gids", nil, "业务组 ID")
-		EventFilenameCountCmd.Flags().StringSliceVar(&eventFilenameCountParams.HostComment, "host-comment", nil, "主机备注")
-		EventFilenameCountCmd.Flags().Float64SliceVar(&eventFilenameCountParams.HostId, "host-id", nil, "主机 ID")
-		EventFilenameCountCmd.Flags().StringSliceVar(&eventFilenameCountParams.HostIp, "host-ip", nil, "主机 IP")
-		EventFilenameCountCmd.Flags().StringSliceVar(&eventFilenameCountParams.HostName, "host-name", nil, "主机名称")
-		EventFilenameCountCmd.Flags().StringSliceVar(&eventFilenameCountParams.HostState, "host-state", nil, "主机状态")
-		EventFilenameCountCmd.Flags().StringSliceVar(&eventFilenameCountParams.HostTags, "host-tags", nil, "主机标签")
-		EventFilenameCountCmd.Flags().StringSliceVar(&eventFilenameCountParams.LastSeenAt, "last-seen-at", nil, "最近发现时间筛选")
-		EventFilenameCountCmd.Flags().IntSliceVar(&eventFilenameCountParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		EventFilenameCountCmd.Flags().IntVar(&eventFilenameCountParams.Limit, "limit", 0, "返回 top 几")
-		EventFilenameCountCmd.Flags().Float64SliceVar(&eventFilenameCountParams.Oid, "oid", nil, "机构 ID")
-		EventFilenameCountCmd.Flags().StringSliceVar(&eventFilenameCountParams.ProcessName, "process-name", nil, "相关进程名")
-		EventFilenameCountCmd.Flags().BoolVar(&eventFilenameCountParams.Risky, "risky", false, "是否有风险")
-		EventFilenameCountCmd.Flags().StringSliceVar(&eventFilenameCountParams.SourceIp, "source-ip", nil, "攻击源 IP")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	EventFilenameCountCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	EventFilenameCountCmd.Flags().StringSliceVar(&eventFilenameCountParams.EventType, "event-type", nil, "事件类型")
+	EventFilenameCountCmd.Flags().StringSliceVar(&eventFilenameCountParams.Filename, "filename", nil, "相关文件名")
+	EventFilenameCountCmd.Flags().Float64SliceVar(&eventFilenameCountParams.Gids, "gids", nil, "业务组 ID")
+	EventFilenameCountCmd.Flags().StringSliceVar(&eventFilenameCountParams.HostComment, "host-comment", nil, "主机备注")
+	EventFilenameCountCmd.Flags().Float64SliceVar(&eventFilenameCountParams.HostId, "host-id", nil, "主机 ID")
+	EventFilenameCountCmd.Flags().StringSliceVar(&eventFilenameCountParams.HostIp, "host-ip", nil, "主机 IP")
+	EventFilenameCountCmd.Flags().StringSliceVar(&eventFilenameCountParams.HostName, "host-name", nil, "主机名称")
+	EventFilenameCountCmd.Flags().StringSliceVar(&eventFilenameCountParams.HostState, "host-state", nil, "主机状态")
+	EventFilenameCountCmd.Flags().StringSliceVar(&eventFilenameCountParams.HostTags, "host-tags", nil, "主机标签")
+	EventFilenameCountCmd.Flags().StringSliceVar(&eventFilenameCountParams.LastSeenAt, "last-seen-at", nil, "最近发现时间筛选")
+	EventFilenameCountCmd.Flags().IntSliceVar(&eventFilenameCountParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	EventFilenameCountCmd.Flags().IntVar(&eventFilenameCountParams.Limit, "limit", 0, "返回 top 几")
+	EventFilenameCountCmd.Flags().Float64SliceVar(&eventFilenameCountParams.Oid, "oid", nil, "机构 ID")
+	EventFilenameCountCmd.Flags().StringSliceVar(&eventFilenameCountParams.ProcessName, "process-name", nil, "相关进程名")
+	EventFilenameCountCmd.Flags().BoolVar(&eventFilenameCountParams.Risky, "risky", false, "是否有风险")
+	EventFilenameCountCmd.Flags().StringSliceVar(&eventFilenameCountParams.SourceIp, "source-ip", nil, "攻击源 IP")
 }
-
 
 // EventFilenameCountParams 请求参数
 type EventFilenameCountParams struct {
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	EventType []string `json:"event_type"` // 事件类型
-	Filename []string `json:"filename"` // 相关文件名
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	LastSeenAt []string `json:"last_seen_at"` // 最近发现时间筛选
-	Level []int `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	Limit int `json:"limit"` // 返回 top 几
-	Oid []float64 `json:"oid"` // 机构 ID
-	ProcessName []string `json:"process_name"` // 相关进程名
-	Risky bool `json:"risky"` // 是否有风险
-	SourceIp []string `json:"source_ip"` // 攻击源 IP
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	EventType   []string                 `json:"event_type"`   // 事件类型
+	Filename    []string                 `json:"filename"`     // 相关文件名
+	Gids        []float64                `json:"gids"`         // 业务组 ID
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机 ID
+	HostIp      []string                 `json:"host_ip"`      // 主机 IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTags    []string                 `json:"host_tags"`    // 主机标签
+	LastSeenAt  []string                 `json:"last_seen_at"` // 最近发现时间筛选
+	Level       []int                    `json:"level"`        // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	Limit       int                      `json:"limit"`        // 返回 top 几
+	Oid         []float64                `json:"oid"`          // 机构 ID
+	ProcessName []string                 `json:"process_name"` // 相关进程名
+	Risky       bool                     `json:"risky"`        // 是否有风险
+	SourceIp    []string                 `json:"source_ip"`    // 攻击源 IP
 }
-

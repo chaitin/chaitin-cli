@@ -3,8 +3,8 @@
 package tamper_proof
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var EditRuleEnableCmd = &cobra.Command{
 }
 
 func init() {
-		EditRuleEnableCmd.Flags().BoolVar(&editRuleEnableParams.Enable, "enable", false, "启用/禁用")
-		EditRuleEnableCmd.Flags().IntSliceVar(&editRuleEnableParams.Id, "id", nil, "规则的 ID")
+	EditRuleEnableCmd.Flags().BoolVar(&editRuleEnableParams.Enable, "enable", false, "启用/禁用")
+	EditRuleEnableCmd.Flags().IntSliceVar(&editRuleEnableParams.Id, "id", nil, "规则的 ID")
 }
-
 
 // EditRuleEnableParams 请求参数
 type EditRuleEnableParams struct {
-	Enable bool `json:"enable"` // 启用/禁用
-	Id []int `json:"id"` // 规则的 ID
+	Enable bool  `json:"enable"` // 启用/禁用
+	Id     []int `json:"id"`     // 规则的 ID
 }
-

@@ -3,8 +3,8 @@
 package report
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,28 +29,26 @@ var CreateReportCmd = &cobra.Command{
 }
 
 func init() {
-		CreateReportCmd.Flags().IntVar(&createReportParams.BaselineTaskId, "baseline-task-id", 0, "baseline_task_id")
-		CreateReportCmd.Flags().StringVar(&createReportParams.DataScope, "data-scope", "", "data_scope")
-		// filter is object type, use JSON string
-		var filterJSON string
-		CreateReportCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. {\"host_ip\": [\"10.2.28.217\", \"10.3.29.218\"], \"host_name\": [\"centos7.2-x64\", \"ubuntu20.04\"]})")
-		CreateReportCmd.Flags().Float64SliceVar(&createReportParams.GroupId, "group-id", nil, "(主机资产)分析范围")
-		// mail is object type, use JSON string
-		var mailJSON string
-		CreateReportCmd.Flags().StringVar(&mailJSON, "mail", "", "邮件信息 (JSON, e.g. {\"body\": \"\", \"subject\": \"\", \"to\": [\"\"]})")
-		CreateReportCmd.Flags().StringVar(&createReportParams.Name, "name", "", "报告名称")
-		CreateReportCmd.Flags().IntVar(&createReportParams.TemplateId, "template-id", 0, "template_id")
+	CreateReportCmd.Flags().IntVar(&createReportParams.BaselineTaskId, "baseline-task-id", 0, "baseline_task_id")
+	CreateReportCmd.Flags().StringVar(&createReportParams.DataScope, "data-scope", "", "data_scope")
+	// filter is object type, use JSON string
+	var filterJSON string
+	CreateReportCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. {\"host_ip\": [\"10.2.28.217\", \"10.3.29.218\"], \"host_name\": [\"centos7.2-x64\", \"ubuntu20.04\"]})")
+	CreateReportCmd.Flags().Float64SliceVar(&createReportParams.GroupId, "group-id", nil, "(主机资产)分析范围")
+	// mail is object type, use JSON string
+	var mailJSON string
+	CreateReportCmd.Flags().StringVar(&mailJSON, "mail", "", "邮件信息 (JSON, e.g. {\"body\": \"\", \"subject\": \"\", \"to\": [\"\"]})")
+	CreateReportCmd.Flags().StringVar(&createReportParams.Name, "name", "", "报告名称")
+	CreateReportCmd.Flags().IntVar(&createReportParams.TemplateId, "template-id", 0, "template_id")
 }
-
 
 // CreateReportParams 请求参数
 type CreateReportParams struct {
-	BaselineTaskId int `json:"baseline_task_id"` // baseline_task_id
-	DataScope string `json:"data_scope"` // data_scope
-	Filter map[string]interface{} `json:"filter"` // filter
-	GroupId []float64 `json:"group_id"` // (主机资产)分析范围
-	Mail map[string]interface{} `json:"mail"` // 邮件信息
-	Name string `json:"name"` // 报告名称
-	TemplateId int `json:"template_id"` // template_id
+	BaselineTaskId int                    `json:"baseline_task_id"` // baseline_task_id
+	DataScope      string                 `json:"data_scope"`       // data_scope
+	Filter         map[string]interface{} `json:"filter"`           // filter
+	GroupId        []float64              `json:"group_id"`         // (主机资产)分析范围
+	Mail           map[string]interface{} `json:"mail"`             // 邮件信息
+	Name           string                 `json:"name"`             // 报告名称
+	TemplateId     int                    `json:"template_id"`      // template_id
 }
-

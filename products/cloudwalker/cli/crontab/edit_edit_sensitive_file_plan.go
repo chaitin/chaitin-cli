@@ -3,8 +3,8 @@
 package crontab
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,30 +29,28 @@ var EditEditSensitiveFilePlanCmd = &cobra.Command{
 }
 
 func init() {
-		EditEditSensitiveFilePlanCmd.Flags().Float64SliceVar(&editEditSensitiveFilePlanParams.AgentRange, "agent-range", nil, "探针范围, 如果 null 证明不修改，如果是个空 [] 则清空本项")
-		EditEditSensitiveFilePlanCmd.Flags().Float64SliceVar(&editEditSensitiveFilePlanParams.BusinessGroupRange, "business-group-range", nil, "业务组范围, 如果 null 证明不修改，如果是个空 [] 则清空本项")
-		EditEditSensitiveFilePlanCmd.Flags().StringVar(&editEditSensitiveFilePlanParams.Comment, "comment", "", "test")
-		// cron is object type, use JSON string
-		var cronJSON string
-		EditEditSensitiveFilePlanCmd.Flags().StringVar(&cronJSON, "cron", "", "计划定时器 (JSON, e.g. {\"interval\": 1, \"now\": true, \"plan_time\": 1667461108.618155, \"trigger_method\": \"day\", \"week_selector\": [0]})")
-		EditEditSensitiveFilePlanCmd.Flags().StringSliceVar(&editEditSensitiveFilePlanParams.HostTagRange, "host-tag-range", nil, "主机标签范围")
-		EditEditSensitiveFilePlanCmd.Flags().IntVar(&editEditSensitiveFilePlanParams.Id, "id", 0, "计划 ID")
-		EditEditSensitiveFilePlanCmd.Flags().StringVar(&editEditSensitiveFilePlanParams.Name, "name", "", "计划名称")
-		// task is object type, use JSON string
-		var taskJSON string
-		EditEditSensitiveFilePlanCmd.Flags().StringVar(&taskJSON, "task", "", "文件完整性任务信息 (JSON, e.g. {\"args\": {\"plan_id\": 0.0, \"rule_ids\": [\"\"], \"select_all\": false, \"snapshot_mode\": \"\"}, \"timeout\": 3600})")
+	EditEditSensitiveFilePlanCmd.Flags().Float64SliceVar(&editEditSensitiveFilePlanParams.AgentRange, "agent-range", nil, "探针范围, 如果 null 证明不修改，如果是个空 [] 则清空本项")
+	EditEditSensitiveFilePlanCmd.Flags().Float64SliceVar(&editEditSensitiveFilePlanParams.BusinessGroupRange, "business-group-range", nil, "业务组范围, 如果 null 证明不修改，如果是个空 [] 则清空本项")
+	EditEditSensitiveFilePlanCmd.Flags().StringVar(&editEditSensitiveFilePlanParams.Comment, "comment", "", "test")
+	// cron is object type, use JSON string
+	var cronJSON string
+	EditEditSensitiveFilePlanCmd.Flags().StringVar(&cronJSON, "cron", "", "计划定时器 (JSON, e.g. {\"interval\": 1, \"now\": true, \"plan_time\": 1667461108.618155, \"trigger_method\": \"day\", \"week_selector\": [0]})")
+	EditEditSensitiveFilePlanCmd.Flags().StringSliceVar(&editEditSensitiveFilePlanParams.HostTagRange, "host-tag-range", nil, "主机标签范围")
+	EditEditSensitiveFilePlanCmd.Flags().IntVar(&editEditSensitiveFilePlanParams.Id, "id", 0, "计划 ID")
+	EditEditSensitiveFilePlanCmd.Flags().StringVar(&editEditSensitiveFilePlanParams.Name, "name", "", "计划名称")
+	// task is object type, use JSON string
+	var taskJSON string
+	EditEditSensitiveFilePlanCmd.Flags().StringVar(&taskJSON, "task", "", "文件完整性任务信息 (JSON, e.g. {\"args\": {\"plan_id\": 0.0, \"rule_ids\": [\"\"], \"select_all\": false, \"snapshot_mode\": \"\"}, \"timeout\": 3600})")
 }
-
 
 // EditEditSensitiveFilePlanParams 请求参数
 type EditEditSensitiveFilePlanParams struct {
-	AgentRange []float64 `json:"agent_range"` // 探针范围, 如果 null 证明不修改，如果是个空 [] 则清空本项
-	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围, 如果 null 证明不修改，如果是个空 [] 则清空本项
-	Comment string `json:"comment"` // test
-	Cron map[string]interface{} `json:"cron"` // 计划定时器
-	HostTagRange []string `json:"host_tag_range"` // 主机标签范围
-	Id int `json:"id"` // 计划 ID
-	Name string `json:"name"` // 计划名称
-	Task map[string]interface{} `json:"task"` // 文件完整性任务信息
+	AgentRange         []float64              `json:"agent_range"`          // 探针范围, 如果 null 证明不修改，如果是个空 [] 则清空本项
+	BusinessGroupRange []float64              `json:"business_group_range"` // 业务组范围, 如果 null 证明不修改，如果是个空 [] 则清空本项
+	Comment            string                 `json:"comment"`              // test
+	Cron               map[string]interface{} `json:"cron"`                 // 计划定时器
+	HostTagRange       []string               `json:"host_tag_range"`       // 主机标签范围
+	Id                 int                    `json:"id"`                   // 计划 ID
+	Name               string                 `json:"name"`                 // 计划名称
+	Task               map[string]interface{} `json:"task"`                 // 文件完整性任务信息
 }
-

@@ -3,8 +3,8 @@
 package threat_overview
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var ListRealTimeEventsCmd = &cobra.Command{
 }
 
 func init() {
-		ListRealTimeEventsCmd.Flags().IntVar(&listRealTimeEventsParams.Count, "count", 20, "数量")
+	ListRealTimeEventsCmd.Flags().IntVar(&listRealTimeEventsParams.Count, "count", 20, "数量")
 }
-
 
 // ListRealTimeEventsParams 请求参数
 type ListRealTimeEventsParams struct {
 	Count int `json:"count"` // 数量
 }
-

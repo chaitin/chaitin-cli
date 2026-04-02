@@ -3,14 +3,12 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetLogicTagsCmd = &cobra.Command{
 	Use:   "get_logic_tags",
@@ -31,5 +29,3 @@ var GetLogicTagsCmd = &cobra.Command{
 func init() {
 
 }
-
-

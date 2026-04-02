@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,36 +29,34 @@ var GetLogicListCmd = &cobra.Command{
 }
 
 func init() {
-		GetLogicListCmd.Flags().IntVar(&getLogicListParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		GetLogicListCmd.Flags().StringSliceVar(&getLogicListParams.CreatedAt, "created-at", nil, "创建时间")
-		GetLogicListCmd.Flags().StringSliceVar(&getLogicListParams.Description, "description", nil, "核查项描述")
-		GetLogicListCmd.Flags().BoolVar(&getLogicListParams.IsEditable, "is-editable", false, "是否指定系统自带核查项")
-		GetLogicListCmd.Flags().BoolVar(&getLogicListParams.IsSystem, "is-system", false, "是否指定系统自带核查项")
-		GetLogicListCmd.Flags().Float64SliceVar(&getLogicListParams.Level, "level", nil, "风险级别(1-低危，2-中危，3-高危，4-严重)")
-		GetLogicListCmd.Flags().StringSliceVar(&getLogicListParams.Name, "name", nil, "核查项名称")
-		GetLogicListCmd.Flags().IntVar(&getLogicListParams.Offset, "offset", 0, "页偏移, 默认为 0")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetLogicListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetLogicListCmd.Flags().StringSliceVar(&getLogicListParams.Tags, "tags", nil, "TAG")
-		GetLogicListCmd.Flags().StringSliceVar(&getLogicListParams.Type, "type", nil, "核查项类型")
-		GetLogicListCmd.Flags().StringSliceVar(&getLogicListParams.UpdatedAt, "updated-at", nil, "修改时间")
+	GetLogicListCmd.Flags().IntVar(&getLogicListParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	GetLogicListCmd.Flags().StringSliceVar(&getLogicListParams.CreatedAt, "created-at", nil, "创建时间")
+	GetLogicListCmd.Flags().StringSliceVar(&getLogicListParams.Description, "description", nil, "核查项描述")
+	GetLogicListCmd.Flags().BoolVar(&getLogicListParams.IsEditable, "is-editable", false, "是否指定系统自带核查项")
+	GetLogicListCmd.Flags().BoolVar(&getLogicListParams.IsSystem, "is-system", false, "是否指定系统自带核查项")
+	GetLogicListCmd.Flags().Float64SliceVar(&getLogicListParams.Level, "level", nil, "风险级别(1-低危，2-中危，3-高危，4-严重)")
+	GetLogicListCmd.Flags().StringSliceVar(&getLogicListParams.Name, "name", nil, "核查项名称")
+	GetLogicListCmd.Flags().IntVar(&getLogicListParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetLogicListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetLogicListCmd.Flags().StringSliceVar(&getLogicListParams.Tags, "tags", nil, "TAG")
+	GetLogicListCmd.Flags().StringSliceVar(&getLogicListParams.Type, "type", nil, "核查项类型")
+	GetLogicListCmd.Flags().StringSliceVar(&getLogicListParams.UpdatedAt, "updated-at", nil, "修改时间")
 }
-
 
 // GetLogicListParams 请求参数
 type GetLogicListParams struct {
-	Count int `json:"count"` // 每页记录数量, 默认为 20
-	CreatedAt []string `json:"created_at"` // 创建时间
-	Description []string `json:"description"` // 核查项描述
-	IsEditable bool `json:"is_editable"` // 是否指定系统自带核查项
-	IsSystem bool `json:"is_system"` // 是否指定系统自带核查项
-	Level []float64 `json:"level"` // 风险级别(1-低危，2-中危，3-高危，4-严重)
-	Name []string `json:"name"` // 核查项名称
-	Offset int `json:"offset"` // 页偏移, 默认为 0
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	Tags []string `json:"tags"` // TAG
-	Type []string `json:"type"` // 核查项类型
-	UpdatedAt []string `json:"updated_at"` // 修改时间
+	Count       int                    `json:"count"`       // 每页记录数量, 默认为 20
+	CreatedAt   []string               `json:"created_at"`  // 创建时间
+	Description []string               `json:"description"` // 核查项描述
+	IsEditable  bool                   `json:"is_editable"` // 是否指定系统自带核查项
+	IsSystem    bool                   `json:"is_system"`   // 是否指定系统自带核查项
+	Level       []float64              `json:"level"`       // 风险级别(1-低危，2-中危，3-高危，4-严重)
+	Name        []string               `json:"name"`        // 核查项名称
+	Offset      int                    `json:"offset"`      // 页偏移, 默认为 0
+	OrderBy     map[string]interface{} `json:"order_by"`    // 排序规则
+	Tags        []string               `json:"tags"`        // TAG
+	Type        []string               `json:"type"`        // 核查项类型
+	UpdatedAt   []string               `json:"updated_at"`  // 修改时间
 }
-

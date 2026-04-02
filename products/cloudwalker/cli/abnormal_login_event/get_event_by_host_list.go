@@ -3,8 +3,8 @@
 package abnormal_login_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,62 +29,60 @@ var GetEventByHostListCmd = &cobra.Command{
 }
 
 func init() {
-		GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.AuthType, "auth-type", nil, "认证类型")
-		GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.Comment, "comment", nil, "用户自定义备注")
-		GetEventByHostListCmd.Flags().IntVar(&getEventByHostListParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.CreatedAt, "created-at", nil, "事件发现时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetEventByHostListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetEventByHostListCmd.Flags().Float64SliceVar(&getEventByHostListParams.Gids, "gids", nil, "业务组 ID")
-		GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.HostComment, "host-comment", nil, "主机备注")
-		GetEventByHostListCmd.Flags().Float64SliceVar(&getEventByHostListParams.HostId, "host-id", nil, "主机 ID")
-		GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.HostIp, "host-ip", nil, "主机 IP")
-		GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.HostName, "host-name", nil, "主机名称")
-		GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.HostState, "host-state", nil, "主机状态")
-		GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.HostTags, "host-tags", nil, "主机标签")
-		GetEventByHostListCmd.Flags().IntSliceVar(&getEventByHostListParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.LocationCode, "location-code", nil, "location_code")
-		GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.LoginIp, "login-ip", nil, "登录IP")
-		GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.LoginTime, "login-time", nil, "登录时间")
-		GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.LoginUsername, "login-username", nil, "登录用户名")
-		GetEventByHostListCmd.Flags().IntVar(&getEventByHostListParams.Offset, "offset", 0, "页偏移, 默认为 0")
-		GetEventByHostListCmd.Flags().Float64SliceVar(&getEventByHostListParams.Oid, "oid", nil, "机构 ID")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetEventByHostListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
-		GetEventByHostListCmd.Flags().Float64SliceVar(&getEventByHostListParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
-		GetEventByHostListCmd.Flags().IntSliceVar(&getEventByHostListParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
-		GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.AuthType, "auth-type", nil, "认证类型")
+	GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.Comment, "comment", nil, "用户自定义备注")
+	GetEventByHostListCmd.Flags().IntVar(&getEventByHostListParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.CreatedAt, "created-at", nil, "事件发现时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetEventByHostListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetEventByHostListCmd.Flags().Float64SliceVar(&getEventByHostListParams.Gids, "gids", nil, "业务组 ID")
+	GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.HostComment, "host-comment", nil, "主机备注")
+	GetEventByHostListCmd.Flags().Float64SliceVar(&getEventByHostListParams.HostId, "host-id", nil, "主机 ID")
+	GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.HostIp, "host-ip", nil, "主机 IP")
+	GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.HostName, "host-name", nil, "主机名称")
+	GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.HostState, "host-state", nil, "主机状态")
+	GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.HostTags, "host-tags", nil, "主机标签")
+	GetEventByHostListCmd.Flags().IntSliceVar(&getEventByHostListParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.LocationCode, "location-code", nil, "location_code")
+	GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.LoginIp, "login-ip", nil, "登录IP")
+	GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.LoginTime, "login-time", nil, "登录时间")
+	GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.LoginUsername, "login-username", nil, "登录用户名")
+	GetEventByHostListCmd.Flags().IntVar(&getEventByHostListParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	GetEventByHostListCmd.Flags().Float64SliceVar(&getEventByHostListParams.Oid, "oid", nil, "机构 ID")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetEventByHostListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
+	GetEventByHostListCmd.Flags().Float64SliceVar(&getEventByHostListParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
+	GetEventByHostListCmd.Flags().IntSliceVar(&getEventByHostListParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	GetEventByHostListCmd.Flags().StringSliceVar(&getEventByHostListParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // GetEventByHostListParams 请求参数
 type GetEventByHostListParams struct {
-	AuthType []string `json:"auth_type"` // 认证类型
-	Comment []string `json:"comment"` // 用户自定义备注
-	Count int `json:"count"` // 每页记录数量, 默认为 20
-	CreatedAt []string `json:"created_at"` // 事件发现时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Level []int `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	LocationCode []string `json:"location_code"` // location_code
-	LoginIp []string `json:"login_ip"` // 登录IP
-	LoginTime []string `json:"login_time"` // 登录时间
-	LoginUsername []string `json:"login_username"` // 登录用户名
-	Offset int `json:"offset"` // 页偏移, 默认为 0
-	Oid []float64 `json:"oid"` // 机构 ID
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	RemoteAddrType []string `json:"remote_addr_type"` // 远程IP类型，intranet(内网)、internet(外网)
-	StatEventId []float64 `json:"stat_event_id"` // 事件统计 ID
-	State []int `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	AuthType       []string                 `json:"auth_type"`        // 认证类型
+	Comment        []string                 `json:"comment"`          // 用户自定义备注
+	Count          int                      `json:"count"`            // 每页记录数量, 默认为 20
+	CreatedAt      []string                 `json:"created_at"`       // 事件发现时间
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	Gids           []float64                `json:"gids"`             // 业务组 ID
+	HostComment    []string                 `json:"host_comment"`     // 主机备注
+	HostId         []float64                `json:"host_id"`          // 主机 ID
+	HostIp         []string                 `json:"host_ip"`          // 主机 IP
+	HostName       []string                 `json:"host_name"`        // 主机名称
+	HostState      []string                 `json:"host_state"`       // 主机状态
+	HostTags       []string                 `json:"host_tags"`        // 主机标签
+	Level          []int                    `json:"level"`            // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	LocationCode   []string                 `json:"location_code"`    // location_code
+	LoginIp        []string                 `json:"login_ip"`         // 登录IP
+	LoginTime      []string                 `json:"login_time"`       // 登录时间
+	LoginUsername  []string                 `json:"login_username"`   // 登录用户名
+	Offset         int                      `json:"offset"`           // 页偏移, 默认为 0
+	Oid            []float64                `json:"oid"`              // 机构 ID
+	OrderBy        map[string]interface{}   `json:"order_by"`         // 排序规则
+	RemoteAddrType []string                 `json:"remote_addr_type"` // 远程IP类型，intranet(内网)、internet(外网)
+	StatEventId    []float64                `json:"stat_event_id"`    // 事件统计 ID
+	State          []int                    `json:"state"`            // 事件状态(1-有风险，2-已忽略，3-已处理)
+	WhiteRuleId    []string                 `json:"white_rule_id"`    // 白名单规则 ID
 }
-

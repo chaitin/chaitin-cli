@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var CreateWhitelistCmd = &cobra.Command{
 }
 
 func init() {
-		CreateWhitelistCmd.Flags().Float64Var(&createWhitelistParams.SubtaskId, "subtask-id", 0, "根据哪个子任务 ID 加白的")
-		// whitelist is object type, use JSON string
-		var whitelistJSON string
-		CreateWhitelistCmd.Flags().StringVar(&whitelistJSON, "whitelist", "", "whitelist (JSON, e.g. {\"agent_range\": [1, 2, 3], \"builtin_id\": \"1\", \"business_group_range\": [1, 2, 3], \"...\": \"...\"})")
+	CreateWhitelistCmd.Flags().Float64Var(&createWhitelistParams.SubtaskId, "subtask-id", 0, "根据哪个子任务 ID 加白的")
+	// whitelist is object type, use JSON string
+	var whitelistJSON string
+	CreateWhitelistCmd.Flags().StringVar(&whitelistJSON, "whitelist", "", "whitelist (JSON, e.g. {\"agent_range\": [1, 2, 3], \"builtin_id\": \"1\", \"business_group_range\": [1, 2, 3], \"...\": \"...\"})")
 }
-
 
 // CreateWhitelistParams 请求参数
 type CreateWhitelistParams struct {
-	SubtaskId float64 `json:"subtask_id"` // 根据哪个子任务 ID 加白的
-	Whitelist map[string]interface{} `json:"whitelist"` // whitelist
+	SubtaskId float64                `json:"subtask_id"` // 根据哪个子任务 ID 加白的
+	Whitelist map[string]interface{} `json:"whitelist"`  // whitelist
 }
-

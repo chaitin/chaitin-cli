@@ -3,8 +3,8 @@
 package whitelist
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,34 +29,32 @@ var UpdateWhitelistCmd = &cobra.Command{
 }
 
 func init() {
-		UpdateWhitelistCmd.Flags().Float64SliceVar(&updateWhitelistParams.AgentRange, "agent-range", nil, "主机范围")
-		UpdateWhitelistCmd.Flags().Float64SliceVar(&updateWhitelistParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		UpdateWhitelistCmd.Flags().BoolVar(&updateWhitelistParams.Enable, "enable", false, "是否启用")
-		UpdateWhitelistCmd.Flags().StringVar(&updateWhitelistParams.FilterMethod, "filter-method", "", "过滤方式")
-		UpdateWhitelistCmd.Flags().BoolVar(&updateWhitelistParams.Global, "global", false, "是否绑定全局探针")
-		UpdateWhitelistCmd.Flags().StringVar(&updateWhitelistParams.Id, "id", "", "规则ID")
-		UpdateWhitelistCmd.Flags().BoolVar(&updateWhitelistParams.NeedDealHistory, "need-deal-history", false, "是否处理历史事件")
-		UpdateWhitelistCmd.Flags().StringVar(&updateWhitelistParams.Remark, "remark", "", "备注")
-		// rule is object type, use JSON string
-		var ruleJSON string
-		UpdateWhitelistCmd.Flags().StringVar(&ruleJSON, "rule", "", "加白规则 (JSON, e.g. {\"abnormal_login\": {\"auth_type\": [\"password\"], \"ip\": [\"10.10.10.10\"], \"location\": [{\"city\": \"...\", \"country\": \"...\", \"province\": \"...\"}], \"time\": [{\"start_time\": \"...\", \"stop_time\": \"...\", \"weekdays\": \"...\"}], \"username\": [\"root\"], \"username_regex\": [\"root\"]}, \"baseline_v2\": {\"baseline_logic_name\": [\"some baseline logic\"], \"baseline_logic_tags\": [\"1\"], \"baseline_set_id\": [\"1\"]}, \"bruteforce\": {\"service\": [\"ssh\"], \"source_ip\": [\"10.10.10.10\"], \"time\": [{\"start_time\": \"...\", \"stop_time\": \"...\", \"weekdays\": \"...\"}], \"username\": [\"root\"], \"username_regex\": [\"root\"]}, \"...\": \"...\"})")
-		UpdateWhitelistCmd.Flags().StringVar(&updateWhitelistParams.RuleName, "rule-name", "", "规则名称")
-		UpdateWhitelistCmd.Flags().StringVar(&updateWhitelistParams.Type, "type", "", "事件类型")
+	UpdateWhitelistCmd.Flags().Float64SliceVar(&updateWhitelistParams.AgentRange, "agent-range", nil, "主机范围")
+	UpdateWhitelistCmd.Flags().Float64SliceVar(&updateWhitelistParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	UpdateWhitelistCmd.Flags().BoolVar(&updateWhitelistParams.Enable, "enable", false, "是否启用")
+	UpdateWhitelistCmd.Flags().StringVar(&updateWhitelistParams.FilterMethod, "filter-method", "", "过滤方式")
+	UpdateWhitelistCmd.Flags().BoolVar(&updateWhitelistParams.Global, "global", false, "是否绑定全局探针")
+	UpdateWhitelistCmd.Flags().StringVar(&updateWhitelistParams.Id, "id", "", "规则ID")
+	UpdateWhitelistCmd.Flags().BoolVar(&updateWhitelistParams.NeedDealHistory, "need-deal-history", false, "是否处理历史事件")
+	UpdateWhitelistCmd.Flags().StringVar(&updateWhitelistParams.Remark, "remark", "", "备注")
+	// rule is object type, use JSON string
+	var ruleJSON string
+	UpdateWhitelistCmd.Flags().StringVar(&ruleJSON, "rule", "", "加白规则 (JSON, e.g. {\"abnormal_login\": {\"auth_type\": [\"password\"], \"ip\": [\"10.10.10.10\"], \"location\": [{\"city\": \"...\", \"country\": \"...\", \"province\": \"...\"}], \"time\": [{\"start_time\": \"...\", \"stop_time\": \"...\", \"weekdays\": \"...\"}], \"username\": [\"root\"], \"username_regex\": [\"root\"]}, \"baseline_v2\": {\"baseline_logic_name\": [\"some baseline logic\"], \"baseline_logic_tags\": [\"1\"], \"baseline_set_id\": [\"1\"]}, \"bruteforce\": {\"service\": [\"ssh\"], \"source_ip\": [\"10.10.10.10\"], \"time\": [{\"start_time\": \"...\", \"stop_time\": \"...\", \"weekdays\": \"...\"}], \"username\": [\"root\"], \"username_regex\": [\"root\"]}, \"...\": \"...\"})")
+	UpdateWhitelistCmd.Flags().StringVar(&updateWhitelistParams.RuleName, "rule-name", "", "规则名称")
+	UpdateWhitelistCmd.Flags().StringVar(&updateWhitelistParams.Type, "type", "", "事件类型")
 }
-
 
 // UpdateWhitelistParams 请求参数
 type UpdateWhitelistParams struct {
-	AgentRange []float64 `json:"agent_range"` // 主机范围
-	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Enable bool `json:"enable"` // 是否启用
-	FilterMethod string `json:"filter_method"` // 过滤方式
-	Global bool `json:"global"` // 是否绑定全局探针
-	Id string `json:"id"` // 规则ID
-	NeedDealHistory bool `json:"need_deal_history"` // 是否处理历史事件
-	Remark string `json:"remark"` // 备注
-	Rule map[string]interface{} `json:"rule"` // 加白规则
-	RuleName string `json:"rule_name"` // 规则名称
-	Type string `json:"type"` // 事件类型
+	AgentRange         []float64              `json:"agent_range"`          // 主机范围
+	BusinessGroupRange []float64              `json:"business_group_range"` // 业务组范围
+	Enable             bool                   `json:"enable"`               // 是否启用
+	FilterMethod       string                 `json:"filter_method"`        // 过滤方式
+	Global             bool                   `json:"global"`               // 是否绑定全局探针
+	Id                 string                 `json:"id"`                   // 规则ID
+	NeedDealHistory    bool                   `json:"need_deal_history"`    // 是否处理历史事件
+	Remark             string                 `json:"remark"`               // 备注
+	Rule               map[string]interface{} `json:"rule"`                 // 加白规则
+	RuleName           string                 `json:"rule_name"`            // 规则名称
+	Type               string                 `json:"type"`                 // 事件类型
 }
-

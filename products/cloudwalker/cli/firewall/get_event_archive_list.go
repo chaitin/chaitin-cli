@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var GetEventArchiveListCmd = &cobra.Command{
 }
 
 func init() {
-		GetEventArchiveListCmd.Flags().IntVar(&getEventArchiveListParams.Limit, "limit", 0, "数量")
-		GetEventArchiveListCmd.Flags().IntVar(&getEventArchiveListParams.Offset, "offset", 0, "偏移量")
+	GetEventArchiveListCmd.Flags().IntVar(&getEventArchiveListParams.Limit, "limit", 0, "数量")
+	GetEventArchiveListCmd.Flags().IntVar(&getEventArchiveListParams.Offset, "offset", 0, "偏移量")
 }
-
 
 // GetEventArchiveListParams 请求参数
 type GetEventArchiveListParams struct {
-	Limit int `json:"limit"` // 数量
+	Limit  int `json:"limit"`  // 数量
 	Offset int `json:"offset"` // 偏移量
 }
-

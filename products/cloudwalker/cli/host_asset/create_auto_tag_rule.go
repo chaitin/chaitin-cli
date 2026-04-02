@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,38 +29,36 @@ var CreateAutoTagRuleCmd = &cobra.Command{
 }
 
 func init() {
-		CreateAutoTagRuleCmd.Flags().Float64SliceVar(&createAutoTagRuleParams.AgentRange, "agent-range", nil, "主机范围")
-		CreateAutoTagRuleCmd.Flags().Float64SliceVar(&createAutoTagRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		CreateAutoTagRuleCmd.Flags().BoolVar(&createAutoTagRuleParams.Enable, "enable", false, "是否启用")
-		CreateAutoTagRuleCmd.Flags().StringSliceVar(&createAutoTagRuleParams.Exename, "exename", nil, "进程名全等匹配")
-		CreateAutoTagRuleCmd.Flags().StringSliceVar(&createAutoTagRuleParams.ExenameRegex, "exename-regex", nil, "进程名正则匹配")
-		CreateAutoTagRuleCmd.Flags().BoolVar(&createAutoTagRuleParams.Global, "global", false, "是否绑定全局探针")
-		CreateAutoTagRuleCmd.Flags().StringSliceVar(&createAutoTagRuleParams.Hostname, "hostname", nil, "主机名全等匹配")
-		CreateAutoTagRuleCmd.Flags().StringSliceVar(&createAutoTagRuleParams.HostnameRegex, "hostname-regex", nil, "主机名正则匹配")
-		CreateAutoTagRuleCmd.Flags().StringSliceVar(&createAutoTagRuleParams.Ip, "ip", nil, "IP 匹配")
-		CreateAutoTagRuleCmd.Flags().StringSliceVar(&createAutoTagRuleParams.OsType, "os-type", nil, "操作系统类型")
-		CreateAutoTagRuleCmd.Flags().StringVar(&createAutoTagRuleParams.RuleName, "rule-name", "", "规则名称")
-		CreateAutoTagRuleCmd.Flags().StringSliceVar(&createAutoTagRuleParams.Software, "software", nil, "软件名全等匹配")
-		CreateAutoTagRuleCmd.Flags().StringSliceVar(&createAutoTagRuleParams.SoftwareRegex, "software-regex", nil, "软件名正则匹配")
-		CreateAutoTagRuleCmd.Flags().StringSliceVar(&createAutoTagRuleParams.Tags, "tags", nil, "标签")
+	CreateAutoTagRuleCmd.Flags().Float64SliceVar(&createAutoTagRuleParams.AgentRange, "agent-range", nil, "主机范围")
+	CreateAutoTagRuleCmd.Flags().Float64SliceVar(&createAutoTagRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	CreateAutoTagRuleCmd.Flags().BoolVar(&createAutoTagRuleParams.Enable, "enable", false, "是否启用")
+	CreateAutoTagRuleCmd.Flags().StringSliceVar(&createAutoTagRuleParams.Exename, "exename", nil, "进程名全等匹配")
+	CreateAutoTagRuleCmd.Flags().StringSliceVar(&createAutoTagRuleParams.ExenameRegex, "exename-regex", nil, "进程名正则匹配")
+	CreateAutoTagRuleCmd.Flags().BoolVar(&createAutoTagRuleParams.Global, "global", false, "是否绑定全局探针")
+	CreateAutoTagRuleCmd.Flags().StringSliceVar(&createAutoTagRuleParams.Hostname, "hostname", nil, "主机名全等匹配")
+	CreateAutoTagRuleCmd.Flags().StringSliceVar(&createAutoTagRuleParams.HostnameRegex, "hostname-regex", nil, "主机名正则匹配")
+	CreateAutoTagRuleCmd.Flags().StringSliceVar(&createAutoTagRuleParams.Ip, "ip", nil, "IP 匹配")
+	CreateAutoTagRuleCmd.Flags().StringSliceVar(&createAutoTagRuleParams.OsType, "os-type", nil, "操作系统类型")
+	CreateAutoTagRuleCmd.Flags().StringVar(&createAutoTagRuleParams.RuleName, "rule-name", "", "规则名称")
+	CreateAutoTagRuleCmd.Flags().StringSliceVar(&createAutoTagRuleParams.Software, "software", nil, "软件名全等匹配")
+	CreateAutoTagRuleCmd.Flags().StringSliceVar(&createAutoTagRuleParams.SoftwareRegex, "software-regex", nil, "软件名正则匹配")
+	CreateAutoTagRuleCmd.Flags().StringSliceVar(&createAutoTagRuleParams.Tags, "tags", nil, "标签")
 }
-
 
 // CreateAutoTagRuleParams 请求参数
 type CreateAutoTagRuleParams struct {
-	AgentRange []float64 `json:"agent_range"` // 主机范围
+	AgentRange         []float64 `json:"agent_range"`          // 主机范围
 	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Enable bool `json:"enable"` // 是否启用
-	Exename []string `json:"exename"` // 进程名全等匹配
-	ExenameRegex []string `json:"exename_regex"` // 进程名正则匹配
-	Global bool `json:"global"` // 是否绑定全局探针
-	Hostname []string `json:"hostname"` // 主机名全等匹配
-	HostnameRegex []string `json:"hostname_regex"` // 主机名正则匹配
-	Ip []string `json:"ip"` // IP 匹配
-	OsType []string `json:"os_type"` // 操作系统类型
-	RuleName string `json:"rule_name"` // 规则名称
-	Software []string `json:"software"` // 软件名全等匹配
-	SoftwareRegex []string `json:"software_regex"` // 软件名正则匹配
-	Tags []string `json:"tags"` // 标签
+	Enable             bool      `json:"enable"`               // 是否启用
+	Exename            []string  `json:"exename"`              // 进程名全等匹配
+	ExenameRegex       []string  `json:"exename_regex"`        // 进程名正则匹配
+	Global             bool      `json:"global"`               // 是否绑定全局探针
+	Hostname           []string  `json:"hostname"`             // 主机名全等匹配
+	HostnameRegex      []string  `json:"hostname_regex"`       // 主机名正则匹配
+	Ip                 []string  `json:"ip"`                   // IP 匹配
+	OsType             []string  `json:"os_type"`              // 操作系统类型
+	RuleName           string    `json:"rule_name"`            // 规则名称
+	Software           []string  `json:"software"`             // 软件名全等匹配
+	SoftwareRegex      []string  `json:"software_regex"`       // 软件名正则匹配
+	Tags               []string  `json:"tags"`                 // 标签
 }
-

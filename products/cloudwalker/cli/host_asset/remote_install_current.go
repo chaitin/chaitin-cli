@@ -3,14 +3,12 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var RemoteInstallCurrentCmd = &cobra.Command{
 	Use:   "remote_install_current",
@@ -31,5 +29,3 @@ var RemoteInstallCurrentCmd = &cobra.Command{
 func init() {
 
 }
-
-

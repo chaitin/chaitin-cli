@@ -3,8 +3,8 @@
 package revshell_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,60 +29,58 @@ var StatEventByCmdlineCmd = &cobra.Command{
 }
 
 func init() {
-		StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.CreatedAt, "created-at", nil, "事件发现时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		StatEventByCmdlineCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		StatEventByCmdlineCmd.Flags().Float64SliceVar(&statEventByCmdlineParams.Gids, "gids", nil, "gids")
-		StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.HostComment, "host-comment", nil, "主机备注")
-		StatEventByCmdlineCmd.Flags().Float64SliceVar(&statEventByCmdlineParams.HostId, "host-id", nil, "主机 ID")
-		StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.HostIp, "host-ip", nil, "主机 IP")
-		StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.HostName, "host-name", nil, "主机名称")
-		StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.HostState, "host-state", nil, "主机状态")
-		StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.HostTags, "host-tags", nil, "主机标签")
-		StatEventByCmdlineCmd.Flags().Float64SliceVar(&statEventByCmdlineParams.Ids, "ids", nil, "事件 ID")
-		StatEventByCmdlineCmd.Flags().IntSliceVar(&statEventByCmdlineParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.LocalAddr, "local-addr", nil, "本地 IP")
-		StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.LocationCode, "location-code", nil, "location_code")
-		StatEventByCmdlineCmd.Flags().Float64SliceVar(&statEventByCmdlineParams.Oid, "oid", nil, "机构 ID")
-		StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.ParentCmdline, "parent-cmdline", nil, "父 Shell 命令行")
-		StatEventByCmdlineCmd.Flags().Float64SliceVar(&statEventByCmdlineParams.ParentPid, "parent-pid", nil, "父进程 ID")
-		StatEventByCmdlineCmd.Flags().Float64SliceVar(&statEventByCmdlineParams.Pid, "pid", nil, "进程 ID")
-		StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.RemoteAddr, "remote-addr", nil, "远程 IP")
-		StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
-		StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.ShellCmdline, "shell-cmdline", nil, "Shell 命令行")
-		StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.StartTime, "start-time", nil, "Shell 开始时间")
-		StatEventByCmdlineCmd.Flags().Float64SliceVar(&statEventByCmdlineParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
-		StatEventByCmdlineCmd.Flags().IntSliceVar(&statEventByCmdlineParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
-		StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.CreatedAt, "created-at", nil, "事件发现时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	StatEventByCmdlineCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	StatEventByCmdlineCmd.Flags().Float64SliceVar(&statEventByCmdlineParams.Gids, "gids", nil, "gids")
+	StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.HostComment, "host-comment", nil, "主机备注")
+	StatEventByCmdlineCmd.Flags().Float64SliceVar(&statEventByCmdlineParams.HostId, "host-id", nil, "主机 ID")
+	StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.HostIp, "host-ip", nil, "主机 IP")
+	StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.HostName, "host-name", nil, "主机名称")
+	StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.HostState, "host-state", nil, "主机状态")
+	StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.HostTags, "host-tags", nil, "主机标签")
+	StatEventByCmdlineCmd.Flags().Float64SliceVar(&statEventByCmdlineParams.Ids, "ids", nil, "事件 ID")
+	StatEventByCmdlineCmd.Flags().IntSliceVar(&statEventByCmdlineParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.LocalAddr, "local-addr", nil, "本地 IP")
+	StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.LocationCode, "location-code", nil, "location_code")
+	StatEventByCmdlineCmd.Flags().Float64SliceVar(&statEventByCmdlineParams.Oid, "oid", nil, "机构 ID")
+	StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.ParentCmdline, "parent-cmdline", nil, "父 Shell 命令行")
+	StatEventByCmdlineCmd.Flags().Float64SliceVar(&statEventByCmdlineParams.ParentPid, "parent-pid", nil, "父进程 ID")
+	StatEventByCmdlineCmd.Flags().Float64SliceVar(&statEventByCmdlineParams.Pid, "pid", nil, "进程 ID")
+	StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.RemoteAddr, "remote-addr", nil, "远程 IP")
+	StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
+	StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.ShellCmdline, "shell-cmdline", nil, "Shell 命令行")
+	StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.StartTime, "start-time", nil, "Shell 开始时间")
+	StatEventByCmdlineCmd.Flags().Float64SliceVar(&statEventByCmdlineParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
+	StatEventByCmdlineCmd.Flags().IntSliceVar(&statEventByCmdlineParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	StatEventByCmdlineCmd.Flags().StringSliceVar(&statEventByCmdlineParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // StatEventByCmdlineParams 请求参数
 type StatEventByCmdlineParams struct {
-	CreatedAt []string `json:"created_at"` // 事件发现时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // gids
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Ids []float64 `json:"ids"` // 事件 ID
-	Level []int `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	LocalAddr []string `json:"local_addr"` // 本地 IP
-	LocationCode []string `json:"location_code"` // location_code
-	Oid []float64 `json:"oid"` // 机构 ID
-	ParentCmdline []string `json:"parent_cmdline"` // 父 Shell 命令行
-	ParentPid []float64 `json:"parent_pid"` // 父进程 ID
-	Pid []float64 `json:"pid"` // 进程 ID
-	RemoteAddr []string `json:"remote_addr"` // 远程 IP
-	RemoteAddrType []string `json:"remote_addr_type"` // 远程IP类型，intranet(内网)、internet(外网)
-	ShellCmdline []string `json:"shell_cmdline"` // Shell 命令行
-	StartTime []string `json:"start_time"` // Shell 开始时间
-	StatEventId []float64 `json:"stat_event_id"` // 事件统计 ID
-	State []int `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	CreatedAt      []string                 `json:"created_at"`       // 事件发现时间
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	Gids           []float64                `json:"gids"`             // gids
+	HostComment    []string                 `json:"host_comment"`     // 主机备注
+	HostId         []float64                `json:"host_id"`          // 主机 ID
+	HostIp         []string                 `json:"host_ip"`          // 主机 IP
+	HostName       []string                 `json:"host_name"`        // 主机名称
+	HostState      []string                 `json:"host_state"`       // 主机状态
+	HostTags       []string                 `json:"host_tags"`        // 主机标签
+	Ids            []float64                `json:"ids"`              // 事件 ID
+	Level          []int                    `json:"level"`            // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	LocalAddr      []string                 `json:"local_addr"`       // 本地 IP
+	LocationCode   []string                 `json:"location_code"`    // location_code
+	Oid            []float64                `json:"oid"`              // 机构 ID
+	ParentCmdline  []string                 `json:"parent_cmdline"`   // 父 Shell 命令行
+	ParentPid      []float64                `json:"parent_pid"`       // 父进程 ID
+	Pid            []float64                `json:"pid"`              // 进程 ID
+	RemoteAddr     []string                 `json:"remote_addr"`      // 远程 IP
+	RemoteAddrType []string                 `json:"remote_addr_type"` // 远程IP类型，intranet(内网)、internet(外网)
+	ShellCmdline   []string                 `json:"shell_cmdline"`    // Shell 命令行
+	StartTime      []string                 `json:"start_time"`       // Shell 开始时间
+	StatEventId    []float64                `json:"stat_event_id"`    // 事件统计 ID
+	State          []int                    `json:"state"`            // 事件状态(1-有风险，2-已忽略，3-已处理)
+	WhiteRuleId    []string                 `json:"white_rule_id"`    // 白名单规则 ID
 }
-

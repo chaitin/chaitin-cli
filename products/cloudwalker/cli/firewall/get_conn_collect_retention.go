@@ -3,14 +3,12 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetConnCollectRetentionCmd = &cobra.Command{
 	Use:   "get_conn_collect_retention",
@@ -31,5 +29,3 @@ var GetConnCollectRetentionCmd = &cobra.Command{
 func init() {
 
 }
-
-

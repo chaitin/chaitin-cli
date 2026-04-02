@@ -3,14 +3,12 @@
 package emergency_vuln_v1
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetTagListCmd = &cobra.Command{
 	Use:   "get_tag_list",
@@ -31,5 +29,3 @@ var GetTagListCmd = &cobra.Command{
 func init() {
 
 }
-
-

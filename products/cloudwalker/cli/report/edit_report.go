@@ -3,8 +3,8 @@
 package report
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,30 +29,28 @@ var EditReportCmd = &cobra.Command{
 }
 
 func init() {
-		EditReportCmd.Flags().IntVar(&editReportParams.BaselineTaskId, "baseline-task-id", 0, "baseline_task_id")
-		EditReportCmd.Flags().StringVar(&editReportParams.DataScope, "data-scope", "", "data_scope")
-		// filter is object type, use JSON string
-		var filterJSON string
-		EditReportCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. {\"host_ip\": [\"10.2.28.217\", \"10.3.29.218\"], \"host_name\": [\"centos7.2-x64\", \"ubuntu20.04\"]})")
-		EditReportCmd.Flags().Float64SliceVar(&editReportParams.GroupId, "group-id", nil, "(主机资产)分析范围")
-		EditReportCmd.Flags().IntVar(&editReportParams.Id, "id", 0, "ID")
-		// mail is object type, use JSON string
-		var mailJSON string
-		EditReportCmd.Flags().StringVar(&mailJSON, "mail", "", "邮件信息 (JSON, e.g. {\"body\": \"\", \"subject\": \"\", \"to\": [\"\"]})")
-		EditReportCmd.Flags().StringVar(&editReportParams.Name, "name", "", "报告名称")
-		EditReportCmd.Flags().IntVar(&editReportParams.TemplateId, "template-id", 0, "template_id")
+	EditReportCmd.Flags().IntVar(&editReportParams.BaselineTaskId, "baseline-task-id", 0, "baseline_task_id")
+	EditReportCmd.Flags().StringVar(&editReportParams.DataScope, "data-scope", "", "data_scope")
+	// filter is object type, use JSON string
+	var filterJSON string
+	EditReportCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. {\"host_ip\": [\"10.2.28.217\", \"10.3.29.218\"], \"host_name\": [\"centos7.2-x64\", \"ubuntu20.04\"]})")
+	EditReportCmd.Flags().Float64SliceVar(&editReportParams.GroupId, "group-id", nil, "(主机资产)分析范围")
+	EditReportCmd.Flags().IntVar(&editReportParams.Id, "id", 0, "ID")
+	// mail is object type, use JSON string
+	var mailJSON string
+	EditReportCmd.Flags().StringVar(&mailJSON, "mail", "", "邮件信息 (JSON, e.g. {\"body\": \"\", \"subject\": \"\", \"to\": [\"\"]})")
+	EditReportCmd.Flags().StringVar(&editReportParams.Name, "name", "", "报告名称")
+	EditReportCmd.Flags().IntVar(&editReportParams.TemplateId, "template-id", 0, "template_id")
 }
-
 
 // EditReportParams 请求参数
 type EditReportParams struct {
-	BaselineTaskId int `json:"baseline_task_id"` // baseline_task_id
-	DataScope string `json:"data_scope"` // data_scope
-	Filter map[string]interface{} `json:"filter"` // filter
-	GroupId []float64 `json:"group_id"` // (主机资产)分析范围
-	Id int `json:"id"` // ID
-	Mail map[string]interface{} `json:"mail"` // 邮件信息
-	Name string `json:"name"` // 报告名称
-	TemplateId int `json:"template_id"` // template_id
+	BaselineTaskId int                    `json:"baseline_task_id"` // baseline_task_id
+	DataScope      string                 `json:"data_scope"`       // data_scope
+	Filter         map[string]interface{} `json:"filter"`           // filter
+	GroupId        []float64              `json:"group_id"`         // (主机资产)分析范围
+	Id             int                    `json:"id"`               // ID
+	Mail           map[string]interface{} `json:"mail"`             // 邮件信息
+	Name           string                 `json:"name"`             // 报告名称
+	TemplateId     int                    `json:"template_id"`      // template_id
 }
-

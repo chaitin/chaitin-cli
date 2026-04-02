@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,42 +29,40 @@ var ListHoneypotRuleCmd = &cobra.Command{
 }
 
 func init() {
-		ListHoneypotRuleCmd.Flags().IntVar(&listHoneypotRuleParams.Count, "count", 20, "每页记录数量")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		ListHoneypotRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		ListHoneypotRuleCmd.Flags().BoolVar(&listHoneypotRuleParams.Enable, "enable", false, "是否启用")
-		ListHoneypotRuleCmd.Flags().StringSliceVar(&listHoneypotRuleParams.HoneypotName, "honeypot-name", nil, "蜜罐名称")
-		ListHoneypotRuleCmd.Flags().StringSliceVar(&listHoneypotRuleParams.HostComment, "host-comment", nil, "主机备注")
-		ListHoneypotRuleCmd.Flags().Float64SliceVar(&listHoneypotRuleParams.HostId, "host-id", nil, "主机ID")
-		ListHoneypotRuleCmd.Flags().StringSliceVar(&listHoneypotRuleParams.HostIp, "host-ip", nil, "主机IP")
-		ListHoneypotRuleCmd.Flags().StringSliceVar(&listHoneypotRuleParams.HostName, "host-name", nil, "主机名称")
-		ListHoneypotRuleCmd.Flags().StringSliceVar(&listHoneypotRuleParams.HostState, "host-state", nil, "主机状态")
-		ListHoneypotRuleCmd.Flags().StringSliceVar(&listHoneypotRuleParams.HostTag, "host-tag", nil, "主机标签")
-		ListHoneypotRuleCmd.Flags().StringSliceVar(&listHoneypotRuleParams.Id, "id", nil, "规则 ID")
-		ListHoneypotRuleCmd.Flags().StringSliceVar(&listHoneypotRuleParams.ListenAddr, "listen-addr", nil, "监听地址")
-		ListHoneypotRuleCmd.Flags().StringSliceVar(&listHoneypotRuleParams.Method, "method", nil, "蜜罐类型")
-		ListHoneypotRuleCmd.Flags().IntVar(&listHoneypotRuleParams.Offset, "offset", 0, "页偏移")
-		ListHoneypotRuleCmd.Flags().StringSliceVar(&listHoneypotRuleParams.RuleName, "rule-name", nil, "规则名称")
+	ListHoneypotRuleCmd.Flags().IntVar(&listHoneypotRuleParams.Count, "count", 20, "每页记录数量")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	ListHoneypotRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	ListHoneypotRuleCmd.Flags().BoolVar(&listHoneypotRuleParams.Enable, "enable", false, "是否启用")
+	ListHoneypotRuleCmd.Flags().StringSliceVar(&listHoneypotRuleParams.HoneypotName, "honeypot-name", nil, "蜜罐名称")
+	ListHoneypotRuleCmd.Flags().StringSliceVar(&listHoneypotRuleParams.HostComment, "host-comment", nil, "主机备注")
+	ListHoneypotRuleCmd.Flags().Float64SliceVar(&listHoneypotRuleParams.HostId, "host-id", nil, "主机ID")
+	ListHoneypotRuleCmd.Flags().StringSliceVar(&listHoneypotRuleParams.HostIp, "host-ip", nil, "主机IP")
+	ListHoneypotRuleCmd.Flags().StringSliceVar(&listHoneypotRuleParams.HostName, "host-name", nil, "主机名称")
+	ListHoneypotRuleCmd.Flags().StringSliceVar(&listHoneypotRuleParams.HostState, "host-state", nil, "主机状态")
+	ListHoneypotRuleCmd.Flags().StringSliceVar(&listHoneypotRuleParams.HostTag, "host-tag", nil, "主机标签")
+	ListHoneypotRuleCmd.Flags().StringSliceVar(&listHoneypotRuleParams.Id, "id", nil, "规则 ID")
+	ListHoneypotRuleCmd.Flags().StringSliceVar(&listHoneypotRuleParams.ListenAddr, "listen-addr", nil, "监听地址")
+	ListHoneypotRuleCmd.Flags().StringSliceVar(&listHoneypotRuleParams.Method, "method", nil, "蜜罐类型")
+	ListHoneypotRuleCmd.Flags().IntVar(&listHoneypotRuleParams.Offset, "offset", 0, "页偏移")
+	ListHoneypotRuleCmd.Flags().StringSliceVar(&listHoneypotRuleParams.RuleName, "rule-name", nil, "规则名称")
 }
-
 
 // ListHoneypotRuleParams 请求参数
 type ListHoneypotRuleParams struct {
-	Count int `json:"count"` // 每页记录数量
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Enable bool `json:"enable"` // 是否启用
-	HoneypotName []string `json:"honeypot_name"` // 蜜罐名称
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTag []string `json:"host_tag"` // 主机标签
-	Id []string `json:"id"` // 规则 ID
-	ListenAddr []string `json:"listen_addr"` // 监听地址
-	Method []string `json:"method"` // 蜜罐类型
-	Offset int `json:"offset"` // 页偏移
-	RuleName []string `json:"rule_name"` // 规则名称
+	Count        int                      `json:"count"`         // 每页记录数量
+	CustomAttr   []map[string]interface{} `json:"custom_attr"`   // 主机业务属性
+	Enable       bool                     `json:"enable"`        // 是否启用
+	HoneypotName []string                 `json:"honeypot_name"` // 蜜罐名称
+	HostComment  []string                 `json:"host_comment"`  // 主机备注
+	HostId       []float64                `json:"host_id"`       // 主机ID
+	HostIp       []string                 `json:"host_ip"`       // 主机IP
+	HostName     []string                 `json:"host_name"`     // 主机名称
+	HostState    []string                 `json:"host_state"`    // 主机状态
+	HostTag      []string                 `json:"host_tag"`      // 主机标签
+	Id           []string                 `json:"id"`            // 规则 ID
+	ListenAddr   []string                 `json:"listen_addr"`   // 监听地址
+	Method       []string                 `json:"method"`        // 蜜罐类型
+	Offset       int                      `json:"offset"`        // 页偏移
+	RuleName     []string                 `json:"rule_name"`     // 规则名称
 }
-

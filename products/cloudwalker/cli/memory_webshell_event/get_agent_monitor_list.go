@@ -3,8 +3,8 @@
 package memory_webshell_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,56 +29,54 @@ var GetAgentMonitorListCmd = &cobra.Command{
 }
 
 func init() {
-		GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.Cmdline, "cmdline", nil, "进程命令行")
-		GetAgentMonitorListCmd.Flags().IntVar(&getAgentMonitorListParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetAgentMonitorListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.ExePath, "exe-path", nil, "进程路径")
-		GetAgentMonitorListCmd.Flags().Float64SliceVar(&getAgentMonitorListParams.Gids, "gids", nil, "业务组 ID")
-		GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.HostComment, "host-comment", nil, "主机备注")
-		GetAgentMonitorListCmd.Flags().Float64SliceVar(&getAgentMonitorListParams.HostId, "host-id", nil, "主机 ID")
-		GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.HostIp, "host-ip", nil, "主机 IP")
-		GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.HostName, "host-name", nil, "主机名称")
-		GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.HostState, "host-state", nil, "主机状态")
-		GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.HostTags, "host-tags", nil, "主机标签")
-		GetAgentMonitorListCmd.Flags().Float64SliceVar(&getAgentMonitorListParams.Id, "id", nil, "ID")
-		GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.JdkVersion, "jdk-version", nil, "jdk版本")
-		GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.MonitorState, "monitor-state", nil, "监控状态")
-		GetAgentMonitorListCmd.Flags().IntVar(&getAgentMonitorListParams.Offset, "offset", 0, "页偏移, 默认为 0")
-		GetAgentMonitorListCmd.Flags().Float64SliceVar(&getAgentMonitorListParams.Oid, "oid", nil, "机构 ID")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetAgentMonitorListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetAgentMonitorListCmd.Flags().Float64SliceVar(&getAgentMonitorListParams.Pid, "pid", nil, "进程ID")
-		GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.ProcessName, "process-name", nil, "进程名称")
-		GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.ProcessStatus, "process-status", nil, "进程状态")
-		GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.ServerName, "server-name", nil, "服务名")
+	GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.Cmdline, "cmdline", nil, "进程命令行")
+	GetAgentMonitorListCmd.Flags().IntVar(&getAgentMonitorListParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetAgentMonitorListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.ExePath, "exe-path", nil, "进程路径")
+	GetAgentMonitorListCmd.Flags().Float64SliceVar(&getAgentMonitorListParams.Gids, "gids", nil, "业务组 ID")
+	GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.HostComment, "host-comment", nil, "主机备注")
+	GetAgentMonitorListCmd.Flags().Float64SliceVar(&getAgentMonitorListParams.HostId, "host-id", nil, "主机 ID")
+	GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.HostIp, "host-ip", nil, "主机 IP")
+	GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.HostName, "host-name", nil, "主机名称")
+	GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.HostState, "host-state", nil, "主机状态")
+	GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.HostTags, "host-tags", nil, "主机标签")
+	GetAgentMonitorListCmd.Flags().Float64SliceVar(&getAgentMonitorListParams.Id, "id", nil, "ID")
+	GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.JdkVersion, "jdk-version", nil, "jdk版本")
+	GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.MonitorState, "monitor-state", nil, "监控状态")
+	GetAgentMonitorListCmd.Flags().IntVar(&getAgentMonitorListParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	GetAgentMonitorListCmd.Flags().Float64SliceVar(&getAgentMonitorListParams.Oid, "oid", nil, "机构 ID")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetAgentMonitorListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetAgentMonitorListCmd.Flags().Float64SliceVar(&getAgentMonitorListParams.Pid, "pid", nil, "进程ID")
+	GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.ProcessName, "process-name", nil, "进程名称")
+	GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.ProcessStatus, "process-status", nil, "进程状态")
+	GetAgentMonitorListCmd.Flags().StringSliceVar(&getAgentMonitorListParams.ServerName, "server-name", nil, "服务名")
 }
-
 
 // GetAgentMonitorListParams 请求参数
 type GetAgentMonitorListParams struct {
-	Cmdline []string `json:"cmdline"` // 进程命令行
-	Count int `json:"count"` // 每页记录数量, 默认为 20
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	ExePath []string `json:"exe_path"` // 进程路径
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Id []float64 `json:"id"` // ID
-	JdkVersion []string `json:"jdk_version"` // jdk版本
-	MonitorState []string `json:"monitor_state"` // 监控状态
-	Offset int `json:"offset"` // 页偏移, 默认为 0
-	Oid []float64 `json:"oid"` // 机构 ID
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	Pid []float64 `json:"pid"` // 进程ID
-	ProcessName []string `json:"process_name"` // 进程名称
-	ProcessStatus []string `json:"process_status"` // 进程状态
-	ServerName []string `json:"server_name"` // 服务名
+	Cmdline       []string                 `json:"cmdline"`        // 进程命令行
+	Count         int                      `json:"count"`          // 每页记录数量, 默认为 20
+	CustomAttr    []map[string]interface{} `json:"custom_attr"`    // 主机业务属性
+	ExePath       []string                 `json:"exe_path"`       // 进程路径
+	Gids          []float64                `json:"gids"`           // 业务组 ID
+	HostComment   []string                 `json:"host_comment"`   // 主机备注
+	HostId        []float64                `json:"host_id"`        // 主机 ID
+	HostIp        []string                 `json:"host_ip"`        // 主机 IP
+	HostName      []string                 `json:"host_name"`      // 主机名称
+	HostState     []string                 `json:"host_state"`     // 主机状态
+	HostTags      []string                 `json:"host_tags"`      // 主机标签
+	Id            []float64                `json:"id"`             // ID
+	JdkVersion    []string                 `json:"jdk_version"`    // jdk版本
+	MonitorState  []string                 `json:"monitor_state"`  // 监控状态
+	Offset        int                      `json:"offset"`         // 页偏移, 默认为 0
+	Oid           []float64                `json:"oid"`            // 机构 ID
+	OrderBy       map[string]interface{}   `json:"order_by"`       // 排序规则
+	Pid           []float64                `json:"pid"`            // 进程ID
+	ProcessName   []string                 `json:"process_name"`   // 进程名称
+	ProcessStatus []string                 `json:"process_status"` // 进程状态
+	ServerName    []string                 `json:"server_name"`    // 服务名
 }
-

@@ -3,8 +3,8 @@
 package weak_passwd
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,24 +29,22 @@ var CreateDictCmd = &cobra.Command{
 }
 
 func init() {
-		CreateDictCmd.Flags().StringVar(&createDictParams.Comment, "comment", "", "备注")
-		CreateDictCmd.Flags().StringSliceVar(&createDictParams.Dict, "dict", nil, "字典，最多5000条")
-		CreateDictCmd.Flags().StringVar(&createDictParams.Name, "name", "", "字典名称")
-		// params is complex type []map[string]interface{}, use JSON string
-		var paramsJSON string
-		CreateDictCmd.Flags().StringVar(&paramsJSON, "params", "", "字典参数 (JSON, e.g. [{\"description\": \"描述\", \"is_default\": false, \"name\": \"test\", \"value\": \"1\"}])")
-		CreateDictCmd.Flags().StringSliceVar(&createDictParams.Prefix, "prefix", nil, "前缀，最多3条")
-		CreateDictCmd.Flags().StringSliceVar(&createDictParams.Suffix, "suffix", nil, "后缀，最多3条")
+	CreateDictCmd.Flags().StringVar(&createDictParams.Comment, "comment", "", "备注")
+	CreateDictCmd.Flags().StringSliceVar(&createDictParams.Dict, "dict", nil, "字典，最多5000条")
+	CreateDictCmd.Flags().StringVar(&createDictParams.Name, "name", "", "字典名称")
+	// params is complex type []map[string]interface{}, use JSON string
+	var paramsJSON string
+	CreateDictCmd.Flags().StringVar(&paramsJSON, "params", "", "字典参数 (JSON, e.g. [{\"description\": \"描述\", \"is_default\": false, \"name\": \"test\", \"value\": \"1\"}])")
+	CreateDictCmd.Flags().StringSliceVar(&createDictParams.Prefix, "prefix", nil, "前缀，最多3条")
+	CreateDictCmd.Flags().StringSliceVar(&createDictParams.Suffix, "suffix", nil, "后缀，最多3条")
 }
-
 
 // CreateDictParams 请求参数
 type CreateDictParams struct {
-	Comment string `json:"comment"` // 备注
-	Dict []string `json:"dict"` // 字典，最多5000条
-	Name string `json:"name"` // 字典名称
-	Params []map[string]interface{} `json:"params"` // 字典参数
-	Prefix []string `json:"prefix"` // 前缀，最多3条
-	Suffix []string `json:"suffix"` // 后缀，最多3条
+	Comment string                   `json:"comment"` // 备注
+	Dict    []string                 `json:"dict"`    // 字典，最多5000条
+	Name    string                   `json:"name"`    // 字典名称
+	Params  []map[string]interface{} `json:"params"`  // 字典参数
+	Prefix  []string                 `json:"prefix"`  // 前缀，最多3条
+	Suffix  []string                 `json:"suffix"`  // 后缀，最多3条
 }
-

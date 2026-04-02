@@ -3,14 +3,12 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetTaskNameListCmd = &cobra.Command{
 	Use:   "get_task_name_list",
@@ -31,5 +29,3 @@ var GetTaskNameListCmd = &cobra.Command{
 func init() {
 
 }
-
-

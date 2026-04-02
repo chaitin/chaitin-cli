@@ -3,14 +3,12 @@
 package admin_monitor
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetNsqStatisticsCmd = &cobra.Command{
 	Use:   "get_nsq_statistics",
@@ -31,5 +29,3 @@ var GetNsqStatisticsCmd = &cobra.Command{
 func init() {
 
 }
-
-

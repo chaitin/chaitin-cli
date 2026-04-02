@@ -3,8 +3,8 @@
 package host_partition_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,52 +29,50 @@ var GetNetworkStoragePartitionByFileSystemCmd = &cobra.Command{
 }
 
 func init() {
-		GetNetworkStoragePartitionByFileSystemCmd.Flags().IntVar(&getNetworkStoragePartitionByFileSystemParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetNetworkStoragePartitionByFileSystemCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetNetworkStoragePartitionByFileSystemCmd.Flags().BoolSliceVar(&getNetworkStoragePartitionByFileSystemParams.Enable, "enable", nil, "是否启用")
-		GetNetworkStoragePartitionByFileSystemCmd.Flags().StringSliceVar(&getNetworkStoragePartitionByFileSystemParams.FileSystem, "file-system", nil, "文件系统")
-		// filter is complex type []map[string]interface{}, use JSON string
-		var filterJSON string
-		GetNetworkStoragePartitionByFileSystemCmd.Flags().StringVar(&filterJSON, "filter", "", "聚合筛选 (JSON, e.g. [{\"file_system\": \"tmpfs\", \"host_id\": 3643, \"id\": 3643, \"mount_point\": \"/var/lib/kubelet/pods/fa6a6416-b931-41f9-8d3b-9ddf87480a12/volumes/kubernetes.io~secret/webhook-cert\"}])")
-		GetNetworkStoragePartitionByFileSystemCmd.Flags().Float64SliceVar(&getNetworkStoragePartitionByFileSystemParams.Gids, "gids", nil, "业务组 ID 列表")
-		GetNetworkStoragePartitionByFileSystemCmd.Flags().StringSliceVar(&getNetworkStoragePartitionByFileSystemParams.HostComment, "host-comment", nil, "主机备注")
-		GetNetworkStoragePartitionByFileSystemCmd.Flags().Float64SliceVar(&getNetworkStoragePartitionByFileSystemParams.HostId, "host-id", nil, "主机ID")
-		GetNetworkStoragePartitionByFileSystemCmd.Flags().StringSliceVar(&getNetworkStoragePartitionByFileSystemParams.HostIp, "host-ip", nil, "主机IP")
-		GetNetworkStoragePartitionByFileSystemCmd.Flags().StringSliceVar(&getNetworkStoragePartitionByFileSystemParams.HostName, "host-name", nil, "主机名称")
-		GetNetworkStoragePartitionByFileSystemCmd.Flags().StringSliceVar(&getNetworkStoragePartitionByFileSystemParams.HostState, "host-state", nil, "主机状态")
-		GetNetworkStoragePartitionByFileSystemCmd.Flags().StringSliceVar(&getNetworkStoragePartitionByFileSystemParams.MountPoint, "mount-point", nil, "挂载点")
-		GetNetworkStoragePartitionByFileSystemCmd.Flags().IntVar(&getNetworkStoragePartitionByFileSystemParams.Offset, "offset", 0, "页偏移, 默认为 0")
-		GetNetworkStoragePartitionByFileSystemCmd.Flags().Float64SliceVar(&getNetworkStoragePartitionByFileSystemParams.Oid, "oid", nil, "机构 ID")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetNetworkStoragePartitionByFileSystemCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetNetworkStoragePartitionByFileSystemCmd.Flags().BoolVar(&getNetworkStoragePartitionByFileSystemParams.SelectAll, "select-all", false, "是否全选")
-		GetNetworkStoragePartitionByFileSystemCmd.Flags().StringSliceVar(&getNetworkStoragePartitionByFileSystemParams.Used, "used", nil, "已用")
-		GetNetworkStoragePartitionByFileSystemCmd.Flags().StringSliceVar(&getNetworkStoragePartitionByFileSystemParams.UsedRate, "used-rate", nil, "已使用（比率）")
+	GetNetworkStoragePartitionByFileSystemCmd.Flags().IntVar(&getNetworkStoragePartitionByFileSystemParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetNetworkStoragePartitionByFileSystemCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetNetworkStoragePartitionByFileSystemCmd.Flags().BoolSliceVar(&getNetworkStoragePartitionByFileSystemParams.Enable, "enable", nil, "是否启用")
+	GetNetworkStoragePartitionByFileSystemCmd.Flags().StringSliceVar(&getNetworkStoragePartitionByFileSystemParams.FileSystem, "file-system", nil, "文件系统")
+	// filter is complex type []map[string]interface{}, use JSON string
+	var filterJSON string
+	GetNetworkStoragePartitionByFileSystemCmd.Flags().StringVar(&filterJSON, "filter", "", "聚合筛选 (JSON, e.g. [{\"file_system\": \"tmpfs\", \"host_id\": 3643, \"id\": 3643, \"mount_point\": \"/var/lib/kubelet/pods/fa6a6416-b931-41f9-8d3b-9ddf87480a12/volumes/kubernetes.io~secret/webhook-cert\"}])")
+	GetNetworkStoragePartitionByFileSystemCmd.Flags().Float64SliceVar(&getNetworkStoragePartitionByFileSystemParams.Gids, "gids", nil, "业务组 ID 列表")
+	GetNetworkStoragePartitionByFileSystemCmd.Flags().StringSliceVar(&getNetworkStoragePartitionByFileSystemParams.HostComment, "host-comment", nil, "主机备注")
+	GetNetworkStoragePartitionByFileSystemCmd.Flags().Float64SliceVar(&getNetworkStoragePartitionByFileSystemParams.HostId, "host-id", nil, "主机ID")
+	GetNetworkStoragePartitionByFileSystemCmd.Flags().StringSliceVar(&getNetworkStoragePartitionByFileSystemParams.HostIp, "host-ip", nil, "主机IP")
+	GetNetworkStoragePartitionByFileSystemCmd.Flags().StringSliceVar(&getNetworkStoragePartitionByFileSystemParams.HostName, "host-name", nil, "主机名称")
+	GetNetworkStoragePartitionByFileSystemCmd.Flags().StringSliceVar(&getNetworkStoragePartitionByFileSystemParams.HostState, "host-state", nil, "主机状态")
+	GetNetworkStoragePartitionByFileSystemCmd.Flags().StringSliceVar(&getNetworkStoragePartitionByFileSystemParams.MountPoint, "mount-point", nil, "挂载点")
+	GetNetworkStoragePartitionByFileSystemCmd.Flags().IntVar(&getNetworkStoragePartitionByFileSystemParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	GetNetworkStoragePartitionByFileSystemCmd.Flags().Float64SliceVar(&getNetworkStoragePartitionByFileSystemParams.Oid, "oid", nil, "机构 ID")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetNetworkStoragePartitionByFileSystemCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetNetworkStoragePartitionByFileSystemCmd.Flags().BoolVar(&getNetworkStoragePartitionByFileSystemParams.SelectAll, "select-all", false, "是否全选")
+	GetNetworkStoragePartitionByFileSystemCmd.Flags().StringSliceVar(&getNetworkStoragePartitionByFileSystemParams.Used, "used", nil, "已用")
+	GetNetworkStoragePartitionByFileSystemCmd.Flags().StringSliceVar(&getNetworkStoragePartitionByFileSystemParams.UsedRate, "used-rate", nil, "已使用（比率）")
 }
-
 
 // GetNetworkStoragePartitionByFileSystemParams 请求参数
 type GetNetworkStoragePartitionByFileSystemParams struct {
-	Count int `json:"count"` // 每页记录数量, 默认为 20
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Enable []bool `json:"enable"` // 是否启用
-	FileSystem []string `json:"file_system"` // 文件系统
-	Filter []map[string]interface{} `json:"filter"` // 聚合筛选
-	Gids []float64 `json:"gids"` // 业务组 ID 列表
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	MountPoint []string `json:"mount_point"` // 挂载点
-	Offset int `json:"offset"` // 页偏移, 默认为 0
-	Oid []float64 `json:"oid"` // 机构 ID
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	SelectAll bool `json:"select_all"` // 是否全选
-	Used []string `json:"used"` // 已用
-	UsedRate []string `json:"used_rate"` // 已使用（比率）
+	Count       int                      `json:"count"`        // 每页记录数量, 默认为 20
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Enable      []bool                   `json:"enable"`       // 是否启用
+	FileSystem  []string                 `json:"file_system"`  // 文件系统
+	Filter      []map[string]interface{} `json:"filter"`       // 聚合筛选
+	Gids        []float64                `json:"gids"`         // 业务组 ID 列表
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机ID
+	HostIp      []string                 `json:"host_ip"`      // 主机IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	MountPoint  []string                 `json:"mount_point"`  // 挂载点
+	Offset      int                      `json:"offset"`       // 页偏移, 默认为 0
+	Oid         []float64                `json:"oid"`          // 机构 ID
+	OrderBy     map[string]interface{}   `json:"order_by"`     // 排序规则
+	SelectAll   bool                     `json:"select_all"`   // 是否全选
+	Used        []string                 `json:"used"`         // 已用
+	UsedRate    []string                 `json:"used_rate"`    // 已使用（比率）
 }
-

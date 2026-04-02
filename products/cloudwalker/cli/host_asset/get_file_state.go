@@ -3,8 +3,8 @@
 package host_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetFileStateCmd = &cobra.Command{
 }
 
 func init() {
-		GetFileStateCmd.Flags().StringVar(&getFileStateParams.Uuid, "uuid", "", "UUID")
+	GetFileStateCmd.Flags().StringVar(&getFileStateParams.Uuid, "uuid", "", "UUID")
 }
-
 
 // GetFileStateParams 请求参数
 type GetFileStateParams struct {
 	Uuid string `json:"uuid"` // UUID
 }
-

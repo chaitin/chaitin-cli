@@ -3,8 +3,8 @@
 package report
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,22 +29,20 @@ var EditTemplateCmd = &cobra.Command{
 }
 
 func init() {
-		EditTemplateCmd.Flags().StringSliceVar(&editTemplateParams.Chapters, "chapters", nil, "报告章节")
-		EditTemplateCmd.Flags().StringVar(&editTemplateParams.Description, "description", "", "模板描述")
-		EditTemplateCmd.Flags().IntVar(&editTemplateParams.Id, "id", 0, "id")
-		EditTemplateCmd.Flags().StringVar(&editTemplateParams.Name, "name", "", "模板名称")
-		EditTemplateCmd.Flags().StringVar(&editTemplateParams.Tag, "tag", "", "标签")
-		EditTemplateCmd.Flags().StringVar(&editTemplateParams.Type, "type", "", "报告类型")
+	EditTemplateCmd.Flags().StringSliceVar(&editTemplateParams.Chapters, "chapters", nil, "报告章节")
+	EditTemplateCmd.Flags().StringVar(&editTemplateParams.Description, "description", "", "模板描述")
+	EditTemplateCmd.Flags().IntVar(&editTemplateParams.Id, "id", 0, "id")
+	EditTemplateCmd.Flags().StringVar(&editTemplateParams.Name, "name", "", "模板名称")
+	EditTemplateCmd.Flags().StringVar(&editTemplateParams.Tag, "tag", "", "标签")
+	EditTemplateCmd.Flags().StringVar(&editTemplateParams.Type, "type", "", "报告类型")
 }
-
 
 // EditTemplateParams 请求参数
 type EditTemplateParams struct {
-	Chapters []string `json:"chapters"` // 报告章节
-	Description string `json:"description"` // 模板描述
-	Id int `json:"id"` // id
-	Name string `json:"name"` // 模板名称
-	Tag string `json:"tag"` // 标签
-	Type string `json:"type"` // 报告类型
+	Chapters    []string `json:"chapters"`    // 报告章节
+	Description string   `json:"description"` // 模板描述
+	Id          int      `json:"id"`          // id
+	Name        string   `json:"name"`        // 模板名称
+	Tag         string   `json:"tag"`         // 标签
+	Type        string   `json:"type"`        // 报告类型
 }
-

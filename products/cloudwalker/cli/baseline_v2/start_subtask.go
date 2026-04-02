@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,56 +29,54 @@ var StartSubtaskCmd = &cobra.Command{
 }
 
 func init() {
-		StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.CreatedAt, "created-at", nil, "任务创建时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		StartSubtaskCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.Description, "description", nil, "核查项描述")
-		StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.FinishedAt, "finished-at", nil, "任务结束时间")
-		StartSubtaskCmd.Flags().Float64SliceVar(&startSubtaskParams.Gids, "gids", nil, "业务组 ID")
-		StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.HostComment, "host-comment", nil, "主机备注")
-		StartSubtaskCmd.Flags().Float64SliceVar(&startSubtaskParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
-		StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.HostIp, "host-ip", nil, "主机IP")
-		StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.HostName, "host-name", nil, "主机名称")
-		StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.HostState, "host-state", nil, "主机状态")
-		StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.HostTags, "host-tags", nil, "主机标签")
-		StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.ItemName, "item-name", nil, "核查项名称")
-		StartSubtaskCmd.Flags().IntSliceVar(&startSubtaskParams.Level, "level", nil, "核查项风险级别(1-低危，2-中危，3-高危，4-严重)")
-		StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.Reply, "reply", nil, "核查输出")
-		// select is complex type []map[string]interface{}, use JSON string
-		var selectJSON string
-		StartSubtaskCmd.Flags().StringVar(&selectJSON, "select", "", "选中的项 (JSON, e.g. [{\"id\": 1, \"task_id\": 1}])")
-		StartSubtaskCmd.Flags().BoolVar(&startSubtaskParams.SelectAll, "select-all", false, "全选所有")
-		StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.SetName, "set-name", nil, "核查策略名称")
-		StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.StartedAt, "started-at", nil, "任务运行时间")
-		StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.State, "state", nil, "核查结果(0-created,1-wait,2-pass,3-failed,4-error,5-canceled,6-unmatched)")
-		StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.Tags, "tags", nil, "核查项标签")
-		StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.TaskName, "task-name", nil, "核查任务名称")
+	StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.CreatedAt, "created-at", nil, "任务创建时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	StartSubtaskCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.Description, "description", nil, "核查项描述")
+	StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.FinishedAt, "finished-at", nil, "任务结束时间")
+	StartSubtaskCmd.Flags().Float64SliceVar(&startSubtaskParams.Gids, "gids", nil, "业务组 ID")
+	StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.HostComment, "host-comment", nil, "主机备注")
+	StartSubtaskCmd.Flags().Float64SliceVar(&startSubtaskParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
+	StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.HostIp, "host-ip", nil, "主机IP")
+	StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.HostName, "host-name", nil, "主机名称")
+	StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.HostState, "host-state", nil, "主机状态")
+	StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.HostTags, "host-tags", nil, "主机标签")
+	StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.ItemName, "item-name", nil, "核查项名称")
+	StartSubtaskCmd.Flags().IntSliceVar(&startSubtaskParams.Level, "level", nil, "核查项风险级别(1-低危，2-中危，3-高危，4-严重)")
+	StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.Reply, "reply", nil, "核查输出")
+	// select is complex type []map[string]interface{}, use JSON string
+	var selectJSON string
+	StartSubtaskCmd.Flags().StringVar(&selectJSON, "select", "", "选中的项 (JSON, e.g. [{\"id\": 1, \"task_id\": 1}])")
+	StartSubtaskCmd.Flags().BoolVar(&startSubtaskParams.SelectAll, "select-all", false, "全选所有")
+	StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.SetName, "set-name", nil, "核查策略名称")
+	StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.StartedAt, "started-at", nil, "任务运行时间")
+	StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.State, "state", nil, "核查结果(0-created,1-wait,2-pass,3-failed,4-error,5-canceled,6-unmatched)")
+	StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.Tags, "tags", nil, "核查项标签")
+	StartSubtaskCmd.Flags().StringSliceVar(&startSubtaskParams.TaskName, "task-name", nil, "核查任务名称")
 }
-
 
 // StartSubtaskParams 请求参数
 type StartSubtaskParams struct {
-	CreatedAt []string `json:"created_at"` // 任务创建时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Description []string `json:"description"` // 核查项描述
-	FinishedAt []string `json:"finished_at"` // 任务结束时间
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID, 用于主机详情页面
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	ItemName []string `json:"item_name"` // 核查项名称
-	Level []int `json:"level"` // 核查项风险级别(1-低危，2-中危，3-高危，4-严重)
-	Reply []string `json:"reply"` // 核查输出
-	Select []map[string]interface{} `json:"select"` // 选中的项
-	SelectAll bool `json:"select_all"` // 全选所有
-	SetName []string `json:"set_name"` // 核查策略名称
-	StartedAt []string `json:"started_at"` // 任务运行时间
-	State []string `json:"state"` // 核查结果(0-created,1-wait,2-pass,3-failed,4-error,5-canceled,6-unmatched)
-	Tags []string `json:"tags"` // 核查项标签
-	TaskName []string `json:"task_name"` // 核查任务名称
+	CreatedAt   []string                 `json:"created_at"`   // 任务创建时间
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Description []string                 `json:"description"`  // 核查项描述
+	FinishedAt  []string                 `json:"finished_at"`  // 任务结束时间
+	Gids        []float64                `json:"gids"`         // 业务组 ID
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机ID, 用于主机详情页面
+	HostIp      []string                 `json:"host_ip"`      // 主机IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTags    []string                 `json:"host_tags"`    // 主机标签
+	ItemName    []string                 `json:"item_name"`    // 核查项名称
+	Level       []int                    `json:"level"`        // 核查项风险级别(1-低危，2-中危，3-高危，4-严重)
+	Reply       []string                 `json:"reply"`        // 核查输出
+	Select      []map[string]interface{} `json:"select"`       // 选中的项
+	SelectAll   bool                     `json:"select_all"`   // 全选所有
+	SetName     []string                 `json:"set_name"`     // 核查策略名称
+	StartedAt   []string                 `json:"started_at"`   // 任务运行时间
+	State       []string                 `json:"state"`        // 核查结果(0-created,1-wait,2-pass,3-failed,4-error,5-canceled,6-unmatched)
+	Tags        []string                 `json:"tags"`         // 核查项标签
+	TaskName    []string                 `json:"task_name"`    // 核查任务名称
 }
-

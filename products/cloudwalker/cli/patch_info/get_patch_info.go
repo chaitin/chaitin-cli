@@ -3,8 +3,8 @@
 package patch_info
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetPatchInfoCmd = &cobra.Command{
 }
 
 func init() {
-		GetPatchInfoCmd.Flags().StringVar(&getPatchInfoParams.Id, "id", "", "补丁 ID")
+	GetPatchInfoCmd.Flags().StringVar(&getPatchInfoParams.Id, "id", "", "补丁 ID")
 }
-
 
 // GetPatchInfoParams 请求参数
 type GetPatchInfoParams struct {
 	Id string `json:"id"` // 补丁 ID
 }
-

@@ -3,8 +3,8 @@
 package tamper_proof
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetEventDetailsCmd = &cobra.Command{
 }
 
 func init() {
-		GetEventDetailsCmd.Flags().IntVar(&getEventDetailsParams.Id, "id", 0, "事件 ID")
+	GetEventDetailsCmd.Flags().IntVar(&getEventDetailsParams.Id, "id", 0, "事件 ID")
 }
-
 
 // GetEventDetailsParams 请求参数
 type GetEventDetailsParams struct {
 	Id int `json:"id"` // 事件 ID
 }
-

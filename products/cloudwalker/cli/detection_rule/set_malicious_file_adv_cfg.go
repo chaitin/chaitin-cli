@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,28 +29,26 @@ var SetMaliciousFileAdvCfgCmd = &cobra.Command{
 }
 
 func init() {
-		SetMaliciousFileAdvCfgCmd.Flags().IntVar(&setMaliciousFileAdvCfgParams.BitDefenderEnabled, "bit-defender-enabled", 0, "是否开启 BitDefender 检测引擎, 1表示开启 2表示关闭")
-		SetMaliciousFileAdvCfgCmd.Flags().IntVar(&setMaliciousFileAdvCfgParams.ClamavEnabled, "clamav-enabled", 0, "是否开启 Clamav 检测引擎, 1表示开启 2表示关闭")
-		SetMaliciousFileAdvCfgCmd.Flags().BoolVar(&setMaliciousFileAdvCfgParams.DetectBin, "detect-bin", false, "检测可执行文件")
-		SetMaliciousFileAdvCfgCmd.Flags().BoolVar(&setMaliciousFileAdvCfgParams.DetectLib, "detect-lib", false, "检测动态库")
-		SetMaliciousFileAdvCfgCmd.Flags().BoolVar(&setMaliciousFileAdvCfgParams.DetectLkm, "detect-lkm", false, "检测内核模块")
-		SetMaliciousFileAdvCfgCmd.Flags().IntVar(&setMaliciousFileAdvCfgParams.HashEnabled, "hash-enabled", 0, "是否开启 威胁情报 检测引擎, 1表示开启 2表示关闭")
-		SetMaliciousFileAdvCfgCmd.Flags().IntVar(&setMaliciousFileAdvCfgParams.LimitSize, "limit-size", 0, "文件大小限制, 单位: MB")
-		SetMaliciousFileAdvCfgCmd.Flags().IntVar(&setMaliciousFileAdvCfgParams.SavapiEnabled, "savapi-enabled", 0, "是否开启 Avira 检测引擎, 1表示开启 2表示关闭")
-		SetMaliciousFileAdvCfgCmd.Flags().IntVar(&setMaliciousFileAdvCfgParams.YaraEnabled, "yara-enabled", 0, "是否开启 自研恶意文件 检测引擎, 1表示开启 2表示关闭")
+	SetMaliciousFileAdvCfgCmd.Flags().IntVar(&setMaliciousFileAdvCfgParams.BitDefenderEnabled, "bit-defender-enabled", 0, "是否开启 BitDefender 检测引擎, 1表示开启 2表示关闭")
+	SetMaliciousFileAdvCfgCmd.Flags().IntVar(&setMaliciousFileAdvCfgParams.ClamavEnabled, "clamav-enabled", 0, "是否开启 Clamav 检测引擎, 1表示开启 2表示关闭")
+	SetMaliciousFileAdvCfgCmd.Flags().BoolVar(&setMaliciousFileAdvCfgParams.DetectBin, "detect-bin", false, "检测可执行文件")
+	SetMaliciousFileAdvCfgCmd.Flags().BoolVar(&setMaliciousFileAdvCfgParams.DetectLib, "detect-lib", false, "检测动态库")
+	SetMaliciousFileAdvCfgCmd.Flags().BoolVar(&setMaliciousFileAdvCfgParams.DetectLkm, "detect-lkm", false, "检测内核模块")
+	SetMaliciousFileAdvCfgCmd.Flags().IntVar(&setMaliciousFileAdvCfgParams.HashEnabled, "hash-enabled", 0, "是否开启 威胁情报 检测引擎, 1表示开启 2表示关闭")
+	SetMaliciousFileAdvCfgCmd.Flags().IntVar(&setMaliciousFileAdvCfgParams.LimitSize, "limit-size", 0, "文件大小限制, 单位: MB")
+	SetMaliciousFileAdvCfgCmd.Flags().IntVar(&setMaliciousFileAdvCfgParams.SavapiEnabled, "savapi-enabled", 0, "是否开启 Avira 检测引擎, 1表示开启 2表示关闭")
+	SetMaliciousFileAdvCfgCmd.Flags().IntVar(&setMaliciousFileAdvCfgParams.YaraEnabled, "yara-enabled", 0, "是否开启 自研恶意文件 检测引擎, 1表示开启 2表示关闭")
 }
-
 
 // SetMaliciousFileAdvCfgParams 请求参数
 type SetMaliciousFileAdvCfgParams struct {
-	BitDefenderEnabled int `json:"bit_defender_enabled"` // 是否开启 BitDefender 检测引擎, 1表示开启 2表示关闭
-	ClamavEnabled int `json:"clamav_enabled"` // 是否开启 Clamav 检测引擎, 1表示开启 2表示关闭
-	DetectBin bool `json:"detect_bin"` // 检测可执行文件
-	DetectLib bool `json:"detect_lib"` // 检测动态库
-	DetectLkm bool `json:"detect_lkm"` // 检测内核模块
-	HashEnabled int `json:"hash_enabled"` // 是否开启 威胁情报 检测引擎, 1表示开启 2表示关闭
-	LimitSize int `json:"limit_size"` // 文件大小限制, 单位: MB
-	SavapiEnabled int `json:"savapi_enabled"` // 是否开启 Avira 检测引擎, 1表示开启 2表示关闭
-	YaraEnabled int `json:"yara_enabled"` // 是否开启 自研恶意文件 检测引擎, 1表示开启 2表示关闭
+	BitDefenderEnabled int  `json:"bit_defender_enabled"` // 是否开启 BitDefender 检测引擎, 1表示开启 2表示关闭
+	ClamavEnabled      int  `json:"clamav_enabled"`       // 是否开启 Clamav 检测引擎, 1表示开启 2表示关闭
+	DetectBin          bool `json:"detect_bin"`           // 检测可执行文件
+	DetectLib          bool `json:"detect_lib"`           // 检测动态库
+	DetectLkm          bool `json:"detect_lkm"`           // 检测内核模块
+	HashEnabled        int  `json:"hash_enabled"`         // 是否开启 威胁情报 检测引擎, 1表示开启 2表示关闭
+	LimitSize          int  `json:"limit_size"`           // 文件大小限制, 单位: MB
+	SavapiEnabled      int  `json:"savapi_enabled"`       // 是否开启 Avira 检测引擎, 1表示开启 2表示关闭
+	YaraEnabled        int  `json:"yara_enabled"`         // 是否开启 自研恶意文件 检测引擎, 1表示开启 2表示关闭
 }
-

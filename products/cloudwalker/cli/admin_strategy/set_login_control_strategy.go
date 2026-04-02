@@ -3,8 +3,8 @@
 package admin_strategy
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,24 +29,22 @@ var SetLoginControlStrategyCmd = &cobra.Command{
 }
 
 func init() {
-		SetLoginControlStrategyCmd.Flags().Float64Var(&setLoginControlStrategyParams.AuthBanCount, "auth-ban-count", 0, "连续登陆失败次数")
-		SetLoginControlStrategyCmd.Flags().Float64Var(&setLoginControlStrategyParams.AuthBanDuration, "auth-ban-duration", 0, "封禁时间")
-		SetLoginControlStrategyCmd.Flags().BoolVar(&setLoginControlStrategyParams.AuthBanEnabled, "auth-ban-enabled", false, "是否开启登陆失败锁定")
-		SetLoginControlStrategyCmd.Flags().BoolVar(&setLoginControlStrategyParams.CaptchaEnabled, "captcha-enabled", false, "是否启用验证码")
-		SetLoginControlStrategyCmd.Flags().BoolVar(&setLoginControlStrategyParams.MultipleSessionClosed, "multiple-session-closed", false, "账号多设备登陆限制开关")
-		SetLoginControlStrategyCmd.Flags().Float64Var(&setLoginControlStrategyParams.PasswordExpireDuration, "password-expire-duration", 0, "密码过期时间")
-		SetLoginControlStrategyCmd.Flags().BoolVar(&setLoginControlStrategyParams.PasswordExpireEnabled, "password-expire-enabled", false, "是否开启密码过期")
+	SetLoginControlStrategyCmd.Flags().Float64Var(&setLoginControlStrategyParams.AuthBanCount, "auth-ban-count", 0, "连续登陆失败次数")
+	SetLoginControlStrategyCmd.Flags().Float64Var(&setLoginControlStrategyParams.AuthBanDuration, "auth-ban-duration", 0, "封禁时间")
+	SetLoginControlStrategyCmd.Flags().BoolVar(&setLoginControlStrategyParams.AuthBanEnabled, "auth-ban-enabled", false, "是否开启登陆失败锁定")
+	SetLoginControlStrategyCmd.Flags().BoolVar(&setLoginControlStrategyParams.CaptchaEnabled, "captcha-enabled", false, "是否启用验证码")
+	SetLoginControlStrategyCmd.Flags().BoolVar(&setLoginControlStrategyParams.MultipleSessionClosed, "multiple-session-closed", false, "账号多设备登陆限制开关")
+	SetLoginControlStrategyCmd.Flags().Float64Var(&setLoginControlStrategyParams.PasswordExpireDuration, "password-expire-duration", 0, "密码过期时间")
+	SetLoginControlStrategyCmd.Flags().BoolVar(&setLoginControlStrategyParams.PasswordExpireEnabled, "password-expire-enabled", false, "是否开启密码过期")
 }
-
 
 // SetLoginControlStrategyParams 请求参数
 type SetLoginControlStrategyParams struct {
-	AuthBanCount float64 `json:"auth_ban_count"` // 连续登陆失败次数
-	AuthBanDuration float64 `json:"auth_ban_duration"` // 封禁时间
-	AuthBanEnabled bool `json:"auth_ban_enabled"` // 是否开启登陆失败锁定
-	CaptchaEnabled bool `json:"captcha_enabled"` // 是否启用验证码
-	MultipleSessionClosed bool `json:"multiple_session_closed"` // 账号多设备登陆限制开关
+	AuthBanCount           float64 `json:"auth_ban_count"`           // 连续登陆失败次数
+	AuthBanDuration        float64 `json:"auth_ban_duration"`        // 封禁时间
+	AuthBanEnabled         bool    `json:"auth_ban_enabled"`         // 是否开启登陆失败锁定
+	CaptchaEnabled         bool    `json:"captcha_enabled"`          // 是否启用验证码
+	MultipleSessionClosed  bool    `json:"multiple_session_closed"`  // 账号多设备登陆限制开关
 	PasswordExpireDuration float64 `json:"password_expire_duration"` // 密码过期时间
-	PasswordExpireEnabled bool `json:"password_expire_enabled"` // 是否开启密码过期
+	PasswordExpireEnabled  bool    `json:"password_expire_enabled"`  // 是否开启密码过期
 }
-

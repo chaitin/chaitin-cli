@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var DeleteSetCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteSetCmd.Flags().StringSliceVar(&deleteSetParams.Id, "id", nil, "策略 ID")
+	DeleteSetCmd.Flags().StringSliceVar(&deleteSetParams.Id, "id", nil, "策略 ID")
 }
-
 
 // DeleteSetParams 请求参数
 type DeleteSetParams struct {
 	Id []string `json:"id"` // 策略 ID
 }
-

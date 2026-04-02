@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,57 +29,55 @@ var SetPlanEnablementCmd = &cobra.Command{
 }
 
 func init() {
-		SetPlanEnablementCmd.Flags().BoolVar(&setPlanEnablementParams.Enable, "Enable", false, "是否启用自动执行")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.CreatedAt, "created-at", nil, "任务创建时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		SetPlanEnablementCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		// enable skipped: duplicate field name with existing field
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.FinishedAt, "finished-at", nil, "任务结束时间")
-		SetPlanEnablementCmd.Flags().Float64SliceVar(&setPlanEnablementParams.Gids, "gids", nil, "业务组 ID")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.HostComment, "host-comment", nil, "主机备注")
-		SetPlanEnablementCmd.Flags().Float64SliceVar(&setPlanEnablementParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.HostIp, "host-ip", nil, "主机IP")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.HostName, "host-name", nil, "主机名称")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.HostState, "host-state", nil, "主机状态")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.HostTags, "host-tags", nil, "主机标签")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.ItemName, "item-name", nil, "核查项名称")
-		// select is complex type []map[string]interface{}, use JSON string
-		var selectJSON string
-		SetPlanEnablementCmd.Flags().StringVar(&selectJSON, "select", "", "选择内容 (JSON, e.g. [{\"id\": 1}])")
-		SetPlanEnablementCmd.Flags().BoolVar(&setPlanEnablementParams.SelectAll, "select-all", false, "选择所有")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.SetName, "set-name", nil, "核查策略名称")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.StartedAt, "started-at", nil, "任务运行时间")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.Tag, "tag", nil, "TAG")
-		SetPlanEnablementCmd.Flags().Float64SliceVar(&setPlanEnablementParams.TaskIds, "task-ids", nil, "任务 ID")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.TaskName, "task-name", nil, "核查任务名称")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.TaskState, "task-state", nil, "核查任务状态")
-		SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.TriggerMethod, "trigger-method", nil, "触发方式：多选")
+	SetPlanEnablementCmd.Flags().BoolVar(&setPlanEnablementParams.Enable, "Enable", false, "是否启用自动执行")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.CreatedAt, "created-at", nil, "任务创建时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	SetPlanEnablementCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	// enable skipped: duplicate field name with existing field
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.FinishedAt, "finished-at", nil, "任务结束时间")
+	SetPlanEnablementCmd.Flags().Float64SliceVar(&setPlanEnablementParams.Gids, "gids", nil, "业务组 ID")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.HostComment, "host-comment", nil, "主机备注")
+	SetPlanEnablementCmd.Flags().Float64SliceVar(&setPlanEnablementParams.HostId, "host-id", nil, "主机ID, 用于主机详情页面")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.HostIp, "host-ip", nil, "主机IP")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.HostName, "host-name", nil, "主机名称")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.HostState, "host-state", nil, "主机状态")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.HostTags, "host-tags", nil, "主机标签")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.ItemName, "item-name", nil, "核查项名称")
+	// select is complex type []map[string]interface{}, use JSON string
+	var selectJSON string
+	SetPlanEnablementCmd.Flags().StringVar(&selectJSON, "select", "", "选择内容 (JSON, e.g. [{\"id\": 1}])")
+	SetPlanEnablementCmd.Flags().BoolVar(&setPlanEnablementParams.SelectAll, "select-all", false, "选择所有")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.SetName, "set-name", nil, "核查策略名称")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.StartedAt, "started-at", nil, "任务运行时间")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.Tag, "tag", nil, "TAG")
+	SetPlanEnablementCmd.Flags().Float64SliceVar(&setPlanEnablementParams.TaskIds, "task-ids", nil, "任务 ID")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.TaskName, "task-name", nil, "核查任务名称")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.TaskState, "task-state", nil, "核查任务状态")
+	SetPlanEnablementCmd.Flags().StringSliceVar(&setPlanEnablementParams.TriggerMethod, "trigger-method", nil, "触发方式：多选")
 }
-
 
 // SetPlanEnablementParams 请求参数
 type SetPlanEnablementParams struct {
-	Enable bool `json:"Enable"` // 是否启用自动执行
-	CreatedAt []string `json:"created_at"` // 任务创建时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	FinishedAt []string `json:"finished_at"` // 任务结束时间
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID, 用于主机详情页面
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	ItemName []string `json:"item_name"` // 核查项名称
-	Select []map[string]interface{} `json:"select"` // 选择内容
-	SelectAll bool `json:"select_all"` // 选择所有
-	SetName []string `json:"set_name"` // 核查策略名称
-	StartedAt []string `json:"started_at"` // 任务运行时间
-	Tag []string `json:"tag"` // TAG
-	TaskIds []float64 `json:"task_ids"` // 任务 ID
-	TaskName []string `json:"task_name"` // 核查任务名称
-	TaskState []string `json:"task_state"` // 核查任务状态
-	TriggerMethod []string `json:"trigger_method"` // 触发方式：多选
+	Enable        bool                     `json:"Enable"`         // 是否启用自动执行
+	CreatedAt     []string                 `json:"created_at"`     // 任务创建时间
+	CustomAttr    []map[string]interface{} `json:"custom_attr"`    // 主机业务属性
+	FinishedAt    []string                 `json:"finished_at"`    // 任务结束时间
+	Gids          []float64                `json:"gids"`           // 业务组 ID
+	HostComment   []string                 `json:"host_comment"`   // 主机备注
+	HostId        []float64                `json:"host_id"`        // 主机ID, 用于主机详情页面
+	HostIp        []string                 `json:"host_ip"`        // 主机IP
+	HostName      []string                 `json:"host_name"`      // 主机名称
+	HostState     []string                 `json:"host_state"`     // 主机状态
+	HostTags      []string                 `json:"host_tags"`      // 主机标签
+	ItemName      []string                 `json:"item_name"`      // 核查项名称
+	Select        []map[string]interface{} `json:"select"`         // 选择内容
+	SelectAll     bool                     `json:"select_all"`     // 选择所有
+	SetName       []string                 `json:"set_name"`       // 核查策略名称
+	StartedAt     []string                 `json:"started_at"`     // 任务运行时间
+	Tag           []string                 `json:"tag"`            // TAG
+	TaskIds       []float64                `json:"task_ids"`       // 任务 ID
+	TaskName      []string                 `json:"task_name"`      // 核查任务名称
+	TaskState     []string                 `json:"task_state"`     // 核查任务状态
+	TriggerMethod []string                 `json:"trigger_method"` // 触发方式：多选
 }
-

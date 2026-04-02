@@ -3,8 +3,8 @@
 package weak_passwd
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,22 +29,20 @@ var DictListCmd = &cobra.Command{
 }
 
 func init() {
-		DictListCmd.Flags().StringSliceVar(&dictListParams.Comment, "comment", nil, "用户自定义备注")
-		DictListCmd.Flags().IntVar(&dictListParams.Count, "count", 20, "count")
-		DictListCmd.Flags().StringSliceVar(&dictListParams.CreatedAt, "created-at", nil, "创建时间")
-		DictListCmd.Flags().StringSliceVar(&dictListParams.Name, "name", nil, "字典名称")
-		DictListCmd.Flags().IntVar(&dictListParams.Offset, "offset", 0, "offset")
-		DictListCmd.Flags().StringSliceVar(&dictListParams.UpdatedAt, "updated-at", nil, "最后发现时间")
+	DictListCmd.Flags().StringSliceVar(&dictListParams.Comment, "comment", nil, "用户自定义备注")
+	DictListCmd.Flags().IntVar(&dictListParams.Count, "count", 20, "count")
+	DictListCmd.Flags().StringSliceVar(&dictListParams.CreatedAt, "created-at", nil, "创建时间")
+	DictListCmd.Flags().StringSliceVar(&dictListParams.Name, "name", nil, "字典名称")
+	DictListCmd.Flags().IntVar(&dictListParams.Offset, "offset", 0, "offset")
+	DictListCmd.Flags().StringSliceVar(&dictListParams.UpdatedAt, "updated-at", nil, "最后发现时间")
 }
-
 
 // DictListParams 请求参数
 type DictListParams struct {
-	Comment []string `json:"comment"` // 用户自定义备注
-	Count int `json:"count"` // count
+	Comment   []string `json:"comment"`    // 用户自定义备注
+	Count     int      `json:"count"`      // count
 	CreatedAt []string `json:"created_at"` // 创建时间
-	Name []string `json:"name"` // 字典名称
-	Offset int `json:"offset"` // offset
+	Name      []string `json:"name"`       // 字典名称
+	Offset    int      `json:"offset"`     // offset
 	UpdatedAt []string `json:"updated_at"` // 最后发现时间
 }
-

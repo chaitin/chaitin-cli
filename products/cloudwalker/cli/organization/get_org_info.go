@@ -3,8 +3,8 @@
 package organization
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetOrgInfoCmd = &cobra.Command{
 }
 
 func init() {
-		GetOrgInfoCmd.Flags().IntVar(&getOrgInfoParams.Id, "id", 0, "机构 ID")
+	GetOrgInfoCmd.Flags().IntVar(&getOrgInfoParams.Id, "id", 0, "机构 ID")
 }
-
 
 // GetOrgInfoParams 请求参数
 type GetOrgInfoParams struct {
 	Id int `json:"id"` // 机构 ID
 }
-

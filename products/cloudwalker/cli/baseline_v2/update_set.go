@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var UpdateSetCmd = &cobra.Command{
 }
 
 func init() {
-		UpdateSetCmd.Flags().StringVar(&updateSetParams.Comment, "comment", "", "要修改的备注，如果null则不修改")
-		UpdateSetCmd.Flags().StringVar(&updateSetParams.Id, "id", "", "策略 ID")
-		UpdateSetCmd.Flags().StringVar(&updateSetParams.Name, "name", "", "要修改的名称，如果null则不修改")
+	UpdateSetCmd.Flags().StringVar(&updateSetParams.Comment, "comment", "", "要修改的备注，如果null则不修改")
+	UpdateSetCmd.Flags().StringVar(&updateSetParams.Id, "id", "", "策略 ID")
+	UpdateSetCmd.Flags().StringVar(&updateSetParams.Name, "name", "", "要修改的名称，如果null则不修改")
 }
-
 
 // UpdateSetParams 请求参数
 type UpdateSetParams struct {
 	Comment string `json:"comment"` // 要修改的备注，如果null则不修改
-	Id string `json:"id"` // 策略 ID
-	Name string `json:"name"` // 要修改的名称，如果null则不修改
+	Id      string `json:"id"`      // 策略 ID
+	Name    string `json:"name"`    // 要修改的名称，如果null则不修改
 }
-

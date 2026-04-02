@@ -3,8 +3,8 @@
 package application_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetApplicationCmd = &cobra.Command{
 }
 
 func init() {
-		GetApplicationCmd.Flags().IntVar(&getApplicationParams.Id, "id", 0, "应用 ID")
+	GetApplicationCmd.Flags().IntVar(&getApplicationParams.Id, "id", 0, "应用 ID")
 }
-
 
 // GetApplicationParams 请求参数
 type GetApplicationParams struct {
 	Id int `json:"id"` // 应用 ID
 }
-

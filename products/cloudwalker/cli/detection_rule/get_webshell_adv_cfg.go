@@ -3,14 +3,12 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetWebshellAdvCfgCmd = &cobra.Command{
 	Use:   "get_webshell_adv_cfg",
@@ -31,5 +29,3 @@ var GetWebshellAdvCfgCmd = &cobra.Command{
 func init() {
 
 }
-
-

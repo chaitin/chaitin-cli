@@ -3,8 +3,8 @@
 package tamper_proof
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,50 +29,48 @@ var EditEventListReadCmd = &cobra.Command{
 }
 
 func init() {
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		EditEventListReadCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		EditEventListReadCmd.Flags().Float64SliceVar(&editEventListReadParams.Gids, "gids", nil, "业务组 ID")
-		EditEventListReadCmd.Flags().StringSliceVar(&editEventListReadParams.HostComment, "host-comment", nil, "主机备注")
-		EditEventListReadCmd.Flags().Float64SliceVar(&editEventListReadParams.HostId, "host-id", nil, "主机ID")
-		EditEventListReadCmd.Flags().StringSliceVar(&editEventListReadParams.HostIp, "host-ip", nil, "主机IP")
-		EditEventListReadCmd.Flags().StringSliceVar(&editEventListReadParams.HostName, "host-name", nil, "主机名称")
-		EditEventListReadCmd.Flags().StringSliceVar(&editEventListReadParams.HostState, "host-state", nil, "主机状态")
-		EditEventListReadCmd.Flags().StringSliceVar(&editEventListReadParams.HostTags, "host-tags", nil, "主机标签")
-		EditEventListReadCmd.Flags().IntSliceVar(&editEventListReadParams.Ids, "ids", nil, "事件 ID 列表")
-		EditEventListReadCmd.Flags().Float64SliceVar(&editEventListReadParams.Oid, "oid", nil, "机构 ID")
-		EditEventListReadCmd.Flags().Float64SliceVar(&editEventListReadParams.Operation, "operation", nil, "篡改行为")
-		EditEventListReadCmd.Flags().Float64SliceVar(&editEventListReadParams.OperationResult, "operation-result", nil, "防护结果")
-		EditEventListReadCmd.Flags().StringSliceVar(&editEventListReadParams.OperationTime, "operation-time", nil, "篡改事件")
-		EditEventListReadCmd.Flags().StringSliceVar(&editEventListReadParams.ProcessName, "process-name", nil, "进程名")
-		EditEventListReadCmd.Flags().StringSliceVar(&editEventListReadParams.ProcessPath, "process-path", nil, "文件路径")
-		EditEventListReadCmd.Flags().BoolVar(&editEventListReadParams.Read, "read", false, "是否已读")
-		EditEventListReadCmd.Flags().StringSliceVar(&editEventListReadParams.RuleName, "rule-name", nil, "防护规则名称")
-		EditEventListReadCmd.Flags().BoolVar(&editEventListReadParams.SelectAll, "select-all", false, "是否全选")
-		EditEventListReadCmd.Flags().StringSliceVar(&editEventListReadParams.User, "user", nil, "用户名")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	EditEventListReadCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	EditEventListReadCmd.Flags().Float64SliceVar(&editEventListReadParams.Gids, "gids", nil, "业务组 ID")
+	EditEventListReadCmd.Flags().StringSliceVar(&editEventListReadParams.HostComment, "host-comment", nil, "主机备注")
+	EditEventListReadCmd.Flags().Float64SliceVar(&editEventListReadParams.HostId, "host-id", nil, "主机ID")
+	EditEventListReadCmd.Flags().StringSliceVar(&editEventListReadParams.HostIp, "host-ip", nil, "主机IP")
+	EditEventListReadCmd.Flags().StringSliceVar(&editEventListReadParams.HostName, "host-name", nil, "主机名称")
+	EditEventListReadCmd.Flags().StringSliceVar(&editEventListReadParams.HostState, "host-state", nil, "主机状态")
+	EditEventListReadCmd.Flags().StringSliceVar(&editEventListReadParams.HostTags, "host-tags", nil, "主机标签")
+	EditEventListReadCmd.Flags().IntSliceVar(&editEventListReadParams.Ids, "ids", nil, "事件 ID 列表")
+	EditEventListReadCmd.Flags().Float64SliceVar(&editEventListReadParams.Oid, "oid", nil, "机构 ID")
+	EditEventListReadCmd.Flags().Float64SliceVar(&editEventListReadParams.Operation, "operation", nil, "篡改行为")
+	EditEventListReadCmd.Flags().Float64SliceVar(&editEventListReadParams.OperationResult, "operation-result", nil, "防护结果")
+	EditEventListReadCmd.Flags().StringSliceVar(&editEventListReadParams.OperationTime, "operation-time", nil, "篡改事件")
+	EditEventListReadCmd.Flags().StringSliceVar(&editEventListReadParams.ProcessName, "process-name", nil, "进程名")
+	EditEventListReadCmd.Flags().StringSliceVar(&editEventListReadParams.ProcessPath, "process-path", nil, "文件路径")
+	EditEventListReadCmd.Flags().BoolVar(&editEventListReadParams.Read, "read", false, "是否已读")
+	EditEventListReadCmd.Flags().StringSliceVar(&editEventListReadParams.RuleName, "rule-name", nil, "防护规则名称")
+	EditEventListReadCmd.Flags().BoolVar(&editEventListReadParams.SelectAll, "select-all", false, "是否全选")
+	EditEventListReadCmd.Flags().StringSliceVar(&editEventListReadParams.User, "user", nil, "用户名")
 }
-
 
 // EditEventListReadParams 请求参数
 type EditEventListReadParams struct {
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Ids []int `json:"ids"` // 事件 ID 列表
-	Oid []float64 `json:"oid"` // 机构 ID
-	Operation []float64 `json:"operation"` // 篡改行为
-	OperationResult []float64 `json:"operation_result"` // 防护结果
-	OperationTime []string `json:"operation_time"` // 篡改事件
-	ProcessName []string `json:"process_name"` // 进程名
-	ProcessPath []string `json:"process_path"` // 文件路径
-	Read bool `json:"read"` // 是否已读
-	RuleName []string `json:"rule_name"` // 防护规则名称
-	SelectAll bool `json:"select_all"` // 是否全选
-	User []string `json:"user"` // 用户名
+	CustomAttr      []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	Gids            []float64                `json:"gids"`             // 业务组 ID
+	HostComment     []string                 `json:"host_comment"`     // 主机备注
+	HostId          []float64                `json:"host_id"`          // 主机ID
+	HostIp          []string                 `json:"host_ip"`          // 主机IP
+	HostName        []string                 `json:"host_name"`        // 主机名称
+	HostState       []string                 `json:"host_state"`       // 主机状态
+	HostTags        []string                 `json:"host_tags"`        // 主机标签
+	Ids             []int                    `json:"ids"`              // 事件 ID 列表
+	Oid             []float64                `json:"oid"`              // 机构 ID
+	Operation       []float64                `json:"operation"`        // 篡改行为
+	OperationResult []float64                `json:"operation_result"` // 防护结果
+	OperationTime   []string                 `json:"operation_time"`   // 篡改事件
+	ProcessName     []string                 `json:"process_name"`     // 进程名
+	ProcessPath     []string                 `json:"process_path"`     // 文件路径
+	Read            bool                     `json:"read"`             // 是否已读
+	RuleName        []string                 `json:"rule_name"`        // 防护规则名称
+	SelectAll       bool                     `json:"select_all"`       // 是否全选
+	User            []string                 `json:"user"`             // 用户名
 }
-

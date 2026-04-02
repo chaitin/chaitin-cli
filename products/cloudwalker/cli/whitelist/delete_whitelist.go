@@ -3,8 +3,8 @@
 package whitelist
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,42 +29,40 @@ var DeleteWhitelistCmd = &cobra.Command{
 }
 
 func init() {
-		DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.CreatedAt, "created-at", nil, "创建时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		DeleteWhitelistCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		DeleteWhitelistCmd.Flags().BoolVar(&deleteWhitelistParams.Enable, "enable", false, "是否启用")
-		DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.HostComment, "host-comment", nil, "主机备注")
-		DeleteWhitelistCmd.Flags().Float64SliceVar(&deleteWhitelistParams.HostId, "host-id", nil, "主机ID")
-		DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.HostIp, "host-ip", nil, "主机IP")
-		DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.HostName, "host-name", nil, "主机名称")
-		DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.HostState, "host-state", nil, "主机状态")
-		DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.HostTag, "host-tag", nil, "主机标签")
-		DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.Id, "id", nil, "规则 ID")
-		DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.Remark, "remark", nil, "备注")
-		DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.Rule, "rule", nil, "匹配规则")
-		DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.RuleName, "rule-name", nil, "规则名称")
-		DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.Type, "type", nil, "规则类型")
-		DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.UpdatedAt, "updated-at", nil, "更新时间")
+	DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.CreatedAt, "created-at", nil, "创建时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	DeleteWhitelistCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	DeleteWhitelistCmd.Flags().BoolVar(&deleteWhitelistParams.Enable, "enable", false, "是否启用")
+	DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.HostComment, "host-comment", nil, "主机备注")
+	DeleteWhitelistCmd.Flags().Float64SliceVar(&deleteWhitelistParams.HostId, "host-id", nil, "主机ID")
+	DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.HostIp, "host-ip", nil, "主机IP")
+	DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.HostName, "host-name", nil, "主机名称")
+	DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.HostState, "host-state", nil, "主机状态")
+	DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.HostTag, "host-tag", nil, "主机标签")
+	DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.Id, "id", nil, "规则 ID")
+	DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.Remark, "remark", nil, "备注")
+	DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.Rule, "rule", nil, "匹配规则")
+	DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.RuleName, "rule-name", nil, "规则名称")
+	DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.Type, "type", nil, "规则类型")
+	DeleteWhitelistCmd.Flags().StringSliceVar(&deleteWhitelistParams.UpdatedAt, "updated-at", nil, "更新时间")
 }
-
 
 // DeleteWhitelistParams 请求参数
 type DeleteWhitelistParams struct {
-	CreatedAt []string `json:"created_at"` // 创建时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Enable bool `json:"enable"` // 是否启用
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTag []string `json:"host_tag"` // 主机标签
-	Id []string `json:"id"` // 规则 ID
-	Remark []string `json:"remark"` // 备注
-	Rule []string `json:"rule"` // 匹配规则
-	RuleName []string `json:"rule_name"` // 规则名称
-	Type []string `json:"type"` // 规则类型
-	UpdatedAt []string `json:"updated_at"` // 更新时间
+	CreatedAt   []string                 `json:"created_at"`   // 创建时间
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Enable      bool                     `json:"enable"`       // 是否启用
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机ID
+	HostIp      []string                 `json:"host_ip"`      // 主机IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTag     []string                 `json:"host_tag"`     // 主机标签
+	Id          []string                 `json:"id"`           // 规则 ID
+	Remark      []string                 `json:"remark"`       // 备注
+	Rule        []string                 `json:"rule"`         // 匹配规则
+	RuleName    []string                 `json:"rule_name"`    // 规则名称
+	Type        []string                 `json:"type"`         // 规则类型
+	UpdatedAt   []string                 `json:"updated_at"`   // 更新时间
 }
-

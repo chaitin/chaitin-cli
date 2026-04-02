@@ -3,8 +3,8 @@
 package agent
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,18 +29,16 @@ var GetAgentSourceCmd = &cobra.Command{
 }
 
 func init() {
-		GetAgentSourceCmd.Flags().IntVar(&getAgentSourceParams.Count, "count", 20, "数量")
-		// filter is object type, use JSON string
-		var filterJSON string
-		GetAgentSourceCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. {\"component\": [\"WebShell\"], \"event_type\": [\"\"], \"host_id\": [1, 2, 3], \"...\": \"...\"})")
-		GetAgentSourceCmd.Flags().IntVar(&getAgentSourceParams.Offset, "offset", 0, "偏移量")
+	GetAgentSourceCmd.Flags().IntVar(&getAgentSourceParams.Count, "count", 20, "数量")
+	// filter is object type, use JSON string
+	var filterJSON string
+	GetAgentSourceCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. {\"component\": [\"WebShell\"], \"event_type\": [\"\"], \"host_id\": [1, 2, 3], \"...\": \"...\"})")
+	GetAgentSourceCmd.Flags().IntVar(&getAgentSourceParams.Offset, "offset", 0, "偏移量")
 }
-
 
 // GetAgentSourceParams 请求参数
 type GetAgentSourceParams struct {
-	Count int `json:"count"` // 数量
+	Count  int                    `json:"count"`  // 数量
 	Filter map[string]interface{} `json:"filter"` // filter
-	Offset int `json:"offset"` // 偏移量
+	Offset int                    `json:"offset"` // 偏移量
 }
-

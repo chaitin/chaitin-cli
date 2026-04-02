@@ -3,14 +3,12 @@
 package endpoint
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var ListServerCertCmd = &cobra.Command{
 	Use:   "list_server_cert",
@@ -31,5 +29,3 @@ var ListServerCertCmd = &cobra.Command{
 func init() {
 
 }
-
-

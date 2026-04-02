@@ -3,8 +3,8 @@
 package port_scan
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,52 +29,50 @@ var CreateRuleCmd = &cobra.Command{
 }
 
 func init() {
-		CreateRuleCmd.Flags().Float64SliceVar(&createRuleParams.AgentRange, "agent-range", nil, "主机范围")
-		CreateRuleCmd.Flags().Float64Var(&createRuleParams.AutoPreventionMinute, "auto-prevention-minute", 0, "自动防护分钟数")
-		CreateRuleCmd.Flags().Float64SliceVar(&createRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		CreateRuleCmd.Flags().StringVar(&createRuleParams.CreatedAt, "created-at", "", "创建时间")
-		CreateRuleCmd.Flags().BoolVar(&createRuleParams.Enable, "enable", false, "是否启用")
-		CreateRuleCmd.Flags().BoolVar(&createRuleParams.Global, "global", false, "是否绑定全局探针")
-		CreateRuleCmd.Flags().StringVar(&createRuleParams.Id, "id", "", "规则 ID")
-		CreateRuleCmd.Flags().StringVar(&createRuleParams.Mode, "mode", "", "防护模式，warning/protect")
-		CreateRuleCmd.Flags().Float64Var(&createRuleParams.Oid, "oid", 0, "组织 id")
-		CreateRuleCmd.Flags().StringSliceVar(&createRuleParams.RuleBlackIp, "rule-black-ip", nil, "黑名单 IP")
-		CreateRuleCmd.Flags().BoolVar(&createRuleParams.RuleBlackIpEnable, "rule-black-ip-enable", false, "是否启用黑名单 IP 规则")
-		CreateRuleCmd.Flags().StringVar(&createRuleParams.RuleName, "rule-name", "", "规则名称")
-		CreateRuleCmd.Flags().IntVar(&createRuleParams.RulePrivatePortScanCount, "rule-private-port-scan-count", 0, "非监听端口访问次数")
-		CreateRuleCmd.Flags().BoolVar(&createRuleParams.RulePrivatePortScanCountEnable, "rule-private-port-scan-count-enable", false, "是否启用非监听端口访问次数规则")
-		CreateRuleCmd.Flags().Float64Var(&createRuleParams.RuleSynAckRatio, "rule-syn-ack-ratio", 0, "SYN/ACK 比例")
-		CreateRuleCmd.Flags().BoolVar(&createRuleParams.RuleSynAckRatioEnable, "rule-syn-ack-ratio-enable", false, "是否启用 SYN/ACK 比例规则")
-		CreateRuleCmd.Flags().IntVar(&createRuleParams.RuleSynCountPerSec, "rule-syn-count-per-sec", 0, "每秒 SYN 包数量")
-		CreateRuleCmd.Flags().BoolVar(&createRuleParams.RuleSynCountPerSecEnable, "rule-syn-count-per-sec-enable", false, "是否启用每秒 SYN 包数量规则")
-		CreateRuleCmd.Flags().StringVar(&createRuleParams.UpdatedAt, "updated-at", "", "最后更新时间")
-		CreateRuleCmd.Flags().StringSliceVar(&createRuleParams.WhitePort, "white-port", nil, "白名单端口")
-		CreateRuleCmd.Flags().StringSliceVar(&createRuleParams.WhiteSourceIp, "white-source-ip", nil, "白名单 IP")
+	CreateRuleCmd.Flags().Float64SliceVar(&createRuleParams.AgentRange, "agent-range", nil, "主机范围")
+	CreateRuleCmd.Flags().Float64Var(&createRuleParams.AutoPreventionMinute, "auto-prevention-minute", 0, "自动防护分钟数")
+	CreateRuleCmd.Flags().Float64SliceVar(&createRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	CreateRuleCmd.Flags().StringVar(&createRuleParams.CreatedAt, "created-at", "", "创建时间")
+	CreateRuleCmd.Flags().BoolVar(&createRuleParams.Enable, "enable", false, "是否启用")
+	CreateRuleCmd.Flags().BoolVar(&createRuleParams.Global, "global", false, "是否绑定全局探针")
+	CreateRuleCmd.Flags().StringVar(&createRuleParams.Id, "id", "", "规则 ID")
+	CreateRuleCmd.Flags().StringVar(&createRuleParams.Mode, "mode", "", "防护模式，warning/protect")
+	CreateRuleCmd.Flags().Float64Var(&createRuleParams.Oid, "oid", 0, "组织 id")
+	CreateRuleCmd.Flags().StringSliceVar(&createRuleParams.RuleBlackIp, "rule-black-ip", nil, "黑名单 IP")
+	CreateRuleCmd.Flags().BoolVar(&createRuleParams.RuleBlackIpEnable, "rule-black-ip-enable", false, "是否启用黑名单 IP 规则")
+	CreateRuleCmd.Flags().StringVar(&createRuleParams.RuleName, "rule-name", "", "规则名称")
+	CreateRuleCmd.Flags().IntVar(&createRuleParams.RulePrivatePortScanCount, "rule-private-port-scan-count", 0, "非监听端口访问次数")
+	CreateRuleCmd.Flags().BoolVar(&createRuleParams.RulePrivatePortScanCountEnable, "rule-private-port-scan-count-enable", false, "是否启用非监听端口访问次数规则")
+	CreateRuleCmd.Flags().Float64Var(&createRuleParams.RuleSynAckRatio, "rule-syn-ack-ratio", 0, "SYN/ACK 比例")
+	CreateRuleCmd.Flags().BoolVar(&createRuleParams.RuleSynAckRatioEnable, "rule-syn-ack-ratio-enable", false, "是否启用 SYN/ACK 比例规则")
+	CreateRuleCmd.Flags().IntVar(&createRuleParams.RuleSynCountPerSec, "rule-syn-count-per-sec", 0, "每秒 SYN 包数量")
+	CreateRuleCmd.Flags().BoolVar(&createRuleParams.RuleSynCountPerSecEnable, "rule-syn-count-per-sec-enable", false, "是否启用每秒 SYN 包数量规则")
+	CreateRuleCmd.Flags().StringVar(&createRuleParams.UpdatedAt, "updated-at", "", "最后更新时间")
+	CreateRuleCmd.Flags().StringSliceVar(&createRuleParams.WhitePort, "white-port", nil, "白名单端口")
+	CreateRuleCmd.Flags().StringSliceVar(&createRuleParams.WhiteSourceIp, "white-source-ip", nil, "白名单 IP")
 }
-
 
 // CreateRuleParams 请求参数
 type CreateRuleParams struct {
-	AgentRange []float64 `json:"agent_range"` // 主机范围
-	AutoPreventionMinute float64 `json:"auto_prevention_minute"` // 自动防护分钟数
-	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	CreatedAt string `json:"created_at"` // 创建时间
-	Enable bool `json:"enable"` // 是否启用
-	Global bool `json:"global"` // 是否绑定全局探针
-	Id string `json:"id"` // 规则 ID
-	Mode string `json:"mode"` // 防护模式，warning/protect
-	Oid float64 `json:"oid"` // 组织 id
-	RuleBlackIp []string `json:"rule_black_ip"` // 黑名单 IP
-	RuleBlackIpEnable bool `json:"rule_black_ip_enable"` // 是否启用黑名单 IP 规则
-	RuleName string `json:"rule_name"` // 规则名称
-	RulePrivatePortScanCount int `json:"rule_private_port_scan_count"` // 非监听端口访问次数
-	RulePrivatePortScanCountEnable bool `json:"rule_private_port_scan_count_enable"` // 是否启用非监听端口访问次数规则
-	RuleSynAckRatio float64 `json:"rule_syn_ack_ratio"` // SYN/ACK 比例
-	RuleSynAckRatioEnable bool `json:"rule_syn_ack_ratio_enable"` // 是否启用 SYN/ACK 比例规则
-	RuleSynCountPerSec int `json:"rule_syn_count_per_sec"` // 每秒 SYN 包数量
-	RuleSynCountPerSecEnable bool `json:"rule_syn_count_per_sec_enable"` // 是否启用每秒 SYN 包数量规则
-	UpdatedAt string `json:"updated_at"` // 最后更新时间
-	WhitePort []string `json:"white_port"` // 白名单端口
-	WhiteSourceIp []string `json:"white_source_ip"` // 白名单 IP
+	AgentRange                     []float64 `json:"agent_range"`                         // 主机范围
+	AutoPreventionMinute           float64   `json:"auto_prevention_minute"`              // 自动防护分钟数
+	BusinessGroupRange             []float64 `json:"business_group_range"`                // 业务组范围
+	CreatedAt                      string    `json:"created_at"`                          // 创建时间
+	Enable                         bool      `json:"enable"`                              // 是否启用
+	Global                         bool      `json:"global"`                              // 是否绑定全局探针
+	Id                             string    `json:"id"`                                  // 规则 ID
+	Mode                           string    `json:"mode"`                                // 防护模式，warning/protect
+	Oid                            float64   `json:"oid"`                                 // 组织 id
+	RuleBlackIp                    []string  `json:"rule_black_ip"`                       // 黑名单 IP
+	RuleBlackIpEnable              bool      `json:"rule_black_ip_enable"`                // 是否启用黑名单 IP 规则
+	RuleName                       string    `json:"rule_name"`                           // 规则名称
+	RulePrivatePortScanCount       int       `json:"rule_private_port_scan_count"`        // 非监听端口访问次数
+	RulePrivatePortScanCountEnable bool      `json:"rule_private_port_scan_count_enable"` // 是否启用非监听端口访问次数规则
+	RuleSynAckRatio                float64   `json:"rule_syn_ack_ratio"`                  // SYN/ACK 比例
+	RuleSynAckRatioEnable          bool      `json:"rule_syn_ack_ratio_enable"`           // 是否启用 SYN/ACK 比例规则
+	RuleSynCountPerSec             int       `json:"rule_syn_count_per_sec"`              // 每秒 SYN 包数量
+	RuleSynCountPerSecEnable       bool      `json:"rule_syn_count_per_sec_enable"`       // 是否启用每秒 SYN 包数量规则
+	UpdatedAt                      string    `json:"updated_at"`                          // 最后更新时间
+	WhitePort                      []string  `json:"white_port"`                          // 白名单端口
+	WhiteSourceIp                  []string  `json:"white_source_ip"`                     // 白名单 IP
 }
-

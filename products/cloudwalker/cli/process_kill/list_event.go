@@ -3,8 +3,8 @@
 package process_kill
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,48 +29,46 @@ var ListEventCmd = &cobra.Command{
 }
 
 func init() {
-		ListEventCmd.Flags().IntVar(&listEventParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		ListEventCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		ListEventCmd.Flags().Float64SliceVar(&listEventParams.EventId, "event-id", nil, "事件 ID")
-		ListEventCmd.Flags().Float64SliceVar(&listEventParams.EventType, "event-type", nil, "事件类型")
-		ListEventCmd.Flags().Float64SliceVar(&listEventParams.Gids, "gids", nil, "主机业务组 ID")
-		ListEventCmd.Flags().StringSliceVar(&listEventParams.HostComment, "host-comment", nil, "主机备注")
-		ListEventCmd.Flags().Float64SliceVar(&listEventParams.HostId, "host-id", nil, "主机 ID")
-		ListEventCmd.Flags().StringSliceVar(&listEventParams.HostIp, "host-ip", nil, "主机 IP")
-		ListEventCmd.Flags().StringSliceVar(&listEventParams.HostTags, "host-tags", nil, "主机标签")
-		ListEventCmd.Flags().Float64SliceVar(&listEventParams.Id, "id", nil, "防护事件 ID")
-		ListEventCmd.Flags().IntVar(&listEventParams.Offset, "offset", 0, "页偏移, 默认为 0")
-		ListEventCmd.Flags().Float64SliceVar(&listEventParams.Oid, "oid", nil, "组织 ID")
-		ListEventCmd.Flags().StringSliceVar(&listEventParams.OperateTime, "operate-time", nil, "阻断执行时间")
-		ListEventCmd.Flags().StringSliceVar(&listEventParams.Operator, "operator", nil, "处理人")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		ListEventCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		ListEventCmd.Flags().StringSliceVar(&listEventParams.ProcessName, "process-name", nil, "进程名称")
-		ListEventCmd.Flags().StringSliceVar(&listEventParams.Status, "status", nil, "阻断状态")
+	ListEventCmd.Flags().IntVar(&listEventParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	ListEventCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	ListEventCmd.Flags().Float64SliceVar(&listEventParams.EventId, "event-id", nil, "事件 ID")
+	ListEventCmd.Flags().Float64SliceVar(&listEventParams.EventType, "event-type", nil, "事件类型")
+	ListEventCmd.Flags().Float64SliceVar(&listEventParams.Gids, "gids", nil, "主机业务组 ID")
+	ListEventCmd.Flags().StringSliceVar(&listEventParams.HostComment, "host-comment", nil, "主机备注")
+	ListEventCmd.Flags().Float64SliceVar(&listEventParams.HostId, "host-id", nil, "主机 ID")
+	ListEventCmd.Flags().StringSliceVar(&listEventParams.HostIp, "host-ip", nil, "主机 IP")
+	ListEventCmd.Flags().StringSliceVar(&listEventParams.HostTags, "host-tags", nil, "主机标签")
+	ListEventCmd.Flags().Float64SliceVar(&listEventParams.Id, "id", nil, "防护事件 ID")
+	ListEventCmd.Flags().IntVar(&listEventParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	ListEventCmd.Flags().Float64SliceVar(&listEventParams.Oid, "oid", nil, "组织 ID")
+	ListEventCmd.Flags().StringSliceVar(&listEventParams.OperateTime, "operate-time", nil, "阻断执行时间")
+	ListEventCmd.Flags().StringSliceVar(&listEventParams.Operator, "operator", nil, "处理人")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	ListEventCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	ListEventCmd.Flags().StringSliceVar(&listEventParams.ProcessName, "process-name", nil, "进程名称")
+	ListEventCmd.Flags().StringSliceVar(&listEventParams.Status, "status", nil, "阻断状态")
 }
-
 
 // ListEventParams 请求参数
 type ListEventParams struct {
-	Count int `json:"count"` // 每页记录数量, 默认为 20
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	EventId []float64 `json:"event_id"` // 事件 ID
-	EventType []float64 `json:"event_type"` // 事件类型
-	Gids []float64 `json:"gids"` // 主机业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostTags []string `json:"host_tags"` // 主机标签
-	Id []float64 `json:"id"` // 防护事件 ID
-	Offset int `json:"offset"` // 页偏移, 默认为 0
-	Oid []float64 `json:"oid"` // 组织 ID
-	OperateTime []string `json:"operate_time"` // 阻断执行时间
-	Operator []string `json:"operator"` // 处理人
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	ProcessName []string `json:"process_name"` // 进程名称
-	Status []string `json:"status"` // 阻断状态
+	Count       int                      `json:"count"`        // 每页记录数量, 默认为 20
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	EventId     []float64                `json:"event_id"`     // 事件 ID
+	EventType   []float64                `json:"event_type"`   // 事件类型
+	Gids        []float64                `json:"gids"`         // 主机业务组 ID
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机 ID
+	HostIp      []string                 `json:"host_ip"`      // 主机 IP
+	HostTags    []string                 `json:"host_tags"`    // 主机标签
+	Id          []float64                `json:"id"`           // 防护事件 ID
+	Offset      int                      `json:"offset"`       // 页偏移, 默认为 0
+	Oid         []float64                `json:"oid"`          // 组织 ID
+	OperateTime []string                 `json:"operate_time"` // 阻断执行时间
+	Operator    []string                 `json:"operator"`     // 处理人
+	OrderBy     map[string]interface{}   `json:"order_by"`     // 排序规则
+	ProcessName []string                 `json:"process_name"` // 进程名称
+	Status      []string                 `json:"status"`       // 阻断状态
 }
-

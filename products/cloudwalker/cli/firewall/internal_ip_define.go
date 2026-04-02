@@ -3,8 +3,8 @@
 package firewall
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var InternalIpDefineCmd = &cobra.Command{
 }
 
 func init() {
-		InternalIpDefineCmd.Flags().StringSliceVar(&internalIpDefineParams.NetAddress, "net-address", nil, "内部网段")
+	InternalIpDefineCmd.Flags().StringSliceVar(&internalIpDefineParams.NetAddress, "net-address", nil, "内部网段")
 }
-
 
 // InternalIpDefineParams 请求参数
 type InternalIpDefineParams struct {
 	NetAddress []string `json:"net_address"` // 内部网段
 }
-

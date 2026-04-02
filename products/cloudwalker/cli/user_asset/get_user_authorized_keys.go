@@ -3,8 +3,8 @@
 package user_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetUserAuthorizedKeysCmd = &cobra.Command{
 }
 
 func init() {
-		GetUserAuthorizedKeysCmd.Flags().IntVar(&getUserAuthorizedKeysParams.AssetUserId, "asset-user-id", 0, "用户 ID")
+	GetUserAuthorizedKeysCmd.Flags().IntVar(&getUserAuthorizedKeysParams.AssetUserId, "asset-user-id", 0, "用户 ID")
 }
-
 
 // GetUserAuthorizedKeysParams 请求参数
 type GetUserAuthorizedKeysParams struct {
 	AssetUserId int `json:"asset_user_id"` // 用户 ID
 }
-

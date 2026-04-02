@@ -3,8 +3,8 @@
 package webshell_event
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,68 +29,66 @@ var EditEventCommentCmd = &cobra.Command{
 }
 
 func init() {
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Comment, "comment", nil, "用户自定义备注")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.CreatedAt, "created-at", nil, "事件发现时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		EditEventCommentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Domain, "domain", nil, "域名")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.FileName, "file-name", nil, "文件名")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.FilePath, "file-path", nil, "文件路径")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Gids, "gids", nil, "业务组 ID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostComment, "host-comment", nil, "主机备注")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.HostId, "host-id", nil, "主机 ID")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostIp, "host-ip", nil, "主机 IP")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostName, "host-name", nil, "主机名称")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostState, "host-state", nil, "主机状态")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostTags, "host-tags", nil, "主机标签")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Id, "id", nil, "事件ID")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.IsolateState, "isolate-state", nil, "隔离状态")
-		EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Md5, "md5", nil, "文件 MD5")
-		EditEventCommentCmd.Flags().StringVar(&editEventCommentParams.NewComment, "new-comment", "", "新的事件备注")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Oid, "oid", nil, "机构 ID")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.PlanId, "plan-id", nil, "任务 id")
-		// select is complex type []map[string]interface{}, use JSON string
-		var selectJSON string
-		EditEventCommentCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"file_name\": \"WebShell\", \"file_path\": \"mem://[java.exe:9540]/org.apache.coyote.type.TypeBase\", \"host_id\": 162, \"id\": 154, \"webshell_type\": \"java_memory_webshell\"}])")
-		EditEventCommentCmd.Flags().BoolVar(&editEventCommentParams.SelectAll, "select-all", false, "是否全选")
-		EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.StatEventId, "stat-event-id", nil, "统计事件 ID")
-		EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.UpdatedAt, "updated-at", nil, "最后发现时间")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.WebshellType, "webshell-type", nil, "Webshell 类型")
-		EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Comment, "comment", nil, "用户自定义备注")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.CreatedAt, "created-at", nil, "事件发现时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	EditEventCommentCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Domain, "domain", nil, "域名")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.FileName, "file-name", nil, "文件名")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.FilePath, "file-path", nil, "文件路径")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Gids, "gids", nil, "业务组 ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostComment, "host-comment", nil, "主机备注")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.HostId, "host-id", nil, "主机 ID")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostIp, "host-ip", nil, "主机 IP")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostName, "host-name", nil, "主机名称")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostState, "host-state", nil, "主机状态")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.HostTags, "host-tags", nil, "主机标签")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Id, "id", nil, "事件ID")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.IsolateState, "isolate-state", nil, "隔离状态")
+	EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.Md5, "md5", nil, "文件 MD5")
+	EditEventCommentCmd.Flags().StringVar(&editEventCommentParams.NewComment, "new-comment", "", "新的事件备注")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.Oid, "oid", nil, "机构 ID")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.PlanId, "plan-id", nil, "任务 id")
+	// select is complex type []map[string]interface{}, use JSON string
+	var selectJSON string
+	EditEventCommentCmd.Flags().StringVar(&selectJSON, "select", "", "select (JSON, e.g. [{\"file_name\": \"WebShell\", \"file_path\": \"mem://[java.exe:9540]/org.apache.coyote.type.TypeBase\", \"host_id\": 162, \"id\": 154, \"webshell_type\": \"java_memory_webshell\"}])")
+	EditEventCommentCmd.Flags().BoolVar(&editEventCommentParams.SelectAll, "select-all", false, "是否全选")
+	EditEventCommentCmd.Flags().Float64SliceVar(&editEventCommentParams.StatEventId, "stat-event-id", nil, "统计事件 ID")
+	EditEventCommentCmd.Flags().IntSliceVar(&editEventCommentParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.UpdatedAt, "updated-at", nil, "最后发现时间")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.WebshellType, "webshell-type", nil, "Webshell 类型")
+	EditEventCommentCmd.Flags().StringSliceVar(&editEventCommentParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // EditEventCommentParams 请求参数
 type EditEventCommentParams struct {
-	Comment []string `json:"comment"` // 用户自定义备注
-	CreatedAt []string `json:"created_at"` // 事件发现时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Domain []string `json:"domain"` // 域名
-	FileName []string `json:"file_name"` // 文件名
-	FilePath []string `json:"file_path"` // 文件路径
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Id []float64 `json:"id"` // 事件ID
-	IsolateState []float64 `json:"isolate_state"` // 隔离状态
-	Level []int `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	Md5 []string `json:"md5"` // 文件 MD5
-	NewComment string `json:"new_comment"` // 新的事件备注
-	Oid []float64 `json:"oid"` // 机构 ID
-	PlanId []float64 `json:"plan_id"` // 任务 id
-	Select []map[string]interface{} `json:"select"` // select
-	SelectAll bool `json:"select_all"` // 是否全选
-	StatEventId []float64 `json:"stat_event_id"` // 统计事件 ID
-	State []int `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
-	UpdatedAt []string `json:"updated_at"` // 最后发现时间
-	WebshellType []string `json:"webshell_type"` // Webshell 类型
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	Comment      []string                 `json:"comment"`       // 用户自定义备注
+	CreatedAt    []string                 `json:"created_at"`    // 事件发现时间
+	CustomAttr   []map[string]interface{} `json:"custom_attr"`   // 主机业务属性
+	Domain       []string                 `json:"domain"`        // 域名
+	FileName     []string                 `json:"file_name"`     // 文件名
+	FilePath     []string                 `json:"file_path"`     // 文件路径
+	Gids         []float64                `json:"gids"`          // 业务组 ID
+	HostComment  []string                 `json:"host_comment"`  // 主机备注
+	HostId       []float64                `json:"host_id"`       // 主机 ID
+	HostIp       []string                 `json:"host_ip"`       // 主机 IP
+	HostName     []string                 `json:"host_name"`     // 主机名称
+	HostState    []string                 `json:"host_state"`    // 主机状态
+	HostTags     []string                 `json:"host_tags"`     // 主机标签
+	Id           []float64                `json:"id"`            // 事件ID
+	IsolateState []float64                `json:"isolate_state"` // 隔离状态
+	Level        []int                    `json:"level"`         // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	Md5          []string                 `json:"md5"`           // 文件 MD5
+	NewComment   string                   `json:"new_comment"`   // 新的事件备注
+	Oid          []float64                `json:"oid"`           // 机构 ID
+	PlanId       []float64                `json:"plan_id"`       // 任务 id
+	Select       []map[string]interface{} `json:"select"`        // select
+	SelectAll    bool                     `json:"select_all"`    // 是否全选
+	StatEventId  []float64                `json:"stat_event_id"` // 统计事件 ID
+	State        []int                    `json:"state"`         // 事件状态(1-有风险，2-已忽略，3-已处理)
+	UpdatedAt    []string                 `json:"updated_at"`    // 最后发现时间
+	WebshellType []string                 `json:"webshell_type"` // Webshell 类型
+	WhiteRuleId  []string                 `json:"white_rule_id"` // 白名单规则 ID
 }
-

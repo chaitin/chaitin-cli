@@ -3,8 +3,8 @@
 package tamper_proof
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,48 +29,46 @@ var DeleteEventListCmd = &cobra.Command{
 }
 
 func init() {
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		DeleteEventListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		DeleteEventListCmd.Flags().Float64SliceVar(&deleteEventListParams.Gids, "gids", nil, "业务组 ID")
-		DeleteEventListCmd.Flags().StringSliceVar(&deleteEventListParams.HostComment, "host-comment", nil, "主机备注")
-		DeleteEventListCmd.Flags().Float64SliceVar(&deleteEventListParams.HostId, "host-id", nil, "主机ID")
-		DeleteEventListCmd.Flags().StringSliceVar(&deleteEventListParams.HostIp, "host-ip", nil, "主机IP")
-		DeleteEventListCmd.Flags().StringSliceVar(&deleteEventListParams.HostName, "host-name", nil, "主机名称")
-		DeleteEventListCmd.Flags().StringSliceVar(&deleteEventListParams.HostState, "host-state", nil, "主机状态")
-		DeleteEventListCmd.Flags().StringSliceVar(&deleteEventListParams.HostTags, "host-tags", nil, "主机标签")
-		DeleteEventListCmd.Flags().IntSliceVar(&deleteEventListParams.Ids, "ids", nil, "事件 ID 列表")
-		DeleteEventListCmd.Flags().Float64SliceVar(&deleteEventListParams.Oid, "oid", nil, "机构 ID")
-		DeleteEventListCmd.Flags().Float64SliceVar(&deleteEventListParams.Operation, "operation", nil, "篡改行为")
-		DeleteEventListCmd.Flags().Float64SliceVar(&deleteEventListParams.OperationResult, "operation-result", nil, "防护结果")
-		DeleteEventListCmd.Flags().StringSliceVar(&deleteEventListParams.OperationTime, "operation-time", nil, "篡改事件")
-		DeleteEventListCmd.Flags().StringSliceVar(&deleteEventListParams.ProcessName, "process-name", nil, "进程名")
-		DeleteEventListCmd.Flags().StringSliceVar(&deleteEventListParams.ProcessPath, "process-path", nil, "文件路径")
-		DeleteEventListCmd.Flags().StringSliceVar(&deleteEventListParams.RuleName, "rule-name", nil, "防护规则名称")
-		DeleteEventListCmd.Flags().BoolVar(&deleteEventListParams.SelectAll, "select-all", false, "是否删除所有")
-		DeleteEventListCmd.Flags().StringSliceVar(&deleteEventListParams.User, "user", nil, "用户名")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	DeleteEventListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	DeleteEventListCmd.Flags().Float64SliceVar(&deleteEventListParams.Gids, "gids", nil, "业务组 ID")
+	DeleteEventListCmd.Flags().StringSliceVar(&deleteEventListParams.HostComment, "host-comment", nil, "主机备注")
+	DeleteEventListCmd.Flags().Float64SliceVar(&deleteEventListParams.HostId, "host-id", nil, "主机ID")
+	DeleteEventListCmd.Flags().StringSliceVar(&deleteEventListParams.HostIp, "host-ip", nil, "主机IP")
+	DeleteEventListCmd.Flags().StringSliceVar(&deleteEventListParams.HostName, "host-name", nil, "主机名称")
+	DeleteEventListCmd.Flags().StringSliceVar(&deleteEventListParams.HostState, "host-state", nil, "主机状态")
+	DeleteEventListCmd.Flags().StringSliceVar(&deleteEventListParams.HostTags, "host-tags", nil, "主机标签")
+	DeleteEventListCmd.Flags().IntSliceVar(&deleteEventListParams.Ids, "ids", nil, "事件 ID 列表")
+	DeleteEventListCmd.Flags().Float64SliceVar(&deleteEventListParams.Oid, "oid", nil, "机构 ID")
+	DeleteEventListCmd.Flags().Float64SliceVar(&deleteEventListParams.Operation, "operation", nil, "篡改行为")
+	DeleteEventListCmd.Flags().Float64SliceVar(&deleteEventListParams.OperationResult, "operation-result", nil, "防护结果")
+	DeleteEventListCmd.Flags().StringSliceVar(&deleteEventListParams.OperationTime, "operation-time", nil, "篡改事件")
+	DeleteEventListCmd.Flags().StringSliceVar(&deleteEventListParams.ProcessName, "process-name", nil, "进程名")
+	DeleteEventListCmd.Flags().StringSliceVar(&deleteEventListParams.ProcessPath, "process-path", nil, "文件路径")
+	DeleteEventListCmd.Flags().StringSliceVar(&deleteEventListParams.RuleName, "rule-name", nil, "防护规则名称")
+	DeleteEventListCmd.Flags().BoolVar(&deleteEventListParams.SelectAll, "select-all", false, "是否删除所有")
+	DeleteEventListCmd.Flags().StringSliceVar(&deleteEventListParams.User, "user", nil, "用户名")
 }
-
 
 // DeleteEventListParams 请求参数
 type DeleteEventListParams struct {
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Ids []int `json:"ids"` // 事件 ID 列表
-	Oid []float64 `json:"oid"` // 机构 ID
-	Operation []float64 `json:"operation"` // 篡改行为
-	OperationResult []float64 `json:"operation_result"` // 防护结果
-	OperationTime []string `json:"operation_time"` // 篡改事件
-	ProcessName []string `json:"process_name"` // 进程名
-	ProcessPath []string `json:"process_path"` // 文件路径
-	RuleName []string `json:"rule_name"` // 防护规则名称
-	SelectAll bool `json:"select_all"` // 是否删除所有
-	User []string `json:"user"` // 用户名
+	CustomAttr      []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	Gids            []float64                `json:"gids"`             // 业务组 ID
+	HostComment     []string                 `json:"host_comment"`     // 主机备注
+	HostId          []float64                `json:"host_id"`          // 主机ID
+	HostIp          []string                 `json:"host_ip"`          // 主机IP
+	HostName        []string                 `json:"host_name"`        // 主机名称
+	HostState       []string                 `json:"host_state"`       // 主机状态
+	HostTags        []string                 `json:"host_tags"`        // 主机标签
+	Ids             []int                    `json:"ids"`              // 事件 ID 列表
+	Oid             []float64                `json:"oid"`              // 机构 ID
+	Operation       []float64                `json:"operation"`        // 篡改行为
+	OperationResult []float64                `json:"operation_result"` // 防护结果
+	OperationTime   []string                 `json:"operation_time"`   // 篡改事件
+	ProcessName     []string                 `json:"process_name"`     // 进程名
+	ProcessPath     []string                 `json:"process_path"`     // 文件路径
+	RuleName        []string                 `json:"rule_name"`        // 防护规则名称
+	SelectAll       bool                     `json:"select_all"`       // 是否删除所有
+	User            []string                 `json:"user"`             // 用户名
 }
-

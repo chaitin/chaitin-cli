@@ -3,14 +3,12 @@
 package package_service
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetAllModulesCmd = &cobra.Command{
 	Use:   "get_all_modules",
@@ -31,5 +29,3 @@ var GetAllModulesCmd = &cobra.Command{
 func init() {
 
 }
-
-

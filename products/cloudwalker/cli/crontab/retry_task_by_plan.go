@@ -3,8 +3,8 @@
 package crontab
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var RetryTaskByPlanCmd = &cobra.Command{
 }
 
 func init() {
-		RetryTaskByPlanCmd.Flags().IntVar(&retryTaskByPlanParams.PlanId, "plan-id", 0, "计划 ID")
-		RetryTaskByPlanCmd.Flags().StringVar(&retryTaskByPlanParams.PlanType, "plan-type", "", "任务计划类型")
+	RetryTaskByPlanCmd.Flags().IntVar(&retryTaskByPlanParams.PlanId, "plan-id", 0, "计划 ID")
+	RetryTaskByPlanCmd.Flags().StringVar(&retryTaskByPlanParams.PlanType, "plan-type", "", "任务计划类型")
 }
-
 
 // RetryTaskByPlanParams 请求参数
 type RetryTaskByPlanParams struct {
-	PlanId int `json:"plan_id"` // 计划 ID
+	PlanId   int    `json:"plan_id"`   // 计划 ID
 	PlanType string `json:"plan_type"` // 任务计划类型
 }
-

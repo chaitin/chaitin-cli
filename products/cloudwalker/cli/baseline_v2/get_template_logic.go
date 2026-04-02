@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetTemplateLogicCmd = &cobra.Command{
 }
 
 func init() {
-		GetTemplateLogicCmd.Flags().StringVar(&getTemplateLogicParams.Id, "id", "", "快速自定义核查项ID")
+	GetTemplateLogicCmd.Flags().StringVar(&getTemplateLogicParams.Id, "id", "", "快速自定义核查项ID")
 }
-
 
 // GetTemplateLogicParams 请求参数
 type GetTemplateLogicParams struct {
 	Id string `json:"id"` // 快速自定义核查项ID
 }
-

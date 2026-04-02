@@ -3,8 +3,8 @@
 package baseline_v2
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var GetLogicCmd = &cobra.Command{
 }
 
 func init() {
-		GetLogicCmd.Flags().StringSliceVar(&getLogicParams.Id, "id", nil, "ID")
+	GetLogicCmd.Flags().StringSliceVar(&getLogicParams.Id, "id", nil, "ID")
 }
-
 
 // GetLogicParams 请求参数
 type GetLogicParams struct {
 	Id []string `json:"id"` // ID
 }
-

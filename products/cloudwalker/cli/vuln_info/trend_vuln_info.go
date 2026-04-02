@@ -3,8 +3,8 @@
 package vuln_info
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,52 +29,50 @@ var TrendVulnInfoCmd = &cobra.Command{
 }
 
 func init() {
-		TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.AccessComplexity, "access-complexity", nil, "攻击复杂度")
-		TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.AccessVector, "access-vector", nil, "攻击向量")
-		TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Authentication, "authentication", nil, "攻击认证")
-		TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Availability, "availability", nil, "可用性影响")
-		TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Bid, "bid", nil, "BID 编号")
-		TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Cnnvd, "cnnvd", nil, "CNNVD 编号")
-		TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Cnvd, "cnvd", nil, "CNVD 编号")
-		TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Confidentiality, "confidentiality", nil, "机密性影响")
-		TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Cve, "cve", nil, "CVE 编号")
-		TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Cwe, "cwe", nil, "CWE 编号")
-		TrendVulnInfoCmd.Flags().BoolVar(&trendVulnInfoParams.HasExp, "has-exp", false, "是否有 EXP")
-		TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Integrity, "integrity", nil, "完整性影响")
-		TrendVulnInfoCmd.Flags().BoolVar(&trendVulnInfoParams.IsKev, "is-kev", false, "是否是已知被利用漏洞")
-		TrendVulnInfoCmd.Flags().BoolVar(&trendVulnInfoParams.IsRansomware, "is-ransomware", false, " 是勒索软件攻击漏洞")
-		TrendVulnInfoCmd.Flags().Float64SliceVar(&trendVulnInfoParams.Level, "level", nil, "漏洞级别")
-		TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Name, "name", nil, "漏洞名称")
-		TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.PublishDate, "publish-date", nil, "漏洞发布时间")
-		TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Score, "score", nil, "漏洞分值")
-		TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Tags, "tags", nil, "漏洞标签")
-		TrendVulnInfoCmd.Flags().StringVar(&trendVulnInfoParams.TrendBy, "trend-by", "", "以什么维度看趋势，有效的值year/month")
-		TrendVulnInfoCmd.Flags().Float64SliceVar(&trendVulnInfoParams.Type, "type", nil, "漏洞类型")
+	TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.AccessComplexity, "access-complexity", nil, "攻击复杂度")
+	TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.AccessVector, "access-vector", nil, "攻击向量")
+	TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Authentication, "authentication", nil, "攻击认证")
+	TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Availability, "availability", nil, "可用性影响")
+	TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Bid, "bid", nil, "BID 编号")
+	TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Cnnvd, "cnnvd", nil, "CNNVD 编号")
+	TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Cnvd, "cnvd", nil, "CNVD 编号")
+	TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Confidentiality, "confidentiality", nil, "机密性影响")
+	TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Cve, "cve", nil, "CVE 编号")
+	TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Cwe, "cwe", nil, "CWE 编号")
+	TrendVulnInfoCmd.Flags().BoolVar(&trendVulnInfoParams.HasExp, "has-exp", false, "是否有 EXP")
+	TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Integrity, "integrity", nil, "完整性影响")
+	TrendVulnInfoCmd.Flags().BoolVar(&trendVulnInfoParams.IsKev, "is-kev", false, "是否是已知被利用漏洞")
+	TrendVulnInfoCmd.Flags().BoolVar(&trendVulnInfoParams.IsRansomware, "is-ransomware", false, " 是勒索软件攻击漏洞")
+	TrendVulnInfoCmd.Flags().Float64SliceVar(&trendVulnInfoParams.Level, "level", nil, "漏洞级别")
+	TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Name, "name", nil, "漏洞名称")
+	TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.PublishDate, "publish-date", nil, "漏洞发布时间")
+	TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Score, "score", nil, "漏洞分值")
+	TrendVulnInfoCmd.Flags().StringSliceVar(&trendVulnInfoParams.Tags, "tags", nil, "漏洞标签")
+	TrendVulnInfoCmd.Flags().StringVar(&trendVulnInfoParams.TrendBy, "trend-by", "", "以什么维度看趋势，有效的值year/month")
+	TrendVulnInfoCmd.Flags().Float64SliceVar(&trendVulnInfoParams.Type, "type", nil, "漏洞类型")
 }
-
 
 // TrendVulnInfoParams 请求参数
 type TrendVulnInfoParams struct {
-	AccessComplexity []string `json:"access_complexity"` // 攻击复杂度
-	AccessVector []string `json:"access_vector"` // 攻击向量
-	Authentication []string `json:"authentication"` // 攻击认证
-	Availability []string `json:"availability"` // 可用性影响
-	Bid []string `json:"bid"` // BID 编号
-	Cnnvd []string `json:"cnnvd"` // CNNVD 编号
-	Cnvd []string `json:"cnvd"` // CNVD 编号
-	Confidentiality []string `json:"confidentiality"` // 机密性影响
-	Cve []string `json:"cve"` // CVE 编号
-	Cwe []string `json:"cwe"` // CWE 编号
-	HasExp bool `json:"has_exp"` // 是否有 EXP
-	Integrity []string `json:"integrity"` // 完整性影响
-	IsKev bool `json:"is_kev"` // 是否是已知被利用漏洞
-	IsRansomware bool `json:"is_ransomware"` //  是勒索软件攻击漏洞
-	Level []float64 `json:"level"` // 漏洞级别
-	Name []string `json:"name"` // 漏洞名称
-	PublishDate []string `json:"publish_date"` // 漏洞发布时间
-	Score []string `json:"score"` // 漏洞分值
-	Tags []string `json:"tags"` // 漏洞标签
-	TrendBy string `json:"trend_by"` // 以什么维度看趋势，有效的值year/month
-	Type []float64 `json:"type"` // 漏洞类型
+	AccessComplexity []string  `json:"access_complexity"` // 攻击复杂度
+	AccessVector     []string  `json:"access_vector"`     // 攻击向量
+	Authentication   []string  `json:"authentication"`    // 攻击认证
+	Availability     []string  `json:"availability"`      // 可用性影响
+	Bid              []string  `json:"bid"`               // BID 编号
+	Cnnvd            []string  `json:"cnnvd"`             // CNNVD 编号
+	Cnvd             []string  `json:"cnvd"`              // CNVD 编号
+	Confidentiality  []string  `json:"confidentiality"`   // 机密性影响
+	Cve              []string  `json:"cve"`               // CVE 编号
+	Cwe              []string  `json:"cwe"`               // CWE 编号
+	HasExp           bool      `json:"has_exp"`           // 是否有 EXP
+	Integrity        []string  `json:"integrity"`         // 完整性影响
+	IsKev            bool      `json:"is_kev"`            // 是否是已知被利用漏洞
+	IsRansomware     bool      `json:"is_ransomware"`     //  是勒索软件攻击漏洞
+	Level            []float64 `json:"level"`             // 漏洞级别
+	Name             []string  `json:"name"`              // 漏洞名称
+	PublishDate      []string  `json:"publish_date"`      // 漏洞发布时间
+	Score            []string  `json:"score"`             // 漏洞分值
+	Tags             []string  `json:"tags"`              // 漏洞标签
+	TrendBy          string    `json:"trend_by"`          // 以什么维度看趋势，有效的值year/month
+	Type             []float64 `json:"type"`              // 漏洞类型
 }
-

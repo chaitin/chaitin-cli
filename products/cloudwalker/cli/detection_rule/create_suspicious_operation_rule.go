@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,38 +29,36 @@ var CreateSuspiciousOperationRuleCmd = &cobra.Command{
 }
 
 func init() {
-		CreateSuspiciousOperationRuleCmd.Flags().Float64SliceVar(&createSuspiciousOperationRuleParams.AgentRange, "agent-range", nil, "主机范围")
-		CreateSuspiciousOperationRuleCmd.Flags().Float64SliceVar(&createSuspiciousOperationRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
-		CreateSuspiciousOperationRuleCmd.Flags().StringSliceVar(&createSuspiciousOperationRuleParams.Cmdline, "cmdline", nil, "进程命令行")
-		CreateSuspiciousOperationRuleCmd.Flags().StringVar(&createSuspiciousOperationRuleParams.Description, "description", "", "规则说明")
-		CreateSuspiciousOperationRuleCmd.Flags().BoolVar(&createSuspiciousOperationRuleParams.Enable, "enable", false, "是否启用")
-		CreateSuspiciousOperationRuleCmd.Flags().StringSliceVar(&createSuspiciousOperationRuleParams.Exename, "exename", nil, "进程名")
-		CreateSuspiciousOperationRuleCmd.Flags().BoolVar(&createSuspiciousOperationRuleParams.Global, "global", false, "是否绑定全局探针")
-		CreateSuspiciousOperationRuleCmd.Flags().IntVar(&createSuspiciousOperationRuleParams.Level, "level", 0, "风险等级(1-低危，2-中危，3-高危，4-严重)")
-		CreateSuspiciousOperationRuleCmd.Flags().StringSliceVar(&createSuspiciousOperationRuleParams.Pcmdline, "pcmdline", nil, "父进程命令行")
-		CreateSuspiciousOperationRuleCmd.Flags().StringSliceVar(&createSuspiciousOperationRuleParams.Pexename, "pexename", nil, "父进程名")
-		CreateSuspiciousOperationRuleCmd.Flags().StringVar(&createSuspiciousOperationRuleParams.Platform, "platform", "", "适用平台")
-		CreateSuspiciousOperationRuleCmd.Flags().StringSliceVar(&createSuspiciousOperationRuleParams.Pusername, "pusername", nil, "父进程用户")
-		CreateSuspiciousOperationRuleCmd.Flags().StringVar(&createSuspiciousOperationRuleParams.RuleName, "rule-name", "", "规则名称")
-		CreateSuspiciousOperationRuleCmd.Flags().StringSliceVar(&createSuspiciousOperationRuleParams.Username, "username", nil, "进程用户")
+	CreateSuspiciousOperationRuleCmd.Flags().Float64SliceVar(&createSuspiciousOperationRuleParams.AgentRange, "agent-range", nil, "主机范围")
+	CreateSuspiciousOperationRuleCmd.Flags().Float64SliceVar(&createSuspiciousOperationRuleParams.BusinessGroupRange, "business-group-range", nil, "业务组范围")
+	CreateSuspiciousOperationRuleCmd.Flags().StringSliceVar(&createSuspiciousOperationRuleParams.Cmdline, "cmdline", nil, "进程命令行")
+	CreateSuspiciousOperationRuleCmd.Flags().StringVar(&createSuspiciousOperationRuleParams.Description, "description", "", "规则说明")
+	CreateSuspiciousOperationRuleCmd.Flags().BoolVar(&createSuspiciousOperationRuleParams.Enable, "enable", false, "是否启用")
+	CreateSuspiciousOperationRuleCmd.Flags().StringSliceVar(&createSuspiciousOperationRuleParams.Exename, "exename", nil, "进程名")
+	CreateSuspiciousOperationRuleCmd.Flags().BoolVar(&createSuspiciousOperationRuleParams.Global, "global", false, "是否绑定全局探针")
+	CreateSuspiciousOperationRuleCmd.Flags().IntVar(&createSuspiciousOperationRuleParams.Level, "level", 0, "风险等级(1-低危，2-中危，3-高危，4-严重)")
+	CreateSuspiciousOperationRuleCmd.Flags().StringSliceVar(&createSuspiciousOperationRuleParams.Pcmdline, "pcmdline", nil, "父进程命令行")
+	CreateSuspiciousOperationRuleCmd.Flags().StringSliceVar(&createSuspiciousOperationRuleParams.Pexename, "pexename", nil, "父进程名")
+	CreateSuspiciousOperationRuleCmd.Flags().StringVar(&createSuspiciousOperationRuleParams.Platform, "platform", "", "适用平台")
+	CreateSuspiciousOperationRuleCmd.Flags().StringSliceVar(&createSuspiciousOperationRuleParams.Pusername, "pusername", nil, "父进程用户")
+	CreateSuspiciousOperationRuleCmd.Flags().StringVar(&createSuspiciousOperationRuleParams.RuleName, "rule-name", "", "规则名称")
+	CreateSuspiciousOperationRuleCmd.Flags().StringSliceVar(&createSuspiciousOperationRuleParams.Username, "username", nil, "进程用户")
 }
-
 
 // CreateSuspiciousOperationRuleParams 请求参数
 type CreateSuspiciousOperationRuleParams struct {
-	AgentRange []float64 `json:"agent_range"` // 主机范围
+	AgentRange         []float64 `json:"agent_range"`          // 主机范围
 	BusinessGroupRange []float64 `json:"business_group_range"` // 业务组范围
-	Cmdline []string `json:"cmdline"` // 进程命令行
-	Description string `json:"description"` // 规则说明
-	Enable bool `json:"enable"` // 是否启用
-	Exename []string `json:"exename"` // 进程名
-	Global bool `json:"global"` // 是否绑定全局探针
-	Level int `json:"level"` // 风险等级(1-低危，2-中危，3-高危，4-严重)
-	Pcmdline []string `json:"pcmdline"` // 父进程命令行
-	Pexename []string `json:"pexename"` // 父进程名
-	Platform string `json:"platform"` // 适用平台
-	Pusername []string `json:"pusername"` // 父进程用户
-	RuleName string `json:"rule_name"` // 规则名称
-	Username []string `json:"username"` // 进程用户
+	Cmdline            []string  `json:"cmdline"`              // 进程命令行
+	Description        string    `json:"description"`          // 规则说明
+	Enable             bool      `json:"enable"`               // 是否启用
+	Exename            []string  `json:"exename"`              // 进程名
+	Global             bool      `json:"global"`               // 是否绑定全局探针
+	Level              int       `json:"level"`                // 风险等级(1-低危，2-中危，3-高危，4-严重)
+	Pcmdline           []string  `json:"pcmdline"`             // 父进程命令行
+	Pexename           []string  `json:"pexename"`             // 父进程名
+	Platform           string    `json:"platform"`             // 适用平台
+	Pusername          []string  `json:"pusername"`            // 父进程用户
+	RuleName           string    `json:"rule_name"`            // 规则名称
+	Username           []string  `json:"username"`             // 进程用户
 }
-

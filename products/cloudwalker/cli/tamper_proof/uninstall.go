@@ -3,8 +3,8 @@
 package tamper_proof
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,12 +29,10 @@ var UninstallCmd = &cobra.Command{
 }
 
 func init() {
-		UninstallCmd.Flags().IntVar(&uninstallParams.HostId, "host-id", 0, "要卸载防篡改模块的 Host ID")
+	UninstallCmd.Flags().IntVar(&uninstallParams.HostId, "host-id", 0, "要卸载防篡改模块的 Host ID")
 }
-
 
 // UninstallParams 请求参数
 type UninstallParams struct {
 	HostId int `json:"host_id"` // 要卸载防篡改模块的 Host ID
 }
-

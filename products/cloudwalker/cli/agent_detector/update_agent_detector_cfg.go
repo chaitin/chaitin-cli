@@ -3,8 +3,8 @@
 package agent_detector
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,28 +29,26 @@ var UpdateAgentDetectorCfgCmd = &cobra.Command{
 }
 
 func init() {
-		UpdateAgentDetectorCfgCmd.Flags().BoolVar(&updateAgentDetectorCfgParams.AutoInstall, "auto-install", false, "是否自动安装")
-		UpdateAgentDetectorCfgCmd.Flags().BoolVar(&updateAgentDetectorCfgParams.AutoUpdate, "auto-update", false, "是否自动更新")
-		UpdateAgentDetectorCfgCmd.Flags().IntVar(&updateAgentDetectorCfgParams.FileLimit, "file-limit", 0, "文件大小限制，单位：MB")
-		UpdateAgentDetectorCfgCmd.Flags().IntVar(&updateAgentDetectorCfgParams.ResLimitCpu, "res-limit-cpu", 0, "CPU 限制，单位：%，custom 模式下有效")
-		UpdateAgentDetectorCfgCmd.Flags().IntVar(&updateAgentDetectorCfgParams.ResLimitDisk, "res-limit-disk", 0, "磁盘限制，单位：kb/s，custom 模式下有效")
-		UpdateAgentDetectorCfgCmd.Flags().IntVar(&updateAgentDetectorCfgParams.ResLimitMem, "res-limit-mem", 0, "内存限制，单位：MB，custom 模式下有效")
-		UpdateAgentDetectorCfgCmd.Flags().IntVar(&updateAgentDetectorCfgParams.ResLimitNet, "res-limit-net", 0, "网络限制，单位：kb/s，custom 模式下有效")
-		UpdateAgentDetectorCfgCmd.Flags().StringVar(&updateAgentDetectorCfgParams.ResourceLimitMode, "resource-limit-mode", "", "资源限制模式，low || normal || relax || custom")
-		UpdateAgentDetectorCfgCmd.Flags().BoolVar(&updateAgentDetectorCfgParams.ServerScan, "server-scan", false, "是否开启服务器扫描")
+	UpdateAgentDetectorCfgCmd.Flags().BoolVar(&updateAgentDetectorCfgParams.AutoInstall, "auto-install", false, "是否自动安装")
+	UpdateAgentDetectorCfgCmd.Flags().BoolVar(&updateAgentDetectorCfgParams.AutoUpdate, "auto-update", false, "是否自动更新")
+	UpdateAgentDetectorCfgCmd.Flags().IntVar(&updateAgentDetectorCfgParams.FileLimit, "file-limit", 0, "文件大小限制，单位：MB")
+	UpdateAgentDetectorCfgCmd.Flags().IntVar(&updateAgentDetectorCfgParams.ResLimitCpu, "res-limit-cpu", 0, "CPU 限制，单位：%，custom 模式下有效")
+	UpdateAgentDetectorCfgCmd.Flags().IntVar(&updateAgentDetectorCfgParams.ResLimitDisk, "res-limit-disk", 0, "磁盘限制，单位：kb/s，custom 模式下有效")
+	UpdateAgentDetectorCfgCmd.Flags().IntVar(&updateAgentDetectorCfgParams.ResLimitMem, "res-limit-mem", 0, "内存限制，单位：MB，custom 模式下有效")
+	UpdateAgentDetectorCfgCmd.Flags().IntVar(&updateAgentDetectorCfgParams.ResLimitNet, "res-limit-net", 0, "网络限制，单位：kb/s，custom 模式下有效")
+	UpdateAgentDetectorCfgCmd.Flags().StringVar(&updateAgentDetectorCfgParams.ResourceLimitMode, "resource-limit-mode", "", "资源限制模式，low || normal || relax || custom")
+	UpdateAgentDetectorCfgCmd.Flags().BoolVar(&updateAgentDetectorCfgParams.ServerScan, "server-scan", false, "是否开启服务器扫描")
 }
-
 
 // UpdateAgentDetectorCfgParams 请求参数
 type UpdateAgentDetectorCfgParams struct {
-	AutoInstall bool `json:"auto_install"` // 是否自动安装
-	AutoUpdate bool `json:"auto_update"` // 是否自动更新
-	FileLimit int `json:"file_limit"` // 文件大小限制，单位：MB
-	ResLimitCpu int `json:"res_limit_cpu"` // CPU 限制，单位：%，custom 模式下有效
-	ResLimitDisk int `json:"res_limit_disk"` // 磁盘限制，单位：kb/s，custom 模式下有效
-	ResLimitMem int `json:"res_limit_mem"` // 内存限制，单位：MB，custom 模式下有效
-	ResLimitNet int `json:"res_limit_net"` // 网络限制，单位：kb/s，custom 模式下有效
+	AutoInstall       bool   `json:"auto_install"`        // 是否自动安装
+	AutoUpdate        bool   `json:"auto_update"`         // 是否自动更新
+	FileLimit         int    `json:"file_limit"`          // 文件大小限制，单位：MB
+	ResLimitCpu       int    `json:"res_limit_cpu"`       // CPU 限制，单位：%，custom 模式下有效
+	ResLimitDisk      int    `json:"res_limit_disk"`      // 磁盘限制，单位：kb/s，custom 模式下有效
+	ResLimitMem       int    `json:"res_limit_mem"`       // 内存限制，单位：MB，custom 模式下有效
+	ResLimitNet       int    `json:"res_limit_net"`       // 网络限制，单位：kb/s，custom 模式下有效
 	ResourceLimitMode string `json:"resource_limit_mode"` // 资源限制模式，low || normal || relax || custom
-	ServerScan bool `json:"server_scan"` // 是否开启服务器扫描
+	ServerScan        bool   `json:"server_scan"`         // 是否开启服务器扫描
 }
-

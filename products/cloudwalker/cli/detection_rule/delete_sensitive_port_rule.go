@@ -3,8 +3,8 @@
 package detection_rule
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,38 +29,36 @@ var DeleteSensitivePortRuleCmd = &cobra.Command{
 }
 
 func init() {
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		DeleteSensitivePortRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		DeleteSensitivePortRuleCmd.Flags().BoolVar(&deleteSensitivePortRuleParams.Enable, "enable", false, "是否启用")
-		DeleteSensitivePortRuleCmd.Flags().StringSliceVar(&deleteSensitivePortRuleParams.HostComment, "host-comment", nil, "主机备注")
-		DeleteSensitivePortRuleCmd.Flags().Float64SliceVar(&deleteSensitivePortRuleParams.HostId, "host-id", nil, "主机ID")
-		DeleteSensitivePortRuleCmd.Flags().StringSliceVar(&deleteSensitivePortRuleParams.HostIp, "host-ip", nil, "主机IP")
-		DeleteSensitivePortRuleCmd.Flags().StringSliceVar(&deleteSensitivePortRuleParams.HostName, "host-name", nil, "主机名称")
-		DeleteSensitivePortRuleCmd.Flags().StringSliceVar(&deleteSensitivePortRuleParams.HostState, "host-state", nil, "主机状态")
-		DeleteSensitivePortRuleCmd.Flags().StringSliceVar(&deleteSensitivePortRuleParams.HostTag, "host-tag", nil, "主机标签")
-		DeleteSensitivePortRuleCmd.Flags().StringSliceVar(&deleteSensitivePortRuleParams.Id, "id", nil, "规则 ID")
-		DeleteSensitivePortRuleCmd.Flags().BoolVar(&deleteSensitivePortRuleParams.IsBuiltin, "is-builtin", false, "是否为内置规则")
-		DeleteSensitivePortRuleCmd.Flags().Float64SliceVar(&deleteSensitivePortRuleParams.Level, "level", nil, "风险等级")
-		DeleteSensitivePortRuleCmd.Flags().Float64SliceVar(&deleteSensitivePortRuleParams.Port, "port", nil, "端口")
-		DeleteSensitivePortRuleCmd.Flags().StringSliceVar(&deleteSensitivePortRuleParams.RuleName, "rule-name", nil, "规则名称")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	DeleteSensitivePortRuleCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	DeleteSensitivePortRuleCmd.Flags().BoolVar(&deleteSensitivePortRuleParams.Enable, "enable", false, "是否启用")
+	DeleteSensitivePortRuleCmd.Flags().StringSliceVar(&deleteSensitivePortRuleParams.HostComment, "host-comment", nil, "主机备注")
+	DeleteSensitivePortRuleCmd.Flags().Float64SliceVar(&deleteSensitivePortRuleParams.HostId, "host-id", nil, "主机ID")
+	DeleteSensitivePortRuleCmd.Flags().StringSliceVar(&deleteSensitivePortRuleParams.HostIp, "host-ip", nil, "主机IP")
+	DeleteSensitivePortRuleCmd.Flags().StringSliceVar(&deleteSensitivePortRuleParams.HostName, "host-name", nil, "主机名称")
+	DeleteSensitivePortRuleCmd.Flags().StringSliceVar(&deleteSensitivePortRuleParams.HostState, "host-state", nil, "主机状态")
+	DeleteSensitivePortRuleCmd.Flags().StringSliceVar(&deleteSensitivePortRuleParams.HostTag, "host-tag", nil, "主机标签")
+	DeleteSensitivePortRuleCmd.Flags().StringSliceVar(&deleteSensitivePortRuleParams.Id, "id", nil, "规则 ID")
+	DeleteSensitivePortRuleCmd.Flags().BoolVar(&deleteSensitivePortRuleParams.IsBuiltin, "is-builtin", false, "是否为内置规则")
+	DeleteSensitivePortRuleCmd.Flags().Float64SliceVar(&deleteSensitivePortRuleParams.Level, "level", nil, "风险等级")
+	DeleteSensitivePortRuleCmd.Flags().Float64SliceVar(&deleteSensitivePortRuleParams.Port, "port", nil, "端口")
+	DeleteSensitivePortRuleCmd.Flags().StringSliceVar(&deleteSensitivePortRuleParams.RuleName, "rule-name", nil, "规则名称")
 }
-
 
 // DeleteSensitivePortRuleParams 请求参数
 type DeleteSensitivePortRuleParams struct {
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Enable bool `json:"enable"` // 是否启用
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机ID
-	HostIp []string `json:"host_ip"` // 主机IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTag []string `json:"host_tag"` // 主机标签
-	Id []string `json:"id"` // 规则 ID
-	IsBuiltin bool `json:"is_builtin"` // 是否为内置规则
-	Level []float64 `json:"level"` // 风险等级
-	Port []float64 `json:"port"` // 端口
-	RuleName []string `json:"rule_name"` // 规则名称
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Enable      bool                     `json:"enable"`       // 是否启用
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机ID
+	HostIp      []string                 `json:"host_ip"`      // 主机IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTag     []string                 `json:"host_tag"`     // 主机标签
+	Id          []string                 `json:"id"`           // 规则 ID
+	IsBuiltin   bool                     `json:"is_builtin"`   // 是否为内置规则
+	Level       []float64                `json:"level"`        // 风险等级
+	Port        []float64                `json:"port"`         // 端口
+	RuleName    []string                 `json:"rule_name"`    // 规则名称
 }
-

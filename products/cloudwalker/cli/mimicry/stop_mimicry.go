@@ -3,8 +3,8 @@
 package mimicry
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,48 +29,46 @@ var StopMimicryCmd = &cobra.Command{
 }
 
 func init() {
-		StopMimicryCmd.Flags().Float64Var(&stopMimicryParams.Action, "action", 0, "操作，1信任文件，2隔离文件")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		StopMimicryCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		StopMimicryCmd.Flags().StringSliceVar(&stopMimicryParams.ExposedIp, "exposed-ip", nil, "主机外网 IP")
-		StopMimicryCmd.Flags().StringSliceVar(&stopMimicryParams.FilePath, "file-path", nil, "文件路径")
-		StopMimicryCmd.Flags().Float64SliceVar(&stopMimicryParams.Gids, "gids", nil, "主机业务组 ID")
-		StopMimicryCmd.Flags().StringSliceVar(&stopMimicryParams.HostComment, "host-comment", nil, "主机备注")
-		StopMimicryCmd.Flags().StringSliceVar(&stopMimicryParams.HostIp, "host-ip", nil, "主机 IP")
-		StopMimicryCmd.Flags().StringSliceVar(&stopMimicryParams.HostTags, "host-tags", nil, "主机标签")
-		StopMimicryCmd.Flags().Float64SliceVar(&stopMimicryParams.Id, "id", nil, "防护事件ID")
-		StopMimicryCmd.Flags().StringSliceVar(&stopMimicryParams.InternalIp, "internal-ip", nil, "主机内网 IP")
-		StopMimicryCmd.Flags().Float64SliceVar(&stopMimicryParams.IntrusionId, "intrusion-id", nil, "入侵事件ID")
-		StopMimicryCmd.Flags().Float64SliceVar(&stopMimicryParams.IntrusionType, "intrusion-type", nil, "事件类型, 1webshell, 2恶意文件")
-		StopMimicryCmd.Flags().StringSliceVar(&stopMimicryParams.LastModifyTime, "last-modify-time", nil, "最近操作事件，长度必须为2")
-		StopMimicryCmd.Flags().StringSliceVar(&stopMimicryParams.Md5, "md5", nil, "文件MD5")
-		StopMimicryCmd.Flags().Float64SliceVar(&stopMimicryParams.Oid, "oid", nil, "组织ID")
-		StopMimicryCmd.Flags().StringSliceVar(&stopMimicryParams.Operator, "operator", nil, "处理人")
-		StopMimicryCmd.Flags().BoolVar(&stopMimicryParams.SelectAll, "select-all", false, "是否全选")
-		StopMimicryCmd.Flags().Float64SliceVar(&stopMimicryParams.Status, "status", nil, "防护状态，1拟态防护中，2拟态防护结束")
+	StopMimicryCmd.Flags().Float64Var(&stopMimicryParams.Action, "action", 0, "操作，1信任文件，2隔离文件")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	StopMimicryCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	StopMimicryCmd.Flags().StringSliceVar(&stopMimicryParams.ExposedIp, "exposed-ip", nil, "主机外网 IP")
+	StopMimicryCmd.Flags().StringSliceVar(&stopMimicryParams.FilePath, "file-path", nil, "文件路径")
+	StopMimicryCmd.Flags().Float64SliceVar(&stopMimicryParams.Gids, "gids", nil, "主机业务组 ID")
+	StopMimicryCmd.Flags().StringSliceVar(&stopMimicryParams.HostComment, "host-comment", nil, "主机备注")
+	StopMimicryCmd.Flags().StringSliceVar(&stopMimicryParams.HostIp, "host-ip", nil, "主机 IP")
+	StopMimicryCmd.Flags().StringSliceVar(&stopMimicryParams.HostTags, "host-tags", nil, "主机标签")
+	StopMimicryCmd.Flags().Float64SliceVar(&stopMimicryParams.Id, "id", nil, "防护事件ID")
+	StopMimicryCmd.Flags().StringSliceVar(&stopMimicryParams.InternalIp, "internal-ip", nil, "主机内网 IP")
+	StopMimicryCmd.Flags().Float64SliceVar(&stopMimicryParams.IntrusionId, "intrusion-id", nil, "入侵事件ID")
+	StopMimicryCmd.Flags().Float64SliceVar(&stopMimicryParams.IntrusionType, "intrusion-type", nil, "事件类型, 1webshell, 2恶意文件")
+	StopMimicryCmd.Flags().StringSliceVar(&stopMimicryParams.LastModifyTime, "last-modify-time", nil, "最近操作事件，长度必须为2")
+	StopMimicryCmd.Flags().StringSliceVar(&stopMimicryParams.Md5, "md5", nil, "文件MD5")
+	StopMimicryCmd.Flags().Float64SliceVar(&stopMimicryParams.Oid, "oid", nil, "组织ID")
+	StopMimicryCmd.Flags().StringSliceVar(&stopMimicryParams.Operator, "operator", nil, "处理人")
+	StopMimicryCmd.Flags().BoolVar(&stopMimicryParams.SelectAll, "select-all", false, "是否全选")
+	StopMimicryCmd.Flags().Float64SliceVar(&stopMimicryParams.Status, "status", nil, "防护状态，1拟态防护中，2拟态防护结束")
 }
-
 
 // StopMimicryParams 请求参数
 type StopMimicryParams struct {
-	Action float64 `json:"action"` // 操作，1信任文件，2隔离文件
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	ExposedIp []string `json:"exposed_ip"` // 主机外网 IP
-	FilePath []string `json:"file_path"` // 文件路径
-	Gids []float64 `json:"gids"` // 主机业务组 ID
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostTags []string `json:"host_tags"` // 主机标签
-	Id []float64 `json:"id"` // 防护事件ID
-	InternalIp []string `json:"internal_ip"` // 主机内网 IP
-	IntrusionId []float64 `json:"intrusion_id"` // 入侵事件ID
-	IntrusionType []float64 `json:"intrusion_type"` // 事件类型, 1webshell, 2恶意文件
-	LastModifyTime []string `json:"last_modify_time"` // 最近操作事件，长度必须为2
-	Md5 []string `json:"md5"` // 文件MD5
-	Oid []float64 `json:"oid"` // 组织ID
-	Operator []string `json:"operator"` // 处理人
-	SelectAll bool `json:"select_all"` // 是否全选
-	Status []float64 `json:"status"` // 防护状态，1拟态防护中，2拟态防护结束
+	Action         float64                  `json:"action"`           // 操作，1信任文件，2隔离文件
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	ExposedIp      []string                 `json:"exposed_ip"`       // 主机外网 IP
+	FilePath       []string                 `json:"file_path"`        // 文件路径
+	Gids           []float64                `json:"gids"`             // 主机业务组 ID
+	HostComment    []string                 `json:"host_comment"`     // 主机备注
+	HostIp         []string                 `json:"host_ip"`          // 主机 IP
+	HostTags       []string                 `json:"host_tags"`        // 主机标签
+	Id             []float64                `json:"id"`               // 防护事件ID
+	InternalIp     []string                 `json:"internal_ip"`      // 主机内网 IP
+	IntrusionId    []float64                `json:"intrusion_id"`     // 入侵事件ID
+	IntrusionType  []float64                `json:"intrusion_type"`   // 事件类型, 1webshell, 2恶意文件
+	LastModifyTime []string                 `json:"last_modify_time"` // 最近操作事件，长度必须为2
+	Md5            []string                 `json:"md5"`              // 文件MD5
+	Oid            []float64                `json:"oid"`              // 组织ID
+	Operator       []string                 `json:"operator"`         // 处理人
+	SelectAll      bool                     `json:"select_all"`       // 是否全选
+	Status         []float64                `json:"status"`           // 防护状态，1拟态防护中，2拟态防护结束
 }
-

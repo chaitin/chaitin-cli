@@ -3,8 +3,8 @@
 package port_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,46 +29,44 @@ var StatPortCmd = &cobra.Command{
 }
 
 func init() {
-		StatPortCmd.Flags().StringSliceVar(&statPortParams.Cmd, "cmd", nil, "IP")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		StatPortCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		StatPortCmd.Flags().Float64SliceVar(&statPortParams.Gids, "gids", nil, "gids")
-		StatPortCmd.Flags().StringSliceVar(&statPortParams.HostComment, "host-comment", nil, "主机备注")
-		StatPortCmd.Flags().Float64SliceVar(&statPortParams.HostId, "host-id", nil, "主机 ID")
-		StatPortCmd.Flags().StringSliceVar(&statPortParams.HostIp, "host-ip", nil, "主机 IP")
-		StatPortCmd.Flags().StringSliceVar(&statPortParams.HostName, "host-name", nil, "主机名称")
-		StatPortCmd.Flags().StringSliceVar(&statPortParams.HostState, "host-state", nil, "主机状态")
-		StatPortCmd.Flags().StringSliceVar(&statPortParams.HostTags, "host-tags", nil, "主机标签")
-		StatPortCmd.Flags().StringSliceVar(&statPortParams.Ip, "ip", nil, "IP")
-		StatPortCmd.Flags().Float64SliceVar(&statPortParams.Oid, "oid", nil, "机构 ID")
-		StatPortCmd.Flags().Float64SliceVar(&statPortParams.Pid, "pid", nil, "IP")
-		StatPortCmd.Flags().StringSliceVar(&statPortParams.Port, "port", nil, "IP")
-		StatPortCmd.Flags().StringSliceVar(&statPortParams.Protocol, "protocol", nil, "IP")
-		StatPortCmd.Flags().BoolVar(&statPortParams.SingletonPortProcess, "singleton-port-process", false, "单例网络应用")
-		StatPortCmd.Flags().StringSliceVar(&statPortParams.UpdatedAt, "updated-at", nil, "IP")
-		StatPortCmd.Flags().BoolSliceVar(&statPortParams.Visibility, "visibility", nil, "true")
+	StatPortCmd.Flags().StringSliceVar(&statPortParams.Cmd, "cmd", nil, "IP")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	StatPortCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	StatPortCmd.Flags().Float64SliceVar(&statPortParams.Gids, "gids", nil, "gids")
+	StatPortCmd.Flags().StringSliceVar(&statPortParams.HostComment, "host-comment", nil, "主机备注")
+	StatPortCmd.Flags().Float64SliceVar(&statPortParams.HostId, "host-id", nil, "主机 ID")
+	StatPortCmd.Flags().StringSliceVar(&statPortParams.HostIp, "host-ip", nil, "主机 IP")
+	StatPortCmd.Flags().StringSliceVar(&statPortParams.HostName, "host-name", nil, "主机名称")
+	StatPortCmd.Flags().StringSliceVar(&statPortParams.HostState, "host-state", nil, "主机状态")
+	StatPortCmd.Flags().StringSliceVar(&statPortParams.HostTags, "host-tags", nil, "主机标签")
+	StatPortCmd.Flags().StringSliceVar(&statPortParams.Ip, "ip", nil, "IP")
+	StatPortCmd.Flags().Float64SliceVar(&statPortParams.Oid, "oid", nil, "机构 ID")
+	StatPortCmd.Flags().Float64SliceVar(&statPortParams.Pid, "pid", nil, "IP")
+	StatPortCmd.Flags().StringSliceVar(&statPortParams.Port, "port", nil, "IP")
+	StatPortCmd.Flags().StringSliceVar(&statPortParams.Protocol, "protocol", nil, "IP")
+	StatPortCmd.Flags().BoolVar(&statPortParams.SingletonPortProcess, "singleton-port-process", false, "单例网络应用")
+	StatPortCmd.Flags().StringSliceVar(&statPortParams.UpdatedAt, "updated-at", nil, "IP")
+	StatPortCmd.Flags().BoolSliceVar(&statPortParams.Visibility, "visibility", nil, "true")
 }
-
 
 // StatPortParams 请求参数
 type StatPortParams struct {
-	Cmd []string `json:"cmd"` // IP
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Gids []float64 `json:"gids"` // gids
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Ip []string `json:"ip"` // IP
-	Oid []float64 `json:"oid"` // 机构 ID
-	Pid []float64 `json:"pid"` // IP
-	Port []string `json:"port"` // IP
-	Protocol []string `json:"protocol"` // IP
-	SingletonPortProcess bool `json:"singleton_port_process"` // 单例网络应用
-	UpdatedAt []string `json:"updated_at"` // IP
-	Visibility []bool `json:"visibility"` // true
+	Cmd                  []string                 `json:"cmd"`                    // IP
+	CustomAttr           []map[string]interface{} `json:"custom_attr"`            // 主机业务属性
+	Gids                 []float64                `json:"gids"`                   // gids
+	HostComment          []string                 `json:"host_comment"`           // 主机备注
+	HostId               []float64                `json:"host_id"`                // 主机 ID
+	HostIp               []string                 `json:"host_ip"`                // 主机 IP
+	HostName             []string                 `json:"host_name"`              // 主机名称
+	HostState            []string                 `json:"host_state"`             // 主机状态
+	HostTags             []string                 `json:"host_tags"`              // 主机标签
+	Ip                   []string                 `json:"ip"`                     // IP
+	Oid                  []float64                `json:"oid"`                    // 机构 ID
+	Pid                  []float64                `json:"pid"`                    // IP
+	Port                 []string                 `json:"port"`                   // IP
+	Protocol             []string                 `json:"protocol"`               // IP
+	SingletonPortProcess bool                     `json:"singleton_port_process"` // 单例网络应用
+	UpdatedAt            []string                 `json:"updated_at"`             // IP
+	Visibility           []bool                   `json:"visibility"`             // true
 }
-

@@ -3,8 +3,8 @@
 package asset_cert
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,16 +29,14 @@ var GetCmd = &cobra.Command{
 }
 
 func init() {
-		GetCmd.Flags().Float64Var(&getParams.HostId, "host-id", 0, "主机 id")
-		GetCmd.Flags().Float64Var(&getParams.Id, "id", 0, "ID")
-		GetCmd.Flags().StringVar(&getParams.Sha1Fingerprint, "sha1-fingerprint", "", "SHA1 指纹，小写八进制")
+	GetCmd.Flags().Float64Var(&getParams.HostId, "host-id", 0, "主机 id")
+	GetCmd.Flags().Float64Var(&getParams.Id, "id", 0, "ID")
+	GetCmd.Flags().StringVar(&getParams.Sha1Fingerprint, "sha1-fingerprint", "", "SHA1 指纹，小写八进制")
 }
-
 
 // GetParams 请求参数
 type GetParams struct {
-	HostId float64 `json:"host_id"` // 主机 id
-	Id float64 `json:"id"` // ID
-	Sha1Fingerprint string `json:"sha1_fingerprint"` // SHA1 指纹，小写八进制
+	HostId          float64 `json:"host_id"`          // 主机 id
+	Id              float64 `json:"id"`               // ID
+	Sha1Fingerprint string  `json:"sha1_fingerprint"` // SHA1 指纹，小写八进制
 }
-

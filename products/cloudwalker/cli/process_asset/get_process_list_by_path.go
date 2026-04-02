@@ -3,8 +3,8 @@
 package process_asset
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,102 +29,100 @@ var GetProcessListByPathCmd = &cobra.Command{
 }
 
 func init() {
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.AppName, "app-name", nil, "应用名称")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.AppVersion, "app-version", nil, "应用版本")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.Cmdline, "cmdline", nil, "命令行参数")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.Container, "container", nil, "相关容器ID")
-		GetProcessListByPathCmd.Flags().IntVar(&getProcessListByPathParams.Count, "count", 20, "数量")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetProcessListByPathCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.EffectiveGroup, "effective-group", nil, "进程所属有效用户组")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.EffectiveUser, "effective-user", nil, "进程所属有效用户")
-		GetProcessListByPathCmd.Flags().Float64SliceVar(&getProcessListByPathParams.Egid, "egid", nil, "进程所属有效用户组id")
-		GetProcessListByPathCmd.Flags().Float64SliceVar(&getProcessListByPathParams.Euid, "euid", nil, "进程所属有效用户id")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.FileAccessTime, "file-access-time", nil, "文件最近访问时间")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.FileBirth, "file-birth", nil, "文件创建时间")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.FileChangeTime, "file-change-time", nil, "文件属性修改时间")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.FileModifyTime, "file-modify-time", nil, "文件内容修改时间")
-		// filter is complex type []map[string]interface{}, use JSON string
-		var filterJSON string
-		GetProcessListByPathCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. [{\"effective_user\": \"System\", \"host_id\": 196, \"id\": 85521, \"name\": \"winlogon.exe\", \"path\": \"C:\\Windows\\System32\\winlogon.exe\"}])")
-		GetProcessListByPathCmd.Flags().Float64SliceVar(&getProcessListByPathParams.Gid, "gid", nil, "进程所属组id")
-		GetProcessListByPathCmd.Flags().Float64SliceVar(&getProcessListByPathParams.Gids, "gids", nil, "业务组 ID 列表")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.Group, "group", nil, "进程所属组")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.HostComment, "host-comment", nil, "主机备注")
-		GetProcessListByPathCmd.Flags().Float64SliceVar(&getProcessListByPathParams.HostId, "host-id", nil, "主机 ID")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.HostIp, "host-ip", nil, "主机 IP")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.HostName, "host-name", nil, "主机名称")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.HostState, "host-state", nil, "主机状态")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.HostTags, "host-tags", nil, "主机标签")
-		GetProcessListByPathCmd.Flags().BoolVar(&getProcessListByPathParams.InstallByPm, "install-by-pm", false, "是否通过包安装")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.Md5, "md5", nil, "可执行文件md5")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.Name, "name", nil, "进程名称")
-		GetProcessListByPathCmd.Flags().IntVar(&getProcessListByPathParams.Offset, "offset", 0, "偏移量")
-		GetProcessListByPathCmd.Flags().Float64SliceVar(&getProcessListByPathParams.Oid, "oid", nil, "机构 ID")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		GetProcessListByPathCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.Path, "path", nil, "可执行文件路径")
-		GetProcessListByPathCmd.Flags().Float64SliceVar(&getProcessListByPathParams.Pid, "pid", nil, "进程pid")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.PortNum, "port-num", nil, "端口数量范围")
-		GetProcessListByPathCmd.Flags().Float64SliceVar(&getProcessListByPathParams.Ppid, "ppid", nil, "进程ppid")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.Safety, "safety", nil, "安全性，枚举")
-		GetProcessListByPathCmd.Flags().BoolVar(&getProcessListByPathParams.SelectAll, "select-all", false, "是否获取所有")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.Sha256, "sha256", nil, "可执行文件sha256")
-		GetProcessListByPathCmd.Flags().BoolVar(&getProcessListByPathParams.SingleProcess, "single-process", false, "单例进程")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.Status, "status", nil, "进程状态，先输入字符串匹配。不是枚举，状态比较多不同操作系统不太一样")
-		GetProcessListByPathCmd.Flags().Float64SliceVar(&getProcessListByPathParams.Uid, "uid", nil, "进程所属用户id")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.Uptime, "uptime", nil, "进程启动时间")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.User, "user", nil, "进程所属用户")
-		GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.WorkDir, "work-dir", nil, "运行目录")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.AppName, "app-name", nil, "应用名称")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.AppVersion, "app-version", nil, "应用版本")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.Cmdline, "cmdline", nil, "命令行参数")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.Container, "container", nil, "相关容器ID")
+	GetProcessListByPathCmd.Flags().IntVar(&getProcessListByPathParams.Count, "count", 20, "数量")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetProcessListByPathCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.EffectiveGroup, "effective-group", nil, "进程所属有效用户组")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.EffectiveUser, "effective-user", nil, "进程所属有效用户")
+	GetProcessListByPathCmd.Flags().Float64SliceVar(&getProcessListByPathParams.Egid, "egid", nil, "进程所属有效用户组id")
+	GetProcessListByPathCmd.Flags().Float64SliceVar(&getProcessListByPathParams.Euid, "euid", nil, "进程所属有效用户id")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.FileAccessTime, "file-access-time", nil, "文件最近访问时间")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.FileBirth, "file-birth", nil, "文件创建时间")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.FileChangeTime, "file-change-time", nil, "文件属性修改时间")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.FileModifyTime, "file-modify-time", nil, "文件内容修改时间")
+	// filter is complex type []map[string]interface{}, use JSON string
+	var filterJSON string
+	GetProcessListByPathCmd.Flags().StringVar(&filterJSON, "filter", "", "filter (JSON, e.g. [{\"effective_user\": \"System\", \"host_id\": 196, \"id\": 85521, \"name\": \"winlogon.exe\", \"path\": \"C:\\Windows\\System32\\winlogon.exe\"}])")
+	GetProcessListByPathCmd.Flags().Float64SliceVar(&getProcessListByPathParams.Gid, "gid", nil, "进程所属组id")
+	GetProcessListByPathCmd.Flags().Float64SliceVar(&getProcessListByPathParams.Gids, "gids", nil, "业务组 ID 列表")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.Group, "group", nil, "进程所属组")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.HostComment, "host-comment", nil, "主机备注")
+	GetProcessListByPathCmd.Flags().Float64SliceVar(&getProcessListByPathParams.HostId, "host-id", nil, "主机 ID")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.HostIp, "host-ip", nil, "主机 IP")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.HostName, "host-name", nil, "主机名称")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.HostState, "host-state", nil, "主机状态")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.HostTags, "host-tags", nil, "主机标签")
+	GetProcessListByPathCmd.Flags().BoolVar(&getProcessListByPathParams.InstallByPm, "install-by-pm", false, "是否通过包安装")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.Md5, "md5", nil, "可执行文件md5")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.Name, "name", nil, "进程名称")
+	GetProcessListByPathCmd.Flags().IntVar(&getProcessListByPathParams.Offset, "offset", 0, "偏移量")
+	GetProcessListByPathCmd.Flags().Float64SliceVar(&getProcessListByPathParams.Oid, "oid", nil, "机构 ID")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	GetProcessListByPathCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.Path, "path", nil, "可执行文件路径")
+	GetProcessListByPathCmd.Flags().Float64SliceVar(&getProcessListByPathParams.Pid, "pid", nil, "进程pid")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.PortNum, "port-num", nil, "端口数量范围")
+	GetProcessListByPathCmd.Flags().Float64SliceVar(&getProcessListByPathParams.Ppid, "ppid", nil, "进程ppid")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.Safety, "safety", nil, "安全性，枚举")
+	GetProcessListByPathCmd.Flags().BoolVar(&getProcessListByPathParams.SelectAll, "select-all", false, "是否获取所有")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.Sha256, "sha256", nil, "可执行文件sha256")
+	GetProcessListByPathCmd.Flags().BoolVar(&getProcessListByPathParams.SingleProcess, "single-process", false, "单例进程")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.Status, "status", nil, "进程状态，先输入字符串匹配。不是枚举，状态比较多不同操作系统不太一样")
+	GetProcessListByPathCmd.Flags().Float64SliceVar(&getProcessListByPathParams.Uid, "uid", nil, "进程所属用户id")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.Uptime, "uptime", nil, "进程启动时间")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.User, "user", nil, "进程所属用户")
+	GetProcessListByPathCmd.Flags().StringSliceVar(&getProcessListByPathParams.WorkDir, "work-dir", nil, "运行目录")
 }
-
 
 // GetProcessListByPathParams 请求参数
 type GetProcessListByPathParams struct {
-	AppName []string `json:"app_name"` // 应用名称
-	AppVersion []string `json:"app_version"` // 应用版本
-	Cmdline []string `json:"cmdline"` // 命令行参数
-	Container []string `json:"container"` // 相关容器ID
-	Count int `json:"count"` // 数量
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	EffectiveGroup []string `json:"effective_group"` // 进程所属有效用户组
-	EffectiveUser []string `json:"effective_user"` // 进程所属有效用户
-	Egid []float64 `json:"egid"` // 进程所属有效用户组id
-	Euid []float64 `json:"euid"` // 进程所属有效用户id
-	FileAccessTime []string `json:"file_access_time"` // 文件最近访问时间
-	FileBirth []string `json:"file_birth"` // 文件创建时间
-	FileChangeTime []string `json:"file_change_time"` // 文件属性修改时间
-	FileModifyTime []string `json:"file_modify_time"` // 文件内容修改时间
-	Filter []map[string]interface{} `json:"filter"` // filter
-	Gid []float64 `json:"gid"` // 进程所属组id
-	Gids []float64 `json:"gids"` // 业务组 ID 列表
-	Group []string `json:"group"` // 进程所属组
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	InstallByPm bool `json:"install_by_pm"` // 是否通过包安装
-	Md5 []string `json:"md5"` // 可执行文件md5
-	Name []string `json:"name"` // 进程名称
-	Offset int `json:"offset"` // 偏移量
-	Oid []float64 `json:"oid"` // 机构 ID
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	Path []string `json:"path"` // 可执行文件路径
-	Pid []float64 `json:"pid"` // 进程pid
-	PortNum []string `json:"port_num"` // 端口数量范围
-	Ppid []float64 `json:"ppid"` // 进程ppid
-	Safety []string `json:"safety"` // 安全性，枚举
-	SelectAll bool `json:"select_all"` // 是否获取所有
-	Sha256 []string `json:"sha256"` // 可执行文件sha256
-	SingleProcess bool `json:"single_process"` // 单例进程
-	Status []string `json:"status"` // 进程状态，先输入字符串匹配。不是枚举，状态比较多不同操作系统不太一样
-	Uid []float64 `json:"uid"` // 进程所属用户id
-	Uptime []string `json:"uptime"` // 进程启动时间
-	User []string `json:"user"` // 进程所属用户
-	WorkDir []string `json:"work_dir"` // 运行目录
+	AppName        []string                 `json:"app_name"`         // 应用名称
+	AppVersion     []string                 `json:"app_version"`      // 应用版本
+	Cmdline        []string                 `json:"cmdline"`          // 命令行参数
+	Container      []string                 `json:"container"`        // 相关容器ID
+	Count          int                      `json:"count"`            // 数量
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	EffectiveGroup []string                 `json:"effective_group"`  // 进程所属有效用户组
+	EffectiveUser  []string                 `json:"effective_user"`   // 进程所属有效用户
+	Egid           []float64                `json:"egid"`             // 进程所属有效用户组id
+	Euid           []float64                `json:"euid"`             // 进程所属有效用户id
+	FileAccessTime []string                 `json:"file_access_time"` // 文件最近访问时间
+	FileBirth      []string                 `json:"file_birth"`       // 文件创建时间
+	FileChangeTime []string                 `json:"file_change_time"` // 文件属性修改时间
+	FileModifyTime []string                 `json:"file_modify_time"` // 文件内容修改时间
+	Filter         []map[string]interface{} `json:"filter"`           // filter
+	Gid            []float64                `json:"gid"`              // 进程所属组id
+	Gids           []float64                `json:"gids"`             // 业务组 ID 列表
+	Group          []string                 `json:"group"`            // 进程所属组
+	HostComment    []string                 `json:"host_comment"`     // 主机备注
+	HostId         []float64                `json:"host_id"`          // 主机 ID
+	HostIp         []string                 `json:"host_ip"`          // 主机 IP
+	HostName       []string                 `json:"host_name"`        // 主机名称
+	HostState      []string                 `json:"host_state"`       // 主机状态
+	HostTags       []string                 `json:"host_tags"`        // 主机标签
+	InstallByPm    bool                     `json:"install_by_pm"`    // 是否通过包安装
+	Md5            []string                 `json:"md5"`              // 可执行文件md5
+	Name           []string                 `json:"name"`             // 进程名称
+	Offset         int                      `json:"offset"`           // 偏移量
+	Oid            []float64                `json:"oid"`              // 机构 ID
+	OrderBy        map[string]interface{}   `json:"order_by"`         // 排序规则
+	Path           []string                 `json:"path"`             // 可执行文件路径
+	Pid            []float64                `json:"pid"`              // 进程pid
+	PortNum        []string                 `json:"port_num"`         // 端口数量范围
+	Ppid           []float64                `json:"ppid"`             // 进程ppid
+	Safety         []string                 `json:"safety"`           // 安全性，枚举
+	SelectAll      bool                     `json:"select_all"`       // 是否获取所有
+	Sha256         []string                 `json:"sha256"`           // 可执行文件sha256
+	SingleProcess  bool                     `json:"single_process"`   // 单例进程
+	Status         []string                 `json:"status"`           // 进程状态，先输入字符串匹配。不是枚举，状态比较多不同操作系统不太一样
+	Uid            []float64                `json:"uid"`              // 进程所属用户id
+	Uptime         []string                 `json:"uptime"`           // 进程启动时间
+	User           []string                 `json:"user"`             // 进程所属用户
+	WorkDir        []string                 `json:"work_dir"`         // 运行目录
 }
-

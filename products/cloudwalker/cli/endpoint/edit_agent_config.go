@@ -3,8 +3,8 @@
 package endpoint
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,14 +29,12 @@ var EditAgentConfigCmd = &cobra.Command{
 }
 
 func init() {
-		EditAgentConfigCmd.Flags().IntVar(&editAgentConfigParams.AgentHeartbeatInterval, "agent-heartbeat-interval", 0, "探针心跳间隔时间(秒)")
-		EditAgentConfigCmd.Flags().IntVar(&editAgentConfigParams.AgentOfflineTimes, "agent-offline-times", 0, "探针离线需要经过的心跳次数")
+	EditAgentConfigCmd.Flags().IntVar(&editAgentConfigParams.AgentHeartbeatInterval, "agent-heartbeat-interval", 0, "探针心跳间隔时间(秒)")
+	EditAgentConfigCmd.Flags().IntVar(&editAgentConfigParams.AgentOfflineTimes, "agent-offline-times", 0, "探针离线需要经过的心跳次数")
 }
-
 
 // EditAgentConfigParams 请求参数
 type EditAgentConfigParams struct {
 	AgentHeartbeatInterval int `json:"agent_heartbeat_interval"` // 探针心跳间隔时间(秒)
-	AgentOfflineTimes int `json:"agent_offline_times"` // 探针离线需要经过的心跳次数
+	AgentOfflineTimes      int `json:"agent_offline_times"`      // 探针离线需要经过的心跳次数
 }
-

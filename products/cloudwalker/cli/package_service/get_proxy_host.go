@@ -3,14 +3,12 @@
 package package_service
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 )
-
-
 
 var GetProxyHostCmd = &cobra.Command{
 	Use:   "get_proxy_host",
@@ -31,5 +29,3 @@ var GetProxyHostCmd = &cobra.Command{
 func init() {
 
 }
-
-

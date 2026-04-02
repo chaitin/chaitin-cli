@@ -3,8 +3,8 @@
 package asset_crontab
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,46 +29,44 @@ var GetCrontabListCmd = &cobra.Command{
 }
 
 func init() {
-		GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.Command, "command", nil, "命令")
-		GetCrontabListCmd.Flags().IntVar(&getCrontabListParams.Count, "count", 20, "数量")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		GetCrontabListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.Cycle, "cycle", nil, "任务周期")
-		GetCrontabListCmd.Flags().Float64SliceVar(&getCrontabListParams.Gids, "gids", nil, "业务组 ID 列表")
-		GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.HostComment, "host-comment", nil, "主机备注")
-		GetCrontabListCmd.Flags().Float64SliceVar(&getCrontabListParams.HostId, "host-id", nil, "主机 ID")
-		GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.HostIp, "host-ip", nil, "主机 IP")
-		GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.HostName, "host-name", nil, "主机名称")
-		GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.HostState, "host-state", nil, "主机状态")
-		GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.HostTags, "host-tags", nil, "主机标签")
-		GetCrontabListCmd.Flags().IntVar(&getCrontabListParams.Offset, "offset", 0, "偏移量")
-		GetCrontabListCmd.Flags().Float64SliceVar(&getCrontabListParams.Oid, "oid", nil, "机构 ID")
-		GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.Path, "path", nil, "路径")
-		GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.State, "state", nil, "状态(启用;禁用)")
-		GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.Type, "type", nil, "类型")
-		GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.User, "user", nil, "用户")
+	GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.Command, "command", nil, "命令")
+	GetCrontabListCmd.Flags().IntVar(&getCrontabListParams.Count, "count", 20, "数量")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	GetCrontabListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.Cycle, "cycle", nil, "任务周期")
+	GetCrontabListCmd.Flags().Float64SliceVar(&getCrontabListParams.Gids, "gids", nil, "业务组 ID 列表")
+	GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.HostComment, "host-comment", nil, "主机备注")
+	GetCrontabListCmd.Flags().Float64SliceVar(&getCrontabListParams.HostId, "host-id", nil, "主机 ID")
+	GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.HostIp, "host-ip", nil, "主机 IP")
+	GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.HostName, "host-name", nil, "主机名称")
+	GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.HostState, "host-state", nil, "主机状态")
+	GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.HostTags, "host-tags", nil, "主机标签")
+	GetCrontabListCmd.Flags().IntVar(&getCrontabListParams.Offset, "offset", 0, "偏移量")
+	GetCrontabListCmd.Flags().Float64SliceVar(&getCrontabListParams.Oid, "oid", nil, "机构 ID")
+	GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.Path, "path", nil, "路径")
+	GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.State, "state", nil, "状态(启用;禁用)")
+	GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.Type, "type", nil, "类型")
+	GetCrontabListCmd.Flags().StringSliceVar(&getCrontabListParams.User, "user", nil, "用户")
 }
-
 
 // GetCrontabListParams 请求参数
 type GetCrontabListParams struct {
-	Command []string `json:"command"` // 命令
-	Count int `json:"count"` // 数量
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	Cycle []string `json:"cycle"` // 任务周期
-	Gids []float64 `json:"gids"` // 业务组 ID 列表
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Offset int `json:"offset"` // 偏移量
-	Oid []float64 `json:"oid"` // 机构 ID
-	Path []string `json:"path"` // 路径
-	State []string `json:"state"` // 状态(启用;禁用)
-	Type []string `json:"type"` // 类型
-	User []string `json:"user"` // 用户
+	Command     []string                 `json:"command"`      // 命令
+	Count       int                      `json:"count"`        // 数量
+	CustomAttr  []map[string]interface{} `json:"custom_attr"`  // 主机业务属性
+	Cycle       []string                 `json:"cycle"`        // 任务周期
+	Gids        []float64                `json:"gids"`         // 业务组 ID 列表
+	HostComment []string                 `json:"host_comment"` // 主机备注
+	HostId      []float64                `json:"host_id"`      // 主机 ID
+	HostIp      []string                 `json:"host_ip"`      // 主机 IP
+	HostName    []string                 `json:"host_name"`    // 主机名称
+	HostState   []string                 `json:"host_state"`   // 主机状态
+	HostTags    []string                 `json:"host_tags"`    // 主机标签
+	Offset      int                      `json:"offset"`       // 偏移量
+	Oid         []float64                `json:"oid"`          // 机构 ID
+	Path        []string                 `json:"path"`         // 路径
+	State       []string                 `json:"state"`        // 状态(启用;禁用)
+	Type        []string                 `json:"type"`         // 类型
+	User        []string                 `json:"user"`         // 用户
 }
-

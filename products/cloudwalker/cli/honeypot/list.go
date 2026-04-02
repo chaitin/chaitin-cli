@@ -3,8 +3,8 @@
 package honeypot
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
@@ -29,70 +29,68 @@ var ListCmd = &cobra.Command{
 }
 
 func init() {
-		ListCmd.Flags().IntVar(&listParams.AggHostId, "agg-host-id", 0, "主机下钻")
-		ListCmd.Flags().StringSliceVar(&listParams.Comment, "comment", nil, "用户自定义备注")
-		ListCmd.Flags().IntVar(&listParams.Count, "count", 20, "每页记录数量, 默认为 20")
-		ListCmd.Flags().StringSliceVar(&listParams.CreatedAt, "created-at", nil, "事件创建时间")
-		// custom_attr is complex type []map[string]interface{}, use JSON string
-		var customAttrJSON string
-		ListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
-		ListCmd.Flags().StringSliceVar(&listParams.EndTime, "end-time", nil, "攻击结束时间")
-		ListCmd.Flags().Float64SliceVar(&listParams.Gids, "gids", nil, "业务组 ID")
-		ListCmd.Flags().StringVar(&listParams.HoneypotId, "honeypot-id", "", "蜜罐名下钻")
-		ListCmd.Flags().StringSliceVar(&listParams.HostComment, "host-comment", nil, "主机备注")
-		ListCmd.Flags().Float64SliceVar(&listParams.HostId, "host-id", nil, "主机 ID")
-		ListCmd.Flags().StringSliceVar(&listParams.HostIp, "host-ip", nil, "主机 IP")
-		ListCmd.Flags().StringSliceVar(&listParams.HostName, "host-name", nil, "主机名称")
-		ListCmd.Flags().StringSliceVar(&listParams.HostState, "host-state", nil, "主机状态")
-		ListCmd.Flags().StringSliceVar(&listParams.HostTags, "host-tags", nil, "主机标签")
-		ListCmd.Flags().IntSliceVar(&listParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
-		ListCmd.Flags().StringSliceVar(&listParams.LocationCode, "location-code", nil, "地理信息")
-		ListCmd.Flags().StringSliceVar(&listParams.Name, "name", nil, "蜜罐名称")
-		ListCmd.Flags().IntVar(&listParams.Offset, "offset", 0, "页偏移, 默认为 0")
-		ListCmd.Flags().Float64SliceVar(&listParams.Oid, "oid", nil, "机构 ID")
-		// order_by is object type, use JSON string
-		var orderByJSON string
-		ListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
-		ListCmd.Flags().StringSliceVar(&listParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
-		ListCmd.Flags().StringSliceVar(&listParams.SourceIp, "source-ip", nil, "攻击源 IP")
-		ListCmd.Flags().StringVar(&listParams.SourceIpId, "source-ip-id", "", "源 IP 下钻")
-		ListCmd.Flags().StringSliceVar(&listParams.StartTime, "start-time", nil, "攻击开始时间")
-		ListCmd.Flags().Float64SliceVar(&listParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
-		ListCmd.Flags().IntSliceVar(&listParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
-		ListCmd.Flags().StringSliceVar(&listParams.TargetIp, "target-ip", nil, "攻击目标 IP")
-		ListCmd.Flags().StringSliceVar(&listParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
+	ListCmd.Flags().IntVar(&listParams.AggHostId, "agg-host-id", 0, "主机下钻")
+	ListCmd.Flags().StringSliceVar(&listParams.Comment, "comment", nil, "用户自定义备注")
+	ListCmd.Flags().IntVar(&listParams.Count, "count", 20, "每页记录数量, 默认为 20")
+	ListCmd.Flags().StringSliceVar(&listParams.CreatedAt, "created-at", nil, "事件创建时间")
+	// custom_attr is complex type []map[string]interface{}, use JSON string
+	var customAttrJSON string
+	ListCmd.Flags().StringVar(&customAttrJSON, "custom-attr", "", "主机业务属性 (JSON, e.g. [{\"attr_name\": \"负责人\", \"attr_value\": [\"David\"]}])")
+	ListCmd.Flags().StringSliceVar(&listParams.EndTime, "end-time", nil, "攻击结束时间")
+	ListCmd.Flags().Float64SliceVar(&listParams.Gids, "gids", nil, "业务组 ID")
+	ListCmd.Flags().StringVar(&listParams.HoneypotId, "honeypot-id", "", "蜜罐名下钻")
+	ListCmd.Flags().StringSliceVar(&listParams.HostComment, "host-comment", nil, "主机备注")
+	ListCmd.Flags().Float64SliceVar(&listParams.HostId, "host-id", nil, "主机 ID")
+	ListCmd.Flags().StringSliceVar(&listParams.HostIp, "host-ip", nil, "主机 IP")
+	ListCmd.Flags().StringSliceVar(&listParams.HostName, "host-name", nil, "主机名称")
+	ListCmd.Flags().StringSliceVar(&listParams.HostState, "host-state", nil, "主机状态")
+	ListCmd.Flags().StringSliceVar(&listParams.HostTags, "host-tags", nil, "主机标签")
+	ListCmd.Flags().IntSliceVar(&listParams.Level, "level", nil, "事件等级(1-低危，2-中危，3-高危，4-严重)")
+	ListCmd.Flags().StringSliceVar(&listParams.LocationCode, "location-code", nil, "地理信息")
+	ListCmd.Flags().StringSliceVar(&listParams.Name, "name", nil, "蜜罐名称")
+	ListCmd.Flags().IntVar(&listParams.Offset, "offset", 0, "页偏移, 默认为 0")
+	ListCmd.Flags().Float64SliceVar(&listParams.Oid, "oid", nil, "机构 ID")
+	// order_by is object type, use JSON string
+	var orderByJSON string
+	ListCmd.Flags().StringVar(&orderByJSON, "order-by", "", "排序规则 (JSON, e.g. {\"column\": \"level\", \"order\": \"ASC\"})")
+	ListCmd.Flags().StringSliceVar(&listParams.RemoteAddrType, "remote-addr-type", nil, "远程IP类型，intranet(内网)、internet(外网)")
+	ListCmd.Flags().StringSliceVar(&listParams.SourceIp, "source-ip", nil, "攻击源 IP")
+	ListCmd.Flags().StringVar(&listParams.SourceIpId, "source-ip-id", "", "源 IP 下钻")
+	ListCmd.Flags().StringSliceVar(&listParams.StartTime, "start-time", nil, "攻击开始时间")
+	ListCmd.Flags().Float64SliceVar(&listParams.StatEventId, "stat-event-id", nil, "事件统计 ID")
+	ListCmd.Flags().IntSliceVar(&listParams.State, "state", nil, "事件状态(1-有风险，2-已忽略，3-已处理)")
+	ListCmd.Flags().StringSliceVar(&listParams.TargetIp, "target-ip", nil, "攻击目标 IP")
+	ListCmd.Flags().StringSliceVar(&listParams.WhiteRuleId, "white-rule-id", nil, "白名单规则 ID")
 }
-
 
 // ListParams 请求参数
 type ListParams struct {
-	AggHostId int `json:"agg_host_id"` // 主机下钻
-	Comment []string `json:"comment"` // 用户自定义备注
-	Count int `json:"count"` // 每页记录数量, 默认为 20
-	CreatedAt []string `json:"created_at"` // 事件创建时间
-	CustomAttr []map[string]interface{} `json:"custom_attr"` // 主机业务属性
-	EndTime []string `json:"end_time"` // 攻击结束时间
-	Gids []float64 `json:"gids"` // 业务组 ID
-	HoneypotId string `json:"honeypot_id"` // 蜜罐名下钻
-	HostComment []string `json:"host_comment"` // 主机备注
-	HostId []float64 `json:"host_id"` // 主机 ID
-	HostIp []string `json:"host_ip"` // 主机 IP
-	HostName []string `json:"host_name"` // 主机名称
-	HostState []string `json:"host_state"` // 主机状态
-	HostTags []string `json:"host_tags"` // 主机标签
-	Level []int `json:"level"` // 事件等级(1-低危，2-中危，3-高危，4-严重)
-	LocationCode []string `json:"location_code"` // 地理信息
-	Name []string `json:"name"` // 蜜罐名称
-	Offset int `json:"offset"` // 页偏移, 默认为 0
-	Oid []float64 `json:"oid"` // 机构 ID
-	OrderBy map[string]interface{} `json:"order_by"` // 排序规则
-	RemoteAddrType []string `json:"remote_addr_type"` // 远程IP类型，intranet(内网)、internet(外网)
-	SourceIp []string `json:"source_ip"` // 攻击源 IP
-	SourceIpId string `json:"source_ip_id"` // 源 IP 下钻
-	StartTime []string `json:"start_time"` // 攻击开始时间
-	StatEventId []float64 `json:"stat_event_id"` // 事件统计 ID
-	State []int `json:"state"` // 事件状态(1-有风险，2-已忽略，3-已处理)
-	TargetIp []string `json:"target_ip"` // 攻击目标 IP
-	WhiteRuleId []string `json:"white_rule_id"` // 白名单规则 ID
+	AggHostId      int                      `json:"agg_host_id"`      // 主机下钻
+	Comment        []string                 `json:"comment"`          // 用户自定义备注
+	Count          int                      `json:"count"`            // 每页记录数量, 默认为 20
+	CreatedAt      []string                 `json:"created_at"`       // 事件创建时间
+	CustomAttr     []map[string]interface{} `json:"custom_attr"`      // 主机业务属性
+	EndTime        []string                 `json:"end_time"`         // 攻击结束时间
+	Gids           []float64                `json:"gids"`             // 业务组 ID
+	HoneypotId     string                   `json:"honeypot_id"`      // 蜜罐名下钻
+	HostComment    []string                 `json:"host_comment"`     // 主机备注
+	HostId         []float64                `json:"host_id"`          // 主机 ID
+	HostIp         []string                 `json:"host_ip"`          // 主机 IP
+	HostName       []string                 `json:"host_name"`        // 主机名称
+	HostState      []string                 `json:"host_state"`       // 主机状态
+	HostTags       []string                 `json:"host_tags"`        // 主机标签
+	Level          []int                    `json:"level"`            // 事件等级(1-低危，2-中危，3-高危，4-严重)
+	LocationCode   []string                 `json:"location_code"`    // 地理信息
+	Name           []string                 `json:"name"`             // 蜜罐名称
+	Offset         int                      `json:"offset"`           // 页偏移, 默认为 0
+	Oid            []float64                `json:"oid"`              // 机构 ID
+	OrderBy        map[string]interface{}   `json:"order_by"`         // 排序规则
+	RemoteAddrType []string                 `json:"remote_addr_type"` // 远程IP类型，intranet(内网)、internet(外网)
+	SourceIp       []string                 `json:"source_ip"`        // 攻击源 IP
+	SourceIpId     string                   `json:"source_ip_id"`     // 源 IP 下钻
+	StartTime      []string                 `json:"start_time"`       // 攻击开始时间
+	StatEventId    []float64                `json:"stat_event_id"`    // 事件统计 ID
+	State          []int                    `json:"state"`            // 事件状态(1-有风险，2-已忽略，3-已处理)
+	TargetIp       []string                 `json:"target_ip"`        // 攻击目标 IP
+	WhiteRuleId    []string                 `json:"white_rule_id"`    // 白名单规则 ID
 }
-
