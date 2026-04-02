@@ -5,32 +5,33 @@ package cli
 import (
 	"fmt"
 	"log"
-	"os"
-	"path"
-	"path/filepath"
+	neturl "net/url"
 
+	"github.com/chaitin/workspace-cli/config"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
+	"github.com/chaitin/workspace-cli/products/xray/client"
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/chaitin/workspace-cli/products/xray/client"
 )
 
 var (
 	// debug flag indicating that cli should output debug logs
 	debug bool
 
-	// config file location
-	configFile string
-
 	// dry run flag
 	dryRun bool
 
-	// name of the executable
-	exeName = filepath.Base(os.Args[0])
+	// runtime config injected by the root command
+	runtimeCfg runtimeProductConfig
 )
+
+type runtimeProductConfig struct {
+	URL    string `yaml:"url"`
+	APIKey string `yaml:"api_key"`
+}
 
 // logDebugf writes debug log to stdout
 func logDebugf(format string, v ...any) {
@@ -45,10 +46,10 @@ var maxDepth int = 5
 
 // makeClient constructs a client object
 func makeClient(cmd *cobra.Command, _ []string) (*client.OPENAPI, error) {
-	hostname := viper.GetString("hostname")
-	viper.SetDefault("base_path", client.DefaultBasePath)
-	basePath := viper.GetString("base_path")
-	scheme := viper.GetString("scheme")
+	scheme, hostname, basePath, err := resolveServerConfig(cmd)
+	if err != nil {
+		return nil, err
+	}
 
 	r := httptransport.New(hostname, basePath, []string{scheme})
 	r.SetDebug(debug)
@@ -75,33 +76,15 @@ func makeClient(cmd *cobra.Command, _ []string) (*client.OPENAPI, error) {
 
 // MakeCommand returns the xray subcommand
 func MakeCommand() (*cobra.Command, error) {
-	cobra.OnInitialize(initViperConfigs)
-
 	// Use "xray" as the command name for subcommand usage
 	rootCmd := &cobra.Command{
 		Use: "xray",
 	}
 
-	// register basic flags
-	rootCmd.PersistentFlags().String("hostname", client.DefaultHost, "hostname of the service")
-	if err := viper.BindPFlag("hostname", rootCmd.PersistentFlags().Lookup("hostname")); err != nil {
-		return nil, err
-	}
-	rootCmd.PersistentFlags().String("scheme", client.DefaultSchemes[0], fmt.Sprintf("Choose from: %v", client.DefaultSchemes))
-	if err := viper.BindPFlag("scheme", rootCmd.PersistentFlags().Lookup("scheme")); err != nil {
-		return nil, err
-	}
-	rootCmd.PersistentFlags().String("base-path", client.DefaultBasePath, fmt.Sprintf("For example: %v", client.DefaultBasePath))
-	if err := viper.BindPFlag("base_path", rootCmd.PersistentFlags().Lookup("base-path")); err != nil {
-		return nil, err
-	}
+	rootCmd.PersistentFlags().String("url", "", "API URL (e.g. https://api.example.com/api/v2)")
 
 	// configure debug flag
 	rootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "output debug logs")
-	// configure config location
-	rootCmd.PersistentFlags().StringVar(&configFile, "config", "", "config file path")
-	// configure dry run flag
-	rootCmd.PersistentFlags().BoolVar(&dryRun, "dry-run", false, "do not send the request to server")
 
 	// register security flags
 	if err := registerAuthInoWriterFlags(rootCmd); err != nil {
@@ -232,48 +215,9 @@ func MakeCommand() (*cobra.Command, error) {
 	return rootCmd, nil
 }
 
-// initViperConfigs initialize viper config using config file in '$HOME/.config/<cli name>/config.<json|yaml...>'
-// currently hostname, scheme and auth tokens can be specified in this config file.
-func initViperConfigs() {
-	if configFile != "" {
-		// use user specified config file location
-		viper.SetConfigFile(configFile)
-	} else {
-		var (
-			configDir string
-			err       error
-		)
-
-		// look for default config (OS-specific, e.g. ".config" on linux)
-		configDir, err = os.UserConfigDir()
-		if err != nil {
-			// fallback and try finding the home directory.
-			home, err := os.UserHomeDir()
-			cobra.CheckErr(err)
-			configDir = path.Join(home, ".config")
-		}
-
-		// Search config in the config directory with name of the CLI binary (without extension).
-		configDir = path.Join(configDir, exeName)
-		viper.AddConfigPath(configDir)
-		viper.SetConfigName("config")
-	}
-
-	if err := viper.ReadInConfig(); err != nil {
-		logDebugf("Error: loading config file: %v", err)
-		return
-	}
-	logDebugf("Using config file: %v", viper.ConfigFileUsed())
-}
-
 // registerAuthInoWriterFlags registers all flags needed to perform authentication
 func registerAuthInoWriterFlags(cmd *cobra.Command) error {
-	// token
-	cmd.PersistentFlags().String("token", "", ``)
-	if err := viper.BindPFlag("token", cmd.PersistentFlags().Lookup("token")); err != nil {
-		return err
-	}
-
+	cmd.PersistentFlags().String("api-key", "", "")
 	return nil
 }
 
@@ -281,10 +225,9 @@ func registerAuthInoWriterFlags(cmd *cobra.Command) error {
 func makeAuthInfoWriter(cmd *cobra.Command) (runtime.ClientAuthInfoWriter, error) {
 	auths := []runtime.ClientAuthInfoWriter{}
 
-	// token
-	if viper.IsSet("token") {
-		TokenKey := viper.GetString("token")
-		auths = append(auths, httptransport.APIKeyAuth("token", "header", TokenKey))
+	token := resolveToken(cmd)
+	if token != "" {
+		auths = append(auths, httptransport.APIKeyAuth("token", "header", token))
 	}
 
 	if len(auths) == 0 {
@@ -294,7 +237,61 @@ func makeAuthInfoWriter(cmd *cobra.Command) (runtime.ClientAuthInfoWriter, error
 
 	// compose all auths together
 	return httptransport.Compose(auths...), nil
-} // makeGroupOfOperationsAssetPropertyCmd returns a parent command to handle all operations with tag "asset_property"
+}
+
+func resolveServerConfig(cmd *cobra.Command) (string, string, string, error) {
+	rawURL := runtimeCfg.URL
+	if flagChanged(cmd, "url") {
+		value, err := cmd.Flags().GetString("url")
+		if err != nil {
+			return "", "", "", err
+		}
+		rawURL = value
+	}
+	if rawURL == "" {
+		return "", "", "", fmt.Errorf("xray url is not configured")
+	}
+
+	parsed, err := neturl.Parse(rawURL)
+	if err != nil {
+		return "", "", "", fmt.Errorf("parse xray url %q: %w", rawURL, err)
+	}
+	if parsed.Scheme == "" || parsed.Host == "" {
+		return "", "", "", fmt.Errorf("invalid xray url %q", rawURL)
+	}
+
+	basePath := parsed.EscapedPath()
+	if basePath == "" {
+		basePath = client.DefaultBasePath
+	}
+
+	return parsed.Scheme, parsed.Host, basePath, nil
+}
+
+func resolveToken(cmd *cobra.Command) string {
+	if flagChanged(cmd, "api-key") {
+		token, err := cmd.Flags().GetString("api-key")
+		if err == nil {
+			return token
+		}
+	}
+	return runtimeCfg.APIKey
+}
+
+func flagChanged(cmd *cobra.Command, name string) bool {
+	flag := cmd.Flags().Lookup(name)
+	return flag != nil && flag.Changed
+}
+
+func SetRuntimeConfig(cfg config.Raw, enabledDryRun bool) {
+	productCfg, err := config.DecodeProduct[runtimeProductConfig](cfg, "xray")
+	if err == nil {
+		runtimeCfg = productCfg
+	}
+	dryRun = enabledDryRun
+}
+
+// makeGroupOfOperationsAssetPropertyCmd returns a parent command to handle all operations with tag "asset_property"
 func makeGroupOfOperationsAssetPropertyCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "asset_property",

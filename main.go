@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/chaitin/workspace-cli/config"
 	"github.com/chaitin/workspace-cli/products/chaitin"
 	"github.com/chaitin/workspace-cli/products/cloudwalker"
 	"github.com/chaitin/workspace-cli/products/tanswer"
@@ -16,9 +17,16 @@ import (
 type app struct {
 	root             *cobra.Command
 	aliasSubcommands map[string]struct{}
+	config           config.Raw
+	dryRun           bool
 }
 
-func newApp() *app {
+func newApp() (*app, error) {
+	cfg, err := loadConfigFile(configPathFromCWD())
+	if err != nil {
+		return nil, err
+	}
+
 	root := &cobra.Command{
 		Use:           "cws",
 		Short:         "CLI for Chaitin Tech products",
@@ -29,7 +37,10 @@ func newApp() *app {
 	a := &app{
 		root:             root,
 		aliasSubcommands: make(map[string]struct{}),
+		config:           cfg,
 	}
+
+	root.PersistentFlags().BoolVar(&a.dryRun, "dry-run", false, "Do not send requests for commands that support dry-run")
 
 	a.registerProductCommand(chaitin.NewCommand())
 	a.registerProductCommand(cloudwalker.NewCommand())
@@ -37,13 +48,13 @@ func newApp() *app {
 
 	xrayCmd, err := xray.NewCommand()
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 	a.registerProductCommand(xrayCmd)
 
 	// TODO: register more products
 
-	return a
+	return a, nil
 }
 
 func (a *app) execute() error {
@@ -72,8 +83,34 @@ func (a *app) registerProductCommand(cmd *cobra.Command) {
 		return
 	}
 
+	a.wrapProductCommand(cmd)
 	a.aliasSubcommands[cmd.Name()] = struct{}{}
 	a.root.AddCommand(cmd)
+}
+
+func (a *app) wrapProductCommand(cmd *cobra.Command) {
+	oldPreRun := cmd.PersistentPreRun
+	oldPreRunE := cmd.PersistentPreRunE
+
+	cmd.PersistentPreRunE = func(command *cobra.Command, args []string) error {
+		switch cmd.Name() {
+		case "cloudwalker":
+			cloudwalker.ApplyRuntimeConfig(command, a.config)
+		case "tanswer":
+			tanswer.ApplyRuntimeConfig(command, a.config)
+		case "xray":
+			xray.ApplyRuntimeConfig(command, a.config, a.dryRun)
+			// TODO: register more products
+		}
+
+		if oldPreRun != nil {
+			oldPreRun(command, args)
+		}
+		if oldPreRunE != nil {
+			return oldPreRunE(command, args)
+		}
+		return nil
+	}
 }
 
 func normalizeBinaryName(path string) string {
@@ -87,7 +124,12 @@ func normalizeBinaryName(path string) string {
 }
 
 func main() {
-	if err := newApp().execute(); err != nil {
+	app, err := newApp()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if err := app.execute(); err != nil {
 		log.Fatal(err)
 	}
 }

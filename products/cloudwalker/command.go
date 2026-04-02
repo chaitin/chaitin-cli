@@ -3,9 +3,9 @@
 package cloudwalker
 
 import (
-	"os"
 	"strings"
 
+	"github.com/chaitin/workspace-cli/config"
 	"github.com/chaitin/workspace-cli/products/cloudwalker/client"
 	"github.com/spf13/cobra"
 
@@ -87,25 +87,30 @@ import (
 )
 
 var (
-	baseURL string
+	apiURL  string
 	apiKey  string
 	debug   bool
 	format  string
 	noTrunc bool
 )
 
+type runtimeConfig struct {
+	URL    string `yaml:"url"`
+	APIKey string `yaml:"api_key"`
+}
+
 var rootCmd = &cobra.Command{
 	Use:   "cloudwalker",
 	Short: "牧云 CLI 工具",
 	Long:  `牧云（CloudWalker）云工作负载保护平台 CLI 工具，支持资产清点、风险感知、入侵检测和安全防护等功能模块的操作。`,
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
-		// 设置 baseURL
-		if baseURL != "" {
+		// 设置 url
+		if apiURL != "" {
 			// 检查是否以 /rpc 结尾，如果没有则添加
-			if !strings.HasSuffix(baseURL, "/rpc") {
-				baseURL = strings.TrimSuffix(baseURL, "/") + "/rpc"
+			if !strings.HasSuffix(apiURL, "/rpc") {
+				apiURL = strings.TrimSuffix(apiURL, "/") + "/rpc"
 			}
-			client.SetBaseURL(baseURL)
+			client.SetBaseURL(apiURL)
 		}
 		// 设置 apiKey
 		if apiKey != "" {
@@ -121,19 +126,11 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringVar(&baseURL, "base-url", "", "API Base URL (e.g. https://api.example.com)")
+	rootCmd.PersistentFlags().StringVar(&apiURL, "url", "", "API URL (e.g. https://api.example.com/rpc)")
 	rootCmd.PersistentFlags().StringVar(&apiKey, "api-key", "", "API Key for authentication")
 	rootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "Print request body for debugging")
 	rootCmd.PersistentFlags().StringVarP(&format, "format", "f", "text", "Output format (json or text)")
 	rootCmd.PersistentFlags().BoolVar(&noTrunc, "no-trunc", false, "Show full content without truncation in text output")
-
-	// 也可以通过环境变量配置
-	if envBaseURL := os.Getenv("WORKSPACE_CLI_CLOUDWALKER_BASE_URL"); envBaseURL != "" {
-		baseURL = envBaseURL
-	}
-	if envAPIKey := os.Getenv("WORKSPACE_CLI_CLOUDWALKER_API_KEY"); envAPIKey != "" {
-		apiKey = envAPIKey
-	}
 
 	// 添加子命令
 	rootCmd.AddCommand(abnormal_login_event.AbnormalLoginEventCmd)
@@ -215,4 +212,19 @@ func init() {
 
 func NewCommand() *cobra.Command {
 	return rootCmd
+}
+
+func ApplyRuntimeConfig(cmd *cobra.Command, cfg config.Raw) {
+	productCfg, err := config.DecodeProduct[runtimeConfig](cfg, rootCmd.Name())
+	if err != nil {
+		return
+	}
+
+	if flag := cmd.Flags().Lookup("url"); flag != nil && !flag.Changed {
+		apiURL = productCfg.URL
+	}
+
+	if flag := cmd.Flags().Lookup("api-key"); flag != nil && !flag.Changed {
+		apiKey = productCfg.APIKey
+	}
 }

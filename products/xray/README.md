@@ -29,16 +29,25 @@
 | `xprocess` | 扫描进程 |
 | `xprocess_lite` | 轻量级扫描进程 |
 
-## 全局参数
+## 配置
+
+在当前工作目录的 `config.yaml` 中配置：
+
+```yaml
+xray:
+  url: https://x-ray-demo.chaitin.cn/api/v2
+  api_key: YOUR_TOKEN
+```
+
+## 产品参数
 
 | 参数 | 说明 | 默认值 |
 |------|------|--------|
-| `--hostname` | 服务器地址 | localhost |
-| `--scheme` | 协议 (http/https) | http |
-| `--base-path` | API 路径 | /api/v2 |
-| `--token` | 认证令牌 | - |
+| `--url` | API 地址 | 从 `config.yaml` 读取 |
+| `--api-key` | 认证令牌 | 从 `config.yaml` 读取 |
 | `--debug` | 输出调试日志 | false |
-| `--dry-run` | 仅构建请求不发送 | false |
+
+`--dry-run` 由主命令 `cws` 提供，例如 `cws --dry-run xray ...`。
 
 ## 任务管理
 
@@ -47,14 +56,10 @@
 快速创建扫描任务，自动使用"基础服务漏洞扫描"模板。
 
 ```bash
-./xray plan PostPlanCreateQuick \
+cws xray plan PostPlanCreateQuick \
   --targets=10.3.0.4,10.3.0.5 \
   --engines=00000000000000000000000000000001 \
-  --project-id=1 \
-  --hostname=x-ray-demo.chaitin.cn \
-  --scheme=https \
-  --base-path=/api/v2 \
-  --token=YOUR_TOKEN
+  --project-id=1
 ```
 
 **参数说明：**
@@ -73,14 +78,10 @@
 查看扫描任务列表。
 
 ```bash
-./xray plan PostPlanFilter \
+cws xray plan PostPlanFilter \
   --filterPlan.limit=10 \
   --filterPlan.offset=0 \
-  --filterPlan.project-id=1 \
-  --hostname=x-ray-demo.chaitin.cn \
-  --scheme=https \
-  --base-path=/api/v2 \
-  --token=YOUR_TOKEN
+  --filterPlan.project-id=1
 ```
 
 ### 暂停任务 (PostPlanStop)
@@ -88,12 +89,8 @@
 暂停正在运行的扫描任务。
 
 ```bash
-./xray plan PostPlanStop \
-  --stopPlanBody.id=783 \
-  --hostname=x-ray-demo.chaitin.cn \
-  --scheme=https \
-  --base-path=/api/v2 \
-  --token=YOUR_TOKEN
+cws xray plan PostPlanStop \
+  --stopPlanBody.id=783
 ```
 
 ### 恢复任务 (PostPlanExecute)
@@ -101,12 +98,8 @@
 恢复已暂停的扫描任务。
 
 ```bash
-./xray plan PostPlanExecute \
-  --executePlanBody.id=783 \
-  --hostname=x-ray-demo.chaitin.cn \
-  --scheme=https \
-  --base-path=/api/v2 \
-  --token=YOUR_TOKEN
+cws xray plan PostPlanExecute \
+  --executePlanBody.id=783
 ```
 
 ### 删除任务 (DeletePlanID)
@@ -114,10 +107,6 @@
 删除指定的扫描任务。
 
 ```bash
-./xray plan DeletePlanID \
-  --id=783 \
-  --hostname=x-ray-demo.chaitin.cn \
-  --scheme=https \
-  --base-path=/api/v2 \
-  --token=YOUR_TOKEN
+cws xray plan DeletePlanID \
+  --id=783
 ```

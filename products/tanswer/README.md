@@ -2,11 +2,14 @@
 
 全悉（T-Answer）命令行工具，通过 OpenAPI 控制全悉流量威胁检测系统。
 
-## 权限配置
+## 配置
 
-```
-export CWS_TA_SERVER=https://<全悉 Web 端 IP>
-export CWS_TA_TOKEN=<全悉 OpenAPI Token>
+在当前工作目录的 `config.yaml` 中配置：
+
+```yaml
+tanswer:
+  url: https://<全悉 Web 端 IP>
+  api_key: <全悉 OpenAPI Token>
 ```
 
 ## 命令列表
@@ -21,3 +24,5 @@ export CWS_TA_TOKEN=<全悉 OpenAPI Token>
 | cws tanswer rules    search-block-rules        | SearchBlockRules 响应处置 / 旁路阻断策略：搜索旁路阻断策略 |
 | cws tanswer rules    update-block-rules        | UpdateBlockRules 响应处置 / 旁路阻断策略：编辑旁路阻断策略 |
 | cws tanswer rules    update-block-rules-status | UpdateBlockRulesStatus 响应处置 / 旁路阻断策略：启用或禁用旁路阻断策略 |
+
+产品级覆盖参数统一为 `--url` 和 `--api-key`。

@@ -20,6 +20,8 @@ func NewCommand() *cobra.Command {
 		Short: "T-Answer product APIs",
 	}
 
+	cmd.PersistentFlags().String("url", "", "API URL (e.g. https://api.example.com)")
+	cmd.PersistentFlags().String("api-key", "", "API Key for authentication")
 	cmd.PersistentFlags().Bool("raw", false, "Output raw JSON without formatting")
 
 	entries, err := apiSpecs.ReadDir("apis")

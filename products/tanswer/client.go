@@ -7,22 +7,27 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"os"
 	"strings"
 
+	"github.com/chaitin/workspace-cli/config"
 	"github.com/google/uuid"
 	"github.com/spf13/cobra"
-)
-
-const (
-	envServer = "CWS_TA_SERVER"
-	envToken  = "CWS_TA_TOKEN"
 )
 
 var httpClient = &http.Client{
 	Transport: &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	},
+}
+
+var (
+	serverURL string
+	apiToken  string
+)
+
+type runtimeConfig struct {
+	URL    string `yaml:"url"`
+	APIKey string `yaml:"api_key"`
 }
 
 // jsonRPCRequest 是 JSON-RPC 2.0 请求体。
@@ -35,13 +40,11 @@ type jsonRPCRequest struct {
 
 // doRequest 构造 JSON-RPC 2.0 请求并发送到 /rpc 端点。
 func doRequest(cmd *cobra.Command, method string, params map[string]interface{}, raw bool) error {
-	server := os.Getenv(envServer)
+	server := serverURL
 	if server == "" {
-		return fmt.Errorf("environment variable %s is not set", envServer)
+		return fmt.Errorf("tanswer url is not configured")
 	}
 	server = strings.TrimRight(server, "/")
-
-	token := os.Getenv(envToken)
 
 	url := server + "/rpc"
 
@@ -67,8 +70,8 @@ func doRequest(cmd *cobra.Command, method string, params map[string]interface{},
 	}
 
 	req.Header.Set("Content-Type", "application/json;charset=UTF-8")
-	if token != "" {
-		req.Header.Set("API-Token", token)
+	if apiToken != "" {
+		req.Header.Set("API-Token", apiToken)
 	}
 
 	resp, err := httpClient.Do(req)
@@ -105,4 +108,29 @@ func outputResponse(w io.Writer, data []byte, raw bool) error {
 
 	_, err := fmt.Fprintln(w, pretty.String())
 	return err
+}
+
+func ApplyRuntimeConfig(cmd *cobra.Command, cfg config.Raw) {
+	productCfg, err := config.DecodeProduct[runtimeConfig](cfg, "tanswer")
+	if err != nil {
+		return
+	}
+
+	if flag := cmd.Flags().Lookup("url"); flag != nil && flag.Changed {
+		value, flagErr := cmd.Flags().GetString("url")
+		if flagErr == nil {
+			serverURL = value
+		}
+	} else {
+		serverURL = productCfg.URL
+	}
+
+	if flag := cmd.Flags().Lookup("api-key"); flag != nil && flag.Changed {
+		value, flagErr := cmd.Flags().GetString("api-key")
+		if flagErr == nil {
+			apiToken = value
+		}
+	} else {
+		apiToken = productCfg.APIKey
+	}
 }
