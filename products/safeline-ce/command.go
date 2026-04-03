@@ -1,0 +1,311 @@
+package safelinece
+
+import (
+	"embed"
+	"encoding/json"
+	"fmt"
+	"os"
+
+	"github.com/chaitin/workspace-cli/config"
+	"github.com/spf13/cobra"
+)
+
+//go:embed openapi.json
+var openAPIFS embed.FS
+
+// 运行时配置
+var (
+	runtimeCfg runtimeConfig
+)
+
+type runtimeConfig struct {
+	Endpoint string `yaml:"endpoint"`
+	Token    string `yaml:"token"`
+}
+
+// NewCommand 创建 safeline-ce 命令
+func NewCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "safeline-ce",
+		Short: "SafeLine Community Edition - WAF management tool",
+		Long: `SafeLine CE CLI - SafeLine 社区版命令行管理工具
+
+快速入门:
+  # 1. 创建配置文件 config.yaml
+  safeline-ce:
+    endpoint: https://your-server:9443
+    token: your-api-token
+
+  # 2. 查看帮助
+  cws safeline-ce --help
+
+  # 3. 查看站点列表
+  cws safeline-ce site list
+
+  # 4. 查看攻击日志
+  cws safeline-ce log attack list
+
+  # 5. 查看统计概览
+  cws safeline-ce stat overview
+
+文档: https://github.com/chaitin/safeline-ce`,
+		PersistentPreRun: func(cmd *cobra.Command, args []string) {
+			// 加载配置文件
+			loadConfigFromFile(cmd)
+			// 应用运行时配置
+			applyRuntimeConfig(cmd)
+		},
+	}
+
+	// 全局 flags
+	cmd.PersistentFlags().String("config", "", "Config file path (default: ./config.yaml)")
+	cmd.PersistentFlags().String("endpoint", "", "API endpoint (e.g. https://your-server:9443)")
+	cmd.PersistentFlags().String("token", "", "API token for authentication")
+	cmd.PersistentFlags().StringP("output", "o", "table", "Output format (table|json)")
+	cmd.PersistentFlags().Bool("verbose", false, "Verbose output")
+
+	// 加载动态命令
+	if err := loadDynamicCommands(cmd); err != nil {
+		// 允许在没有配置时显示帮助，但打印警告
+		fmt.Fprintf(os.Stderr, "Warning: %v\n", err)
+	}
+
+	return cmd
+}
+
+// ApplyRuntimeConfig 应用运行时配置（供 main.go 调用）
+func ApplyRuntimeConfig(cmd *cobra.Command, cfg config.Raw) {
+	productCfg, err := config.DecodeProduct[runtimeConfig](cfg, "safeline-ce")
+	if err != nil {
+		return
+	}
+	runtimeCfg = productCfg
+}
+
+// applyRuntimeConfig 应用运行时配置到命令 flags
+func applyRuntimeConfig(cmd *cobra.Command) {
+	// 如果 flag 未设置，使用配置文件的值
+	if flag := cmd.Flags().Lookup("endpoint"); flag != nil && !flag.Changed && runtimeCfg.Endpoint != "" {
+		_ = cmd.Flags().Set("endpoint", runtimeCfg.Endpoint)
+	}
+	if flag := cmd.Flags().Lookup("token"); flag != nil && !flag.Changed && runtimeCfg.Token != "" {
+		_ = cmd.Flags().Set("token", runtimeCfg.Token)
+	}
+}
+
+// loadConfigFromFile 从配置文件加载配置
+func loadConfigFromFile(cmd *cobra.Command) {
+	// 如果 flag 已设置，使用指定的配置文件
+	configPath, _ := cmd.Flags().GetString("config")
+	if configPath == "" {
+		configPath = DefaultConfigPath()
+	}
+
+	cfg, err := LoadConfig(configPath)
+	if err != nil {
+		// 配置文件不存在或解析失败，使用命令行参数或环境变量
+		return
+	}
+
+	// 将配置存入 runtimeCfg
+	runtimeCfg.Endpoint = cfg.Endpoint
+	runtimeCfg.Token = cfg.Token
+}
+
+// loadDynamicCommands 从嵌入的 OpenAPI 定义加载动态命令
+func loadDynamicCommands(cmd *cobra.Command) error {
+	// 从嵌入的 FS 读取 openapi.json
+	data, err := openAPIFS.ReadFile("openapi.json")
+	if err != nil {
+		return fmt.Errorf("failed to read embedded openapi.json: %w", err)
+	}
+
+	var api OpenAPI
+	if err := json.Unmarshal(data, &api); err != nil {
+		return fmt.Errorf("failed to parse openapi.json: %w", err)
+	}
+
+	// 创建客户端和渲染器
+	client := getClient(cmd)
+	renderer := getRenderer(cmd)
+
+	// 创建解析器并生成命令
+	parser := NewParser(client, renderer)
+	commands, err := parser.GenerateCommands(&api)
+	if err != nil {
+		return fmt.Errorf("failed to generate commands: %w", err)
+	}
+
+	// 添加动态生成的命令
+	for _, c := range commands {
+		cmd.AddCommand(c)
+	}
+
+	// 注册 override 命令（特殊操作）
+	registerOverrides(cmd)
+
+	return nil
+}
+
+// getRenderer 从命令获取输出格式并创建渲染器
+func getRenderer(cmd *cobra.Command) Renderer {
+	format := FormatTable
+	if o, _ := cmd.Flags().GetString("output"); o == "json" {
+		format = FormatJSON
+	}
+	return NewRenderer(format, os.Stdout)
+}
+
+// getClient 从命令创建客户端
+func getClient(cmd *cobra.Command) *Client {
+	endpoint, _ := cmd.Flags().GetString("endpoint")
+	token, _ := cmd.Flags().GetString("token")
+
+	cfg := &Config{
+		Endpoint: endpoint,
+		Token:    token,
+	}
+
+	return NewClient(cfg)
+}
+
+// registerOverrides 注册需要特殊处理的命令
+func registerOverrides(cmd *cobra.Command) {
+	// 查找或创建 cert 命令
+	var certCmd *cobra.Command
+	for _, c := range cmd.Commands() {
+		if c.Use == "cert" {
+			certCmd = c
+			break
+		}
+	}
+
+	if certCmd == nil {
+		certCmd = &cobra.Command{
+			Use:   "cert",
+			Short: "证书管理",
+		}
+		cmd.AddCommand(certCmd)
+	}
+
+	// cert upload 命令
+	uploadCmd := &cobra.Command{
+		Use:   "upload",
+		Short: "上传 SSL 证书",
+		RunE:  runCertUpload,
+	}
+	uploadCmd.Flags().String("cert-file", "", "证书文件路径")
+	uploadCmd.Flags().String("key-file", "", "私钥文件路径")
+	uploadCmd.MarkFlagRequired("cert-file")
+	uploadCmd.MarkFlagRequired("key-file")
+	certCmd.AddCommand(uploadCmd)
+
+	// 查找或创建 stat 命令
+	var statCmd *cobra.Command
+	for _, c := range cmd.Commands() {
+		if c.Use == "stat" {
+			statCmd = c
+			break
+		}
+	}
+
+	if statCmd == nil {
+		statCmd = &cobra.Command{
+			Use:   "stat",
+			Short: "数据统计",
+		}
+		cmd.AddCommand(statCmd)
+	}
+
+	// stat overview 命令 (聚合调用)
+	overviewCmd := &cobra.Command{
+		Use:   "overview",
+		Short: "概览统计（聚合调用）",
+		RunE:  runStatOverview,
+	}
+	statCmd.AddCommand(overviewCmd)
+}
+
+// runCertUpload 执行证书上传
+func runCertUpload(cmd *cobra.Command, args []string) error {
+	client := getClient(cmd)
+	certFile, _ := cmd.Flags().GetString("cert-file")
+	keyFile, _ := cmd.Flags().GetString("key-file")
+
+	files := map[string]string{
+		"cert": certFile,
+		"key":  keyFile,
+	}
+
+	var result interface{}
+	if err := client.UploadFile(cmd.Context(), "/api/open/certs", files, &result); err != nil {
+		return err
+	}
+
+	renderer := getRenderer(cmd)
+	return renderer.Render(result)
+}
+
+// runStatOverview 执行 stat overview 聚合查询
+func runStatOverview(cmd *cobra.Command, args []string) error {
+	client := getClient(cmd)
+	ctx := cmd.Context()
+
+	// 并发获取各项统计数据
+	type statResult struct {
+		name string
+		data interface{}
+		err  error
+	}
+
+	results := make(chan statResult, 3)
+
+	// 获取 QPS
+	go func() {
+		var result interface{}
+		err := client.Get(ctx, "/api/stat/qps", nil, &result)
+		results <- statResult{name: "qps", data: result, err: err}
+	}()
+
+	// 获取访问统计
+	go func() {
+		var result interface{}
+		err := client.Get(ctx, "/api/stat/advance/access", nil, &result)
+		results <- statResult{name: "access", data: result, err: err}
+	}()
+
+	// 获取拦截统计
+	go func() {
+		var result interface{}
+		err := client.Get(ctx, "/api/stat/advance/attack", nil, &result)
+		results <- statResult{name: "attack", data: result, err: err}
+	}()
+
+	// 收集结果
+	overview := make(map[string]interface{})
+	for i := 0; i < 3; i++ {
+		r := <-results
+		if r.err != nil {
+			overview[r.name] = map[string]string{"error": r.err.Error()}
+		} else {
+			overview[r.name] = r.data
+		}
+	}
+
+	renderer := getRenderer(cmd)
+	return renderer.Render(overview)
+}
+
+// Execute 执行命令并处理退出码
+func Execute(cmd *cobra.Command) error {
+	err := cmd.Execute()
+	if err == nil {
+		return nil
+	}
+
+	if cliErr, ok := err.(*CLIError); ok {
+		os.Exit(cliErr.Code)
+	}
+	os.Exit(1)
+	return err
+}

@@ -9,6 +9,7 @@ import (
 	"github.com/chaitin/workspace-cli/config"
 	"github.com/chaitin/workspace-cli/products/chaitin"
 	"github.com/chaitin/workspace-cli/products/cloudwalker"
+	"github.com/chaitin/workspace-cli/products/safeline-ce"
 	"github.com/chaitin/workspace-cli/products/tanswer"
 	"github.com/chaitin/workspace-cli/products/xray"
 	"github.com/spf13/cobra"
@@ -45,6 +46,7 @@ func newApp() (*app, error) {
 	root.PersistentFlags().BoolVar(&a.dryRun, "dry-run", false, "Do not send requests for commands that support dry-run")
 
 	a.registerProductCommand(chaitin.NewCommand())
+	a.registerProductCommand(safelinece.NewCommand())
 	a.registerProductCommand(cloudwalker.NewCommand())
 	a.registerProductCommand(tanswer.NewCommand())
 
@@ -53,8 +55,6 @@ func newApp() (*app, error) {
 		return nil, err
 	}
 	a.registerProductCommand(xrayCmd)
-
-	// TODO: register more products
 
 	return a, nil
 }
@@ -96,13 +96,14 @@ func (a *app) wrapProductCommand(cmd *cobra.Command) {
 
 	cmd.PersistentPreRunE = func(command *cobra.Command, args []string) error {
 		switch cmd.Name() {
+		case "safeline-ce":
+			safelinece.ApplyRuntimeConfig(command, a.config)
 		case "cloudwalker":
 			cloudwalker.ApplyRuntimeConfig(command, a.config)
 		case "tanswer":
 			tanswer.ApplyRuntimeConfig(command, a.config)
 		case "xray":
 			xray.ApplyRuntimeConfig(command, a.config, a.dryRun)
-			// TODO: register more products
 		}
 
 		if oldPreRun != nil {

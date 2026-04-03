@@ -9,3 +9,7 @@ tanswer:
 xray:
   url: ""
   api_key: ""
+
+safeline-ce:
+  endpoint: ""
+  token: ""
