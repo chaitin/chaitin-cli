@@ -10,7 +10,9 @@ import (
 )
 
 // Parser OpenAPI 解析器
-type Parser struct{}
+type Parser struct {
+	cli *CLIExtensions
+}
 
 // NewParser 创建解析器
 func NewParser() *Parser {
