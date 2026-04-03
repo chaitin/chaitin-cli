@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   ci:
-    name: Lint Test Build
+    name: Fmt Lint Test Build
     runs-on: ubuntu-latest
 
     steps:
@@ -28,6 +28,9 @@ jobs:
 
       - name: Setup Task
         uses: arduino/setup-task@v2
+
+      - name: Run fmt check
+        run: task fmt:check
 
       - name: Run lint
         run: task lint

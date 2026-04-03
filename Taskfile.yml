@@ -15,6 +15,22 @@ tasks:
     cmds:
       - go fmt ./...
 
+  fmt:check:
+    desc: Fail if Go source files are not gofmt-clean
+    cmds:
+      - |
+        set -euo pipefail
+        files="$(find . -path './vendor' -prune -o -name '*.go' -print)"
+        if [ -z "$files" ]; then
+          exit 0
+        fi
+        unformatted="$(gofmt -l $files)"
+        if [ -n "$unformatted" ]; then
+          echo "the following files are not gofmt-formatted:"
+          echo "$unformatted"
+          exit 1
+        fi
+
   lint:
     desc: Run compile checks
     cmds:
