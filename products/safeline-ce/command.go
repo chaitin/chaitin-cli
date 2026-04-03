@@ -58,7 +58,6 @@ func NewCommand() *cobra.Command {
 	}
 
 	// 全局 flags
-	cmd.PersistentFlags().String("config", "", "Config file path (default: ./config.yaml)")
 	cmd.PersistentFlags().String("url", "", "API URL (e.g. https://your-server:9443)")
 	cmd.PersistentFlags().String("api-key", "", "API key for authentication")
 	cmd.PersistentFlags().StringP("output", "o", "table", "Output format (table|json)")
@@ -95,19 +94,11 @@ func applyRuntimeConfig(cmd *cobra.Command) {
 
 // loadConfigFromFile 从配置文件加载配置
 func loadConfigFromFile(cmd *cobra.Command) {
-	// 如果 flag 已设置，使用指定的配置文件
-	configPath, _ := cmd.Flags().GetString("config")
-	if configPath == "" {
-		configPath = DefaultConfigPath()
-	}
-
-	cfg, err := LoadConfig(configPath)
+	cfg, err := LoadConfig(DefaultConfigPath())
 	if err != nil {
-		// 配置文件不存在或解析失败，使用命令行参数或环境变量
 		return
 	}
 
-	// 将配置存入 runtimeCfg
 	runtimeCfg.URL = cfg.URL
 	runtimeCfg.APIKey = cfg.APIKey
 }

@@ -183,7 +183,8 @@ func (p *Parser) executeCommand(cmd *cobra.Command, method, path string, basePat
 	pathParams := make(map[string]string)
 
 	for _, param := range params {
-		val, err := cmd.Flags().GetString(param.Name)
+		flagName := paramFlagName(param.Name)
+		val, err := cmd.Flags().GetString(flagName)
 		if err != nil {
 			continue
 		}
@@ -213,7 +214,7 @@ func (p *Parser) executeCommand(cmd *cobra.Command, method, path string, basePat
 		query.Set("page", fmt.Sprintf("%d", page))
 	}
 	if size, err := cmd.Flags().GetInt("size"); err == nil && size > 0 {
-		query.Set("size", fmt.Sprintf("%d", size))
+		query.Set("page_size", fmt.Sprintf("%d", size))
 	}
 
 	// 运行时获取 client（确保使用已加载的配置）
@@ -313,7 +314,30 @@ func operationName(method, path string) string {
 	return strings.ToLower(method)
 }
 
+// 全局 flag 名称，避免与 API 参数冲突
+var globalFlags = map[string]bool{
+	"url":      true,
+	"api-key":  true,
+	"output":   true,
+	"verbose":  true,
+	"dry-run":  true,
+	"page":     true, // 分页参数由代码自动添加
+	"size":     true,
+}
+
+// paramFlagName 获取参数对应的 flag 名称，避免与全局 flag 冲突
+func paramFlagName(paramName string) string {
+	// 如果与全局 flag 冲突，添加前缀
+	if globalFlags[paramName] {
+		return "query-" + paramName
+	}
+	return paramName
+}
+
 func (p *Parser) addFlag(cmd *cobra.Command, param Parameter) {
+	// 跳过与全局 flag 冲突的参数（使用不同的 flag 名称）
+	flagName := paramFlagName(param.Name)
+
 	// 优先级：x-cli-description > x-cli.params > 默认 description
 	desc := param.XCLIDescription
 	if desc == "" {
@@ -325,14 +349,14 @@ func (p *Parser) addFlag(cmd *cobra.Command, param Parameter) {
 
 	switch param.Type {
 	case "integer":
-		cmd.Flags().Int(param.Name, 0, desc)
+		cmd.Flags().Int(flagName, 0, desc)
 	case "boolean":
-		cmd.Flags().Bool(param.Name, false, desc)
+		cmd.Flags().Bool(flagName, false, desc)
 	default:
-		cmd.Flags().String(param.Name, "", desc)
+		cmd.Flags().String(flagName, "", desc)
 	}
 
 	if param.Required {
-		cmd.MarkFlagRequired(param.Name)
+		cmd.MarkFlagRequired(flagName)
 	}
 }
