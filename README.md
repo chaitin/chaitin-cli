@@ -9,7 +9,13 @@ Chaitin Workspace CLI for products
 
 ## Demo
 
+### CloudWalker
+
 [![asciicast](https://asciinema.org/a/894643.svg)](https://asciinema.org/a/894643)
+
+### T-Answer
+
+[![asciicast](https://asciinema.org/a/Pxabe3keAL0Z6PoJ.svg)](https://asciinema.org/a/Pxabe3keAL0Z6PoJ)
 
 ## Configuration
 
