@@ -30,6 +30,7 @@ Add each product under `products/<name>/` and keep its command tree self-contain
 - Register it in `newApp()` with `a.registerProductCommand(...)`.
 - If `NewCommand()` can fail, return `(*cobra.Command, error)` and handle the error before registration, as `xray` does.
 - If the product needs values from `config.yaml`, environment variables, `.env`, or root flags such as `--dry-run`, implement `ApplyRuntimeConfig(...)` in the product package and call it from `wrapProductCommand()`.
+- Root-level `-c` / `--config` selects which config file is loaded before command execution. Product packages should consume the already-selected `config.Raw` via `ApplyRuntimeConfig(...)` instead of reparsing their own config path unless there is a strong reason.
 - Parse product-specific config from `config.Raw` inside the product package; environment variable overrides follow `<PRODUCT>_<FIELD>` automatically via the shared config layer. Do not push product field parsing into the root command.
 
 Keep the root command limited to shared wiring. Product behavior, flags, and config decoding should remain in the product package.

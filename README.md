@@ -55,6 +55,13 @@ XRAY_API_KEY=YOUR_API_KEY
 
 Priority is `flags > environment/.env > config.yaml`.
 
+Use root-level `-c` or `--config` to load a different config file. This is useful when you switch between multiple product instances, for example multiple SafeLine environments:
+
+```bash
+cws -c ./configs/safeline-prod.yaml safeline stats overview
+cws -c ./configs/safeline-staging.yaml safeline stats overview
+```
+
 Use root-level `--dry-run` for commands that support dry-run:
 
 ```bash

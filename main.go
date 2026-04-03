@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -20,17 +21,23 @@ type app struct {
 	root             *cobra.Command
 	aliasSubcommands map[string]struct{}
 	config           config.Raw
+	configPath       string
 	dryRun           bool
 }
 
 const defaultConfigPath = "config.yaml"
 
 func newApp() (*app, error) {
+	configPath, configPathSet, err := resolveConfigPath(os.Args[1:])
+	if err != nil {
+		return nil, err
+	}
+
 	if err := config.LoadEnvFile(filepath.Join(".", ".env")); err != nil {
 		return nil, err
 	}
 
-	cfg, err := loadConfigFile(configPathFromCWD())
+	cfg, err := loadConfigFile(configPath)
 	if err != nil {
 		return nil, err
 	}
@@ -46,8 +53,14 @@ func newApp() (*app, error) {
 		root:             root,
 		aliasSubcommands: make(map[string]struct{}),
 		config:           cfg,
+		configPath:       configPath,
 	}
 
+	rootConfigFlagValue := ""
+	if configPathSet {
+		rootConfigFlagValue = configPath
+	}
+	root.PersistentFlags().StringVarP(&a.configPath, "config", "c", rootConfigFlagValue, "Config file path")
 	root.PersistentFlags().BoolVar(&a.dryRun, "dry-run", false, "Do not send requests for commands that support dry-run")
 
 	a.registerProductCommand(chaitin.NewCommand())
@@ -142,8 +155,45 @@ func loadConfigFile(path string) (config.Raw, error) {
 	return config.Load(path)
 }
 
-func configPathFromCWD() string {
+func defaultConfigPathFromCWD() string {
 	return filepath.Join(".", defaultConfigPath)
+}
+
+func resolveConfigPath(args []string) (string, bool, error) {
+	for i := 0; i < len(args); i++ {
+		arg := args[i]
+		if arg == "--" {
+			break
+		}
+
+		switch {
+		case arg == "--config" || arg == "-c":
+			if i+1 >= len(args) || strings.TrimSpace(args[i+1]) == "" {
+				return "", false, fmt.Errorf("%s requires a value", arg)
+			}
+			return args[i+1], true, nil
+		case strings.HasPrefix(arg, "--config="):
+			value := strings.TrimPrefix(arg, "--config=")
+			if strings.TrimSpace(value) == "" {
+				return "", false, fmt.Errorf("--config requires a value")
+			}
+			return value, true, nil
+		case strings.HasPrefix(arg, "-c="):
+			value := strings.TrimPrefix(arg, "-c=")
+			if strings.TrimSpace(value) == "" {
+				return "", false, fmt.Errorf("-c requires a value")
+			}
+			return value, true, nil
+		case strings.HasPrefix(arg, "-c") && len(arg) > 2:
+			value := strings.TrimPrefix(arg, "-c")
+			if strings.TrimSpace(value) == "" {
+				return "", false, fmt.Errorf("-c requires a value")
+			}
+			return value, true, nil
+		}
+	}
+
+	return defaultConfigPathFromCWD(), false, nil
 }
 
 func main() {
