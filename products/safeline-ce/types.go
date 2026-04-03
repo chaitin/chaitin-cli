@@ -91,6 +91,14 @@ type OpenAPI struct {
 	Swagger  string              `json:"swagger"`
 	BasePath string              `json:"basePath"`
 	Paths    map[string]PathItem `json:"paths"`
+	XCLI     *CLIExtensions      `json:"x-cli,omitempty"`
+}
+
+// CLIExtensions CLI 扩展字段
+type CLIExtensions struct {
+	Tags     map[string]string `json:"tags,omitempty"`
+	Children map[string]string `json:"children,omitempty"`
+	Params   map[string]string `json:"params,omitempty"`
 }
 
 // PathItem 路径项
@@ -103,19 +111,21 @@ type PathItem struct {
 
 // Operation 操作定义
 type Operation struct {
-	Tags       []string    `json:"tags"`
-	Summary    string      `json:"summary"`
-	Parameters []Parameter `json:"parameters"`
+	Tags         []string    `json:"tags"`
+	Summary      string      `json:"summary"`
+	Parameters   []Parameter `json:"parameters"`
+	XCLISummary  string      `json:"x-cli-summary,omitempty"`
 }
 
 // Parameter 参数定义
 type Parameter struct {
-	Name        string `json:"name"`
-	In          string `json:"in"` // path, query, body, formData
-	Required    bool   `json:"required"`
-	Type        string `json:"type"`
-	Description string `json:"description"`
-	Schema      *Schema `json:"schema,omitempty"`
+	Name            string `json:"name"`
+	In              string `json:"in"` // path, query, body, formData
+	Required        bool   `json:"required"`
+	Type            string `json:"type"`
+	Description     string `json:"description"`
+	Schema          *Schema `json:"schema,omitempty"`
+	XCLIDescription string `json:"x-cli-description,omitempty"`
 }
 
 // Schema 模式定义

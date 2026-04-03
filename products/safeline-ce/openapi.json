@@ -22,14 +22,16 @@
                         "minimum": 1,
                         "type": "integer",
                         "name": "page",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "页码"
                     },
                     {
                         "maximum": 100,
                         "minimum": 1,
                         "type": "integer",
                         "name": "page_size",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "每页数量"
                     }
                 ],
                 "responses": {
@@ -51,7 +53,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "查看审计日志列表"
             }
         },
         "/open/global/mode": {
@@ -83,7 +86,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "获取全局语义配置"
             },
             "put": {
                 "description": "Update global semantics",
@@ -115,7 +119,8 @@
                             "$ref": "#/definitions/response.JSONBody"
                         }
                     }
-                }
+                },
+                "x-cli-summary": "更新全局语义配置"
             }
         },
         "/open/ipgroup": {
@@ -131,7 +136,8 @@
                     {
                         "type": "integer",
                         "name": "top",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "返回前 N 条"
                     }
                 ],
                 "responses": {
@@ -153,7 +159,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "获取 IP Group 列表"
             },
             "post": {
                 "consumes": [
@@ -196,7 +203,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "创建 IP Group"
             },
             "put": {
                 "consumes": [
@@ -227,7 +235,8 @@
                             "$ref": "#/definitions/response.JSONBody"
                         }
                     }
-                }
+                },
+                "x-cli-summary": "更新 IP Group"
             },
             "delete": {
                 "consumes": [
@@ -258,7 +267,8 @@
                             "$ref": "#/definitions/response.JSONBody"
                         }
                     }
-                }
+                },
+                "x-cli-summary": "删除 IP Group"
             }
         },
         "/open/ipgroup/append": {
@@ -291,7 +301,8 @@
                             "$ref": "#/definitions/response.JSONBody"
                         }
                     }
-                }
+                },
+                "x-cli-summary": "添加 IP 到 IP Group"
             }
         },
         "/open/ipgroup/detail": {
@@ -307,7 +318,8 @@
                     {
                         "type": "integer",
                         "name": "id",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "资源 ID"
                     }
                 ],
                 "responses": {
@@ -329,7 +341,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "获取 IP Group 详情"
             }
         },
         "/open/policy": {
@@ -347,20 +360,23 @@
                         "minimum": -1,
                         "type": "integer",
                         "name": "action",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "动作类型：0-放行 1-阻断 2-挑战 3-认证防护 4-混淆 5-等待室"
                     },
                     {
                         "minimum": 1,
                         "type": "integer",
                         "name": "page",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "页码"
                     },
                     {
                         "maximum": 100,
                         "minimum": 1,
                         "type": "integer",
                         "name": "page_size",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "每页数量"
                     }
                 ],
                 "responses": {
@@ -382,7 +398,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "获取自定义规则列表"
             },
             "post": {
                 "consumes": [
@@ -425,7 +442,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "创建自定义规则"
             },
             "put": {
                 "consumes": [
@@ -456,7 +474,8 @@
                             "$ref": "#/definitions/response.JSONBody"
                         }
                     }
-                }
+                },
+                "x-cli-summary": "更新自定义规则"
             },
             "delete": {
                 "consumes": [
@@ -487,7 +506,8 @@
                             "$ref": "#/definitions/response.JSONBody"
                         }
                     }
-                }
+                },
+                "x-cli-summary": "删除自定义规则"
             }
         },
         "/open/policy/detail": {
@@ -503,7 +523,8 @@
                     {
                         "type": "integer",
                         "name": "id",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "资源 ID"
                     }
                 ],
                 "responses": {
@@ -525,7 +546,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "获取自定义规则详情"
             }
         },
         "/open/policy/switch": {
@@ -558,7 +580,8 @@
                             "$ref": "#/definitions/response.JSONBody"
                         }
                     }
-                }
+                },
+                "x-cli-summary": "启用/禁用自定义规则"
             }
         },
         "/open/record/:id": {
@@ -576,7 +599,8 @@
                         "description": "log id",
                         "name": "id",
                         "in": "path",
-                        "required": true
+                        "required": true,
+                        "x-cli-description": "资源 ID"
                     }
                 ],
                 "responses": {
@@ -598,7 +622,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "查看攻击日志详情"
             }
         },
         "/open/record/rule/:id": {
@@ -616,7 +641,8 @@
                         "description": "log id",
                         "name": "id",
                         "in": "path",
-                        "required": true
+                        "required": true,
+                        "x-cli-description": "资源 ID"
                     }
                 ],
                 "responses": {
@@ -638,7 +664,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "查看黑白名单检测日志详情"
             }
         },
         "/open/records": {
@@ -654,65 +681,77 @@
                     {
                         "type": "string",
                         "name": "action",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "动作类型：0-放行 1-阻断 2-挑战 3-认证防护 4-混淆 5-等待室"
                     },
                     {
                         "type": "string",
                         "name": "attack_type",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "攻击类型"
                     },
                     {
                         "type": "integer",
                         "name": "end",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "结束时间戳（秒）"
                     },
                     {
                         "type": "string",
                         "name": "event_id",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "事件 ID"
                     },
                     {
                         "type": "string",
                         "name": "host",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "域名"
                     },
                     {
                         "type": "string",
                         "name": "ip",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "IP 地址"
                     },
                     {
                         "type": "string",
                         "name": "ja4_fingerprint",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "JA4 指纹"
                     },
                     {
                         "minimum": 1,
                         "type": "integer",
                         "name": "page",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "页码"
                     },
                     {
                         "maximum": 100,
                         "minimum": 1,
                         "type": "integer",
                         "name": "page_size",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "每页数量"
                     },
                     {
                         "type": "string",
                         "name": "port",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "端口"
                     },
                     {
                         "type": "integer",
                         "name": "start",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "开始时间戳（秒）"
                     },
                     {
                         "type": "string",
                         "name": "url",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "URL 路径"
                     }
                 ],
                 "responses": {
@@ -734,7 +773,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "查看攻击日志列表"
             }
         },
         "/open/records/rule": {
@@ -750,65 +790,77 @@
                     {
                         "type": "string",
                         "name": "action",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "动作类型：0-放行 1-阻断 2-挑战 3-认证防护 4-混淆 5-等待室"
                     },
                     {
                         "type": "string",
                         "name": "attack_type",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "攻击类型"
                     },
                     {
                         "type": "integer",
                         "name": "end",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "结束时间戳（秒）"
                     },
                     {
                         "type": "string",
                         "name": "event_id",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "事件 ID"
                     },
                     {
                         "type": "string",
                         "name": "host",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "域名"
                     },
                     {
                         "type": "string",
                         "name": "ip",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "IP 地址"
                     },
                     {
                         "type": "string",
                         "name": "ja4_fingerprint",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "JA4 指纹"
                     },
                     {
                         "minimum": 1,
                         "type": "integer",
                         "name": "page",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "页码"
                     },
                     {
                         "maximum": 100,
                         "minimum": 1,
                         "type": "integer",
                         "name": "page_size",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "每页数量"
                     },
                     {
                         "type": "string",
                         "name": "port",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "端口"
                     },
                     {
                         "type": "integer",
                         "name": "start",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "开始时间戳（秒）"
                     },
                     {
                         "type": "string",
                         "name": "url",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "URL 路径"
                     }
                 ],
                 "responses": {
@@ -830,7 +882,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "查看黑白名单检测日志列表"
             }
         },
         "/open/site": {
@@ -846,22 +899,26 @@
                     {
                         "type": "integer",
                         "name": "group_id",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "分组 ID"
                     },
                     {
                         "type": "string",
                         "name": "site",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "站点域名"
                     },
                     {
                         "type": "boolean",
                         "name": "sp_enabled",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "是否启用语义分析"
                     },
                     {
                         "type": "boolean",
                         "name": "stat_enabled",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "是否启用统计"
                     }
                 ],
                 "responses": {
@@ -883,7 +940,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "获取防护站点列表"
             },
             "post": {
                 "consumes": [
@@ -926,7 +984,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "创建防护站点"
             },
             "put": {
                 "consumes": [
@@ -957,7 +1016,8 @@
                             "$ref": "#/definitions/response.JSONBody"
                         }
                     }
-                }
+                },
+                "x-cli-summary": "更新防护站点"
             },
             "delete": {
                 "consumes": [
@@ -988,7 +1048,8 @@
                             "$ref": "#/definitions/response.JSONBody"
                         }
                     }
-                }
+                },
+                "x-cli-summary": "删除防护站点"
             }
         },
         "/open/skynet/rule": {
@@ -1019,7 +1080,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "获取加强规则列表"
             },
             "put": {
                 "consumes": [
@@ -1050,7 +1112,8 @@
                             "$ref": "#/definitions/response.JSONBody"
                         }
                     }
-                }
+                },
+                "x-cli-summary": "更新加强规则"
             }
         },
         "/open/skynet/rule/switch": {
@@ -1081,7 +1144,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "获取加强规则全局开关"
             },
             "put": {
                 "consumes": [
@@ -1112,7 +1176,8 @@
                             "$ref": "#/definitions/response.JSONBody"
                         }
                     }
-                }
+                },
+                "x-cli-summary": "设置加强规则全局开关"
             }
         },
         "/open/system": {
@@ -1143,7 +1208,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "获取系统信息"
             },
             "put": {
                 "consumes": [
@@ -1174,7 +1240,8 @@
                             "$ref": "#/definitions/response.JSONBody"
                         }
                     }
-                }
+                },
+                "x-cli-summary": "更新管理证书"
             }
         },
         "/open/system/authorize": {
@@ -1205,7 +1272,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "获取授权详情"
             },
             "delete": {
                 "produces": [
@@ -1222,7 +1290,8 @@
                             "$ref": "#/definitions/response.JSONBody"
                         }
                     }
-                }
+                },
+                "x-cli-summary": "删除授权"
             }
         },
         "/stat/advance/access": {
@@ -1238,17 +1307,20 @@
                     {
                         "type": "integer",
                         "name": "begin_time",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "开始时间戳（秒）"
                     },
                     {
                         "type": "integer",
                         "name": "end_time",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "结束时间戳（秒）"
                     },
                     {
                         "type": "integer",
                         "name": "site_id",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "站点 ID"
                     }
                 ],
                 "responses": {
@@ -1270,7 +1342,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "访问统计"
             }
         },
         "/stat/advance/attack": {
@@ -1286,17 +1359,20 @@
                     {
                         "type": "integer",
                         "name": "begin_time",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "开始时间戳（秒）"
                     },
                     {
                         "type": "integer",
                         "name": "end_time",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "结束时间戳（秒）"
                     },
                     {
                         "type": "integer",
                         "name": "site_id",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "站点 ID"
                     }
                 ],
                 "responses": {
@@ -1318,7 +1394,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "拦截统计"
             }
         },
         "/stat/advance/trend/access": {
@@ -1334,17 +1411,20 @@
                     {
                         "type": "integer",
                         "name": "begin_time",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "开始时间戳（秒）"
                     },
                     {
                         "type": "integer",
                         "name": "end_time",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "结束时间戳（秒）"
                     },
                     {
                         "type": "integer",
                         "name": "site_id",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "站点 ID"
                     }
                 ],
                 "responses": {
@@ -1377,7 +1457,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "访问趋势"
             }
         },
         "/stat/advance/trend/intercept": {
@@ -1393,17 +1474,20 @@
                     {
                         "type": "integer",
                         "name": "begin_time",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "开始时间戳（秒）"
                     },
                     {
                         "type": "integer",
                         "name": "end_time",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "结束时间戳（秒）"
                     },
                     {
                         "type": "integer",
                         "name": "site_id",
-                        "in": "query"
+                        "in": "query",
+                        "x-cli-description": "站点 ID"
                     }
                 ],
                 "responses": {
@@ -1436,7 +1520,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "拦截趋势"
             }
         },
         "/stat/qps": {
@@ -1467,7 +1552,8 @@
                             ]
                         }
                     }
-                }
+                },
+                "x-cli-summary": "QPS 统计"
             }
         }
     },
@@ -7119,6 +7205,71 @@
                     "type": "string"
                 }
             }
+        }
+    },
+    "x-cli": {
+        "tags": {
+            "site": "防护站点管理",
+            "cert": "授权与证书管理",
+            "log": "日志查询",
+            "stat": "数据统计",
+            "skynet": "加强规则管理",
+            "module": "语义分析模块配置",
+            "rule": "自定义规则管理",
+            "ipgroup": "IP 黑白名单管理"
+        },
+        "children": {
+            "log/attack": "攻击日志",
+            "log/audit": "审计日志",
+            "log/rule": "黑白名单检测日志",
+            "stat/trend": "趋势统计"
+        },
+        "params": {
+            "server_names": "域名（多个用逗号分隔）",
+            "ports": "端口（多个用逗号分隔）",
+            "upstreams": "后端地址（多个用逗号分隔）",
+            "cert_id": "证书 ID",
+            "comment": "备注说明",
+            "email": "管理员邮箱",
+            "group_id": "分组 ID",
+            "health_check": "是否启用健康检查",
+            "id": "资源 ID",
+            "ids": "资源 ID（多个用逗号分隔）",
+            "site": "站点域名",
+            "sp_enabled": "是否启用语义分析",
+            "stat_enabled": "是否启用统计",
+            "load_balance": "负载均衡策略",
+            "name": "规则名称",
+            "pattern": "匹配规则（JSON 格式）",
+            "action": "动作类型：0-放行 1-阻断 2-挑战 3-认证防护 4-混淆 5-等待室",
+            "level": "风险等级",
+            "enable": "是否启用",
+            "mode": "模式：strict/default/dry_run/disable/deny",
+            "semantics": "语义分析配置",
+            "use_global": "是否使用全局配置",
+            "ips": "IP 地址（多个用逗号分隔）",
+            "ip_group_ids": "IP Group ID（多个用逗号分隔）",
+            "page": "页码",
+            "page_size": "每页数量",
+            "size": "每页数量",
+            "start": "开始时间戳（秒）",
+            "end": "结束时间戳（秒）",
+            "begin_time": "开始时间戳（秒）",
+            "end_time": "结束时间戳（秒）",
+            "site_id": "站点 ID",
+            "host": "域名",
+            "ip": "IP 地址",
+            "url": "URL 路径",
+            "port": "端口",
+            "attack_type": "攻击类型",
+            "event_id": "事件 ID",
+            "ja4_fingerprint": "JA4 指纹",
+            "top": "返回前 N 条",
+            "reference": "引用来源",
+            "expire": "过期时间",
+            "log": "是否记录日志",
+            "is_enabled": "是否启用",
+            "global": "是否全局"
         }
     }
 }
