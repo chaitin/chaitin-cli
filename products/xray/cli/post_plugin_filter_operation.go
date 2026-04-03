@@ -18,7 +18,7 @@ import (
 func makeOperationTaskConfigPostPluginFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostPluginFilter",
-		Short: ``,
+		Short: `获取插件列表`,
 		RunE:  runOperationTaskConfigPostPluginFilter,
 	}
 

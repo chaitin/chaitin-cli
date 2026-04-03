@@ -18,7 +18,7 @@ import (
 func makeOperationUserPostUserTokenRefreshCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostUserTokenRefresh",
-		Short: ``,
+		Short: `刷新token(token值会变,有效期不会额外展期)`,
 		RunE:  runOperationUserPostUserTokenRefresh,
 	}
 

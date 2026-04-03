@@ -17,7 +17,7 @@ import (
 func makeOperationTemplateGetTemplateIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetTemplateID",
-		Short: ``,
+		Short: `获取策略模板`,
 		RunE:  runOperationTemplateGetTemplateID,
 	}
 

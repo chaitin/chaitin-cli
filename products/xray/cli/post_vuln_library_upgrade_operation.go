@@ -18,7 +18,7 @@ import (
 func makeOperationSystemServicePostVulnLibraryUpgradeCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostVulnLibraryUpgrade",
-		Short: ``,
+		Short: `漏洞库升级，请确保升级包校验通过`,
 		RunE:  runOperationSystemServicePostVulnLibraryUpgrade,
 	}
 

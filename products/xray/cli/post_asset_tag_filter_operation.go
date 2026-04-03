@@ -18,7 +18,7 @@ import (
 func makeOperationAssetPropertyPostAssetTagFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostAssetTagFilter",
-		Short: ``,
+		Short: `筛选资产标签`,
 		RunE:  runOperationAssetPropertyPostAssetTagFilter,
 	}
 

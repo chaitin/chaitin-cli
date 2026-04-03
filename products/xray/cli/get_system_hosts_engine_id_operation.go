@@ -17,7 +17,7 @@ import (
 func makeOperationSystemInfoGetSystemHostsEngineIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetSystemHostsEngineID",
-		Short: ``,
+		Short: `获取指定引擎的 hosts 配置`,
 		RunE:  runOperationSystemInfoGetSystemHostsEngineID,
 	}
 

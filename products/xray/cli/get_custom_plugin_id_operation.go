@@ -17,7 +17,7 @@ import (
 func makeOperationTaskConfigGetCustomPluginIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetCustomPluginID",
-		Short: ``,
+		Short: `获取自定义插件详情`,
 		RunE:  runOperationTaskConfigGetCustomPluginID,
 	}
 

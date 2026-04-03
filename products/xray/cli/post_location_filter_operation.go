@@ -18,7 +18,7 @@ import (
 func makeOperationAssetPropertyPostLocationFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostLocationFilter",
-		Short: ``,
+		Short: `筛选行政区域规划位置`,
 		RunE:  runOperationAssetPropertyPostLocationFilter,
 	}
 

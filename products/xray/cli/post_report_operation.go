@@ -18,7 +18,7 @@ import (
 func makeOperationReportPostReportCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostReport",
-		Short: ``,
+		Short: `创建报表`,
 		RunE:  runOperationReportPostReport,
 	}
 

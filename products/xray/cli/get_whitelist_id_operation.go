@@ -17,7 +17,7 @@ import (
 func makeOperationTaskConfigGetWhitelistIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetWhitelistID",
-		Short: ``,
+		Short: `获取全局白名单详情`,
 		RunE:  runOperationTaskConfigGetWhitelistID,
 	}
 

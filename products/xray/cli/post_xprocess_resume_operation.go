@@ -18,7 +18,7 @@ import (
 func makeOperationXprocessPostXprocessResumeCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostXprocessResume",
-		Short: ``,
+		Short: `恢复任务实例`,
 		RunE:  runOperationXprocessPostXprocessResume,
 	}
 

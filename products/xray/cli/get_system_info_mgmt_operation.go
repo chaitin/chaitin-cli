@@ -17,7 +17,7 @@ import (
 func makeOperationSystemInfoGetSystemInfoMgmtCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetSystemInfoMgmt",
-		Short: ``,
+		Short: `查询管理节点系统信息和负载信息`,
 		RunE:  runOperationSystemInfoGetSystemInfoMgmt,
 	}
 

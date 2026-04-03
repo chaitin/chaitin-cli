@@ -18,7 +18,7 @@ import (
 func makeOperationRolePostRoleFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostRoleFilter",
-		Short: ``,
+		Short: `根据角色名称筛选角色信息。`,
 		RunE:  runOperationRolePostRoleFilter,
 	}
 

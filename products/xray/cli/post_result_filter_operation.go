@@ -18,7 +18,7 @@ import (
 func makeOperationResultPostResultFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostResultFilter",
-		Short: ``,
+		Short: `按条件批量获取任务结果,注意 类型为 application 时不支持时间筛选`,
 		RunE:  runOperationResultPostResultFilter,
 	}
 

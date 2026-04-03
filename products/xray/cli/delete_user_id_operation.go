@@ -17,7 +17,7 @@ import (
 func makeOperationUserDeleteUserIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "DeleteUserID",
-		Short: ``,
+		Short: `删除用户`,
 		RunE:  runOperationUserDeleteUserID,
 	}
 

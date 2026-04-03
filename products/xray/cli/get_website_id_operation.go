@@ -17,7 +17,7 @@ import (
 func makeOperationWebAssetGetWebsiteIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetWebsiteID",
-		Short: ``,
+		Short: `获取 Web 站点`,
 		RunE:  runOperationWebAssetGetWebsiteID,
 	}
 

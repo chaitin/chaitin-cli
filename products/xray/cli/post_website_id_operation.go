@@ -18,7 +18,7 @@ import (
 func makeOperationWebAssetPostWebsiteIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostWebsiteID",
-		Short: ``,
+		Short: `修改 Web 站点`,
 		RunE:  runOperationWebAssetPostWebsiteID,
 	}
 

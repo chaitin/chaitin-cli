@@ -18,7 +18,7 @@ import (
 func makeOperationServiceAssetPostServiceFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostServiceFilter",
-		Short: ``,
+		Short: `按条件批量获取服务`,
 		RunE:  runOperationServiceAssetPostServiceFilter,
 	}
 

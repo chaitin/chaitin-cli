@@ -17,7 +17,7 @@ import (
 func makeOperationAssetPropertyGetLocationIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetLocationID",
-		Short: ``,
+		Short: `获取行政规划区域详情`,
 		RunE:  runOperationAssetPropertyGetLocationID,
 	}
 

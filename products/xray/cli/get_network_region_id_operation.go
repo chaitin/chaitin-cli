@@ -17,7 +17,7 @@ import (
 func makeOperationAssetPropertyGetNetworkRegionIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetNetworkRegionID",
-		Short: ``,
+		Short: `获取网络区域详情`,
 		RunE:  runOperationAssetPropertyGetNetworkRegionID,
 	}
 

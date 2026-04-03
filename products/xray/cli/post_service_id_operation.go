@@ -18,7 +18,7 @@ import (
 func makeOperationServiceAssetPostServiceIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostServiceID",
-		Short: ``,
+		Short: `修改服务资产`,
 		RunE:  runOperationServiceAssetPostServiceID,
 	}
 

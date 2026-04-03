@@ -18,7 +18,7 @@ import (
 func makeOperationDomainAssetPostDomainIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostDomainID",
-		Short: ``,
+		Short: `修改域名资产`,
 		RunE:  runOperationDomainAssetPostDomainID,
 	}
 

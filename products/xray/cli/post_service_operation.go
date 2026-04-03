@@ -17,7 +17,7 @@ import (
 func makeOperationServiceAssetPostServiceCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostService",
-		Short: ``,
+		Short: `批量增加服务`,
 		RunE:  runOperationServiceAssetPostService,
 	}
 

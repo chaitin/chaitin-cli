@@ -18,7 +18,7 @@ import (
 func makeOperationBaselinePostSSHKeyCreateCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostSSHKeyCreate",
-		Short: ``,
+		Short: `创建SSH 认证私钥`,
 		RunE:  runOperationBaselinePostSSHKeyCreate,
 	}
 

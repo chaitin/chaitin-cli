@@ -18,7 +18,7 @@ import (
 func makeOperationSystemServicePostPackageCheckCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostPackageCheck",
-		Short: ``,
+		Short: `升级包校验`,
 		RunE:  runOperationSystemServicePostPackageCheck,
 	}
 

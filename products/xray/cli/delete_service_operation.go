@@ -17,7 +17,7 @@ import (
 func makeOperationServiceAssetDeleteServiceCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "DeleteService",
-		Short: ``,
+		Short: `批量删除服务`,
 		RunE:  runOperationServiceAssetDeleteService,
 	}
 

@@ -18,7 +18,7 @@ import (
 func makeOperationUserPostUserCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostUser",
-		Short: ``,
+		Short: `创建用户`,
 		RunE:  runOperationUserPostUser,
 	}
 

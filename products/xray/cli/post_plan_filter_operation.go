@@ -18,7 +18,7 @@ import (
 func makeOperationPlanPostPlanFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostPlanFilter",
-		Short: ``,
+		Short: `按条件批量获取任务计划`,
 		RunE:  runOperationPlanPostPlanFilter,
 	}
 

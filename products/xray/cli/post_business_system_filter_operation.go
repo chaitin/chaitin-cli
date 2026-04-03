@@ -18,7 +18,7 @@ import (
 func makeOperationAssetPropertyPostBusinessSystemFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostBusinessSystemFilter",
-		Short: ``,
+		Short: `筛选业务系统`,
 		RunE:  runOperationAssetPropertyPostBusinessSystemFilter,
 	}
 

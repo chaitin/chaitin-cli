@@ -17,7 +17,7 @@ import (
 func makeOperationSystemInfoGetVulnLibraryInfoCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetVulnLibraryInfo",
-		Short: ``,
+		Short: `查询漏洞库信息（版本、总数、最近更新时间）`,
 		RunE:  runOperationSystemInfoGetVulnLibraryInfo,
 	}
 

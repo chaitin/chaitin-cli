@@ -18,7 +18,7 @@ import (
 func makeOperationSystemServicePostSystemLicenseCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostSystemLicense",
-		Short: ``,
+		Short: `上传许可证`,
 		RunE:  runOperationSystemServicePostSystemLicense,
 	}
 

@@ -18,7 +18,7 @@ import (
 func makeOperationTaskConfigPostEngineFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostEngineFilter",
-		Short: ``,
+		Short: `获取引擎节点列表`,
 		RunE:  runOperationTaskConfigPostEngineFilter,
 	}
 

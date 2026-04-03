@@ -17,7 +17,7 @@ import (
 func makeOperationTaskConfigGetScannerdictIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetScannerdictID",
-		Short: ``,
+		Short: `获取字典详情`,
 		RunE:  runOperationTaskConfigGetScannerdictID,
 	}
 

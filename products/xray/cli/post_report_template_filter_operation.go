@@ -18,7 +18,7 @@ import (
 func makeOperationReportPostReportTemplateFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostReportTemplateFilter",
-		Short: ``,
+		Short: `按条件批量获取报表模板`,
 		RunE:  runOperationReportPostReportTemplateFilter,
 	}
 

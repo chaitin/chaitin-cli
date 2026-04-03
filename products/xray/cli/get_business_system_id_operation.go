@@ -17,7 +17,7 @@ import (
 func makeOperationAssetPropertyGetBusinessSystemIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetBusinessSystemID",
-		Short: ``,
+		Short: `获取业务系统详情`,
 		RunE:  runOperationAssetPropertyGetBusinessSystemID,
 	}
 

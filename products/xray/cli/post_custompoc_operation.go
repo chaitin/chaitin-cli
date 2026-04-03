@@ -18,7 +18,7 @@ import (
 func makeOperationCustomPocPostCustompocCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostCustompoc",
-		Short: ``,
+		Short: `创建自定义poc`,
 		RunE:  runOperationCustomPocPostCustompoc,
 	}
 

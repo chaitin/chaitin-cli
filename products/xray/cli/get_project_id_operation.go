@@ -17,7 +17,7 @@ import (
 func makeOperationProjectGetProjectIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetProjectID",
-		Short: ``,
+		Short: `获取工作区详情`,
 		RunE:  runOperationProjectGetProjectID,
 	}
 

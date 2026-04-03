@@ -18,7 +18,7 @@ import (
 func makeOperationUserPostUserFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostUserFilter",
-		Short: ``,
+		Short: `根据用户名或 remote_id 筛选用户。`,
 		RunE:  runOperationUserPostUserFilter,
 	}
 

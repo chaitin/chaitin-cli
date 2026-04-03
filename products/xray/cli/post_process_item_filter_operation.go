@@ -18,7 +18,7 @@ import (
 func makeOperationBaselinePostProcessItemFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostProcessItemFilter",
-		Short: ``,
+		Short: `按条件批量获取检查项结果`,
 		RunE:  runOperationBaselinePostProcessItemFilter,
 	}
 

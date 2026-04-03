@@ -18,7 +18,7 @@ import (
 func makeOperationUserPostAccountChangeSomeonePasswdWithoutTokenCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostAccountChangeSomeonePasswdWithoutToken",
-		Short: ``,
+		Short: `修改某人密码,不使用api-token,使用自己的登录密码验证权限`,
 		RunE:  runOperationUserPostAccountChangeSomeonePasswdWithoutToken,
 	}
 

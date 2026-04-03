@@ -17,7 +17,7 @@ import (
 func makeOperationResultGetResultIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetResultID",
-		Short: ``,
+		Short: `获取任务结果`,
 		RunE:  runOperationResultGetResultID,
 	}
 

@@ -18,7 +18,7 @@ import (
 func makeOperationPlanPostPlanStopCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostPlanStop",
-		Short: ``,
+		Short: `停止任务计划（循环任务停止循环，不影响当前正在扫描的状态）`,
 		RunE:  runOperationPlanPostPlanStop,
 	}
 

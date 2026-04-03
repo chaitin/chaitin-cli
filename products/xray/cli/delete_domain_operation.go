@@ -17,7 +17,7 @@ import (
 func makeOperationDomainAssetDeleteDomainCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "DeleteDomain",
-		Short: ``,
+		Short: `批量删除域名`,
 		RunE:  runOperationDomainAssetDeleteDomain,
 	}
 

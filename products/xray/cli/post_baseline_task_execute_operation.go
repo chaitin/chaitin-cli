@@ -18,7 +18,7 @@ import (
 func makeOperationBaselinePostBaselineTaskExecuteCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostBaselineTaskExecute",
-		Short: ``,
+		Short: `触发基线任务（马上扫一次）`,
 		RunE:  runOperationBaselinePostBaselineTaskExecute,
 	}
 

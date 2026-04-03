@@ -17,7 +17,7 @@ import (
 func makeOperationVulnerabilityDeleteVulnCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "DeleteVuln",
-		Short: ``,
+		Short: `批量删除漏洞资产`,
 		RunE:  runOperationVulnerabilityDeleteVuln,
 	}
 

@@ -17,7 +17,7 @@ import (
 func makeOperationPlanGetPlanIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetPlanID",
-		Short: ``,
+		Short: `获取任务计划`,
 		RunE:  runOperationPlanGetPlanID,
 	}
 

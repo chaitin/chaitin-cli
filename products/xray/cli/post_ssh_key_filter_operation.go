@@ -18,7 +18,7 @@ import (
 func makeOperationBaselinePostSSHKeyFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostSSHKeyFilter",
-		Short: ``,
+		Short: `按条件批量获取SSH 认证私钥`,
 		RunE:  runOperationBaselinePostSSHKeyFilter,
 	}
 

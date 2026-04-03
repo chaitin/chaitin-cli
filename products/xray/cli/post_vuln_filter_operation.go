@@ -18,7 +18,7 @@ import (
 func makeOperationVulnerabilityPostVulnFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostVulnFilter",
-		Short: ``,
+		Short: `按条件批量获取漏洞`,
 		RunE:  runOperationVulnerabilityPostVulnFilter,
 	}
 

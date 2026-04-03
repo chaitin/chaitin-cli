@@ -17,7 +17,7 @@ import (
 func makeOperationWebAssetDeleteWebsiteCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "DeleteWebsite",
-		Short: ``,
+		Short: `批量删除 Web 站点`,
 		RunE:  runOperationWebAssetDeleteWebsite,
 	}
 

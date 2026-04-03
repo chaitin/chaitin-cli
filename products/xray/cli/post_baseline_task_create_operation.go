@@ -18,7 +18,7 @@ import (
 func makeOperationBaselinePostBaselineTaskCreateCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostBaselineTaskCreate",
-		Short: ``,
+		Short: `创建基线任务，仅支持在线检查`,
 		RunE:  runOperationBaselinePostBaselineTaskCreate,
 	}
 

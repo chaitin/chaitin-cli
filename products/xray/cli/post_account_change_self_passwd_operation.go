@@ -18,7 +18,7 @@ import (
 func makeOperationUserPostAccountChangeSelfPasswdCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostAccountChangeSelfPasswd",
-		Short: ``,
+		Short: `修改自己密码`,
 		RunE:  runOperationUserPostAccountChangeSelfPasswd,
 	}
 

@@ -9,7 +9,6 @@ import (
 
 	"github.com/chaitin/workspace-cli/config"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 
 	"github.com/chaitin/workspace-cli/products/xray/client"
 	"github.com/go-openapi/runtime"
@@ -78,7 +77,9 @@ func makeClient(cmd *cobra.Command, _ []string) (*client.OPENAPI, error) {
 func MakeCommand() (*cobra.Command, error) {
 	// Use "xray" as the command name for subcommand usage
 	rootCmd := &cobra.Command{
-		Use: "xray",
+		Use:   "xray",
+		Short: "洞鉴(XRay) 风险评估系统",
+		Long:  "洞鉴(XRay) 是一款自动化漏洞扫描与风险管理平台，支持资产发现、漏洞检测、基线检查、报告生成等功能。",
 	}
 
 	rootCmd.PersistentFlags().String("url", "", "API URL (e.g. https://api.example.com/api/v2)")
@@ -203,15 +204,6 @@ func MakeCommand() (*cobra.Command, error) {
 	}
 	rootCmd.AddCommand(c21)
 
-	// add cobra completion
-	rootCmd.AddCommand(makeGenCompletionCmd())
-
-	// add cobra markdown
-	markdownCmd := makeMarkdownDocumentationCmd()
-	rootCmd.AddCommand(markdownCmd)
-	markdownCmd.Flags().String("dir", "./markdown/", "The destination directory to save docs in")
-	_ = viper.BindPFlag("markdown_dir", markdownCmd.Flags().Lookup("dir"))
-
 	return rootCmd, nil
 }
 
@@ -295,7 +287,8 @@ func SetRuntimeConfig(cfg config.Raw, enabledDryRun bool) {
 func makeGroupOfOperationsAssetPropertyCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "asset_property",
-		Long: ``,
+		Short: `资产管理`,
+		Long: `资产管理`,
 	}
 
 	sub0, err := makeOperationAssetPropertyGetAssetGroupsProjectIDCmd()
@@ -369,7 +362,8 @@ func makeGroupOfOperationsAssetPropertyCmd() (*cobra.Command, error) {
 func makeGroupOfOperationsAuditLogCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "audit_log",
-		Long: ``,
+		Short: `审计日志管理`,
+		Long: `审计日志管理`,
 	}
 
 	sub0, err := makeOperationAuditLogGetAuditlogActionCmd()
@@ -389,7 +383,8 @@ func makeGroupOfOperationsAuditLogCmd() (*cobra.Command, error) {
 func makeGroupOfOperationsBaselineCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "baseline",
-		Long: ``,
+		Short: `基线检查管理`,
+		Long: `基线检查管理`,
 	}
 
 	sub0, err := makeOperationBaselinePostBaselineTaskCreateCmd()
@@ -445,7 +440,8 @@ func makeGroupOfOperationsBaselineCmd() (*cobra.Command, error) {
 func makeGroupOfOperationsCustomPocCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "custom_poc",
-		Long: ``,
+		Short: `自定义POC管理`,
+		Long: `自定义POC管理`,
 	}
 
 	sub0, err := makeOperationCustomPocDeleteCustompocCmd()
@@ -495,7 +491,8 @@ func makeGroupOfOperationsCustomPocCmd() (*cobra.Command, error) {
 func makeGroupOfOperationsDomainAssetCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "domain_asset",
-		Long: ``,
+		Short: `域名资产管理`,
+		Long: `域名资产管理`,
 	}
 
 	sub0, err := makeOperationDomainAssetDeleteDomainCmd()
@@ -539,7 +536,8 @@ func makeGroupOfOperationsDomainAssetCmd() (*cobra.Command, error) {
 func makeGroupOfOperationsInsightCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "insight",
-		Long: ``,
+		Short: `数据洞察`,
+		Long: `数据洞察`,
 	}
 
 	sub0, err := makeOperationInsightPostAPIV2InsightAssetDeletedIPListCmd()
@@ -649,7 +647,8 @@ func makeGroupOfOperationsInsightCmd() (*cobra.Command, error) {
 func makeGroupOfOperationsIPAssetCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "ip_asset",
-		Long: ``,
+		Short: `主机资产管理`,
+		Long: `主机资产管理`,
 	}
 
 	sub0, err := makeOperationIPAssetDeleteIPCmd()
@@ -693,7 +692,8 @@ func makeGroupOfOperationsIPAssetCmd() (*cobra.Command, error) {
 func makeGroupOfOperationsPlanCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "plan",
-		Long: ``,
+		Short: `任务计划`,
+		Long: `任务计划`,
 	}
 
 	sub0, err := makeOperationPlanDeletePlanIDCmd()
@@ -708,48 +708,37 @@ func makeGroupOfOperationsPlanCmd() (*cobra.Command, error) {
 	}
 	parent.AddCommand(sub1)
 
-	sub2, err := makeOperationPlanPostPlanCreateCmd()
+	sub2, err := makeOperationPlanPostPlanExecuteCmd()
 	if err != nil {
 		return nil, err
 	}
 	parent.AddCommand(sub2)
 
-	sub3, err := makeOperationPlanPostPlanExecuteCmd()
+	sub3, err := makeOperationPlanPostPlanFilterCmd()
 	if err != nil {
 		return nil, err
 	}
 	parent.AddCommand(sub3)
 
-	sub4, err := makeOperationPlanPostPlanFilterCmd()
+	sub4, err := makeOperationPlanPostPlanStopCmd()
 	if err != nil {
 		return nil, err
 	}
 	parent.AddCommand(sub4)
 
-	sub5, err := makeOperationPlanPostPlanStopCmd()
+	sub5, err := makeOperationPlanCreateQuickCmd()
 	if err != nil {
 		return nil, err
 	}
 	parent.AddCommand(sub5)
-
-	sub6, err := makeOperationPlanPostPlanUpdateCmd()
-	if err != nil {
-		return nil, err
-	}
-	parent.AddCommand(sub6)
-
-	sub7, err := makeOperationPlanCreateQuickCmd()
-	if err != nil {
-		return nil, err
-	}
-	parent.AddCommand(sub7)
 
 	return parent, nil
 } // makeGroupOfOperationsProjectCmd returns a parent command to handle all operations with tag "project"
 func makeGroupOfOperationsProjectCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "project",
-		Long: ``,
+		Short: `工作区管理`,
+		Long: `工作区管理`,
 	}
 
 	sub0, err := makeOperationProjectGetProjectCmd()
@@ -787,7 +776,8 @@ func makeGroupOfOperationsProjectCmd() (*cobra.Command, error) {
 func makeGroupOfOperationsReportCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "report",
-		Long: ``,
+		Short: `报表管理`,
+		Long: `报表管理`,
 	}
 
 	sub0, err := makeOperationReportDeleteReportIDCmd()
@@ -831,7 +821,8 @@ func makeGroupOfOperationsReportCmd() (*cobra.Command, error) {
 func makeGroupOfOperationsResultCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "result",
-		Long: ``,
+		Short: `任务结果管理`,
+		Long: `任务结果管理`,
 	}
 
 	sub0, err := makeOperationResultGetResultIDCmd()
@@ -851,7 +842,8 @@ func makeGroupOfOperationsResultCmd() (*cobra.Command, error) {
 func makeGroupOfOperationsRoleCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "role",
-		Long: ``,
+		Short: `角色管理`,
+		Long: `角色管理`,
 	}
 
 	sub0, err := makeOperationRolePostRoleCmd()
@@ -871,7 +863,8 @@ func makeGroupOfOperationsRoleCmd() (*cobra.Command, error) {
 func makeGroupOfOperationsServiceAssetCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "service_asset",
-		Long: ``,
+		Short: `服务资产管理`,
+		Long: `服务资产管理`,
 	}
 
 	sub0, err := makeOperationServiceAssetDeleteServiceCmd()
@@ -915,7 +908,8 @@ func makeGroupOfOperationsServiceAssetCmd() (*cobra.Command, error) {
 func makeGroupOfOperationsSystemInfoCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "system_info",
-		Long: ``,
+		Short: `系统信息管理`,
+		Long: `系统信息管理`,
 	}
 
 	sub0, err := makeOperationSystemInfoDeleteEngineIDCmd()
@@ -983,7 +977,8 @@ func makeGroupOfOperationsSystemInfoCmd() (*cobra.Command, error) {
 func makeGroupOfOperationsSystemServiceCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "system_service",
-		Long: ``,
+		Short: `系统服务管理`,
+		Long: `系统服务管理`,
 	}
 
 	sub0, err := makeOperationSystemServicePostEngineUpgradeCmd()
@@ -1027,7 +1022,8 @@ func makeGroupOfOperationsSystemServiceCmd() (*cobra.Command, error) {
 func makeGroupOfOperationsTaskConfigCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "task_config",
-		Long: ``,
+		Short: `任务配置管理`,
+		Long: `任务配置管理`,
 	}
 
 	sub0, err := makeOperationTaskConfigDeleteScannerdictCmd()
@@ -1155,7 +1151,8 @@ func makeGroupOfOperationsTaskConfigCmd() (*cobra.Command, error) {
 func makeGroupOfOperationsTemplateCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "template",
-		Long: ``,
+		Short: `策略模板管理`,
+		Long: `策略模板管理`,
 	}
 
 	sub0, err := makeOperationTemplateGetTemplateCmd()
@@ -1181,7 +1178,8 @@ func makeGroupOfOperationsTemplateCmd() (*cobra.Command, error) {
 func makeGroupOfOperationsUserCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "user",
-		Long: ``,
+		Short: `用户管理`,
+		Long: `用户管理`,
 	}
 
 	sub0, err := makeOperationUserDeleteUserIDCmd()
@@ -1237,7 +1235,8 @@ func makeGroupOfOperationsUserCmd() (*cobra.Command, error) {
 func makeGroupOfOperationsVulnerabilityCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "vulnerability",
-		Long: ``,
+		Short: `漏洞资产管理`,
+		Long: `漏洞资产管理`,
 	}
 
 	sub0, err := makeOperationVulnerabilityDeleteVulnCmd()
@@ -1305,7 +1304,8 @@ func makeGroupOfOperationsVulnerabilityCmd() (*cobra.Command, error) {
 func makeGroupOfOperationsWebAssetCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "web_asset",
-		Long: ``,
+		Short: `Web资产管理`,
+		Long: `Web资产管理`,
 	}
 
 	sub0, err := makeOperationWebAssetDeleteWebsiteCmd()
@@ -1355,7 +1355,8 @@ func makeGroupOfOperationsWebAssetCmd() (*cobra.Command, error) {
 func makeGroupOfOperationsXprocessCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "xprocess",
-		Long: ``,
+		Short: `XProcess任务实例管理`,
+		Long: `XProcess任务实例管理`,
 	}
 
 	sub0, err := makeOperationXprocessGetXprocessIDCmd()
@@ -1417,7 +1418,8 @@ func makeGroupOfOperationsXprocessCmd() (*cobra.Command, error) {
 func makeGroupOfOperationsXprocessLiteCmd() (*cobra.Command, error) {
 	parent := &cobra.Command{
 		Use:  "xprocess_lite",
-		Long: ``,
+		Short: `XProcess精简版管理`,
+		Long: `XProcess精简版管理`,
 	}
 
 	sub0, err := makeOperationXprocessLitePostXprocessLiteFilterCmd()

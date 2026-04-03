@@ -18,7 +18,7 @@ import (
 func makeOperationSystemInfoPostSystemInfoServicesCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostSystemInfoServices",
-		Short: ``,
+		Short: `查询系统服务工作状态和负载信息`,
 		RunE:  runOperationSystemInfoPostSystemInfoServices,
 	}
 

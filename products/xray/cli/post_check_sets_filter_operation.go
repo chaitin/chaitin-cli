@@ -18,7 +18,7 @@ import (
 func makeOperationBaselinePostCheckSetsFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostCheckSetsFilter",
-		Short: ``,
+		Short: `按条件批量获取检查策略列表`,
 		RunE:  runOperationBaselinePostCheckSetsFilter,
 	}
 

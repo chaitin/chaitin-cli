@@ -18,7 +18,7 @@ import (
 func makeOperationTaskConfigPostHostlogruleFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostHostlogruleFilter",
-		Short: ``,
+		Short: `获取日志解析规则列表`,
 		RunE:  runOperationTaskConfigPostHostlogruleFilter,
 	}
 

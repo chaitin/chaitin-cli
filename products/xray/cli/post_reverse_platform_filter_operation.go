@@ -18,7 +18,7 @@ import (
 func makeOperationTaskConfigPostReversePlatformFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostReversePlatformFilter",
-		Short: ``,
+		Short: `获取反连平台列表`,
 		RunE:  runOperationTaskConfigPostReversePlatformFilter,
 	}
 

@@ -18,7 +18,7 @@ import (
 func makeOperationXprocessPostXprocessStopCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostXprocessStop",
-		Short: ``,
+		Short: `停止任务实例（结束任务的执行状态）`,
 		RunE:  runOperationXprocessPostXprocessStop,
 	}
 

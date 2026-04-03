@@ -18,7 +18,7 @@ import (
 func makeOperationRolePostRoleCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostRole",
-		Short: ``,
+		Short: `创建角色`,
 		RunE:  runOperationRolePostRole,
 	}
 

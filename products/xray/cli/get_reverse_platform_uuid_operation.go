@@ -17,7 +17,7 @@ import (
 func makeOperationTaskConfigGetReversePlatformUUIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetReversePlatformUUID",
-		Short: ``,
+		Short: `根据反连平台的 uuid 获取反连平台的详细信息`,
 		RunE:  runOperationTaskConfigGetReversePlatformUUID,
 	}
 

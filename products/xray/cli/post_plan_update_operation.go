@@ -18,7 +18,7 @@ import (
 func makeOperationPlanPostPlanUpdateCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostPlanUpdate",
-		Short: ``,
+		Short: `更新任务计划`,
 		RunE:  runOperationPlanPostPlanUpdate,
 	}
 

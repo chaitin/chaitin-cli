@@ -18,7 +18,7 @@ import (
 func makeOperationTaskConfigPostPortgroupFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostPortgroupFilter",
-		Short: ``,
+		Short: `获取端口组列表`,
 		RunE:  runOperationTaskConfigPostPortgroupFilter,
 	}
 

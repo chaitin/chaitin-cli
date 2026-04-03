@@ -18,7 +18,7 @@ import (
 func makeOperationSystemServicePostEngineUpgradeCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostEngineUpgrade",
-		Short: ``,
+		Short: `引擎升级，请确保升级包校验通过`,
 		RunE:  runOperationSystemServicePostEngineUpgrade,
 	}
 

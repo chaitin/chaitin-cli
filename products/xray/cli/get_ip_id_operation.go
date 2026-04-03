@@ -17,7 +17,7 @@ import (
 func makeOperationIPAssetGetIPIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetIPID",
-		Short: ``,
+		Short: `获取主机资产`,
 		RunE:  runOperationIPAssetGetIPID,
 	}
 

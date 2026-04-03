@@ -18,7 +18,7 @@ import (
 func makeOperationXprocessPostXprocessPauseStageCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostXprocessPauseStage",
-		Short: ``,
+		Short: `暂停任务实例的某个阶段, 仅支持扫描策略为被动web(流量)的任务`,
 		RunE:  runOperationXprocessPostXprocessPauseStage,
 	}
 

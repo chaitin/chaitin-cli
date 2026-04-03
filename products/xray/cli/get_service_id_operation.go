@@ -17,7 +17,7 @@ import (
 func makeOperationServiceAssetGetServiceIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetServiceID",
-		Short: ``,
+		Short: `获取服务资产`,
 		RunE:  runOperationServiceAssetGetServiceID,
 	}
 

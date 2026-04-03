@@ -17,7 +17,7 @@ import (
 func makeOperationReportGetReportIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetReportID",
-		Short: ``,
+		Short: `查询报表详细信息`,
 		RunE:  runOperationReportGetReportID,
 	}
 

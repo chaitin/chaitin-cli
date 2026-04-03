@@ -18,7 +18,7 @@ import (
 func makeOperationIPAssetPostIPFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostIPFilter",
-		Short: ``,
+		Short: `按条件批量获取主机`,
 		RunE:  runOperationIPAssetPostIPFilter,
 	}
 

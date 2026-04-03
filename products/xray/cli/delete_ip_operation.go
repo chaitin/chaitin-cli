@@ -17,7 +17,7 @@ import (
 func makeOperationIPAssetDeleteIPCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "DeleteIP",
-		Short: ``,
+		Short: `批量删除主机`,
 		RunE:  runOperationIPAssetDeleteIP,
 	}
 

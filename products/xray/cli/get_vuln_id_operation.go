@@ -17,7 +17,7 @@ import (
 func makeOperationVulnerabilityGetVulnIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetVulnID",
-		Short: ``,
+		Short: `获取漏洞资产`,
 		RunE:  runOperationVulnerabilityGetVulnID,
 	}
 

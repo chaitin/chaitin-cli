@@ -18,7 +18,7 @@ import (
 func makeOperationXprocessLitePostXprocessLiteFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostXprocessLiteFilter",
-		Short: ``,
+		Short: `按条件批量获取 XProcess(精简)`,
 		RunE:  runOperationXprocessLitePostXprocessLiteFilter,
 	}
 

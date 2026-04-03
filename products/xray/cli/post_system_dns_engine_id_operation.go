@@ -18,7 +18,7 @@ import (
 func makeOperationSystemInfoPostSystemDNSEngineIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostSystemDNSEngineID",
-		Short: ``,
+		Short: `设置引擎节点的 dns 配置`,
 		RunE:  runOperationSystemInfoPostSystemDNSEngineID,
 	}
 

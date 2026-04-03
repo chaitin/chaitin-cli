@@ -17,7 +17,7 @@ import (
 func makeOperationWebAssetGetWebsiteOpenapiIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetWebsiteOpenapiID",
-		Short: ``,
+		Short: `获取 API 资产`,
 		RunE:  runOperationWebAssetGetWebsiteOpenapiID,
 	}
 

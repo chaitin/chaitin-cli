@@ -17,7 +17,7 @@ import (
 func makeOperationXprocessGetXprocessIDInfoCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetXprocessIDInfo",
-		Short: ``,
+		Short: `获取任务实例信息`,
 		RunE:  runOperationXprocessGetXprocessIDInfo,
 	}
 

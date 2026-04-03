@@ -18,7 +18,7 @@ import (
 func makeOperationCustomPocDeleteCustompocCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "DeleteCustompoc",
-		Short: ``,
+		Short: `删除自定义poc`,
 		RunE:  runOperationCustomPocDeleteCustompoc,
 	}
 

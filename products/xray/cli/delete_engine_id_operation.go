@@ -17,7 +17,7 @@ import (
 func makeOperationSystemInfoDeleteEngineIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "DeleteEngineID",
-		Short: ``,
+		Short: `删除引擎，仅超级管理员可进行此操作`,
 		RunE:  runOperationSystemInfoDeleteEngineID,
 	}
 

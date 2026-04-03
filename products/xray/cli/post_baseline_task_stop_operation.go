@@ -18,7 +18,7 @@ import (
 func makeOperationBaselinePostBaselineTaskStopCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostBaselineTaskStop",
-		Short: ``,
+		Short: `停止基线任务`,
 		RunE:  runOperationBaselinePostBaselineTaskStop,
 	}
 

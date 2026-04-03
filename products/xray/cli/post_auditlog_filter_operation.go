@@ -18,7 +18,7 @@ import (
 func makeOperationAuditLogPostAuditlogFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostAuditlogFilter",
-		Short: ``,
+		Short: `按条件批量获取审计日志`,
 		RunE:  runOperationAuditLogPostAuditlogFilter,
 	}
 

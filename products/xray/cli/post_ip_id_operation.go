@@ -18,7 +18,7 @@ import (
 func makeOperationIPAssetPostIPIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostIPID",
-		Short: ``,
+		Short: `修改主机资产`,
 		RunE:  runOperationIPAssetPostIPID,
 	}
 

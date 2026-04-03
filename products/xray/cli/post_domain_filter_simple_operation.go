@@ -18,7 +18,7 @@ import (
 func makeOperationDomainAssetPostDomainFilterSimpleCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostDomainFilterSimple",
-		Short: ``,
+		Short: `按条件批量获取精简的域名`,
 		RunE:  runOperationDomainAssetPostDomainFilterSimple,
 	}
 

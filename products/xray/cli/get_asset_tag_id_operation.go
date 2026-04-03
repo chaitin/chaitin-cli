@@ -17,7 +17,7 @@ import (
 func makeOperationAssetPropertyGetAssetTagIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "GetAssetTagID",
-		Short: ``,
+		Short: `获取资产标签详情`,
 		RunE:  runOperationAssetPropertyGetAssetTagID,
 	}
 

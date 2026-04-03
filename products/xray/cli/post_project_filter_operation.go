@@ -18,7 +18,7 @@ import (
 func makeOperationProjectPostProjectFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostProjectFilter",
-		Short: ``,
+		Short: `根据 ancestor_project_id 筛选其所有下级工作区，不包括自己本身。根据full_name筛选特定工作区。`,
 		RunE:  runOperationProjectPostProjectFilter,
 	}
 

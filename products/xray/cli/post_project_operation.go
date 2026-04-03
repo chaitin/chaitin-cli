@@ -18,7 +18,7 @@ import (
 func makeOperationProjectPostProjectCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostProject",
-		Short: ``,
+		Short: `创建工作区`,
 		RunE:  runOperationProjectPostProject,
 	}
 

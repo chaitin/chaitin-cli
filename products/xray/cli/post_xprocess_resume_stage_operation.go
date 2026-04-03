@@ -18,7 +18,7 @@ import (
 func makeOperationXprocessPostXprocessResumeStageCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostXprocessResumeStage",
-		Short: ``,
+		Short: `恢复任务实例的某个阶段, 仅支持扫描策略为被动web(流量)的任务`,
 		RunE:  runOperationXprocessPostXprocessResumeStage,
 	}
 

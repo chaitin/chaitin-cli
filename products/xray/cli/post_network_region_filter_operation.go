@@ -18,7 +18,7 @@ import (
 func makeOperationAssetPropertyPostNetworkRegionFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostNetworkRegionFilter",
-		Short: ``,
+		Short: `筛选网络区域`,
 		RunE:  runOperationAssetPropertyPostNetworkRegionFilter,
 	}
 

@@ -18,7 +18,7 @@ import (
 func makeOperationSystemServicePostExecutionFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostExecutionFilter",
-		Short: ``,
+		Short: `执行状态列表`,
 		RunE:  runOperationSystemServicePostExecutionFilter,
 	}
 

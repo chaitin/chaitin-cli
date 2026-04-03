@@ -18,7 +18,7 @@ import (
 func makeOperationWebAssetPostWebsiteFilterSimpleCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostWebsiteFilterSimple",
-		Short: ``,
+		Short: `按条件批量获取精简的 Web 站点`,
 		RunE:  runOperationWebAssetPostWebsiteFilterSimple,
 	}
 

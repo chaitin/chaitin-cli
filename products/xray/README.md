@@ -1,33 +1,33 @@
-# Xray CLI
+# 洞鉴(XRay) CLI
 
-命令行工具，用于通过 OpenAPI v2 控制 Xray 扫描平台。
+命令行工具，用于通过 OpenAPI v2 控制洞鉴(XRay)扫描平台。
 
 ## 命令列表
 
 | 命令 | 说明 |
 |------|------|
-| `asset_property` | 资产属性管理 |
-| `audit_log` | 审计日志 |
-| `baseline` | 基线检查 |
-| `custom_poc` | 自定义 PoC |
-| `domain_asset` | 域名资产管理 |
-| `insight` | 洞察分析 |
-| `ip_asset` | IP 资产管理 |
-| `plan` | 任务管理 |
-| `project` | 项目管理 |
-| `report` | 报告管理 |
-| `result` | 结果查询 |
-| `role` | 角色管理 |
-| `service_asset` | 服务资产管理 |
-| `system_info` | 系统信息 |
-| `system_service` | 系统服务 |
-| `task_config` | 任务配置 |
-| `template` | 策略模板 |
-| `user` | 用户管理 |
-| `vulnerability` | 漏洞管理 |
-| `web_asset` | Web 资产管理 |
-| `xprocess` | 扫描进程 |
-| `xprocess_lite` | 轻量级扫描进程 |
+| `cws xray asset_property` | 资产管理 |
+| `cws xray audit_log` | 审计日志管理 |
+| `cws xray baseline` | 基线检查管理 |
+| `cws xray custom_poc` | 自定义POC管理 |
+| `cws xray domain_asset` | 域名资产管理 |
+| `cws xray insight` | 数据洞察 |
+| `cws xray ip_asset` | 主机资产管理 |
+| `cws xray plan` | 任务计划管理 |
+| `cws xray project` | 工作区管理 |
+| `cws xray report` | 报表管理 |
+| `cws xray result` | 任务结果管理 |
+| `cws xray role` | 角色管理 |
+| `cws xray service_asset` | 服务资产管理 |
+| `cws xray system_info` | 系统信息管理 |
+| `cws xray system_service` | 系统服务管理 |
+| `cws xray task_config` | 任务配置管理 |
+| `cws xray template` | 策略模板管理 |
+| `cws xray user` | 用户管理 |
+| `cws xray vulnerability` | 漏洞资产管理 |
+| `cws xray web_asset` | Web资产管理 |
+| `cws xray xprocess` | XProcess任务实例管理 |
+| `cws xray xprocess_lite` | XProcess精简版管理 |
 
 ## 配置
 
@@ -53,7 +53,7 @@ xray:
 
 ### 创建任务 (PostPlanCreateQuick)
 
-快速创建扫描任务，自动使用"基础服务漏洞扫描"模板。
+快速创建扫描任务，立即执行（马上扫一次）。
 
 ```bash
 cws xray plan PostPlanCreateQuick \
@@ -69,8 +69,7 @@ cws xray plan PostPlanCreateQuick \
 | `--targets` | 是 | 扫描目标（逗号分隔） |
 | `--engines` | 是 | 引擎 ID（逗号分隔） |
 | `--project-id` | 是 | 项目 ID |
-| `--template-id` | 否 | 指定模板 ID（默认自动查找"基础服务漏洞扫描"） |
-| `--template-name` | 否 | 模板名称搜索关键字 |
+| `--template-name` | 否 | 模板名称搜索关键字（默认"基础服务漏洞扫描"） |
 | `--name` | 否 | 任务名称（默认 quick-scan） |
 
 ### 任务列表 (PostPlanFilter)

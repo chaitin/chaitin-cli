@@ -18,7 +18,7 @@ import (
 func makeOperationTaskConfigPostScannerdictFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostScannerdictFilter",
-		Short: ``,
+		Short: `获取字典列表`,
 		RunE:  runOperationTaskConfigPostScannerdictFilter,
 	}
 

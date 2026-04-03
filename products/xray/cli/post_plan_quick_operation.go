@@ -19,23 +19,22 @@ const defaultBuiltinTemplateName = "基础服务漏洞扫描"
 func makeOperationPlanCreateQuickCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostPlanCreateQuick",
-		Short: "Quick create a plan with targets and engines",
-		Long: fmt.Sprintf(`Quick create a plan that runs immediately with specified targets and engines.
+		Short: "快速创建扫描任务（马上扫一次）",
+		Long: fmt.Sprintf(`快速创建扫描任务，立即执行。
 
-Example:
-  xray plan quick --targets=example.com --engines=00000000000000000000000000000001
-  xray plan quick --targets=example.com,example2.com --engines=engine1,engine2 --name=my-scan
+示例：
+  xray plan quick --targets=example.com --engines=00000000000000000000000000000001 --project-id=1
+  xray plan quick --targets=example.com,example2.com --engines=engine1,engine2 --name=my-scan --project-id=1
 
-The template-id defaults to the "%s" (BUILTIN) template.`, defaultBuiltinTemplateName),
+默认使用"基础服务漏洞扫描"(BUILTIN)模板。`),
 		RunE: runOperationPlanQuick,
 	}
 
-	cmd.Flags().String("targets", "", "Comma-separated list of targets (required)")
-	cmd.Flags().String("engines", "", "Comma-separated list of engine IDs (required)")
-	cmd.Flags().String("name", "quick-scan", "Task name")
-	cmd.Flags().Int64("project-id", 0, "Project ID")
-	cmd.Flags().Int64("template-id", 0, fmt.Sprintf("Task template ID (defaults to %s)", defaultBuiltinTemplateName))
-	cmd.Flags().String("template-name", "", fmt.Sprintf("Override template name search (default: %s)", defaultBuiltinTemplateName))
+	cmd.Flags().String("targets", "", "目标地址，逗号分隔 (必填)")
+	cmd.Flags().String("engines", "", "引擎 ID 列表，逗号分隔 (必填)")
+	cmd.Flags().String("name", "quick-scan", "任务名称")
+	cmd.Flags().Int64("project-id", 0, "工作区 ID (必填)")
+	cmd.Flags().String("template-name", "", fmt.Sprintf("模板名称 (默认: %s)", defaultBuiltinTemplateName))
 
 	return cmd, nil
 }
@@ -50,7 +49,6 @@ func runOperationPlanQuick(cmd *cobra.Command, args []string) error {
 	enginesStr, _ := cmd.Flags().GetString("engines")
 	name, _ := cmd.Flags().GetString("name")
 	projectID, _ := cmd.Flags().GetInt64("project-id")
-	templateID, _ := cmd.Flags().GetInt64("template-id")
 	templateNameFlag, _ := cmd.Flags().GetString("template-name")
 
 	targets := strings.Split(targetsStr, ",")
@@ -67,28 +65,19 @@ func runOperationPlanQuick(cmd *cobra.Command, args []string) error {
 	}
 
 	// Find template and get task_setting
-	var taskSetting interface{}
-	if templateID == 0 {
-		templateName := templateNameFlag
-		if templateName == "" {
-			templateName = defaultBuiltinTemplateName
-		}
-
-		templateID, taskSetting, err = findBuiltinTemplateWithTaskSetting(appCli, templateName)
-		if err != nil {
-			return err
-		}
-		if templateID == 0 {
-			return fmt.Errorf("template '%s' not found. Use --template-id to specify explicitly", templateName)
-		}
-		logDebugf("Found template ID %d for '%s'", templateID, templateName)
-	} else {
-		// When template-id is explicitly specified, fetch its task_setting
-		taskSetting, err = getTemplateTaskSetting(appCli, templateID)
-		if err != nil {
-			return err
-		}
+	templateName := templateNameFlag
+	if templateName == "" {
+		templateName = defaultBuiltinTemplateName
 	}
+
+	templateID, taskSetting, err := findBuiltinTemplateWithTaskSetting(appCli, templateName)
+	if err != nil {
+		return err
+	}
+	if templateID == 0 {
+		return fmt.Errorf("未找到模板: %s", templateName)
+	}
+	logDebugf("Found template ID %d for '%s'", templateID, templateName)
 
 	// Build basic_setting
 	basicSetting := map[string]interface{}{

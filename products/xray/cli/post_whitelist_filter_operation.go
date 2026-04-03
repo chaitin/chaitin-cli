@@ -18,7 +18,7 @@ import (
 func makeOperationTaskConfigPostWhitelistFilterCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostWhitelistFilter",
-		Short: ``,
+		Short: `获取全局白名单`,
 		RunE:  runOperationTaskConfigPostWhitelistFilter,
 	}
 

@@ -17,7 +17,7 @@ import (
 func makeOperationPlanDeletePlanIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "DeletePlanID",
-		Short: ``,
+		Short: `删除任务`,
 		RunE:  runOperationPlanDeletePlanID,
 	}
 

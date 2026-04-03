@@ -18,7 +18,7 @@ import (
 func makeOperationSystemInfoPostSystemHostsEngineIDCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostSystemHostsEngineID",
-		Short: ``,
+		Short: `设置引擎节点的 hosts 配置`,
 		RunE:  runOperationSystemInfoPostSystemHostsEngineID,
 	}
 
