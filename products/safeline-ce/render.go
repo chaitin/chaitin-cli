@@ -96,12 +96,16 @@ func (r *TableRenderer) renderSlice(val reflect.Value) error {
 	columns := selectColumns(firstMap)
 
 	// 打印表头
-	r.printRow(columns)
+	headers := make([]string, len(columns))
+	for i, col := range columns {
+		headers[i] = formatColumnName(col)
+	}
+	r.printRow(headers)
 
 	// 打印分隔线
-	separators := make([]string, len(columns))
-	for i, col := range columns {
-		separators[i] = strings.Repeat("-", max(len(col), 4))
+	separators := make([]string, len(headers))
+	for i, h := range headers {
+		separators[i] = strings.Repeat("-", max(len(h), 4))
 	}
 	r.printRow(separators)
 
