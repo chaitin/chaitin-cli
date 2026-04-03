@@ -125,12 +125,8 @@ func loadDynamicCommands(cmd *cobra.Command) error {
 		return fmt.Errorf("failed to parse openapi.json: %w", err)
 	}
 
-	// 创建客户端和渲染器
-	client := getClient(cmd)
-	renderer := getRenderer(cmd)
-
 	// 创建解析器并生成命令
-	parser := NewParser(client, renderer)
+	parser := NewParser(nil)
 	commands, err := parser.GenerateCommands(&api)
 	if err != nil {
 		return fmt.Errorf("failed to generate commands: %w", err)
@@ -171,34 +167,22 @@ func getClient(cmd *cobra.Command) *Client {
 
 // registerOverrides 注册需要特殊处理的命令
 func registerOverrides(cmd *cobra.Command) {
-	// 查找或创建 cert 命令
-	var certCmd *cobra.Command
+	// 查找 cert 命令并移除不需要的子命令
 	for _, c := range cmd.Commands() {
 		if c.Use == "cert" {
-			certCmd = c
+			// 移除 delete 和 upload 子命令
+			var toRemove []*cobra.Command
+			for _, subCmd := range c.Commands() {
+				if subCmd.Use == "delete" || subCmd.Use == "upload" {
+					toRemove = append(toRemove, subCmd)
+				}
+			}
+			for _, subCmd := range toRemove {
+				c.RemoveCommand(subCmd)
+			}
 			break
 		}
 	}
-
-	if certCmd == nil {
-		certCmd = &cobra.Command{
-			Use:   "cert",
-			Short: "证书管理",
-		}
-		cmd.AddCommand(certCmd)
-	}
-
-	// cert upload 命令
-	uploadCmd := &cobra.Command{
-		Use:   "upload",
-		Short: "上传 SSL 证书",
-		RunE:  runCertUpload,
-	}
-	uploadCmd.Flags().String("cert-file", "", "证书文件路径")
-	uploadCmd.Flags().String("key-file", "", "私钥文件路径")
-	uploadCmd.MarkFlagRequired("cert-file")
-	uploadCmd.MarkFlagRequired("key-file")
-	certCmd.AddCommand(uploadCmd)
 
 	// 查找或创建 stat 命令
 	var statCmd *cobra.Command
