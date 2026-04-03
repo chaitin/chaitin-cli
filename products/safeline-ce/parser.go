@@ -316,13 +316,13 @@ func operationName(method, path string) string {
 
 // 全局 flag 名称，避免与 API 参数冲突
 var globalFlags = map[string]bool{
-	"url":      true,
-	"api-key":  true,
-	"output":   true,
-	"verbose":  true,
-	"dry-run":  true,
-	"page":     true, // 分页参数由代码自动添加
-	"size":     true,
+	"url":     true,
+	"api-key": true,
+	"output":  true,
+	"verbose": true,
+	"dry-run": true,
+	"page":    true, // 分页参数由代码自动添加
+	"size":    true,
 }
 
 // paramFlagName 获取参数对应的 flag 名称，避免与全局 flag 冲突
