@@ -10,12 +10,10 @@ xray:
   url: ""
   api_key: ""
 
-<<<<<<< HEAD
 safeline-ce:
   endpoint: ""
   token: ""
-=======
+
 safeline:
   url: ""
   api_key: ""
->>>>>>> e6c1399 (feat: apply config.yml in safeline cli)
