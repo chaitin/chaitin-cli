@@ -17,6 +17,18 @@ Chaitin Workspace CLI for products
 
 [![asciicast](https://asciinema.org/a/Pxabe3keAL0Z6PoJ.svg)](https://asciinema.org/a/Pxabe3keAL0Z6PoJ)
 
+### SafeLine
+
+[![asciicast](https://asciinema.org/a/ZDqZTHLD3nwXC27Z.svg)](https://asciinema.org/a/ZDqZTHLD3nwXC27Z)
+
+### SafeLine-CE
+
+[![asciicast](https://asciinema.org/a/dzJzibRTm8arWRmU.svg)](https://asciinema.org/a/dzJzibRTm8arWRmU)
+
+### X-Ray
+
+[![asciicast](https://asciinema.org/a/XH6Hk9pWK0yp4VIt.svg)](https://asciinema.org/a/XH6Hk9pWK0yp4VIt)
+
 ## Configuration
 
 Put product connection settings in `./config.yaml`:
@@ -93,20 +105,6 @@ Checklist for a new product:
 - If `NewCommand()` returns `(*cobra.Command, error)`, handle the error before registration.
 - If the product needs `config.yaml` or root-level runtime flags, implement `ApplyRuntimeConfig(...)` in the product package and call it from `wrapProductCommand()` in `main.go`.
 - Decode product-specific config inside the product package from `config.Raw`; do not add config field parsing to the root command.
-
-## Current Demo
-
-The CLI currently includes one built-in demo product command:
-
-```bash
-cws chaitin
-```
-
-Output:
-
-```text
-Uncomputable, infinite possibilities
-```
 
 ## BusyBox-Style Invocation
 
