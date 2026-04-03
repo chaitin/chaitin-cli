@@ -89,7 +89,6 @@ import (
 var (
 	apiURL  string
 	apiKey  string
-	debug   bool
 	format  string
 	noTrunc bool
 )
@@ -116,19 +115,20 @@ var rootCmd = &cobra.Command{
 		if apiKey != "" {
 			client.SetAPIKey(apiKey)
 		}
-		// 设置 debug
-		client.SetDebug(debug)
 		// 设置 format
 		client.SetFormat(format)
 		// 设置 noTrunc
 		client.SetNoTrunc(noTrunc)
+		// 从父命令继承 dry-run 标志
+		if dryRunFlag := cmd.InheritedFlags().Lookup("dry-run"); dryRunFlag != nil {
+			client.SetDryRun(dryRunFlag.Value.String() == "true")
+		}
 	},
 }
 
 func init() {
 	rootCmd.PersistentFlags().StringVar(&apiURL, "url", "", "API URL (e.g. https://api.example.com/rpc)")
 	rootCmd.PersistentFlags().StringVar(&apiKey, "api-key", "", "API Key for authentication")
-	rootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "Print request body for debugging")
 	rootCmd.PersistentFlags().StringVarP(&format, "format", "f", "text", "Output format (json or text)")
 	rootCmd.PersistentFlags().BoolVar(&noTrunc, "no-trunc", false, "Show full content without truncation in text output")
 

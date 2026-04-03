@@ -21,7 +21,6 @@ import (
 type Client struct {
 	baseURL    string
 	apiKey     string
-	debug      bool
 	httpClient *http.Client
 }
 
@@ -39,13 +38,6 @@ func WithBaseURL(baseURL string) Option {
 func WithAPIKey(apiKey string) Option {
 	return func(c *Client) {
 		c.apiKey = apiKey
-	}
-}
-
-// WithDebug 设置 debug 模式
-func WithDebug(debug bool) Option {
-	return func(c *Client) {
-		c.debug = debug
 	}
 }
 
@@ -99,14 +91,15 @@ func (c *Client) Call(ctx context.Context, method string, params interface{}, re
 		return fmt.Errorf("marshal request: %w", err)
 	}
 
-	// debug 模式下打印请求体
-	if c.debug {
+	// dry-run 模式下打印请求信息并返回
+	if dryRun {
 		var prettyJSON bytes.Buffer
 		if err := json.Indent(&prettyJSON, jsonData, "", "  "); err == nil {
-			fmt.Printf("[DEBUG] Request Body:\n%s\n", prettyJSON.String())
+			fmt.Printf("[DRY-RUN] Request Body:\n%s\n", prettyJSON.String())
 		} else {
-			fmt.Printf("[DEBUG] Request Body:\n%s\n", string(jsonData))
+			fmt.Printf("[DRY-RUN] Request Body:\n%s\n", string(jsonData))
 		}
+		return nil
 	}
 
 	// 创建 HTTP 请求
@@ -184,9 +177,17 @@ func SetAPIKey(apiKey string) {
 	defaultClient.apiKey = apiKey
 }
 
-// SetDebug 设置全局客户端的 debug 模式
-func SetDebug(debug bool) {
-	defaultClient.debug = debug
+// dryRun 是否为演练模式（不发送实际请求）
+var dryRun bool = false
+
+// SetDryRun 设置演练模式
+func SetDryRun(dry bool) {
+	dryRun = dry
+}
+
+// GetDryRun 获取演练模式
+func GetDryRun() bool {
+	return dryRun
 }
 
 // outputFormat 输出格式

@@ -28,3 +28,5 @@ cover.out
 .settings/
 
 .codex
+
+config.yaml
