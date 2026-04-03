@@ -22,8 +22,8 @@ func NewCommand() *cobra.Command {
 // OverviewResult represents the filtered overview response.
 type OverviewResult struct {
 	SrcIP [][]interface{} `json:"src_ip"`
-	Host [][]interface{} `json:"host"`
-	Total map[string]int `json:"total"`
+	Host  [][]interface{} `json:"host"`
+	Total map[string]int  `json:"total"`
 }
 
 func newOverviewCmd() *cobra.Command {

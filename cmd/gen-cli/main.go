@@ -123,8 +123,8 @@ func groupByModule(spec Spec) map[string][]ModuleOp {
 			seen[key] = true
 
 			mop := ModuleOp{
-				Path:   path,
-				Method: method,
+				Path:    path,
+				Method:  method,
 				CmdName: toCmdName(op.Summary, op.OperationID) + "-" + strings.ToLower(method),
 				HasBody: op.RequestBody != nil,
 			}

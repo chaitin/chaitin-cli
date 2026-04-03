@@ -14,15 +14,15 @@ import (
 type OperationMode string
 
 const (
-	ModeSoftwareReverseProxy         OperationMode = "Software Reverse Proxy"
-	ModeHardwareReverseProxy         OperationMode = "Hardware Reverse Proxy"
-	ModeSoftwareClusterReverseProxy  OperationMode = "Software Cluster Reverse Proxy"
-	ModeSoftwarePortMirroring        OperationMode = "Software Port Mirroring"
-	ModeHardwareTransparentProxy     OperationMode = "Hardware Transparent Proxy"
-	ModeHardwareTransparentBridging  OperationMode = "Hardware Transparent Bridging"
-	ModeHardwarePortMirroring        OperationMode = "Hardware Port Mirroring"
-	ModeHardwareTrafficDetection     OperationMode = "Hardware Traffic Detection"
-	ModeHardwareRouterProxy          OperationMode = "Hardware Router Proxy"
+	ModeSoftwareReverseProxy        OperationMode = "Software Reverse Proxy"
+	ModeHardwareReverseProxy        OperationMode = "Hardware Reverse Proxy"
+	ModeSoftwareClusterReverseProxy OperationMode = "Software Cluster Reverse Proxy"
+	ModeSoftwarePortMirroring       OperationMode = "Software Port Mirroring"
+	ModeHardwareTransparentProxy    OperationMode = "Hardware Transparent Proxy"
+	ModeHardwareTransparentBridging OperationMode = "Hardware Transparent Bridging"
+	ModeHardwarePortMirroring       OperationMode = "Hardware Port Mirroring"
+	ModeHardwareTrafficDetection    OperationMode = "Hardware Traffic Detection"
+	ModeHardwareRouterProxy         OperationMode = "Hardware Router Proxy"
 )
 
 // Port handles both int (Software Reverse Proxy) and string (Hardware modes) port formats.
@@ -390,9 +390,9 @@ Examples:
 			}
 
 			var result struct {
-				ID          int  `json:"id"`
+				ID          int    `json:"id"`
 				Name        string `json:"name"`
-				PolicyGroup *int `json:"policy_group"`
+				PolicyGroup *int   `json:"policy_group"`
 			}
 			if err := json.Unmarshal(env.Data, &result); err != nil {
 				return err

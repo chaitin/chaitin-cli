@@ -121,7 +121,7 @@ Examples:
 			cl := cmd.NewClient()
 
 			query := map[string]string{
-				"scope":      "detect:rule_template:template",
+				"scope":     "detect:rule_template:template",
 				"id__exact": args[0],
 			}
 
@@ -240,8 +240,8 @@ Examples:
 
 			// Map CLI values to API enum values
 			targetTypeMap := map[string]string{
-				"cidr":       "CIDR",
-				"session":    "Session",
+				"cidr":        "CIDR",
+				"session":     "Session",
 				"fingerprint": "Fingerprint",
 			}
 			scopeMap := map[string]string{
@@ -590,7 +590,7 @@ Examples:
 		Args: cobra.ExactArgs(1),
 		RunE: func(c *cobra.Command, args []string) error {
 			req := map[string]interface{}{
-				"id":               json.Number(args[0]),
+				"id":                json.Number(args[0]),
 				"add_to_white_list": addToWhitelist,
 			}
 

@@ -25,9 +25,9 @@ func NewCommand() *cobra.Command {
 
 func newWorkgroupCmd() *cobra.Command {
 	c := &cobra.Command{
-		Use:   "workgroup",
-		Short: "Workgroup commands",
-		Long:  "Commands for viewing workgroups (network interface groups).",
+		Use:     "workgroup",
+		Short:   "Workgroup commands",
+		Long:    "Commands for viewing workgroups (network interface groups).",
 		Aliases: []string{"wg"},
 	}
 	c.AddCommand(newWorkgroupListCmd())
@@ -166,9 +166,9 @@ Examples:
 
 func newInterfaceCmd() *cobra.Command {
 	c := &cobra.Command{
-		Use:   "interface",
-		Short: "Network interface commands",
-		Long:  "Commands for viewing network interfaces.",
+		Use:     "interface",
+		Short:   "Network interface commands",
+		Long:    "Commands for viewing network interfaces.",
 		Aliases: []string{"if"},
 	}
 	c.AddCommand(newInterfaceListCmd())
@@ -294,12 +294,12 @@ Examples:
 type OperationMode string
 
 const (
-	ModeSoftwareReverseProxy         OperationMode = "software_reverse_proxy"
-	ModeHardwareReverseProxy         OperationMode = "hardware_reverse_proxy"
-	ModeHardwareTransparentProxy     OperationMode = "hardware_transparent_proxy"
-	ModeHardwarePortMirroring        OperationMode = "hardware_port_mirroring"
-	ModeHardwareTransparentBridging  OperationMode = "hardware_transparent_bridging"
-	ModeHardwareTrafficDetection     OperationMode = "hardware_traffic_detection"
+	ModeSoftwareReverseProxy        OperationMode = "software_reverse_proxy"
+	ModeHardwareReverseProxy        OperationMode = "hardware_reverse_proxy"
+	ModeHardwareTransparentProxy    OperationMode = "hardware_transparent_proxy"
+	ModeHardwarePortMirroring       OperationMode = "hardware_port_mirroring"
+	ModeHardwareTransparentBridging OperationMode = "hardware_transparent_bridging"
+	ModeHardwareTrafficDetection    OperationMode = "hardware_traffic_detection"
 )
 
 // checkHardwareMode checks if the current deployment mode supports network commands.

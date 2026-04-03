@@ -458,11 +458,11 @@ type policyTranslation struct {
 }
 
 type policyTarget struct {
-	Key     string             `json:"key"`
-	Name    policyTranslation  `json:"name"`
-	Comment policyTranslation  `json:"comment"`
-	Type    interface{}        `json:"type"` // Can be string or object
-	Cmp     []string           `json:"cmp"`
+	Key     string            `json:"key"`
+	Name    policyTranslation `json:"name"`
+	Comment policyTranslation `json:"comment"`
+	Type    interface{}       `json:"type"` // Can be string or object
+	Cmp     []string          `json:"cmp"`
 }
 
 type policyCmp struct {
