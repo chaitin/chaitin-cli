@@ -5,13 +5,12 @@
 [![Go Version](https://img.shields.io/github/go-mod/go-version/chaitin/workspace-cli?label=Go)](https://github.com/chaitin/workspace-cli/blob/main/go.mod)
 [![License](https://img.shields.io/github/license/chaitin/workspace-cli?label=License)](https://github.com/chaitin/workspace-cli/blob/main/LICENSE)
 
-长亭安全产品统一命令行工具
+Chaitin Workspace CLI for products
 
-[English README](./README.en.md)
-
-## 演示
+## Demo
 
 ### CloudWalker
+
 [![asciicast](https://asciinema.org/a/894643.svg)](https://asciinema.org/a/894643)
 
 ### T-Answer
@@ -30,9 +29,9 @@
 
 [![asciicast](https://asciinema.org/a/XH6Hk9pWK0yp4VIt.svg)](https://asciinema.org/a/XH6Hk9pWK0yp4VIt)
 
-## 配置
+## Configuration
 
-将各产品的连接信息写入 `./config.yaml`：
+Put product connection settings in `./config.yaml`:
 
 ```yaml
 cloudwalker:
@@ -48,7 +47,7 @@ xray:
   api_key: YOUR_API_KEY
 ```
 
-也可以把同样的配置放到环境变量或本地 `.env` 文件中。变量命名规则为 `<PRODUCT>_<FIELD>`：
+You can also put the same keys into environment variables or a local `.env` file. Variable names follow `<PRODUCT>_<FIELD>`:
 
 ```text
 cloudwalker.url      -> CLOUDWALKER_URL
@@ -63,7 +62,7 @@ safeline.url         -> SAFELINE_URL
 safeline.api_key     -> SAFELINE_API_KEY
 ```
 
-`.env` 示例：
+Example `.env`:
 
 ```bash
 SAFELINE_URL=https://safeline.example.com
@@ -72,44 +71,44 @@ XRAY_URL=https://xray.example.com/api/v2
 XRAY_API_KEY=YOUR_API_KEY
 ```
 
-优先级为 `flags > environment/.env > config.yaml`
+Priority is `flags > environment/.env > config.yaml`.
 
-可以通过根命令的 `-c` 或 `--config` 指定其他配置文件。这在切换多个产品实例时很有用，例如多个 SafeLine 环境：
+Use root-level `-c` or `--config` to load a different config file. This is useful when you switch between multiple product instances, for example multiple SafeLine environments:
 
 ```bash
 cws -c ./configs/safeline-prod.yaml safeline stats overview
 cws -c ./configs/safeline-staging.yaml safeline stats overview
 ```
 
-支持 dry-run 的命令可以使用根级别的 `--dry-run`：
+Use root-level `--dry-run` for commands that support dry-run:
 
 ```bash
 cws --dry-run xray plan PostPlanFilter --filterPlan.limit=10
 ```
 
-## 项目结构
+## Project Structure
 
 ```text
-main.go                # 主入口和 CLI 装配逻辑
-products/<name>/       # 每个产品一个独立目录
-Taskfile.yml           # 构建、运行、检查任务
+main.go                # Main entry point and CLI wiring
+products/<name>/       # One dedicated directory per product
+Taskfile.yml           # Build, run, and lint tasks
 ```
 
-## 添加新产品
+## More Products
 
-在 `products` 目录下新增产品实现
+Add to `products` directory
 
-新增产品检查清单：
+Checklist for a new product:
 
-- 在 `main.go` 中导入产品包
-- 在 `newApp()` 中通过 `a.registerProductCommand(...)` 注册命令
-- 如果 `NewCommand()` 返回 `(*cobra.Command, error)`，需要在注册前处理错误
-- 如果产品依赖 `config.yaml` 或根级运行时参数，在产品包里实现 `ApplyRuntimeConfig(...)`，并从 `main.go` 的 `wrapProductCommand()` 中调用
-- 产品配置应在产品包内部从 `config.Raw` 解码，不要把产品字段解析逻辑塞进根命令
+- Add the product package import in `main.go`.
+- Register the command in `newApp()` with `a.registerProductCommand(...)`.
+- If `NewCommand()` returns `(*cobra.Command, error)`, handle the error before registration.
+- If the product needs `config.yaml` or root-level runtime flags, implement `ApplyRuntimeConfig(...)` in the product package and call it from `wrapProductCommand()` in `main.go`.
+- Decode product-specific config inside the product package from `config.Raw`; do not add config field parsing to the root command.
 
-## BusyBox 风格调用
+## BusyBox-Style Invocation
 
-同一个二进制可以通过软链接，或者直接重命名后，以子命令名直接调用：
+The same binary can be invoked directly by subcommand name through a symlink or by renaming the executable:
 
 ```bash
 task build
@@ -117,13 +116,13 @@ ln -s ./bin/cws ./chaitin
 ./chaitin
 ```
 
-等价于：
+This is equivalent to:
 
 ```bash
 ./bin/cws chaitin
 ```
 
-## 常用任务
+## Task
 
 ```bash
 task build
