@@ -15,11 +15,11 @@ Chaitin Workspace CLI for products
 
 ### T-Answer
 
-[![asciicast](https://asciinema.org/a/Pxabe3keAL0Z6PoJ.svg)](https://asciinema.org/a/Pxabe3keAL0Z6PoJ)
+[![asciicast](https://asciinema.org/a/Gs8KPOIcEnRRnXWr.svg)](https://asciinema.org/a/Gs8KPOIcEnRRnXWr)
 
 ### SafeLine
 
-[![asciicast](https://asciinema.org/a/ZDqZTHLD3nwXC27Z.svg)](https://asciinema.org/a/ZDqZTHLD3nwXC27Z)
+[![asciicast](https://asciinema.org/a/x7I8JDzbtjsRjb5M.svg)](https://asciinema.org/a/x7I8JDzbtjsRjb5M)
 
 ### SafeLine-CE
 
