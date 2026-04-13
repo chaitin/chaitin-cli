@@ -3,8 +3,10 @@
 package cli
 
 import (
+	"crypto/tls"
 	"fmt"
 	"log"
+	"net/http"
 	neturl "net/url"
 
 	"github.com/chaitin/workspace-cli/config"
@@ -22,6 +24,9 @@ var (
 
 	// dry run flag
 	dryRun bool
+
+	// insecure flag for skipping TLS certificate verification
+	insecure bool
 
 	// runtime config injected by the root command
 	runtimeCfg runtimeProductConfig
@@ -67,6 +72,13 @@ func makeClient(cmd *cobra.Command, _ []string) (*client.OPENAPI, error) {
 	}
 	r.DefaultAuthentication = auth
 
+	// Configure insecure TLS if flag is set
+	if insecure {
+		r.Transport = &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		}
+	}
+
 	appCli := client.New(r, strfmt.Default)
 	logDebugf("Server url: %v://%v", scheme, hostname)
 
@@ -86,6 +98,9 @@ func MakeCommand() (*cobra.Command, error) {
 
 	// configure debug flag
 	rootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "output debug logs")
+
+	// configure insecure flag for skipping TLS verification
+	rootCmd.PersistentFlags().BoolVar(&insecure, "insecure", false, "skip TLS certificate verification")
 
 	// register security flags
 	if err := registerAuthInoWriterFlags(rootCmd); err != nil {

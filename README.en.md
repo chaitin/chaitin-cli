@@ -27,7 +27,7 @@ Chaitin Workspace CLI for products
 
 ### X-Ray
 
-[![asciicast](https://asciinema.org/a/XH6Hk9pWK0yp4VIt.svg)](https://asciinema.org/a/XH6Hk9pWK0yp4VIt)
+[![asciicast](https://asciinema.org/a/923077.svg)](https://asciinema.org/a/923077)
 
 ## Configuration
 
