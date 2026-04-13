@@ -29,4 +29,7 @@ cover.out
 
 .codex
 
+# Claude Code
+.claude/
+
 config.yaml
