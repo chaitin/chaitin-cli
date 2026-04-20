@@ -28,7 +28,7 @@
 
 ### DDR
 
-[![asciicast](https://asciinema.org/a/IHulIbJ5nsy924qd.svg)](https://asciinema.org/a/IHulIbJ5nsy924qd)
+[![asciicast](https://asciinema.org/a/IHulIbJ5nsy924qd.svg)](https://asciinema.org/a/t0cFuOjkLkExjREx)
 
 ### X-Ray
 
@@ -57,6 +57,7 @@ xray:
   url: https://xray.example.com/api/v2
   api_key: YOUR_API_KEY
 ```
+也可以把同样的配置放到环境变量或本地 `.env` 文件中。变量命名规则为 `<PRODUCT>_<FIELD>`：
 
 ```text
 cloudwalker.url      -> CLOUDWALKER_URL

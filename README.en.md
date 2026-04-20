@@ -27,7 +27,7 @@ Chaitin Workspace CLI for products
 
 ### DDR
 
-[![asciicast](https://asciinema.org/a/IHulIbJ5nsy924qd.svg)](https://asciinema.org/a/IHulIbJ5nsy924qd)
+[![asciicast](https://asciinema.org/a/IHulIbJ5nsy924qd.svg)](https://asciinema.org/a/t0cFuOjkLkExjREx)
 
 ### X-Ray
 
@@ -56,6 +56,7 @@ xray:
   url: https://xray.example.com/api/v2
   api_key: YOUR_API_KEY
 ```
+You can also put the same keys into environment variables or a local `.env` file. Variable names follow `<PRODUCT>_<FIELD>`:
 
 ```text
 cloudwalker.url      -> CLOUDWALKER_URL
