@@ -86,7 +86,11 @@ func (c *Client) buildURL(path string) string {
 }
 
 func (c *Client) injectHeaders(req *http.Request, headers map[string]string, hasBody bool) {
-	req.Header.Set("Authorization", c.config.APIKey)
+	authInfo := c.config.APIKey
+	if !strings.HasPrefix(authInfo, "Serval ") && !strings.HasPrefix(authInfo, "Bearer ") {
+		authInfo = "Serval " + authInfo
+	}
+	req.Header.Set("Authorization", authInfo)
 	req.Header.Set("X-CS-Header-Company", c.config.CompanyID)
 	for key, value := range c.headers {
 		if value == "" {

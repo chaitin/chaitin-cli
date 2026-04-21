@@ -198,7 +198,7 @@ func createAccessKey(ctx context.Context, client *Client, jwtToken string, claim
 }
 
 func buildServalToken(accessKey string) string {
-	return "Serval " + base64.StdEncoding.EncodeToString([]byte("serval:"+accessKey))
+	return base64.StdEncoding.EncodeToString([]byte("serval:" + accessKey))
 }
 
 func fetchCompanyID(ctx context.Context, client *Client, token string) (string, error) {

@@ -46,11 +46,11 @@ tanswer:
   url: https://tanswer.example.com
   api_key: YOUR_API_KEY
 
-# cws ddr get-api-token --url https://127.0.0.1:8443 --jwt-token "Bearer xxx" can directly get url & api_key & company_id
+# cws ddr get-api-token --url https://127.0.0.1:8443 --jwt-token "YOUR_JWT_TOKEN" can directly get url & api_key & company_id
 ddr:
   url: "https://127.0.0.1:8443/qzh/api/v1"
-  api_key: "Bearer xxx"
-  company_id: "xxx"
+  api_key: "YOUR_API_KEY"
+  company_id: "YOUR_COMPANY_ID"
 
 xray:
   url: https://xray.example.com/api/v2

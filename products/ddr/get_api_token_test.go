@@ -100,7 +100,7 @@ func TestCreateAndPersistAPIToken(t *testing.T) {
 		t.Fatalf("User header = %q", seenCreateUser)
 	}
 
-	wantToken := "Serval " + base64.StdEncoding.EncodeToString([]byte("serval:ak-1"))
+	wantToken := base64.StdEncoding.EncodeToString([]byte("serval:ak-1"))
 	if seenAttrAuth != wantToken {
 		t.Fatalf("ns attributes Authorization = %q, want %q", seenAttrAuth, wantToken)
 	}
