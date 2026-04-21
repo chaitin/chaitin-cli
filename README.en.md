@@ -46,9 +46,9 @@ tanswer:
   url: https://tanswer.example.com
   api_key: YOUR_API_KEY
 
-# cws ddr get-api-token --url https://127.0.0.1:8443 --jwt-token "YOUR_JWT_TOKEN" can directly get url & api_key & company_id
+# cws ddr get-api-token --url https://ddr.example.com:8443 --jwt-token "YOUR_JWT_TOKEN" can directly get url & api_key & company_id
 ddr:
-  url: "https://127.0.0.1:8443/qzh/api/v1"
+  url: "https://ddr.example.com:8443/qzh/api/v1"
   api_key: "YOUR_API_KEY"
   company_id: "YOUR_COMPANY_ID"
 
