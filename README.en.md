@@ -25,6 +25,10 @@ Chaitin Workspace CLI for products
 
 [![asciicast](https://asciinema.org/a/dzJzibRTm8arWRmU.svg)](https://asciinema.org/a/dzJzibRTm8arWRmU)
 
+### DDR
+
+[![asciicast](https://asciinema.org/a/IHulIbJ5nsy924qd.svg)](https://asciinema.org/a/t0cFuOjkLkExjREx)
+
 ### X-Ray
 
 [![asciicast](https://asciinema.org/a/923077.svg)](https://asciinema.org/a/923077)
@@ -42,11 +46,16 @@ tanswer:
   url: https://tanswer.example.com
   api_key: YOUR_API_KEY
 
+# cws ddr get-api-token --url https://ddr.example.com:8443 --jwt-token "YOUR_JWT_TOKEN" can directly get url & api_key & company_id
+ddr:
+  url: "https://ddr.example.com:8443/qzh/api/v1"
+  api_key: "YOUR_API_KEY"
+  company_id: "YOUR_COMPANY_ID"
+
 xray:
   url: https://xray.example.com/api/v2
   api_key: YOUR_API_KEY
 ```
-
 You can also put the same keys into environment variables or a local `.env` file. Variable names follow `<PRODUCT>_<FIELD>`:
 
 ```text
@@ -54,6 +63,9 @@ cloudwalker.url      -> CLOUDWALKER_URL
 cloudwalker.api_key  -> CLOUDWALKER_API_KEY
 tanswer.url          -> TANSWER_URL
 tanswer.api_key      -> TANSWER_API_KEY
+ddr.url              -> DDR_URL
+ddr.api_key          -> DDR_API_KEY
+ddr.company_id       -> DDR_COMPANY_ID
 xray.url             -> XRAY_URL
 xray.api_key         -> XRAY_API_KEY
 safeline-ce.url      -> SAFELINE_CE_URL

@@ -17,3 +17,8 @@ safeline-ce:
 safeline:
   url: ""
   api_key: ""
+
+ddr:
+  url: ""
+  api_key: ""
+  company_id: ""
