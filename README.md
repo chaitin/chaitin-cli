@@ -47,7 +47,7 @@ tanswer:
   url: https://tanswer.example.com
   api_key: YOUR_API_KEY
 
-# cws ddr get-api-token --url https://ddr.example.com:8443 --jwt-token "YOUR_JWT_TOKEN" 可以直接获取 url & api_key & company_id
+# chaitin-cli ddr get-api-token --url https://ddr.example.com:8443 --jwt-token "YOUR_JWT_TOKEN" 可以直接获取 url & api_key & company_id
 ddr:
   url: "https://ddr.example.com:8443/qzh/api/v1"
   api_key: "YOUR_API_KEY"
@@ -89,14 +89,14 @@ XRAY_API_KEY=YOUR_API_KEY
 可以通过根命令的 `-c` 或 `--config` 指定其他配置文件。这在切换多个产品实例时很有用，例如多个 SafeLine 环境：
 
 ```bash
-cws -c ./configs/safeline-prod.yaml safeline stats overview
-cws -c ./configs/safeline-staging.yaml safeline stats overview
+chaitin-cli -c ./configs/safeline-prod.yaml safeline stats overview
+chaitin-cli -c ./configs/safeline-staging.yaml safeline stats overview
 ```
 
 支持 dry-run 的命令可以使用根级别的 `--dry-run`：
 
 ```bash
-cws --dry-run xray plan PostPlanFilter --filterPlan.limit=10
+chaitin-cli --dry-run xray plan PostPlanFilter --filterPlan.limit=10
 ```
 
 ## 项目结构
@@ -125,19 +125,19 @@ Taskfile.yml           # 构建、运行、检查任务
 
 ```bash
 task build
-ln -s ./bin/cws ./chaitin
+ln -s ./bin/chaitin-cli ./chaitin
 ./chaitin
 ```
 
 等价于：
 
 ```bash
-./bin/cws chaitin
+./bin/chaitin-cli chaitin
 ```
 
 ## AI Agent Skill
 
-本项目提供了 AI Agent skill，安装后 AI Agent（Claude Code、Cursor 等）可以直接调用 `cws` 命令管理长亭安全产品。
+本项目提供了 AI Agent skill，安装后 AI Agent（Claude Code、Cursor 等）可以直接调用 `chaitin-cli` 命令管理长亭安全产品。
 
 ```bash
 npx skills add chaitin/chaitin-cli

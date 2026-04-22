@@ -46,7 +46,7 @@ tanswer:
   url: https://tanswer.example.com
   api_key: YOUR_API_KEY
 
-# cws ddr get-api-token --url https://ddr.example.com:8443 --jwt-token "YOUR_JWT_TOKEN" can directly get url & api_key & company_id
+# chaitin-cli ddr get-api-token --url https://ddr.example.com:8443 --jwt-token "YOUR_JWT_TOKEN" can directly get url & api_key & company_id
 ddr:
   url: "https://ddr.example.com:8443/qzh/api/v1"
   api_key: "YOUR_API_KEY"
@@ -88,14 +88,14 @@ Priority is `flags > environment/.env > config.yaml`.
 Use root-level `-c` or `--config` to load a different config file. This is useful when you switch between multiple product instances, for example multiple SafeLine environments:
 
 ```bash
-cws -c ./configs/safeline-prod.yaml safeline stats overview
-cws -c ./configs/safeline-staging.yaml safeline stats overview
+chaitin-cli -c ./configs/safeline-prod.yaml safeline stats overview
+chaitin-cli -c ./configs/safeline-staging.yaml safeline stats overview
 ```
 
 Use root-level `--dry-run` for commands that support dry-run:
 
 ```bash
-cws --dry-run xray plan PostPlanFilter --filterPlan.limit=10
+chaitin-cli --dry-run xray plan PostPlanFilter --filterPlan.limit=10
 ```
 
 ## Project Structure
@@ -124,19 +124,19 @@ The same binary can be invoked directly by subcommand name through a symlink or 
 
 ```bash
 task build
-ln -s ./bin/cws ./chaitin
+ln -s ./bin/chaitin-cli ./chaitin
 ./chaitin
 ```
 
 This is equivalent to:
 
 ```bash
-./bin/cws chaitin
+./bin/chaitin-cli chaitin
 ```
 
 ## AI Agent Skill
 
-This project provides an AI Agent skill. Once installed, AI agents (Claude Code, Cursor, etc.) can invoke `cws` commands to manage Chaitin security products directly.
+This project provides an AI Agent skill. Once installed, AI agents (Claude Code, Cursor, etc.) can invoke `chaitin-cli` commands to manage Chaitin security products directly.
 
 ```bash
 npx skills add chaitin/chaitin-cli
