@@ -80,13 +80,13 @@ jobs:
         run: echo "VERSION=${GITHUB_REF_NAME}" >> "$GITHUB_ENV"
 
       - name: Build package
-        run: task package GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} PACKAGE_NAME=cws_${VERSION}_${{ matrix.goos }}_${{ matrix.goarch }}
+        run: task package GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} PACKAGE_NAME=chaitin-cli_${VERSION}_${{ matrix.goos }}_${{ matrix.goarch }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: cws_${{ env.VERSION }}_${{ matrix.goos }}_${{ matrix.goarch }}
-          path: dist/cws_${{ env.VERSION }}_${{ matrix.goos }}_${{ matrix.goarch }}.*
+          name: chaitin-cli_${{ env.VERSION }}_${{ matrix.goos }}_${{ matrix.goarch }}
+          path: dist/chaitin-cli_${{ env.VERSION }}_${{ matrix.goos }}_${{ matrix.goarch }}.*
           if-no-files-found: error
 
   release:
