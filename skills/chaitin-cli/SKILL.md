@@ -10,11 +10,31 @@ tags: [chaitin-cli, safeline, xray, cloudwalker, tanswer, waf, security, chaitin
 
 > Unified CLI for Chaitin security products. Manage SafeLine WAF, X-Ray scanner, CloudWalker CWPP, and T-Answer through a single tool.
 
+## Tool Resolution
+
+When this skill needs `chaitin-cli`, do not run a preflight availability check before every command.
+
+1. Run the requested `chaitin-cli ...` command directly.
+2. Only if the shell reports `command not found`, `No such file or directory`, or exit code `127` because `chaitin-cli` is missing, run the platform installer:
+   - Windows / PowerShell: `powershell -ExecutionPolicy Bypass -File scripts/install-chaitin-cli.ps1`
+   - Windows / Git Bash, macOS, Linux: `bash scripts/install-chaitin-cli.sh`
+3. After installation succeeds, retry the same `chaitin-cli ...` command once.
+4. If `chaitin-cli` already exists, do not query GitHub Releases, do not reinstall, and do not do version checks unless the user explicitly asks.
+
+The bundled installers detect the current OS/architecture, download the latest matching `chaitin-cli` release archive from `https://github.com/chaitin/chaitin-cli/releases`, and install it as a directly runnable `chaitin-cli` / `chaitin-cli.exe`, preferring a system-wide install when possible and otherwise falling back to a user PATH directory.
+
 ## Install & Run
 
 ```bash
-# Download pre-built binary from GitHub Releases
-# https://github.com/chaitin/chaitin-cli/releases
+# On-demand installer used only when `chaitin-cli` is missing
+# macOS / Linux / Git Bash on Windows
+bash scripts/install-chaitin-cli.sh
+
+# Windows PowerShell
+powershell -ExecutionPolicy Bypass -File scripts/install-chaitin-cli.ps1
+
+# The installers fetch the matching GitHub release package
+# and install the extracted binary as `chaitin-cli`.
 
 # Or build from source
 git clone https://github.com/chaitin/chaitin-cli.git
