@@ -8,7 +8,7 @@ This repository is a Go CLI built around Cobra. [`main.go`](main.go) wires the r
 
 Use `task` for common workflows:
 
-- `task build`: build `bin/cws`.
+- `task build`: build `bin/chaitin-cli`.
 - `task test`: run `go test ./...`.
 - `task fmt`: run `go fmt ./...`.
 - `task lint`: run `go vet ./...`.

@@ -1,7 +1,7 @@
 version: "3"
 
 vars:
-  BIN_NAME: cws
+  BIN_NAME: chaitin-cli
   BUILD_DIR: bin
   DIST_DIR: dist
 
@@ -42,13 +42,13 @@ tasks:
       - go test ./...
 
   build:
-    desc: Build the cws binary
+    desc: Build the {{ .BIN_NAME }} binary
     cmds:
       - mkdir -p {{.BUILD_DIR}}
       - go build -o {{.BUILD_DIR}}/{{.BIN_NAME}} .
 
   build:target:
-    desc: Build the cws binary for a target platform
+    desc: Build the {{ .BIN_NAME }} binary for a target platform
     requires:
       vars:
         - GOOS
@@ -61,7 +61,7 @@ tasks:
       - env CGO_ENABLED=0 GOOS={{.GOOS}} GOARCH={{.GOARCH}} go build -o {{.TARGET_DIR}}/{{.BIN_NAME}}{{.BIN_EXT}} .
 
   package:
-    desc: Build and archive the cws binary for a target platform
+    desc: Build and archive the {{ .BIN_NAME }} binary for a target platform
     requires:
       vars:
         - GOOS

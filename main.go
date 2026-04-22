@@ -30,7 +30,7 @@ const defaultConfigPath = "config.yaml"
 
 func newApp() (*app, error) {
 	root := &cobra.Command{
-		Use:           "cws",
+		Use:           "chaitin-cli",
 		Short:         "CLI for Chaitin Tech products",
 		SilenceUsage:  true,
 		SilenceErrors: true,

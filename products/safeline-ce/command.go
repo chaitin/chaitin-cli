@@ -38,16 +38,16 @@ func NewCommand() *cobra.Command {
     api_key: your-api-key
 
   # 2. 查看帮助
-  cws safeline-ce --help
+  chaitin-cli safeline-ce --help
 
   # 3. 查看站点列表
-  cws safeline-ce site list
+  chaitin-cli safeline-ce site list
 
   # 4. 查看攻击日志
-  cws safeline-ce log attack list
+  chaitin-cli safeline-ce log attack list
 
   # 5. 查看统计概览
-  cws safeline-ce stat overview
+  chaitin-cli safeline-ce stat overview
 
 文档: https://github.com/chaitin/safeline-ce`,
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
