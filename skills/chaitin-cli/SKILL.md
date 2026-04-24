@@ -10,31 +10,46 @@ tags: [chaitin-cli, safeline, xray, cloudwalker, tanswer, waf, security, chaitin
 
 > Unified CLI for Chaitin security products. Manage SafeLine WAF, X-Ray scanner, CloudWalker CWPP, and T-Answer through a single tool.
 
+## No-Argument Behavior
+
+When `/chaitin-cli` is invoked without any arguments (empty `ARGUMENTS`):
+
+1. Greet the user and introduce this skill in a well-formatted way, based on the SKILL.md content.
+2. Run `command -v chaitin-cli` to check if `chaitin-cli` is already installed.
+3. If found, report the installed path (e.g. `chaitin-cli is installed at /opt/homebrew/bin/chaitin-cli`).
+4. If not found, install it per platform:
+   - Windows: Tell the user to manually download the latest release from `https://github.com/chaitin/chaitin-cli/releases`, extract `chaitin-cli.exe`, and add it to PATH. Do not attempt automated installation on Windows.
+   - macOS, Linux: Run `bash scripts/install-chaitin-cli.sh`. The script outputs the installed binary path on stdout (last line). Remember this path — subsequent commands must use the full path (e.g. `/home/user/.local/bin/chaitin-cli`) because each Bash invocation starts a new shell and the install directory may not yet be in PATH.
+5. After the setup check, briefly tell the user what they can do next — for example: "You can now use chaitin-cli to manage SafeLine, X-Ray, CloudWalker, or T-Answer. Tell me what you'd like to do, or run `chaitin-cli --help` to explore commands."
+
 ## Tool Resolution
 
 When this skill needs `chaitin-cli`, do not run a preflight availability check before every command.
 
 1. Run the requested `chaitin-cli ...` command directly.
-2. Only if the shell reports `command not found`, `No such file or directory`, or exit code `127` because `chaitin-cli` is missing, run the platform installer:
-   - Windows / PowerShell: `powershell -ExecutionPolicy Bypass -File scripts/install-chaitin-cli.ps1`
-   - Windows / Git Bash, macOS, Linux: `bash scripts/install-chaitin-cli.sh`
-3. After installation succeeds, retry the same `chaitin-cli ...` command once.
+2. Only if the shell reports `command not found`, `No such file or directory`, or exit code `127` because `chaitin-cli` is missing, install it per platform:
+   - Windows: Tell the user to manually download the latest release from `https://github.com/chaitin/chaitin-cli/releases`, extract `chaitin-cli.exe`, and add it to PATH. Do not attempt automated installation on Windows.
+   - macOS, Linux: Run `bash scripts/install-chaitin-cli.sh`. The script outputs the installed binary path on stdout (last line, e.g. `/home/user/.local/bin/chaitin-cli`). Remember this path for the rest of the session.
+3. After installation, run subsequent `chaitin-cli` commands using the full installed path (e.g. `/home/user/.local/bin/chaitin-cli safeline site list`) instead of bare `chaitin-cli`, because each Bash invocation starts a new shell and the install directory may not yet be in PATH.
 4. If `chaitin-cli` already exists, do not query GitHub Releases, do not reinstall, and do not do version checks unless the user explicitly asks.
 
-The bundled installers detect the current OS/architecture, download the latest matching `chaitin-cli` release archive from `https://github.com/chaitin/chaitin-cli/releases`, and install it as a directly runnable `chaitin-cli` / `chaitin-cli.exe`, preferring a system-wide install when possible and otherwise falling back to a user PATH directory.
+The installer detects the current OS/architecture, downloads the latest matching `chaitin-cli` release archive from `https://github.com/chaitin/chaitin-cli/releases`, and installs it as a directly runnable `chaitin-cli`, preferring a user PATH directory and falling back to system-wide install when possible.
+
+> **Windows**: There is no automated installer for Windows. Download the latest release from `https://github.com/chaitin/chaitin-cli/releases`, extract `chaitin-cli.exe`, and add it to PATH manually.
 
 ## Install & Run
 
 ```bash
 # On-demand installer used only when `chaitin-cli` is missing
-# macOS / Linux / Git Bash on Windows
+# macOS / Linux
 bash scripts/install-chaitin-cli.sh
 
-# Windows PowerShell
-powershell -ExecutionPolicy Bypass -File scripts/install-chaitin-cli.ps1
+# The installer fetches the matching GitHub release package
+# and installs the extracted binary as `chaitin-cli`.
 
-# The installers fetch the matching GitHub release package
-# and install the extracted binary as `chaitin-cli`.
+# Windows: download the latest release manually from
+# https://github.com/chaitin/chaitin-cli/releases
+# Extract chaitin-cli.exe and add it to PATH.
 
 # Or build from source
 git clone https://github.com/chaitin/chaitin-cli.git

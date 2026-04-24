@@ -23,36 +23,6 @@ need_cmd() {
   have_cmd "$1" || fail "missing required command: $1"
 }
 
-run_windows_powershell_installer() {
-  local ps_script="$script_dir/install-chaitin-cli.ps1"
-  local ps_path="$ps_script"
-  local ps_bin installed_path posix_path
-
-  if have_cmd cygpath; then
-    ps_path="$(cygpath -w "$ps_script")"
-  fi
-
-  if have_cmd powershell.exe; then
-    ps_bin="powershell.exe"
-  elif have_cmd pwsh; then
-    ps_bin="pwsh"
-  else
-    fail "missing required command: powershell.exe or pwsh"
-  fi
-
-  installed_path="$($ps_bin -NoProfile -ExecutionPolicy Bypass -File "$ps_path")"
-  [ -n "$installed_path" ] || fail "windows installer finished without an output path"
-
-  if have_cmd cygpath; then
-    posix_path="$(cygpath -u "$installed_path" 2>/dev/null || true)"
-    if [ -n "$posix_path" ]; then
-      export PATH="$(dirname "$posix_path"):${PATH:-}"
-    fi
-  fi
-
-  printf '%s\n' "$installed_path"
-}
-
 detect_goos() {
   case "$(uname -s)" in
     Linux)
@@ -114,7 +84,7 @@ append_unique() {
   local existing
 
   [ -n "$candidate" ] || return 0
-  for existing in "${install_candidates[@]}"; do
+  for existing in "${install_candidates[@]+"${install_candidates[@]}"}"; do
     if [ "$existing" = "$candidate" ]; then
       return 0
     fi
@@ -150,23 +120,36 @@ install_file() {
   [ -n "$destination_dir" ] || return 1
 
   if [ "$use_sudo" = "true" ]; then
-    sudo mkdir -p "$destination_dir"
-    if have_cmd install; then
-      sudo install -m 0755 "$source" "$destination_path"
+    sudo mkdir -p "$destination_dir" || return 1
+    # Prefer cp+chmod over coreutils install — more portable across
+    # sandboxed, minimal, and container environments.
+    if sudo cp "$source" "$destination_path" 2>/dev/null && sudo chmod 0755 "$destination_path" 2>/dev/null; then
+      :
     else
-      sudo cp "$source" "$destination_path"
-      sudo chmod 0755 "$destination_path"
+      # Try coreutils install as fallback
+      if have_cmd install; then
+        sudo install -m 0755 "$source" "$destination_path" 2>/dev/null || return 1
+      else
+        return 1
+      fi
     fi
   else
-    mkdir -p "$destination_dir"
-    if have_cmd install; then
-      install -m 0755 "$source" "$destination_path"
+    mkdir -p "$destination_dir" || return 1
+    # Prefer cp+chmod over coreutils install — more portable across
+    # sandboxed, minimal, and container environments.
+    if cp "$source" "$destination_path" 2>/dev/null && chmod 0755 "$destination_path" 2>/dev/null; then
+      :
     else
-      cp "$source" "$destination_path"
-      chmod 0755 "$destination_path"
+      # Try coreutils install as fallback
+      if have_cmd install; then
+        install -m 0755 "$source" "$destination_path" 2>/dev/null || return 1
+      else
+        return 1
+      fi
     fi
   fi
 
+  [ -f "$destination_path" ] || return 1
   printf '%s\n' "$destination_path"
 }
 
@@ -283,65 +266,62 @@ install_from_candidates() {
   local source_binary="$1"
   local destination_dir destination_path
 
-  for destination_dir in "${install_candidates[@]}"; do
+  # Pass 1: Try all candidates without sudo — $HOME dirs are listed first
+  for destination_dir in "${install_candidates[@]+"${install_candidates[@]}"}"; do
     [ -n "$destination_dir" ] || continue
-    case "$destination_dir" in
-      "$HOME"/*)
-        continue
-        ;;
-    esac
 
+    # Only attempt if the directory already exists and is writable,
+    # or if we can create it (parent exists and writable).
     if [ -d "$destination_dir" ] && [ -w "$destination_dir" ]; then
-      install_file "$source_binary" "$destination_dir" false
-      return 0
+      destination_path="$(install_file "$source_binary" "$destination_dir" false)" || continue
+      if [ -f "$destination_path" ]; then
+        ensure_path_visible "$destination_dir"
+        printf '%s\n' "$destination_path"
+        return 0
+      fi
+    elif [ -d "$(dirname "$destination_dir")" ] && [ -w "$(dirname "$destination_dir")" ]; then
+      destination_path="$(install_file "$source_binary" "$destination_dir" false)" || continue
+      if [ -f "$destination_path" ]; then
+        ensure_path_visible "$destination_dir"
+        printf '%s\n' "$destination_path"
+        return 0
+      fi
     fi
   done
 
+  # Pass 2: Try system candidates with sudo
   if have_cmd sudo; then
-    for destination_dir in "${install_candidates[@]}"; do
+    for destination_dir in "${install_candidates[@]+"${install_candidates[@]}"}"; do
       [ -n "$destination_dir" ] || continue
+      # Skip $HOME dirs — already tried in pass 1
       case "$destination_dir" in
-        "$HOME"/*)
-          continue
-          ;;
+        "$HOME"/*) continue ;;
       esac
 
       if destination_path="$(install_file "$source_binary" "$destination_dir" true 2>/dev/null)"; then
-        printf '%s\n' "$destination_path"
-        return 0
+        if [ -f "$destination_path" ]; then
+          printf '%s\n' "$destination_path"
+          return 0
+        fi
+        log "warning: sudo install to ${destination_dir} reported success but file not found, trying next candidate"
       fi
     done
   fi
 
-  for destination_dir in "${install_candidates[@]}"; do
-    [ -n "$destination_dir" ] || continue
-
-    case "$destination_dir" in
-      "$HOME"/*)
-        if [ -d "$destination_dir" ] && [ -w "$destination_dir" ]; then
-          install_file "$source_binary" "$destination_dir" false
-          ensure_path_visible "$destination_dir"
-          return 0
-        fi
-
-        if [ -d "$(dirname "$destination_dir")" ] && [ -w "$(dirname "$destination_dir")" ]; then
-          destination_path="$(install_file "$source_binary" "$destination_dir" false)"
-          ensure_path_visible "$destination_dir"
-          printf '%s\n' "$destination_path"
-          return 0
-        fi
-        ;;
-    esac
-  done
-
+  # Pass 3: Guaranteed fallback — $HOME/.local/bin always works if $HOME is writable
   destination_dir="$HOME/.local/bin"
-  destination_path="$(install_file "$source_binary" "$destination_dir" false)"
-  ensure_path_visible "$destination_dir"
-  printf '%s\n' "$destination_path"
+  destination_path="$(install_file "$source_binary" "$destination_dir" false 2>/dev/null)" || true
+  if [ -n "$destination_path" ] && [ -f "$destination_path" ]; then
+    ensure_path_visible "$destination_dir"
+    printf '%s\n' "$destination_path"
+    return 0
+  fi
+
+  fail "could not install ${install_name} to any writable directory"
 }
 
 main() {
-  local goos goarch tmpdir source_binary installed_path
+  local goos goarch source_binary installed_path
 
   if have_cmd "$install_name"; then
     command -v "$install_name"
@@ -350,14 +330,13 @@ main() {
 
   goos="$(detect_goos)"
   if [ "$goos" = "windows" ]; then
-    run_windows_powershell_installer
-    return 0
+    fail "automated installation is not supported on Windows. Download the latest release from https://github.com/${repo_slug}/releases, extract chaitin-cli.exe, and add it to PATH manually."
   fi
 
   goarch="$(detect_goarch)"
   build_install_candidates
   tmpdir="$(mktemp -d)"
-  trap 'rm -rf "$tmpdir"' EXIT INT TERM
+  trap 'rm -rf "${tmpdir:-}"' EXIT INT TERM
   source_binary="$(download_release_binary "$goos" "$goarch" "$tmpdir")"
 
   installed_path="$(install_from_candidates "$source_binary")"
@@ -368,4 +347,5 @@ main() {
 }
 
 install_candidates=()
+tmpdir=""
 main "$@"
