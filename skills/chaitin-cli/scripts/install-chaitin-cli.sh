@@ -55,13 +55,86 @@ detect_goarch() {
 }
 
 latest_tag() {
-  local api_url response tag
+  local tag
 
   need_cmd curl
+
+  if tag="$(latest_tag_from_api)"; then
+    printf '%s\n' "$tag"
+    return 0
+  fi
+
+  log "warning: GitHub API lookup failed, falling back to the releases page"
+  if tag="$(latest_tag_from_redirect)"; then
+    printf '%s\n' "$tag"
+    return 0
+  fi
+
+  if tag="$(latest_tag_from_html)"; then
+    printf '%s\n' "$tag"
+    return 0
+  fi
+
+  fail "failed to determine latest release tag from GitHub"
+}
+
+github_curl() {
+  local token="${GITHUB_TOKEN:-${GH_TOKEN:-}}"
+  local -a args
+
+  args=(
+    -fsSL
+    -H "User-Agent: ${install_name}-installer"
+  )
+
+  if [ -n "$token" ]; then
+    args+=(-H "Authorization: Bearer ${token}")
+  fi
+
+  curl "${args[@]}" "$@"
+}
+
+latest_tag_from_api() {
+  local api_url response tag
+
   api_url="https://api.github.com/repos/${repo_slug}/releases/latest"
-  response="$(curl -fsSL "$api_url")" || fail "failed to query latest release from ${api_url}"
+  response="$(github_curl -H 'Accept: application/vnd.github+json' "$api_url" 2>/dev/null)" || return 1
   tag="$(printf '%s' "$response" | tr -d '\n' | sed -nE 's/.*"tag_name"[[:space:]]*:[[:space:]]*"([^"]+)".*/\1/p')"
-  [ -n "$tag" ] || fail "failed to parse latest release tag"
+  [ -n "$tag" ] || return 1
+  printf '%s\n' "$tag"
+}
+
+latest_tag_from_redirect() {
+  local releases_url effective_url tag
+
+  releases_url="https://github.com/${repo_slug}/releases/latest"
+  effective_url="$(github_curl -o /dev/null -w '%{url_effective}' "$releases_url" 2>/dev/null)" || return 1
+
+  case "$effective_url" in
+    *"/releases/tag/"*)
+      tag="${effective_url##*/releases/tag/}"
+      ;;
+    *"/tag/"*)
+      tag="${effective_url##*/tag/}"
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+
+  tag="${tag%%[?#]*}"
+  tag="${tag%/}"
+  [ -n "$tag" ] || return 1
+  printf '%s\n' "$tag"
+}
+
+latest_tag_from_html() {
+  local releases_url response tag
+
+  releases_url="https://github.com/${repo_slug}/releases/latest"
+  response="$(github_curl "$releases_url" 2>/dev/null)" || return 1
+  tag="$(printf '%s' "$response" | grep -oE "/${repo_slug}/releases/tag/[^\"?#]+" | head -n 1 | sed 's#.*/tag/##')" || return 1
+  [ -n "$tag" ] || return 1
   printf '%s\n' "$tag"
 }
 
@@ -233,9 +306,9 @@ download_release_binary() {
   need_cmd curl
   version="${CHAITIN_CLI_VERSION:-}"
   if [ -z "$version" ]; then
-    version="$(latest_tag)"
+    version="$(latest_tag)" || fail "failed to resolve the latest release version"
   fi
-  tag="$(normalize_tag "$version")"
+  tag="$(normalize_tag "$version")" || fail "failed to normalize release version: ${version}"
 
   case "$goos" in
     windows)
