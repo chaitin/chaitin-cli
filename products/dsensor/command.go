@@ -46,7 +46,7 @@ Commands are generated from the embedded OpenAPI schema and call D-Sensor APIs t
 	}
 
 	cmd.PersistentFlags().StringVar(&urlFlag, "url", "", "D-Sensor API URL")
-	cmd.PersistentFlags().StringVar(&apiKeyFlag, "api-key", "", "API token sent as X-API-Key header")
+	cmd.PersistentFlags().StringVar(&apiKeyFlag, "api-key", "", "API token sent as API-Token header")
 	cmd.PersistentFlags().BoolVar(&refreshCache, "refresh-cache", false, "Force refresh local server version cache")
 	cmd.PersistentFlags().StringVarP(&outputFormat, "output", "o", "table", "Output format (table|json)")
 	cmd.PersistentFlags().BoolVar(&insecureTLS, "insecure", false, "Skip TLS certificate verification")
