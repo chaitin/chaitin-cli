@@ -9,12 +9,61 @@ import (
 	"testing"
 
 	"github.com/chaitin/chaitin-cli/config"
+	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v3"
 )
 
+func TestDisabledOperationsAreHidden(t *testing.T) {
+	cmd := NewCommand()
+
+	for _, path := range [][]string{
+		{"intelligence", "monitor-rule", "async-download"},
+		{"risk", "admin-panel", "async-download"},
+		{"risk", "high-risk-app", "async-download"},
+		{"risk", "high-risk-port", "async-download"},
+		{"intelligence", "monitor-rule", "download-status"},
+		{"risk", "admin-panel", "download-status"},
+		{"risk", "high-risk-app", "download-status"},
+		{"risk", "high-risk-port", "download-status"},
+	} {
+		if found := findCommand(cmd, path); found != nil {
+			t.Errorf("command %q should be hidden while the endpoint returns 500", strings.Join(path, " "))
+		}
+	}
+
+	// The sibling synchronous download keeps working and must stay available.
+	for _, path := range [][]string{
+		{"intelligence", "monitor-rule", "sync-download"},
+		{"risk", "admin-panel", "sync-download"},
+		{"risk", "high-risk-app", "sync-download"},
+		{"risk", "high-risk-port", "sync-download"},
+	} {
+		if found := findCommand(cmd, path); found == nil {
+			t.Errorf("command %q should be available", strings.Join(path, " "))
+		}
+	}
+}
+
+func findCommand(root *cobra.Command, path []string) *cobra.Command {
+	current := root
+	for _, name := range path {
+		var next *cobra.Command
+		for _, candidate := range current.Commands() {
+			if candidate.Name() == name {
+				next = candidate
+				break
+			}
+		}
+		if next == nil {
+			return nil
+		}
+		current = next
+	}
+	return current
+}
 func TestNewCommandHelpShowsGeneratedCommands(t *testing.T) {
 	cmd := NewCommand()
-	cmd.SetArgs([]string{"asset", "seed", "enterprise", "--help"})
+	cmd.SetArgs([]string{"seed", "enterprise", "--help"})
 	var out bytes.Buffer
 	cmd.SetOut(&out)
 	cmd.SetErr(&out)
@@ -22,7 +71,7 @@ func TestNewCommandHelpShowsGeneratedCommands(t *testing.T) {
 	if err := cmd.Execute(); err != nil {
 		t.Fatalf("Execute() error = %v", err)
 	}
-	for _, want := range []string{"list", "get", "update", "batch-add", "delete", "set-confidence", "set-monitor"} {
+	for _, want := range []string{"list", "get", "update", "patch", "create", "batch-delete", "set-confidence", "set-enabled"} {
 		if !strings.Contains(out.String(), want) {
 			t.Fatalf("help missing %q:\n%s", want, out.String())
 		}
@@ -86,7 +135,7 @@ func TestListUsesConfiguredSpaceID(t *testing.T) {
 func TestSpaceIsRequiredForEveryCommand(t *testing.T) {
 	ApplyRuntimeConfig(nil, rawConfig(Config{URL: "https://example.com", Token: "token"}), false)
 	cmd := NewCommand()
-	cmd.SetArgs([]string{"asset", "seed", "enterprise", "list", "--size", "1"})
+	cmd.SetArgs([]string{"seed", "enterprise", "list", "--size", "1"})
 
 	err := cmd.Execute()
 	if err == nil || !strings.Contains(err.Error(), "--space is required") {
@@ -108,7 +157,7 @@ func TestPathParameterAndRequiredQuery(t *testing.T) {
 
 	ApplyRuntimeConfig(nil, rawConfig(Config{URL: server.URL, Token: "token"}), false)
 	cmd := NewCommand()
-	cmd.SetArgs([]string{"task", "schedule", "list", "--task-type", "asset", "--space", "1"})
+	cmd.SetArgs([]string{"task", "asset", "schedule", "list", "--space", "1"})
 	var out bytes.Buffer
 	cmd.SetOut(&out)
 	cmd.SetErr(&out)
@@ -118,9 +167,46 @@ func TestPathParameterAndRequiredQuery(t *testing.T) {
 	}
 }
 
+func TestFlowListRequiresTaskID(t *testing.T) {
+	ApplyRuntimeConfig(nil, rawConfig(Config{URL: "https://example.com", Token: "token"}), false)
+	cmd := NewCommand()
+	cmd.SetArgs([]string{"task", "asset", "flow", "list", "--space", "1"})
+
+	err := cmd.Execute()
+	if err == nil || !strings.Contains(err.Error(), "--task-id is required") {
+		t.Fatalf("Execute() error = %v, want --task-id requirement", err)
+	}
+}
+
+func TestTruncateHelpDocumentsResourceTypes(t *testing.T) {
+	cmd := NewCommand()
+	cmd.SetArgs([]string{"space", "truncate", "--help"})
+	var out bytes.Buffer
+	cmd.SetOut(&out)
+	cmd.SetErr(&out)
+
+	if err := cmd.Execute(); err != nil {
+		t.Fatalf("Execute() error = %v", err)
+	}
+	if help := out.String(); !strings.Contains(help, "attack, seed, risk, drps, asset") {
+		t.Fatalf("truncate help missing resource types:\n%s", help)
+	}
+}
+
+func TestCreateTaskRequiresConfirmation(t *testing.T) {
+	ApplyRuntimeConfig(nil, rawConfig(Config{URL: "https://example.com", Token: "token"}), false)
+	cmd := NewCommand()
+	cmd.SetArgs([]string{"strategy", "vulnerability", "create-task", "--space", "1"})
+
+	err := cmd.Execute()
+	if err == nil || !strings.Contains(err.Error(), "--yes") {
+		t.Fatalf("Execute() error = %v, want --yes requirement", err)
+	}
+}
+
 func TestBodyFileAndConfirmation(t *testing.T) {
 	cmd := NewCommand()
-	cmd.SetArgs([]string{"asset", "seed", "enterprise", "delete", "--body", `{"ids":[1]}`})
+	cmd.SetArgs([]string{"seed", "enterprise", "batch-delete", "--body", `{"pk":[1]}`})
 	if err := cmd.Execute(); err == nil || !strings.Contains(err.Error(), "--yes") {
 		t.Fatalf("Execute() error = %v, want --yes requirement", err)
 	}
@@ -129,7 +215,7 @@ func TestBodyFileAndConfirmation(t *testing.T) {
 func TestDryRunRedactsToken(t *testing.T) {
 	ApplyRuntimeConfig(nil, rawConfig(Config{URL: "https://example.com", Token: "secret-token"}), true)
 	cmd := NewCommand()
-	cmd.SetArgs([]string{"asset", "seed", "enterprise", "batch-add", "--space", "1", "--body", `{"name":["demo"],"confidence":"100"}`})
+	cmd.SetArgs([]string{"seed", "enterprise", "create", "--space", "1", "--body", `{"name":["demo"],"level":1,"equity":100,"status":"存续"}`})
 	var out, errOut bytes.Buffer
 	cmd.SetOut(&out)
 	cmd.SetErr(&errOut)
@@ -163,10 +249,10 @@ func TestGeneratedHelpExplainsRequiredParameterValues(t *testing.T) {
 	help := out.String()
 	for _, want := range []string{
 		"--status",
-		"可选值: valid=已确认, await=待确认, ignored=已排除",
+		"类型: string",
 		"--page",
 		"类型: integer",
-		"示例: 1",
+		"默认值: 1",
 		"可由 --space-id 或 cloudAtlas.space_id 提供默认值",
 	} {
 		if !strings.Contains(help, want) {
@@ -238,7 +324,7 @@ func TestRequestBodyHelpExplainsFields(t *testing.T) {
 		}},
 	}}
 
-	help := formatRequestBodyHelp(body)
+	help := NewParser(&OpenAPI{}).formatRequestBodyHelp(body)
 	for _, want := range []string{"status: 状态；必填；类型: string；可选值: enabled=启用, disabled=停用", "name: 名称；类型: string；示例: demo"} {
 		if !strings.Contains(help, want) {
 			t.Fatalf("body help missing %q:\n%s", want, help)

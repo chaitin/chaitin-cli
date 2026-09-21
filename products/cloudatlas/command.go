@@ -26,7 +26,7 @@ func NewCommand() *cobra.Command {
 		Long: `Cloud Atlas CLI
 
 Commands are generated from the embedded OpenAPI schema.
-Authentication uses the TOKEN HTTP header.
+Authentication uses the Token HTTP header.
 
 Config example:
   cloudAtlas:
@@ -39,14 +39,14 @@ Config example:
 	}
 
 	cmd.PersistentFlags().String("url", "", "Cloud Atlas OpenAPI base URL；也可配置 cloudAtlas.url 或 CLOUD_ATLAS_URL")
-	cmd.PersistentFlags().String("token", "", "Cloud Atlas API token；请求时作为 TOKEN header 发送，也可配置 cloudAtlas.token 或 CLOUD_ATLAS_TOKEN")
+	cmd.PersistentFlags().String("token", "", "Cloud Atlas API token；请求时作为 Token header 发送，也可配置 cloudAtlas.token 或 CLOUD_ATLAS_TOKEN")
 	cmd.PersistentFlags().String("space-id", "", "Cloud Atlas 空间 ID；作为所有请求的 space query 默认值，也可配置 cloudAtlas.space_id；子命令 --space 可覆盖")
 	cmd.PersistentFlags().StringVarP(&outputFormat, "output", "o", "table", "输出格式；可选值: table, json")
 	cmd.PersistentFlags().BoolVar(&runtimeInsecure, "insecure", true, "跳过 TLS 证书校验；测试或自签名环境使用，默认 true")
 	cmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "打印请求 URL、headers 和 body；敏感值默认会被脱敏")
 	cmd.PersistentFlags().BoolVar(&verboseSensitive, "verbose-sensitive", false, "verbose 时打印 token 等敏感值明文，仅在本地调试时使用")
 
-	api, err := ParseSpec(spec.OpenAPIYAML)
+	api, err := ParseSpec(spec.OpenAPIJSON)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Warning: failed to parse embedded Cloud Atlas OpenAPI schema: %v\n", err)
 		return cmd

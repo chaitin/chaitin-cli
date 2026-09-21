@@ -185,19 +185,21 @@ safeline.api_key     -> SAFELINE_API_KEY
 
 ### Cloud Atlas
 
-Cloud Atlas 命令由内置 OpenAPI Schema 生成，认证使用 `TOKEN` 请求头。配置 `cloudAtlas.space_id` 后，查询命令会自动把它作为默认空间 ID；也可以通过根命令参数 `--space-id` 指定默认空间，或在具体子命令中用 `--space` 覆盖。
+Cloud Atlas 命令由内置 OpenAPI Schema 生成，认证使用 `Token` 请求头。配置 `cloudAtlas.space_id` 后，查询命令会自动把它作为默认空间 ID；也可以通过根命令参数 `--space-id` 指定默认空间，或在具体子命令中用 `--space` 覆盖。
 
 ```bash
 export CLOUD_ATLAS_URL=https://cloud-atlas.example.com
 export CLOUD_ATLAS_TOKEN=YOUR_TOKEN
 export CLOUD_ATLAS_SPACE_ID=YOUR_SPACE_ID
 
+chaitin-cli cloudAtlas seed enterprise list --page 1 --size 20 --output json
 chaitin-cli cloudAtlas asset ip list --status valid --page 1 --size 20 --output json
 chaitin-cli cloudAtlas exposure website list --status valid --page 1 --size 20 --output json
-chaitin-cli cloudAtlas risk vulnerability list --status open --page 1 --size 20 --output json
+chaitin-cli cloudAtlas risk vulnerability list --page 1 --size 20 --output json
+chaitin-cli cloudAtlas task asset schedule list --page 1 --size 20 --output json
 ```
 
-常用命令分组包括 `asset`、`exposure`、`risk`、`intelligence`、`strategy` 和 `task`。完整参数以 `chaitin-cli cloudAtlas --help` 及对应子命令的 `--help` 为准。
+常用命令分组包括 `seed`、`asset`、`exposure`、`risk`、`intelligence`、`task`、`space`、`system`、`user` 和 `strategy`。批量修改类命令（如 `set-status`、`batch-delete`）需要显式加 `--yes` 才会执行。完整参数以 `chaitin-cli cloudAtlas --help` 及对应子命令的 `--help` 为准。
 
 APISec 常用查询不需要手动传内部 `scope`，优先使用语义化命令：
 

@@ -6,6 +6,7 @@ import (
 	"os"
 	"reflect"
 	"strings"
+	"unicode"
 
 	"github.com/joho/godotenv"
 	"gopkg.in/yaml.v3"
@@ -142,10 +143,23 @@ func yamlFieldName(field reflect.StructField) (string, bool) {
 	return name, true
 }
 
+// normalizeEnvSegment converts a config key into its environment-variable
+// segment. Dashes and dots become underscores, and camelCase boundaries are
+// split so that e.g. "cloudAtlas" becomes "CLOUD_ATLAS".
 func normalizeEnvSegment(s string) string {
 	s = strings.ReplaceAll(s, "-", "_")
 	s = strings.ReplaceAll(s, ".", "_")
-	return strings.ToUpper(s)
+
+	var b strings.Builder
+	var prev rune
+	for _, r := range s {
+		if unicode.IsUpper(r) && (unicode.IsLower(prev) || unicode.IsDigit(prev)) {
+			b.WriteRune('_')
+		}
+		b.WriteRune(r)
+		prev = r
+	}
+	return strings.ToUpper(b.String())
 }
 
 func decodeScalar(raw string, target reflect.Value) error {

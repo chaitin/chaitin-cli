@@ -104,7 +104,7 @@ func (c *Client) buildURL(path string) string {
 
 func (c *Client) injectHeaders(req *http.Request, hasBody bool) {
 	if c.cfg.Token != "" {
-		req.Header.Set("TOKEN", c.cfg.Token)
+		req.Header.Set("Token", c.cfg.Token)
 	}
 	if hasBody {
 		req.Header.Set("Content-Type", "application/json")
@@ -144,7 +144,7 @@ func logRequest(req *http.Request, body any) {
 	if len(req.Header) > 0 {
 		headers := req.Header.Clone()
 		if !verboseSensitive {
-			maskHeader(headers, "TOKEN")
+			maskHeader(headers, "Token")
 		}
 		data, err := json.MarshalIndent(headers, "", "  ")
 		if err == nil {

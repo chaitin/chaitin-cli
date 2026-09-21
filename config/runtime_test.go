@@ -55,6 +55,32 @@ func TestDecodeProductUsesEnvWithoutConfigSection(t *testing.T) {
 	}
 }
 
+func TestDecodeProductCamelCaseProductEnvOverrides(t *testing.T) {
+	t.Setenv("CLOUD_ATLAS_URL", "https://camel.example.com")
+	t.Setenv("CLOUD_ATLAS_TOKEN", "camel-token")
+	t.Setenv("CLOUD_ATLAS_SPACE_ID", "7")
+
+	type cloudAtlasConfig struct {
+		URL     string `yaml:"url"`
+		Token   string `yaml:"token"`
+		SpaceID string `yaml:"space_id"`
+	}
+
+	cfg, err := DecodeProduct[cloudAtlasConfig](Raw{}, "cloudAtlas")
+	if err != nil {
+		t.Fatalf("DecodeProduct() error = %v", err)
+	}
+	if cfg.URL != "https://camel.example.com" {
+		t.Fatalf("URL = %q, want env override", cfg.URL)
+	}
+	if cfg.Token != "camel-token" {
+		t.Fatalf("Token = %q, want env override", cfg.Token)
+	}
+	if cfg.SpaceID != "7" {
+		t.Fatalf("SpaceID = %q, want env override", cfg.SpaceID)
+	}
+}
+
 func TestLoadEnvFile(t *testing.T) {
 	tmpDir := t.TempDir()
 	envPath := filepath.Join(tmpDir, ".env")
