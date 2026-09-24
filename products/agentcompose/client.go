@@ -1,8 +1,8 @@
 package agentcompose
 
 import (
-	"github.com/chaitin/chaitin-cli/products/agentcompose/gen/agentcompose/v2/agentcomposev2connect"
-	"github.com/chaitin/chaitin-cli/products/agentcompose/gen/health/v1/healthv1connect"
+	"github.com/chaitin/agent-compose/proto/agentcompose/v2/agentcomposev2connect"
+	"github.com/chaitin/agent-compose/proto/health/v1/healthv1connect"
 )
 
 type clients struct {

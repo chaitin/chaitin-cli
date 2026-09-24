@@ -100,16 +100,3 @@ tasks:
     desc: Run the chaitin demo command
     cmds:
       - go run . chaitin
-
-  agent-compose:proto:sync:
-    desc: Sync the pinned Agent Compose protobuf snapshot
-    cmds:
-      - bash scripts/sync-agent-compose-proto.sh
-
-  agent-compose:proto:generate:
-    desc: Generate Agent Compose protobuf messages and Connect clients
-    deps: [agent-compose:proto:sync]
-    dir: products/agentcompose/proto
-    cmds:
-      - rm -rf ../gen
-      - buf generate --template buf.gen.yaml
