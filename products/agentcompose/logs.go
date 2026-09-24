@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"connectrpc.com/connect"
-	agentcomposev2 "github.com/chaitin/chaitin-cli/products/agentcompose/gen/agentcompose/v2"
+	agentcomposev2 "github.com/chaitin/agent-compose/proto/agentcompose/v2"
 	"github.com/spf13/cobra"
 )
 
