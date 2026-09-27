@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"connectrpc.com/connect"
-	agentcomposev2 "github.com/chaitin/chaitin-cli/products/agentcompose/gen/agentcompose/v2"
+	agentcomposev2 "github.com/chaitin/agent-compose/proto/agentcompose/v2"
 )
 
 func resolveResourceTargets(ctx context.Context, state *commandState, ref string, kinds ...agentcomposev2.ResourceKind) ([]*agentcomposev2.ResourceTarget, bool, error) {

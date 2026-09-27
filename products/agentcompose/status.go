@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"connectrpc.com/connect"
-	healthv1 "github.com/chaitin/chaitin-cli/products/agentcompose/gen/health/v1"
+	healthv1 "github.com/chaitin/agent-compose/proto/health/v1"
 	"github.com/spf13/cobra"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
