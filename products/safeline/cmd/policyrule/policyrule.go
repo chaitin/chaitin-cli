@@ -181,6 +181,7 @@ func newCreateCmd() *cobra.Command {
 		enabled     bool
 		expireTime  int64
 		patternJSON string
+		websiteIDs  []int
 		// simple pattern flags
 		target string
 		cmp    string
@@ -254,17 +255,24 @@ Examples:
 				return fmt.Errorf("either --pattern-json or --target/--cmp/--value is required")
 			}
 
+			websiteIDs, err := normalizeWebsiteIDs(websiteIDs)
+			if err != nil {
+				return err
+			}
 			req := map[string]interface{}{
 				"comment":     comment,
 				"pattern":     pattern,
 				"action":      action,
 				"risk_level":  riskLevel,
-				"is_global":   true,
+				"is_global":   len(websiteIDs) == 0,
 				"is_enabled":  enabled,
 				"rule_type":   1, // GENERAL_RULE
 				"expire_time": expireTime,
 				"log_option":  "Persistence",
 				"attack_type": -1,
+			}
+			if len(websiteIDs) > 0 {
+				req["websites"] = websiteIDs
 			}
 
 			body, err := json.Marshal(req)
@@ -315,11 +323,28 @@ Examples:
 	c.Flags().StringVar(&target, "target", "", "Target key (simple mode)")
 	c.Flags().StringVar(&cmp, "cmp", "", "Comparison operator (simple mode)")
 	c.Flags().StringVar(&value, "value", "", "Match value (simple mode)")
+	c.Flags().IntSliceVar(&websiteIDs, "website-id", nil, "Site ID to bind; repeatable or comma-separated")
 
 	c.MarkFlagRequired("comment")
 	c.MarkFlagRequired("action")
 
 	return c
+}
+
+func normalizeWebsiteIDs(ids []int) ([]int, error) {
+	seen := make(map[int]struct{}, len(ids))
+	result := make([]int, 0, len(ids))
+	for _, id := range ids {
+		if id <= 0 {
+			return nil, fmt.Errorf("--website-id must be greater than 0")
+		}
+		if _, ok := seen[id]; ok {
+			continue
+		}
+		seen[id] = struct{}{}
+		result = append(result, id)
+	}
+	return result, nil
 }
 
 func newDeleteCmd() *cobra.Command {
