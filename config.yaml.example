@@ -1,4 +1,6 @@
 cloudAtlas:
+  # API 基地址，通常带 /openapi 后缀（如 https://cloud-atlas.example.com/openapi）；
+  # 填裸域名会命中前端 SPA，填 /api/v1 会被会话 Cookie 校验拦下并返回 401
   url: ""
   token: ""
   space_id: ""

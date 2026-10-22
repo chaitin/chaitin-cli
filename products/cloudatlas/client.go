@@ -125,7 +125,7 @@ func handleResponse(resp *http.Response) (json.RawMessage, error) {
 	}
 	contentType := resp.Header.Get("Content-Type")
 	if strings.Contains(contentType, "text/html") || bytes.HasPrefix(bytes.TrimSpace(body), []byte("<!doctype html>")) || bytes.HasPrefix(bytes.TrimSpace(body), []byte("<html")) {
-		return nil, fmt.Errorf("API returned HTML instead of JSON; check that --url points to the API base path")
+		return nil, fmt.Errorf("API returned HTML instead of JSON; check that --url points to the API base path (Cloud Atlas serves its API under /openapi)")
 	}
 
 	var envelope APIEnvelope

@@ -102,7 +102,8 @@ npx skills add chaitin/chaitin-cli
 
 ```yaml
 cloudAtlas:
-  url: https://cloud-atlas.example.com
+  # API 基地址需要带 /openapi 后缀；Web 控制台的 /api/v1 走会话 Cookie，不接受 Token 头
+  url: https://cloud-atlas.example.com/openapi
   token: YOUR_TOKEN
   space_id: YOUR_SPACE_ID
 
@@ -187,8 +188,10 @@ safeline.api_key     -> SAFELINE_API_KEY
 
 Cloud Atlas 命令由内置 OpenAPI Schema 生成，认证使用 `Token` 请求头。配置 `cloudAtlas.space_id` 后，查询命令会自动把它作为默认空间 ID；也可以通过根命令参数 `--space-id` 指定默认空间，或在具体子命令中用 `--space` 覆盖。
 
+`--url` 必须是 **API 基地址**，通常带 `/openapi` 后缀，例如 `https://cloud-atlas.example.com/openapi`。不要填 Web 控制台地址：控制台的 `/api/v1` 只接受会话 Cookie，用 Token 打过去会返回 `401 用户未登录`；填裸域名则会命中前端 SPA，返回 HTML。
+
 ```bash
-export CLOUD_ATLAS_URL=https://cloud-atlas.example.com
+export CLOUD_ATLAS_URL=https://cloud-atlas.example.com/openapi
 export CLOUD_ATLAS_TOKEN=YOUR_TOKEN
 export CLOUD_ATLAS_SPACE_ID=YOUR_SPACE_ID
 

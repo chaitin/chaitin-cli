@@ -30,7 +30,7 @@ Authentication uses the Token HTTP header.
 
 Config example:
   cloudAtlas:
-    url: https://your-cloud-atlas.example
+    url: https://your-cloud-atlas.example/openapi
     token: your-token
     space_id: your-space-id`,
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
@@ -38,7 +38,7 @@ Config example:
 		},
 	}
 
-	cmd.PersistentFlags().String("url", "", "Cloud Atlas OpenAPI base URL；也可配置 cloudAtlas.url 或 CLOUD_ATLAS_URL")
+	cmd.PersistentFlags().String("url", "", "Cloud Atlas OpenAPI base URL（通常以 /openapi 结尾）；也可配置 cloudAtlas.url 或 CLOUD_ATLAS_URL")
 	cmd.PersistentFlags().String("token", "", "Cloud Atlas API token；请求时作为 Token header 发送，也可配置 cloudAtlas.token 或 CLOUD_ATLAS_TOKEN")
 	cmd.PersistentFlags().String("space-id", "", "Cloud Atlas 空间 ID；作为所有请求的 space query 默认值，也可配置 cloudAtlas.space_id；子命令 --space 可覆盖")
 	cmd.PersistentFlags().StringVarP(&outputFormat, "output", "o", "table", "输出格式；可选值: table, json")
