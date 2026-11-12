@@ -39,8 +39,9 @@ func init() {
 	}
 }
 
-// Configure installs the egress proxy. A set CHAITIN_CLI_PROXY environment
-// variable wins over the config file, including when it is empty.
+// Configure installs an explicit egress proxy. A non-empty CHAITIN_CLI_PROXY
+// environment variable wins over the config file. An empty value is treated as
+// unset and falls through to HTTP(S)_PROXY / ALL_PROXY, then the OS proxy.
 func Configure(raw config.Raw) error {
 	value, fromEnv, err := resolve(raw)
 	if err != nil {
@@ -87,8 +88,10 @@ func Configure(raw config.Raw) error {
 	}
 }
 
-// Wrap makes transport honor CHAITIN_CLI_PROXY. When that proxy is unset, the
-// transport keeps its previous proxy and dialer.
+// Wrap makes transport follow the egress proxy chain: explicit
+// CHAITIN_CLI_PROXY, then environment proxy variables, then the OS HTTP/HTTPS
+// proxy, then a direct connection. The transport keeps its previous dialer
+// except while an explicit SOCKS proxy is active.
 func Wrap(transport *http.Transport) *http.Transport {
 	if transport == nil {
 		return nil
@@ -97,7 +100,6 @@ func Wrap(transport *http.Transport) *http.Transport {
 		return transport
 	}
 
-	prevProxy := transport.Proxy
 	prevDial := transport.DialContext
 	transport.Proxy = func(req *http.Request) (*url.URL, error) {
 		kind, httpURL := snapshot()
@@ -107,10 +109,10 @@ func Wrap(transport *http.Transport) *http.Transport {
 		case "socks":
 			return nil, nil
 		}
-		if prevProxy != nil {
-			return prevProxy(req)
+		if proxyURL, configured, err := environmentProxy(req); configured || err != nil {
+			return proxyURL, err
 		}
-		return nil, nil
+		return systemProxyURL(req), nil
 	}
 	transport.DialContext = func(ctx context.Context, network, addr string) (net.Conn, error) {
 		if dialer := socksDialer(); dialer != nil {
@@ -126,7 +128,7 @@ func Wrap(transport *http.Transport) *http.Transport {
 }
 
 func resolve(raw config.Raw) (string, bool, error) {
-	if value, ok := os.LookupEnv(EnvName); ok {
+	if value, ok := os.LookupEnv(EnvName); ok && strings.TrimSpace(value) != "" {
 		return value, true, nil
 	}
 	if raw == nil {
