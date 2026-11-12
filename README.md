@@ -57,31 +57,35 @@ npx skills add chaitin/chaitin-cli
 
 ## 演示
 
+预览图保存在仓库 `assets/casts/`，README 不再从 asciinema.org 加载图片。克隆后可本地回放，例如 `asciinema play assets/casts/cloudwalker.cast`。
+
 ### CloudWalker
-[![asciicast](https://asciinema.org/a/894643.svg)](https://asciinema.org/a/894643)
+
+[![CloudWalker](assets/casts/cloudwalker.png)](https://asciinema.org/a/894643)
 
 ### Veinmind
-[![asciicast](https://asciinema.org/a/cTKHufj2Fewwl95j.svg)](https://asciinema.org/a/cTKHufj2Fewwl95j)
+
+[![Veinmind](assets/casts/veinmind.png)](https://asciinema.org/a/cTKHufj2Fewwl95j)
 
 ### T-Answer
 
-[![asciicast](https://asciinema.org/a/Gs8KPOIcEnRRnXWr.svg)](https://asciinema.org/a/Gs8KPOIcEnRRnXWr)
+[![T-Answer](assets/casts/tanswer.png)](https://asciinema.org/a/Gs8KPOIcEnRRnXWr)
 
 ### SafeLine
 
-[![asciicast](https://asciinema.org/a/x7I8JDzbtjsRjb5M.svg)](https://asciinema.org/a/x7I8JDzbtjsRjb5M)
+[![SafeLine](assets/casts/safeline.png)](https://asciinema.org/a/x7I8JDzbtjsRjb5M)
 
 ### SafeLine-CE
 
-[![asciicast](https://asciinema.org/a/dzJzibRTm8arWRmU.svg)](https://asciinema.org/a/dzJzibRTm8arWRmU)
+[![SafeLine-CE](assets/casts/safeline-ce.png)](https://asciinema.org/a/dzJzibRTm8arWRmU)
 
 ### DDR
 
-[![asciicast](https://asciinema.org/a/IHulIbJ5nsy924qd.svg)](https://asciinema.org/a/t0cFuOjkLkExjREx)
+[![DDR](assets/casts/ddr.png)](https://asciinema.org/a/IHulIbJ5nsy924qd)
 
 ### X-Ray
 
-[![asciicast](https://asciinema.org/a/923077.svg)](https://asciinema.org/a/923077)
+[![X-Ray](assets/casts/xray.png)](https://asciinema.org/a/923077)
 
 ## 功能模块
 
