@@ -49,7 +49,7 @@ func TestSetGroupHelpUsesHostIDSelect(t *testing.T) {
 	help := buf.String()
 	for _, want := range []string{
 		"目标业务组使用 --gid",
-		"[{\"host_id\": 196}]",
+		"[{\"id\": 196}]",
 		"--host-id 和 --gids 不能代替",
 		"未在命令行显式设置的 bool 开关不会发送给服务端",
 	} {
@@ -73,7 +73,7 @@ func TestSetGroupHostIDBecomesSelect(t *testing.T) {
 	if err := applySetGroupHostIDSelect(cmd); err != nil {
 		t.Fatal(err)
 	}
-	if host_asset.SetGroupSelectJSON != "[{\"host_id\":3},{\"host_id\":4}]" {
+	if host_asset.SetGroupSelectJSON != "[{\"id\":3},{\"id\":4}]" {
 		t.Fatalf("select = %s", host_asset.SetGroupSelectJSON)
 	}
 	ids, err := cmd.Flags().GetFloat64Slice("host-id")
@@ -90,7 +90,7 @@ func TestSetGroupHostIDDoesNotOverrideExplicitSelect(t *testing.T) {
 	t.Cleanup(func() { resetSetGroupFlags(cmd) })
 	resetSetGroupFlags(cmd)
 
-	explicit := "[{\"host_id\":1}]"
+	explicit := "[{\"id\":1}]"
 	if err := cmd.Flags().Set("select", explicit); err != nil {
 		t.Fatal(err)
 	}
@@ -138,7 +138,7 @@ func TestSetGroupSelectAllFalseStillConvertsHostID(t *testing.T) {
 	if err := applySetGroupHostIDSelect(cmd); err != nil {
 		t.Fatal(err)
 	}
-	if host_asset.SetGroupSelectJSON != "[{\"host_id\":3}]" {
+	if host_asset.SetGroupSelectJSON != "[{\"id\":3}]" {
 		t.Fatalf("select = %s", host_asset.SetGroupSelectJSON)
 	}
 }
@@ -172,7 +172,7 @@ func TestSetGroupExecuteOmitsTopLevelHostID(t *testing.T) {
 		t.Fatalf("select = %#v", params["select"])
 	}
 	item, ok := selectItems[0].(map[string]any)
-	if !ok || item["host_id"] != float64(3) {
+	if !ok || item["id"] != float64(3) {
 		t.Fatalf("select item = %#v", selectItems[0])
 	}
 	if params["host_id"] != nil {
