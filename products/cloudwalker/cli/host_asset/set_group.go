@@ -32,6 +32,7 @@ var SetGroupCmd = &cobra.Command{
 				return
 			}
 		}
+		applyHostIDSelect(cmd, setGroupParams.HostId, &setGroupParams.Select, &setGroupParams.SelectAll)
 
 		cli := client.GetClient()
 		var result map[string]interface{}
@@ -92,7 +93,7 @@ func init() {
 	SetGroupCmd.Flags().StringSliceVar(&setGroupParams.ResLimitMemory, "res-limit-memory", nil, "内存资源限制")
 	SetGroupCmd.Flags().StringSliceVar(&setGroupParams.ResLimitNetwork, "res-limit-network", nil, "网络资源限制")
 	// select is complex type []map[string]interface{}, use JSON string
-	SetGroupCmd.Flags().StringVar(&SetGroupSelectJSON, "select", "", "选择项目 (JSON, e.g. [{\"id\": 196}])")
+	SetGroupCmd.Flags().StringVar(&SetGroupSelectJSON, "select", "", "选择项目 (JSON, e.g. [{\"id\": 196}])。未传 --select/--select-all 时，--host-id 会自动转成 select")
 	SetGroupCmd.Flags().BoolVar(&setGroupParams.SelectAll, "select-all", false, "是否选取所有")
 	SetGroupCmd.Flags().StringSliceVar(&setGroupParams.ServerAddresses, "server-addresses", nil, "探针连接的服务端的地址（若该字段不是真正的服务端地址，说明存在反向代理）")
 	SetGroupCmd.Flags().StringSliceVar(&setGroupParams.Tags, "tags", nil, "特征")
