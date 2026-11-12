@@ -2,11 +2,13 @@ package cloudatlas
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/url"
 	"os"
 	"regexp"
 	"sort"
+	"strconv"
 	"strings"
 	"unicode"
 
@@ -276,19 +278,21 @@ func operationFor(pathItem PathItem, method string) *Operation {
 // operation is hidden. Delete an entry once the endpoint is fixed server-side;
 // no other change is needed to bring the command back.
 //
-// Verified 2026-09-21 against the pre-test environment: every operation below
-// answers HTTP 200 with {"code":500,"message":"服务异常，请联系管理员!"} for any
-// parameters. The sibling .../async/download endpoint of the same resource works,
+// Verified 2026-11-12 against the pre-test environment: every operation below
+// answers HTTP 200 with an envelope code 404 — "api not found", and "object not
+// found" for GET /v1/drps/rule/download — so these handlers are not routable
+// there. A check on 2026-09-21 saw {"code":500,"message":"服务异常，请联系管理员!"}
+// instead. The sibling .../async/download endpoint of the same resource works,
 // which points at these two handlers rather than at the request the CLI sends.
 var disabledOperations = map[string]string{
-	"GET /v1/drps/rule/download":                "异步下载监控规则：服务端固定 500",
-	"GET /v1/risk/admin/download":               "异步下载管理后台：服务端固定 500",
-	"GET /v1/risk/product/download":             "异步下载高危应用：服务端固定 500",
-	"GET /v1/risk/service/download":             "异步下载高危端口：服务端固定 500",
-	"GET /v1/drps/rule/{id}/download/status":    "监控规则下载状态：服务端固定 500",
-	"GET /v1/risk/admin/{id}/download/status":   "管理后台下载状态：服务端固定 500",
-	"GET /v1/risk/product/{id}/download/status": "高危应用下载状态：服务端固定 500",
-	"GET /v1/risk/service/{id}/download/status": "高危端口下载状态：服务端固定 500",
+	"GET /v1/drps/rule/download":                "异步下载监控规则：服务端 404 object not found",
+	"GET /v1/risk/admin/download":               "异步下载管理后台：服务端 404 api not found",
+	"GET /v1/risk/product/download":             "异步下载高危应用：服务端 404 api not found",
+	"GET /v1/risk/service/download":             "异步下载高危端口：服务端 404 api not found",
+	"GET /v1/drps/rule/{id}/download/status":    "监控规则下载状态：服务端 404 api not found",
+	"GET /v1/risk/admin/{id}/download/status":   "管理后台下载状态：服务端 404 api not found",
+	"GET /v1/risk/product/{id}/download/status": "高危应用下载状态：服务端 404 api not found",
+	"GET /v1/risk/service/{id}/download/status": "高危端口下载状态：服务端 404 api not found",
 }
 
 // applyBodyOverrides patches the JSON request body schema of op. The schema is
@@ -448,7 +452,7 @@ func getOrCreateRoot(parents map[string]*cobra.Command, name string) *cobra.Comm
 	if parents[name] != nil {
 		return parents[name]
 	}
-	cmd := &cobra.Command{Use: name, Short: fmt.Sprintf("%s commands", name)}
+	cmd := newGroupCommand(name)
 	parents[name] = cmd
 	return cmd
 }
@@ -459,9 +463,54 @@ func getOrCreateChild(parent *cobra.Command, name string) *cobra.Command {
 			return child
 		}
 	}
-	cmd := &cobra.Command{Use: name, Short: fmt.Sprintf("%s commands", name)}
+	cmd := newGroupCommand(name)
 	parent.AddCommand(cmd)
 	return cmd
+}
+
+// newGroupCommand builds a generated command group. RunE is what makes the
+// group runnable: cobra returns help for a command without Run before it ever
+// validates args, so a group could not otherwise reject a mistyped subcommand.
+// With RunE set, cobra validates args first and the group only reaches RunE
+// when it has no arguments, where it prints its own help.
+func newGroupCommand(name string) *cobra.Command {
+	return &cobra.Command{
+		Use:   name,
+		Short: fmt.Sprintf("%s commands", name),
+		Args:  rejectUnknownSubcommand,
+		// cobra only applies its default suggestion distance to the command it is
+		// executed on, so nested groups need it explicitly for typo hints.
+		SuggestionsMinimumDistance: 2,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			return cmd.Help()
+		},
+	}
+}
+
+// rejectUnknownSubcommand fails when a generated group command is given an
+// argument that names no subcommand. Cobra's legacyArgs only performs that check
+// on the root command, so a generated group nested inside a product command
+// would otherwise print its help and exit 0 for a mistyped subcommand.
+func rejectUnknownSubcommand(cmd *cobra.Command, args []string) error {
+	if len(args) == 0 {
+		return nil
+	}
+	message := fmt.Sprintf("unknown command %q for %q", args[0], cmd.CommandPath())
+	if suggestions := cmd.SuggestionsFor(args[0]); len(suggestions) > 0 {
+		message += "\n\nDid you mean this?\n"
+		for _, suggestion := range suggestions {
+			message += "\t" + suggestion + "\n"
+		}
+	}
+	return errors.New(message)
+}
+
+// flagUsage strips backticks from a help sentence before it becomes a pflag
+// usage string. pflag treats the first backquoted word as the flag's value
+// placeholder, so a description such as "`-` 前缀表示降序" would otherwise render
+// the flag as "--sort -" instead of "--sort string".
+func flagUsage(usage string) string {
+	return strings.ReplaceAll(usage, "`", "")
 }
 
 func (p *Parser) createOperationCommand(use, method, path string, op *Operation) *cobra.Command {
@@ -473,6 +522,7 @@ func (p *Parser) createOperationCommand(use, method, path string, op *Operation)
 		Use:   use,
 		Short: short,
 		Long:  p.buildOperationHelp(method, path, op),
+		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return p.executeCommand(cmd, method, path, op)
 		},
@@ -488,10 +538,10 @@ func (p *Parser) createOperationCommand(use, method, path string, op *Operation)
 		}
 		required := param.Required || (param.In == "query" && flagName == "space")
 		if isQueryArrayParameter(param) {
-			cmd.Flags().StringArray(flagName, nil, p.formatParameterUsage(param, required))
+			cmd.Flags().StringArray(flagName, nil, flagUsage(p.formatParameterUsage(param, required)))
 			continue
 		}
-		cmd.Flags().String(flagName, "", p.formatParameterUsage(param, required))
+		cmd.Flags().String(flagName, "", flagUsage(p.formatParameterUsage(param, required)))
 	}
 	if !hasQueryParameter(op.Parameters, "space") {
 		cmd.Flags().String("space", "", "空间ID；必填；可由 --space-id 或 cloudAtlas.space_id 提供默认值")
@@ -512,6 +562,11 @@ func (p *Parser) createOperationCommand(use, method, path string, op *Operation)
 }
 
 func (p *Parser) executeCommand(cmd *cobra.Command, method, path string, op *Operation) error {
+	renderer, err := NewRenderer(outputFormat, cmd.OutOrStdout())
+	if err != nil {
+		return err
+	}
+
 	if requiresConfirmation(method, op.Summary) {
 		yes, err := cmd.Flags().GetBool("yes")
 		if err != nil {
@@ -543,7 +598,7 @@ func (p *Parser) executeCommand(cmd *cobra.Command, method, path string, op *Ope
 			return err
 		}
 	}
-	return NewRenderer(outputFormat, cmd.OutOrStdout()).Render(data)
+	return renderer.Render(data)
 }
 
 func buildPath(cmd *cobra.Command, path string, params []Parameter) (string, error) {
@@ -559,6 +614,11 @@ func buildPath(cmd *cobra.Command, path string, params []Parameter) (string, err
 		}
 		if value == "" && param.Required {
 			return "", fmt.Errorf("--%s is required", flagName)
+		}
+		if value != "" {
+			if err := validateScalarParameterValue(flagName, param.Schema, value); err != nil {
+				return "", err
+			}
 		}
 		result = strings.ReplaceAll(result, "{"+param.Name+"}", url.PathEscape(value))
 	}
@@ -610,6 +670,9 @@ func buildQuery(cmd *cobra.Command, params []Parameter) (url.Values, error) {
 			}
 			continue
 		}
+		if err := validateScalarParameterValue(flagName, param.Schema, value); err != nil {
+			return nil, err
+		}
 		query.Set(param.Name, value)
 	}
 	if !spaceHandled {
@@ -649,6 +712,48 @@ func isQueryArrayParameter(param Parameter) bool {
 	return param.In == "query" && isArraySchema(param.Schema)
 }
 
+// validateParameterValue rejects a flag value that does not match the type the
+// OpenAPI schema declares, so a typo fails before a request is sent instead of
+// being passed through to the API. Schemas without a concrete type are skipped.
+func validateParameterValue(flagName string, schema *Schema, value string) error {
+	if schema == nil {
+		return nil
+	}
+	switch schema.Type {
+	case "boolean":
+		if _, err := strconv.ParseBool(value); err != nil {
+			return fmt.Errorf("invalid value for --%s: %q (want boolean: true or false)", flagName, value)
+		}
+	case "integer":
+		if _, err := strconv.Atoi(value); err != nil {
+			return fmt.Errorf("invalid value for --%s: %q (want integer)", flagName, value)
+		}
+	case "number":
+		if _, err := strconv.ParseFloat(value, 64); err != nil {
+			return fmt.Errorf("invalid value for --%s: %q (want number)", flagName, value)
+		}
+	}
+	return nil
+}
+
+// validateScalarParameterValue validates a single-valued flag. Several scalar
+// filters document a comma-separated multi-select syntax ("1,2" for an integer
+// parameter), so each comma-separated entry is validated on its own.
+func validateScalarParameterValue(flagName string, schema *Schema, value string) error {
+	if schema == nil {
+		return nil
+	}
+	for _, entry := range strings.Split(value, ",") {
+		if entry = strings.TrimSpace(entry); entry == "" {
+			continue
+		}
+		if err := validateParameterValue(flagName, schema, entry); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func isArraySchema(schema *Schema) bool {
 	return schema != nil && (schema.Type == "array" || (schema.Type == "" && schema.Items != nil))
 }
@@ -664,15 +769,20 @@ func nonEmptyValues(values []string) []string {
 }
 
 func addQueryArray(query url.Values, param Parameter, flagName string, values []string) error {
+	style := strings.TrimSpace(param.Style)
+	if style == "" {
+		style = "form"
+	}
+
 	for _, value := range values {
 		if err := rejectLegacyJSONArray(flagName, value); err != nil {
 			return err
 		}
-	}
-
-	style := strings.TrimSpace(param.Style)
-	if style == "" {
-		style = "form"
+		for _, entry := range arrayValueEntries(value, style) {
+			if err := validateParameterValue(flagName, param.Schema.Items, entry); err != nil {
+				return err
+			}
+		}
 	}
 
 	switch style {
@@ -696,6 +806,27 @@ func addQueryArray(query url.Values, param Parameter, flagName string, values []
 		return fmt.Errorf("unsupported OpenAPI query array style %q for --%s", style, flagName)
 	}
 	return nil
+}
+
+// arrayValueEntries splits one flag occurrence into the individual entries it
+// carries. A single occurrence may hold several comma-separated values for the
+// default form style, and the other styles use their own separator.
+func arrayValueEntries(value, style string) []string {
+	delimiter := ","
+	switch style {
+	case "spaceDelimited":
+		delimiter = " "
+	case "pipeDelimited":
+		delimiter = "|"
+	}
+	parts := strings.Split(value, delimiter)
+	entries := make([]string, 0, len(parts))
+	for _, part := range parts {
+		if trimmed := strings.TrimSpace(part); trimmed != "" {
+			entries = append(entries, trimmed)
+		}
+	}
+	return entries
 }
 
 func rejectLegacyJSONArray(flagName, value string) error {

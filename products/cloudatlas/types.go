@@ -107,10 +107,3 @@ type APIEnvelope struct {
 	Message string          `json:"message"`
 	Data    json.RawMessage `json:"data"`
 }
-
-type ListEnvelope struct {
-	Current int             `json:"current"`
-	Size    int             `json:"size"`
-	Total   int             `json:"total"`
-	Items   json.RawMessage `json:"items"`
-}

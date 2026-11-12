@@ -6,23 +6,18 @@ import (
 	"io"
 )
 
-type Format string
-
-const (
-	FormatTable Format = "table"
-	FormatJSON  Format = "json"
-)
-
+// Renderer prints an API response. JSON is the only supported format: every
+// command emits the response body as indented JSON, so list responses keep
+// their paging envelope (current/size/total/items).
 type Renderer struct {
-	format Format
-	out    io.Writer
+	out io.Writer
 }
 
-func NewRenderer(format string, out io.Writer) Renderer {
-	if format == string(FormatJSON) {
-		return Renderer{format: FormatJSON, out: out}
+func NewRenderer(format string, out io.Writer) (Renderer, error) {
+	if format != "json" {
+		return Renderer{}, fmt.Errorf("unsupported output format %q; only \"json\" is supported", format)
 	}
-	return Renderer{format: FormatTable, out: out}
+	return Renderer{out: out}, nil
 }
 
 func (r Renderer) Render(data json.RawMessage) error {
@@ -31,28 +26,6 @@ func (r Renderer) Render(data json.RawMessage) error {
 		return err
 	}
 
-	if r.format == FormatJSON {
-		return r.renderJSON(data)
-	}
-
-	var list ListEnvelope
-	if err := json.Unmarshal(data, &list); err == nil && len(list.Items) > 0 {
-		if err := r.renderPretty(list.Items); err != nil {
-			return err
-		}
-		_, err := fmt.Fprintf(r.out, "total=%d current=%d size=%d\n", list.Total, list.Current, list.Size)
-		return err
-	}
-
-	return r.renderPretty(data)
-}
-
-func (r Renderer) renderJSON(data json.RawMessage) error {
-	_, err := fmt.Fprintln(r.out, string(data))
-	return err
-}
-
-func (r Renderer) renderPretty(data json.RawMessage) error {
 	var value any
 	if err := json.Unmarshal(data, &value); err != nil {
 		return fmt.Errorf("parse response for render: %w", err)

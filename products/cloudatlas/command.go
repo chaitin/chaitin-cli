@@ -36,12 +36,22 @@ Config example:
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			applyRuntimeConfig(cmd)
 		},
+		// cloudAtlas is not the process root, so cobra's legacyArgs never checks it
+		// for unknown subcommands. Args plus RunE make it reject a mistyped
+		// subcommand while still printing help when called with no arguments.
+		Args: rejectUnknownSubcommand,
+		// cobra only applies its default suggestion distance to the command it is
+		// executed on, which is the process root rather than this command.
+		SuggestionsMinimumDistance: 2,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			return cmd.Help()
+		},
 	}
 
 	cmd.PersistentFlags().String("url", "", "Cloud Atlas OpenAPI base URL，例如 https://host/openapi；也可配置 cloudAtlas.url 或 CLOUD_ATLAS_URL")
 	cmd.PersistentFlags().String("token", "", "Cloud Atlas API token；请求时作为 Token header 发送，也可配置 cloudAtlas.token 或 CLOUD_ATLAS_TOKEN")
 	cmd.PersistentFlags().String("space-id", "", "Cloud Atlas 空间 ID；作为所有请求的 space query 默认值，也可配置 cloudAtlas.space_id；子命令 --space 可覆盖")
-	cmd.PersistentFlags().StringVarP(&outputFormat, "output", "o", "table", "输出格式；可选值: table, json")
+	cmd.PersistentFlags().StringVarP(&outputFormat, "output", "o", "json", "输出格式；可选值: json")
 	cmd.PersistentFlags().BoolVar(&runtimeInsecure, "insecure", true, "跳过 TLS 证书校验；测试或自签名环境使用，默认 true")
 	cmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "打印请求 URL、headers 和 body；敏感值默认会被脱敏")
 	cmd.PersistentFlags().BoolVar(&verboseSensitive, "verbose-sensitive", false, "verbose 时打印 token 等敏感值明文，仅在本地调试时使用")

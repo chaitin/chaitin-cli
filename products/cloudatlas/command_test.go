@@ -13,6 +13,7 @@ import (
 	"github.com/chaitin/chaitin-cli/config"
 	cloudatlasspec "github.com/chaitin/chaitin-cli/products/cloudatlas/spec"
 	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 	"gopkg.in/yaml.v3"
 )
 
@@ -127,8 +128,63 @@ func TestListSendsQueryAndTokenHeader(t *testing.T) {
 	if err := cmd.Execute(); err != nil {
 		t.Fatalf("Execute() error = %v", err)
 	}
-	if !strings.Contains(out.String(), "1.1.1.1") || !strings.Contains(out.String(), "total=1") {
+	var rendered struct {
+		Total int `json:"total"`
+		Items []struct {
+			IP string `json:"ip"`
+		} `json:"items"`
+	}
+	if err := json.Unmarshal(out.Bytes(), &rendered); err != nil {
+		t.Fatalf("output is not JSON: %v\n%s", err, out.String())
+	}
+	if rendered.Total != 1 || len(rendered.Items) != 1 || rendered.Items[0].IP != "1.1.1.1" {
 		t.Fatalf("unexpected output:\n%s", out.String())
+	}
+}
+
+func TestUnknownSubcommandFails(t *testing.T) {
+	tests := []struct {
+		name string
+		args []string
+	}{
+		{name: "unknown product subcommand", args: []string{"nonexist"}},
+		{name: "mistyped group", args: []string{"seed", "titel", "list"}},
+		{name: "mistyped leaf", args: []string{"seed", "title", "lst"}},
+		{name: "extra positional argument", args: []string{"seed", "title", "list", "extra"}},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			cmd := NewCommand()
+			cmd.SetArgs(tt.args)
+			var out bytes.Buffer
+			cmd.SetOut(&out)
+			cmd.SetErr(&out)
+
+			err := cmd.Execute()
+			if err == nil {
+				t.Fatalf("Execute() should fail for %v:\n%s", tt.args, out.String())
+			}
+			if !strings.Contains(err.Error(), "unknown command") {
+				t.Fatalf("Execute() error = %v, want an unknown command error", err)
+			}
+		})
+	}
+}
+
+func TestUnknownSubcommandSuggestsClosestCommand(t *testing.T) {
+	cmd := NewCommand()
+	cmd.SetArgs([]string{"seed", "titel", "list"})
+	var out bytes.Buffer
+	cmd.SetOut(&out)
+	cmd.SetErr(&out)
+
+	err := cmd.Execute()
+	if err == nil {
+		t.Fatalf("Execute() should fail")
+	}
+	if !strings.Contains(err.Error(), "Did you mean this?") || !strings.Contains(err.Error(), "title") {
+		t.Fatalf("Execute() error = %v, want a suggestion for %q", err, "title")
 	}
 }
 
@@ -674,6 +730,100 @@ func TestAllOpenAPIQueryArraysUseRepeatableFlags(t *testing.T) {
 	}
 	if arrayCount == 0 {
 		t.Skip("embedded OpenAPI spec declares no query array parameters; multi-select filters are comma-separated strings")
+	}
+}
+
+func TestFlagUsageKeepsBackticksOutOfValuePlaceholder(t *testing.T) {
+	cmd := NewCommand()
+	leaf := findLeaf(t, cmd, "seed", "title", "list")
+	flag := leaf.Flags().Lookup("sort")
+	if flag == nil {
+		t.Fatal("seed title list should declare --sort")
+	}
+	if strings.Contains(flag.Usage, "`") {
+		t.Fatalf("--sort usage still contains a backtick: %q", flag.Usage)
+	}
+	if name, _ := pflag.UnquoteUsage(flag); name != "string" {
+		t.Fatalf("--sort value placeholder = %q, want %q", name, "string")
+	}
+	if !strings.Contains(flag.Usage, "- 前缀表示降序") {
+		t.Fatalf("--sort usage lost its description: %q", flag.Usage)
+	}
+}
+
+func TestInvalidTypedParameterValueFailsBeforeRequest(t *testing.T) {
+	requests := 0
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		requests++
+		writeJSON(t, w, map[string]any{"code": 200, "message": "", "data": map[string]any{}})
+	}))
+	defer server.Close()
+
+	tests := []struct {
+		name string
+		args []string
+		want string
+	}{
+		{
+			name: "boolean",
+			args: []string{"seed", "title", "list", "--space", "1", "--enable", "yes"},
+			want: `invalid value for --enable: "yes" (want boolean: true or false)`,
+		},
+		{
+			name: "integer",
+			args: []string{"seed", "title", "list", "--space", "1", "--size", "abc"},
+			want: `invalid value for --size: "abc" (want integer)`,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			ApplyRuntimeConfig(nil, rawConfig(Config{URL: server.URL, Token: "secret-token"}), false)
+			cmd := NewCommand()
+			cmd.SetArgs(tt.args)
+			var out bytes.Buffer
+			cmd.SetOut(&out)
+			cmd.SetErr(&out)
+
+			err := cmd.Execute()
+			if err == nil {
+				t.Fatalf("Execute() should reject %v", tt.args)
+			}
+			if !strings.Contains(err.Error(), tt.want) {
+				t.Fatalf("Execute() error = %v, want %q", err, tt.want)
+			}
+		})
+	}
+
+	if requests != 0 {
+		t.Fatalf("server received %d requests, want 0: invalid values must fail locally", requests)
+	}
+}
+
+func TestUnsupportedOutputFormatFailsBeforeRequest(t *testing.T) {
+	requests := 0
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		requests++
+		writeJSON(t, w, map[string]any{"code": 200, "message": "", "data": map[string]any{}})
+	}))
+	defer server.Close()
+
+	ApplyRuntimeConfig(nil, rawConfig(Config{URL: server.URL, Token: "secret-token"}), false)
+	cmd := NewCommand()
+	cmd.SetArgs([]string{"seed", "title", "list", "--space", "1", "-o", "table"})
+	var out bytes.Buffer
+	cmd.SetOut(&out)
+	cmd.SetErr(&out)
+
+	err := cmd.Execute()
+	if err == nil {
+		t.Fatalf("Execute() should reject -o table")
+	}
+	if !strings.Contains(err.Error(), "unsupported output format") {
+		t.Fatalf("Execute() error = %v, want an unsupported output format error", err)
+	}
+	if requests != 0 {
+		t.Fatalf("server received %d requests, want 0", requests)
 	}
 }
 
