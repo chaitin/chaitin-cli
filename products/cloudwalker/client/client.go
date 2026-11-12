@@ -15,6 +15,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/iancoleman/orderedmap"
+	"github.com/spf13/pflag"
 )
 
 // Client HTTP 客户端
@@ -22,6 +23,9 @@ type Client struct {
 	baseURL    string
 	apiKey     string
 	httpClient *http.Client
+	// flags is the flag set of the command being executed. It lets Call drop
+	// boolean filters the user did not set instead of sending them as false.
+	flags *pflag.FlagSet
 }
 
 // Option 客户端配置选项
@@ -78,10 +82,17 @@ type jsonRPCResponse struct {
 
 // Call 调用 JSON-RPC 方法
 func (c *Client) Call(ctx context.Context, method string, params interface{}, result interface{}) error {
+	// 未显式设置的 bool 过滤参数不能按 false 发送：服务端会把 false 当作
+	// 过滤条件（例如只返回离线主机），导致默认查询结果不全。
+	paramsJSON, err := marshalParamsWithUnsetOmitted(params, unsetBoolJSONKeys(c.flags, params))
+	if err != nil {
+		return fmt.Errorf("marshal params: %w", err)
+	}
+
 	// 构造 JSON-RPC 请求
 	reqBody := jsonRPCRequest{
 		Method:  method,
-		Params:  params,
+		Params:  json.RawMessage(paramsJSON),
 		JsonRPC: "2.0",
 		ID:      uuid.New().String(),
 	}
@@ -175,6 +186,12 @@ func SetBaseURL(baseURL string) {
 // SetAPIKey 设置全局客户端的 API Key
 func SetAPIKey(apiKey string) {
 	defaultClient.apiKey = apiKey
+}
+
+// SetFlags 设置当前命令的 flag 集合，用于区分未设置和显式设为 false 的
+// bool 过滤参数。
+func SetFlags(flags *pflag.FlagSet) {
+	defaultClient.flags = flags
 }
 
 // GetHost 从 baseURL 中提取 host 部分
