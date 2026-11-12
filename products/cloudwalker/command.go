@@ -119,8 +119,6 @@ var rootCmd = &cobra.Command{
 		client.SetFormat(format)
 		// 设置 noTrunc
 		client.SetNoTrunc(noTrunc)
-		// 让 client 区分未设置和显式设为 false 的 bool 过滤参数
-		client.SetFlags(cmd.Flags())
 		// 从父命令继承 dry-run 标志
 		if dryRunFlag := cmd.InheritedFlags().Lookup("dry-run"); dryRunFlag != nil {
 			client.SetDryRun(dryRunFlag.Value.String() == "true")
