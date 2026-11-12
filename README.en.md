@@ -27,6 +27,13 @@ curl -fsSL https://raw.githubusercontent.com/chaitin/chaitin-cli/main/skills/cha
 
 Windows users should download the matching package from [GitHub Releases](https://github.com/chaitin/chaitin-cli/releases), extract `chaitin-cli.exe`, and add it to PATH.
 
+Check the installed version:
+
+```bash
+chaitin-cli version
+chaitin-cli --version
+```
+
 ## Skill
 
 This project provides an AI Agent skill. Once installed, AI agents (Claude Code, Cursor, etc.) can invoke `chaitin-cli` commands to manage Chaitin security products directly.
@@ -85,17 +92,18 @@ After installation, simply describe your needs to the AI agent, for example:
 | `xray` | X-Ray scan task, asset, vulnerability, report, and system configuration management |
 | `cloudwalker` | CloudWalker CWPP event, asset, vulnerability, protection policy, and system management |
 | `veinmind` | CloudWalker CNAPP container, image, and escape protection management |
-| `tanswer` | T-Answer firewall, whitelist, and block rule management |
+| `tanswer` | T-Answer semantic security operations for alarms, file alarms, assets, policies, response actions, and Open API fallback |
 | `ddr` | DDR API token and connection configuration helpers |
 | `dsensor` | D-Sensor security monitoring, agent, honeypot, alarm, and threat log management |
 | `codeinsight` | CodeInsight project, repository configuration, scan task, and report export management |
 | `codeforce` | CodeForce project, project AI employee, AI dev task, native audit, denoise, code package, repository, and Git auth management |
+| `cosmos` | Cosmos / AISOC alarm, log, intelligence, IP block, asset, notice, ops, SOAR, and vulnerability management |
 
 The root command handles configuration loading, product command registration, and BusyBox-style dispatch. Each product directory owns its commands, flags, configuration decoding, and API calls.
 
 ## Configuration
 
-Put product connection settings in `./config.yaml`:
+Prefer putting product connection settings in `~/.chaitin-cli/config.yaml`. If `./config.yaml` exists in the current directory and has a chaitin-cli product name at the top level, the CLI reads that local config first to keep existing workflows compatible:
 
 ```yaml
 cloudwalker:
@@ -103,8 +111,8 @@ cloudwalker:
   api_key: YOUR_API_KEY
 
 tanswer:
-  url: https://tanswer.example.com
-  api_key: YOUR_API_KEY
+  url: 'https://<全悉 Web 端 IP>'
+  api_key: '<全悉 OpenAPI Token>'
 
 # chaitin-cli ddr get-api-token --url https://ddr.example.com:8443 --jwt-token "YOUR_JWT_TOKEN" can directly get url & api_key & company_id
 ddr:
@@ -136,6 +144,15 @@ codeforce:
   url: https://codeforce.example.com
   access_token: YOUR_ACCESS_TOKEN
   account_type: admin
+
+cosmos:
+  url: https://cosmos.example.com
+  api_key: YOUR_JWT_BEARER_TOKEN
+
+agent-compose:
+  url: https://agent-compose.example.com
+  api_token: YOUR_API_TOKEN
+  default_project: YOUR_PROJECT
 ```
 You can also put the same keys into environment variables or a local `.env` file. Variable names follow `<PRODUCT>_<FIELD>`:
 
@@ -158,13 +175,38 @@ codeinsight.access_token -> CODEINSIGHT_ACCESS_TOKEN or CODEINSIGHT_TOKEN
 codeforce.url        -> CODEFORCE_URL
 codeforce.access_token -> CODEFORCE_ACCESS_TOKEN or CODEFORCE_API_KEY
 codeforce.account_type -> CODEFORCE_ACCOUNT_TYPE
+cosmos.url           -> COSMOS_URL
+cosmos.api_key       -> COSMOS_API_KEY
 safeline-ce.url      -> SAFELINE_CE_URL
 safeline-ce.api_key  -> SAFELINE_CE_API_KEY
 safeline-3.url       -> SAFELINE_3_URL
 safeline-3.api_token -> SAFELINE_3_API_TOKEN
 safeline.url         -> SAFELINE_URL
 safeline.api_key     -> SAFELINE_API_KEY
+agent-compose.url    -> AGENT_COMPOSE_URL
+agent-compose.api_token -> AGENT_COMPOSE_API_TOKEN
+agent-compose.api_key -> AGENT_COMPOSE_API_KEY (alias of api_token)
+agent-compose.default_project -> AGENT_COMPOSE_DEFAULT_PROJECT
 ```
+
+### T-Answer Quick Start
+
+T-Answer commands use an OpenAPI Token. Create it in the T-Answer web console under `System Management` -> `Open API`, then configure `tanswer.api_key` or `TANSWER_API_KEY`.
+
+Configure T-Answer with `--url`, `--api-key`, `--timeout`, and `--insecure`; environment variables `TANSWER_URL`, `TANSWER_API_KEY`, `TANSWER_TIMEOUT`, and `TANSWER_INSECURE`; or `tanswer.url`, `tanswer.api_key`, `tanswer.timeout`, and `tanswer.insecure` in `config.yaml`. Never commit a real token.
+
+```bash
+chaitin-cli tanswer auth check
+chaitin-cli tanswer --help
+chaitin-cli tanswer manifest
+chaitin-cli tanswer system status
+chaitin-cli tanswer alarm overview --time today
+chaitin-cli tanswer asset list --page-size 10
+```
+
+For human operators using this repository, see [the T-Answer guide (Chinese)](./products/tanswer/README.md) and [command reference (Chinese)](./products/tanswer/COMMAND_REFERENCE.md). Users who only have the installed binary should start with `chaitin-cli tanswer --help`, then use domain or leaf-command help and `manifest` for the current contract. The root-level `--dry-run` flag does not apply to `tanswer`.
+
+AI agents must use `chaitin-cli tanswer`, discover commands with help, and use `manifest` for machine-readable parameters, output fields, risks, and confirmation requirements. Prefer semantic commands. Use `tanswer api` only for a known, authorized endpoint, method, and request body not covered by a semantic command; never guess RPC methods, paths, or request bodies. For every semantic protected write, run `--preview`, present the target, impact, and risk to the user, and wait for explicit confirmation of that specific change before using the exact `--confirm` token. `tanswer api` GET/HEAD requests may run directly; every other method returns a preview by default and must receive explicit confirmation for that exact method, path, query, and body before `--confirm CONFIRM_TANSWER_RAW_API_WRITE` sends it. A confirmation token is a mechanical CLI requirement, not user authorization.
 
 ### SafeLine-3
 
@@ -191,19 +233,41 @@ XRAY_URL=https://xray.example.com/api/v2
 XRAY_API_KEY=YOUR_API_KEY
 ```
 
-Priority is `flags > environment/.env > config.yaml`.
+Priority is `flags > environment/.env > recognized ./config.yaml > ~/.chaitin-cli/config.yaml`. If `./config.yaml` does not contain a chaitin-cli product name, it is treated as another project's config and ignored. When a local config is recognized, global config is not merged.
 
-Use root-level `-c` or `--config` to load a different config file. This is useful when you switch between multiple product instances, for example multiple SafeLine environments:
+Use root-level `-c` or `--config` to load a different config file. This is useful when you switch between multiple product instances or temporarily use a project-local config file, for example multiple SafeLine environments:
 
 ```bash
 chaitin-cli -c ./configs/safeline-prod.yaml safeline stats overview
 chaitin-cli -c ./configs/safeline-staging.yaml safeline stats overview
 ```
 
+Commands that create or update config use the same path selection by default: if a recognized `./config.yaml` exists in the current directory, they write to it first; otherwise they write to `~/.chaitin-cli/config.yaml`. When `-c` / `--config` is set explicitly, they write only to the specified file.
+
 Use root-level `--dry-run` for commands that support dry-run:
 
 ```bash
 chaitin-cli --dry-run xray plan PostPlanFilter --filterPlan.limit=10
+chaitin-cli --dry-run cosmos asset save-host-asset --ip 10.0.0.1/32 --name demo-host --organization_id 1 --asset_ip_type 1 --category_ids '[{"id":41,"name":"Linux"}]' --group_id 1
+```
+
+### Cosmos / AISOC
+
+Full module documentation lives in [`products/cosmos/README.md`](products/cosmos/README.md).
+
+Cosmos generic JSON-RPC commands cover alarms, logs, intelligence, IP blocks, assets, notices, ops, SOAR, and vulnerabilities. Root-level `--dry-run` prints a redacted request summary without sending the request. Saving a host asset usually needs asset type, category, and group parameters on current deployments. `--asset_ip_type` currently uses `1` for a real IP and `2` for a virtual IP:
+
+```bash
+chaitin-cli cosmos asset search-host-asset --count 20 --offset 0 --raw
+
+chaitin-cli --dry-run cosmos asset save-host-asset \
+  --ip 10.0.0.1/32 \
+  --name demo-host \
+  --organization_id 1 \
+  --asset_ip_type 1 \
+  --category_ids '[{"id":41,"name":"Linux"}]' \
+  --group_id 1 \
+  --raw
 ```
 
 ### CodeInsight Projects And Tasks
@@ -319,6 +383,13 @@ task test
 task package GOOS=linux GOARCH=amd64
 ```
 
+Versioning:
+
+- `task build` / `task package` inject the version with `-ldflags "-X main.version=..."`; by default it comes from `git describe --tags --always --dirty`.
+- Pass an explicit version when needed, for example `task build VERSION=v1.2.3`.
+- When no version is injected (for example `go run .` or a plain `go build`), the command falls back to Go build info: an untagged build that can be traced to a commit shows `dev+<commit>`, a `go install <module>@<version>` of a released tag shows the module version, and `dev` is shown when neither is available.
+- Verify with `task build VERSION=v0.0.0-test && ./bin/chaitin-cli version`.
+
 ## Maintenance and Feedback
 
 - Main branch: [`main`](https://github.com/chaitin/chaitin-cli/tree/main)
@@ -336,7 +407,7 @@ Check whether the install directory is in `PATH`. The macOS / Linux installer pr
 
 **Where is configuration loaded from?**
 
-Priority is `flags > environment/.env > config.yaml`. Use root-level `-c` or `--config` to load a different config file.
+By default, configuration is loaded first from a current-directory `./config.yaml` recognized as chaitin-cli config, otherwise from `~/.chaitin-cli/config.yaml`. Priority is `flags > environment/.env > recognized ./config.yaml > ~/.chaitin-cli/config.yaml`. Use root-level `-c` or `--config` to load a different config file.
 
 **What should I do if a self-signed certificate causes connection failures?**
 

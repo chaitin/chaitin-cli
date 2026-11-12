@@ -61,6 +61,29 @@ type PostCustompocUpdateParamsBody struct {
 	Title string `json:"title,omitempty"`
 }
 
+// MarshalJSON omits optional lists that were not provided while preserving an
+// explicitly provided empty list. The latter is significant for fields such as
+// tags, where [] requests that all existing values be cleared.
+func (m PostCustompocUpdateParamsBody) MarshalJSON() ([]byte, error) {
+	type plainPostCustompocUpdateParamsBody PostCustompocUpdateParamsBody
+
+	data, err := json.Marshal(plainPostCustompocUpdateParamsBody(m))
+	if err != nil {
+		return nil, err
+	}
+	var payload map[string]json.RawMessage
+	if err := json.Unmarshal(data, &payload); err != nil {
+		return nil, err
+	}
+	if m.Exposures == nil {
+		delete(payload, "exposures")
+	}
+	if m.Tags == nil {
+		delete(payload, "tags")
+	}
+	return json.Marshal(payload)
+}
+
 // Validate validates this post custompoc update params body
 func (m *PostCustompocUpdateParamsBody) Validate(formats strfmt.Registry) error {
 	var res []error

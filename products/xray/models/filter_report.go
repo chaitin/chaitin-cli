@@ -24,16 +24,16 @@ type FilterReport struct {
 	CreatedTime *TimeFilterType `json:"created_time,omitempty"`
 
 	// 报表的名称
-	Name []*PartialInputType `json:"name"`
+	Name []*PartialInputType `json:"name,omitempty"`
 
 	// 工作区 id
-	ProjectID []int64 `json:"project_id"`
+	ProjectID []int64 `json:"project_id,omitempty"`
 
 	// 报表状态
-	Status []string `json:"status"`
+	Status []string `json:"status,omitempty"`
 
 	// 报表类型模板
-	Template []string `json:"template"`
+	Template []string `json:"template,omitempty"`
 
 	// 最后更新时间，对应 finished_time
 	UpdatedTime *TimeFilterType `json:"updated_time,omitempty"`
@@ -55,13 +55,13 @@ func (m *FilterReport) UnmarshalJSON(raw []byte) error {
 	var propsFilterReport struct {
 		CreatedTime *TimeFilterType `json:"created_time,omitempty"`
 
-		Name []*PartialInputType `json:"name"`
+		Name []*PartialInputType `json:"name,omitempty"`
 
-		ProjectID []int64 `json:"project_id"`
+		ProjectID []int64 `json:"project_id,omitempty"`
 
-		Status []string `json:"status"`
+		Status []string `json:"status,omitempty"`
 
-		Template []string `json:"template"`
+		Template []string `json:"template,omitempty"`
 
 		UpdatedTime *TimeFilterType `json:"updated_time,omitempty"`
 
@@ -101,13 +101,13 @@ func (m FilterReport) MarshalJSON() ([]byte, error) {
 	var propsFilterReport struct {
 		CreatedTime *TimeFilterType `json:"created_time,omitempty"`
 
-		Name []*PartialInputType `json:"name"`
+		Name []*PartialInputType `json:"name,omitempty"`
 
-		ProjectID []int64 `json:"project_id"`
+		ProjectID []int64 `json:"project_id,omitempty"`
 
-		Status []string `json:"status"`
+		Status []string `json:"status,omitempty"`
 
-		Template []string `json:"template"`
+		Template []string `json:"template,omitempty"`
 
 		UpdatedTime *TimeFilterType `json:"updated_time,omitempty"`
 

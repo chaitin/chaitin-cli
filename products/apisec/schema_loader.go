@@ -4,7 +4,7 @@ import (
 	"embed"
 	"encoding/json"
 	"fmt"
-	"path/filepath"
+	"path"
 	"strings"
 
 	"gopkg.in/yaml.v3"
@@ -39,7 +39,7 @@ func loadEmbeddedSchema() (*OpenAPI, *CLIMapping, error) {
 		return nil, nil, fmt.Errorf("latest APISec schema version is empty")
 	}
 
-	openAPIData, err := schemaFS.ReadFile(filepath.Join(version, "openapi.json"))
+	openAPIData, err := schemaFS.ReadFile(path.Join(version, "openapi.json"))
 	if err != nil {
 		return nil, nil, fmt.Errorf("read APISec OpenAPI for %s: %w", version, err)
 	}
@@ -48,7 +48,7 @@ func loadEmbeddedSchema() (*OpenAPI, *CLIMapping, error) {
 		return nil, nil, err
 	}
 
-	mappingData, err := schemaFS.ReadFile(filepath.Join(version, "cli-mapping.yaml"))
+	mappingData, err := schemaFS.ReadFile(path.Join(version, "cli-mapping.yaml"))
 	if err != nil {
 		return nil, nil, fmt.Errorf("read APISec CLI mapping for %s: %w", version, err)
 	}

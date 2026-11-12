@@ -19,12 +19,26 @@ const defaultBuiltinTemplateName = "基础服务漏洞扫描"
 func makeOperationPlanCreateQuickCmd() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "PostPlanCreateQuick",
-		Short: "快速创建扫描任务（马上扫一次）",
-		Long: fmt.Sprintf(`快速创建扫描任务，立即执行。
+		Short: "快速创建立即或定时扫描任务",
+		Long: fmt.Sprintf(`快速创建立即、单次定时或周期扫描任务。
+
+排期参数：
+  NOW         不需要排期参数，创建后立即执行
+  CLOCKED     --exec-at 使用带时区 RFC3339，例如 2026-08-05T10:30:00+08:00
+  DAY         --exec-at 使用 HH:MM 或 HH:MM:SS
+  WEEK        额外要求 --weekday，1=周一 ... 7=周日
+  MONTH       额外要求 --day-of-month，范围 1-31
+  MONTH_WEEK  额外要求 --week-of-month 1-4 和 --weekday 1-7
+
+--exec-at 表示任务触发时间，不是扫描结束时间。
 
 示例：
-  xray plan quick --targets=example.com --engines=00000000000000000000000000000001 --project-id=1
-  xray plan quick --targets=example.com,example2.com --engines=engine1,engine2 --name=my-scan --project-id=1
+  xray plan PostPlanCreateQuick --targets=example.com --engines=engine1 --project-id=1
+  xray plan PostPlanCreateQuick --targets=example.com --engines=engine1 --project-id=1 --plan-type=CLOCKED --exec-at=2026-08-05T10:30:00+08:00
+  xray plan PostPlanCreateQuick --targets=example.com --engines=engine1 --project-id=1 --plan-type=DAY --exec-at=10:30
+  xray plan PostPlanCreateQuick --targets=example.com --engines=engine1 --project-id=1 --plan-type=WEEK --weekday=5 --exec-at=10:30
+  xray plan PostPlanCreateQuick --targets=example.com --engines=engine1 --project-id=1 --plan-type=MONTH --day-of-month=15 --exec-at=10:30
+  xray plan PostPlanCreateQuick --targets=example.com --engines=engine1 --project-id=1 --plan-type=MONTH_WEEK --week-of-month=2 --weekday=5 --exec-at=10:30
 
 默认使用"基础服务漏洞扫描"(BUILTIN)模板。`),
 		RunE: runOperationPlanQuick,
@@ -35,6 +49,7 @@ func makeOperationPlanCreateQuickCmd() (*cobra.Command, error) {
 	cmd.Flags().String("name", "quick-scan", "任务名称")
 	cmd.Flags().Int64("project-id", 0, "工作区 ID (必填)")
 	cmd.Flags().String("template-name", "", fmt.Sprintf("模板名称 (默认: %s)", defaultBuiltinTemplateName))
+	registerQuickScheduleFlags(cmd, planTypeNow)
 
 	return cmd, nil
 }
@@ -50,14 +65,22 @@ func runOperationPlanQuick(cmd *cobra.Command, args []string) error {
 	name, _ := cmd.Flags().GetString("name")
 	projectID, _ := cmd.Flags().GetInt64("project-id")
 	templateNameFlag, _ := cmd.Flags().GetString("template-name")
+	scheduleInput, err := readQuickScheduleInput(cmd)
+	if err != nil {
+		return err
+	}
+	planSetting, err := buildPlanSetting(scheduleInput, nil)
+	if err != nil {
+		return err
+	}
 
-	targets := strings.Split(targetsStr, ",")
-	engines := strings.Split(enginesStr, ",")
+	targets := parseCommaSeparated(targetsStr)
+	engines := parseCommaSeparated(enginesStr)
 
-	if targetsStr == "" {
+	if len(targets) == 0 {
 		return fmt.Errorf("targets is required")
 	}
-	if enginesStr == "" {
+	if len(engines) == 0 {
 		return fmt.Errorf("engines is required")
 	}
 	if projectID == 0 {
@@ -70,12 +93,15 @@ func runOperationPlanQuick(cmd *cobra.Command, args []string) error {
 		templateName = defaultBuiltinTemplateName
 	}
 
-	templateID, taskSetting, err := findBuiltinTemplateWithTaskSetting(appCli, templateName)
+	templateID, taskSetting, allowedPlanTypes, err := findBuiltinTemplateWithTaskSetting(appCli, templateName)
 	if err != nil {
 		return err
 	}
 	if templateID == 0 {
 		return fmt.Errorf("未找到模板: %s", templateName)
+	}
+	if err := validateSupportedPlanType(scheduleInput.planType, allowedPlanTypes); err != nil {
+		return err
 	}
 	logDebugf("Found template ID %d for '%s'", templateID, templateName)
 
@@ -94,16 +120,13 @@ func runOperationPlanQuick(cmd *cobra.Command, args []string) error {
 			"timeRanges": []interface{}{map[string]interface{}{}},
 			"timeType":   "DAY",
 		},
-		"planSetting": map[string]interface{}{
-			"enabled":  true,
-			"planType": "NOW",
-		},
+		"planSetting":  planSetting,
 		"engineChoice": engines,
 		"taskName":     name,
 	}
 
 	active := true
-	execRightNow := true
+	execRightNow := scheduleInput.planType == planTypeNow
 
 	body := &models.CreatePlanBody{
 		Active:               &active,
@@ -137,19 +160,20 @@ func runOperationPlanQuick(cmd *cobra.Command, args []string) error {
 	return nil
 }
 
-// findBuiltinTemplateWithTaskSetting fetches templates and finds the one matching the given name with BUILTIN type, returns id and task_setting
-func findBuiltinTemplateWithTaskSetting(appCli *client.OPENAPI, name string) (int64, interface{}, error) {
+// findBuiltinTemplateWithTaskSetting finds a matching built-in template and
+// returns the values needed to build and validate a plan request.
+func findBuiltinTemplateWithTaskSetting(appCli *client.OPENAPI, name string) (int64, interface{}, []string, error) {
 	params := template.NewGetTemplateSummaryParams()
 	params.Limit = 100
 	params.Offset = 0
 
 	result, err := appCli.Template.GetTemplateSummary(params, nil)
 	if err != nil {
-		return 0, nil, fmt.Errorf("failed to fetch templates: %w", err)
+		return 0, nil, nil, fmt.Errorf("failed to fetch templates: %w", err)
 	}
 
 	if result.Payload == nil || result.Payload.Data == nil || result.Payload.Data.Content == nil {
-		return 0, nil, fmt.Errorf("empty template response")
+		return 0, nil, nil, fmt.Errorf("empty template response")
 	}
 
 	for _, t := range result.Payload.Data.Content {
@@ -157,39 +181,49 @@ func findBuiltinTemplateWithTaskSetting(appCli *client.OPENAPI, name string) (in
 			if *t.TemplateType == "BUILTIN" && strings.Contains(*t.Name, name) {
 				if t.ID != nil {
 					// Fetch full template to get task_setting
-					taskSetting, err := getTemplateTaskSetting(appCli, *t.ID)
+					taskSetting, allowedPlanTypes, err := getTemplateSettings(appCli, *t.ID)
 					if err != nil {
-						return 0, nil, err
+						return 0, nil, nil, err
 					}
-					return *t.ID, taskSetting, nil
+					return *t.ID, taskSetting, allowedPlanTypes, nil
 				}
 			}
 		}
 	}
 
-	return 0, nil, nil
+	return 0, nil, nil, nil
 }
 
-// getTemplateTaskSetting fetches the task_setting for a given template ID
-func getTemplateTaskSetting(appCli *client.OPENAPI, templateID int64) (interface{}, error) {
+// getTemplateSettings fetches task settings and supported plan types for a template.
+func getTemplateSettings(appCli *client.OPENAPI, templateID int64) (interface{}, []string, error) {
 	params := template.NewGetTemplateIDParams()
 	params.ID = templateID
 
 	result, err := appCli.Template.GetTemplateID(params, nil)
 	if err != nil {
-		return nil, fmt.Errorf("failed to fetch template %d: %w", templateID, err)
+		return nil, nil, fmt.Errorf("failed to fetch template %d: %w", templateID, err)
 	}
 
 	if result.Payload == nil || result.Payload.Data == nil {
-		return nil, fmt.Errorf("template %d not found", templateID)
+		return nil, nil, fmt.Errorf("template %d not found", templateID)
 	}
 
+	var allowedPlanTypes []string
+	if strategy := result.Payload.Data.Strategy; strategy != nil && strategy.BasicSetting != nil {
+		allowedPlanTypes = supportedPlanTypes(strategy.BasicSetting.JSONSchema)
+	}
 	taskSetting := result.Payload.Data.TaskSetting
-	if taskSetting == nil {
-		return nil, nil
-	}
-
-	// TaskSetting is already interface{} (map), go-swagger handles JSON correctly
 	logDebugf("Got task_setting from template API (type: %T)", taskSetting)
-	return taskSetting, nil
+	return taskSetting, allowedPlanTypes, nil
+}
+
+func parseCommaSeparated(value string) []string {
+	items := strings.Split(value, ",")
+	result := make([]string, 0, len(items))
+	for _, item := range items {
+		if item = strings.TrimSpace(item); item != "" {
+			result = append(result, item)
+		}
+	}
+	return result
 }

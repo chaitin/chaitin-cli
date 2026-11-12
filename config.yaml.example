@@ -1,6 +1,5 @@
 cloudAtlas:
-  # API 基地址，通常带 /openapi 后缀（如 https://cloud-atlas.example.com/openapi）；
-  # 填裸域名会命中前端 SPA，填 /api/v1 会被会话 Cookie 校验拦下并返回 401
+  # OpenAPI 基址通常以 /openapi 结尾，例如 https://cloud-atlas.example.com/openapi
   url: ""
   token: ""
   space_id: ""
@@ -52,3 +51,22 @@ codeforce:
   url: ""
   access_token: ""
   account_type: "admin"
+
+cosmos:
+  url: ""
+  api_key: ""
+
+monkeyscan:
+  url: ""
+  api_key: ""
+
+agent-compose:
+  url: ""
+  api_token: ""
+  # api_key is accepted as an alias for api_token
+  default_project: ""
+
+# TODO: Replace with real insight API key and URL
+insight:
+  url: "http://192.168.1.100"
+  api_key: "your-token-xyz"

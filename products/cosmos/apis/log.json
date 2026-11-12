@@ -1,0 +1,294 @@
+[
+  {
+    "name": "LogService.SearchLogList",
+    "comment": "获取日志列表（安全日志检索；time_range_start/time_range_end 使用毫秒时间戳）",
+    "args": {
+      "count": {
+        "type": "integer",
+        "optional": true,
+        "comment": "每页数量"
+      },
+      "offset": {
+        "type": "integer",
+        "optional": true,
+        "comment": "偏移量"
+      },
+      "time_range_start": {
+        "type": "integer",
+        "optional": false,
+        "comment": "开始时间（毫秒时间戳）"
+      },
+      "time_range_end": {
+        "type": "integer",
+        "optional": false,
+        "comment": "结束时间（毫秒时间戳）"
+      },
+      "keyword": {
+        "type": "string",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "关键字搜索"
+      },
+      "filter": {
+        "type": "string",
+        "optional": true,
+        "comment": "过滤条件（RawMessage JSON）",
+        "queryType": "JSON"
+      },
+      "advanced_query": {
+        "type": "string",
+        "optional": true,
+        "comment": "高级查询条件（AdvancedQuery JSON）",
+        "queryType": "JSON"
+      },
+      "condition_query": {
+        "type": "string",
+        "optional": true,
+        "comment": "组合查询条件（ConditionQuery JSON）",
+        "queryType": "JSON"
+      },
+      "organization": {
+        "type": "string",
+        "optional": true,
+        "comment": "组织机构过滤（UintQuery JSON，如: [{\"oper\":\"=\",\"target\":1}]）",
+        "queryType": "UintQuery"
+      },
+      "fall": {
+        "type": "bool",
+        "optional": true,
+        "comment": "失陷过滤: true失陷 false未失陷"
+      },
+      "attack_chain_phase": {
+        "type": "integer",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "攻击链阶段: -1未知 1侦查 2入侵 3载荷投递 4命令与控制 5内网横向 6达成目标 7痕迹清理"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "LogService.SearchLogInfo",
+    "comment": "获取日志详情",
+    "args": {
+      "ids": {
+        "type": "string",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "日志ID列表"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "LogService.SearchAggregationStatistics",
+    "comment": "获取日志聚合统计（time_range_start/time_range_end 使用毫秒时间戳）",
+    "args": {
+      "count": {
+        "type": "integer",
+        "optional": true,
+        "comment": "聚合数量"
+      },
+      "time_range_start": {
+        "type": "integer",
+        "optional": false,
+        "comment": "开始时间（毫秒时间戳）"
+      },
+      "time_range_end": {
+        "type": "integer",
+        "optional": false,
+        "comment": "结束时间（毫秒时间戳）"
+      },
+      "keyword": {
+        "type": "string",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "关键字搜索"
+      },
+      "filter": {
+        "type": "string",
+        "optional": true,
+        "comment": "过滤条件（RawMessage JSON）",
+        "queryType": "JSON"
+      },
+      "advanced_query": {
+        "type": "string",
+        "optional": true,
+        "comment": "高级查询条件（AdvancedQuery JSON）",
+        "queryType": "JSON"
+      },
+      "condition_query": {
+        "type": "string",
+        "optional": true,
+        "comment": "组合查询条件（ConditionQuery JSON）",
+        "queryType": "JSON"
+      },
+      "organization": {
+        "type": "string",
+        "optional": true,
+        "comment": "组织机构过滤（UintQuery JSON，如: [{\"oper\":\"=\",\"target\":1}]）",
+        "queryType": "UintQuery"
+      },
+      "key": {
+        "type": "string",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "聚合维度字段"
+      },
+      "asc": {
+        "type": "bool",
+        "optional": true,
+        "comment": "是否升序"
+      },
+      "fall": {
+        "type": "bool",
+        "optional": true,
+        "comment": "失陷过滤: true失陷 false未失陷"
+      },
+      "attack_chain_phase": {
+        "type": "integer",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "攻击链阶段: -1未知 1侦查 2入侵 3载荷投递 4命令与控制 5内网横向 6达成目标 7痕迹清理"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "LogService.SearchLogListTotal",
+    "comment": "获取日志列表总数（time_range_start/time_range_end 使用毫秒时间戳）",
+    "args": {
+      "time_range_start": {
+        "type": "integer",
+        "optional": false,
+        "comment": "开始时间（毫秒时间戳）"
+      },
+      "time_range_end": {
+        "type": "integer",
+        "optional": false,
+        "comment": "结束时间（毫秒时间戳）"
+      },
+      "keyword": {
+        "type": "string",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "关键字搜索"
+      },
+      "filter": {
+        "type": "string",
+        "optional": true,
+        "comment": "过滤条件（RawMessage JSON）",
+        "queryType": "JSON"
+      },
+      "advanced_query": {
+        "type": "string",
+        "optional": true,
+        "comment": "高级查询条件（AdvancedQuery JSON）",
+        "queryType": "JSON"
+      },
+      "condition_query": {
+        "type": "string",
+        "optional": true,
+        "comment": "组合查询条件（ConditionQuery JSON）",
+        "queryType": "JSON"
+      },
+      "organization": {
+        "type": "string",
+        "optional": true,
+        "comment": "组织机构过滤（UintQuery JSON，如: [{\"oper\":\"=\",\"target\":1}]）",
+        "queryType": "UintQuery"
+      },
+      "fall": {
+        "type": "bool",
+        "optional": true,
+        "comment": "失陷过滤: true失陷 false未失陷"
+      },
+      "attack_chain_phase": {
+        "type": "integer",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "攻击链阶段: -1未知 1侦查 2入侵 3载荷投递 4命令与控制 5内网横向 6达成目标 7痕迹清理"
+      },
+      "ql": {
+        "type": "string",
+        "optional": true,
+        "comment": "QL 查询语句"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NonstandardLogApiService.SearchNonstandardLog",
+    "comment": "获取非标日志列表（start_time/end_time 使用毫秒时间戳）",
+    "args": {
+      "count": {
+        "type": "integer",
+        "optional": true,
+        "comment": "每页数量"
+      },
+      "offset": {
+        "type": "integer",
+        "optional": true,
+        "comment": "偏移量"
+      },
+      "start_time": {
+        "type": "integer",
+        "optional": false,
+        "comment": "开始时间（毫秒时间戳）"
+      },
+      "end_time": {
+        "type": "integer",
+        "optional": false,
+        "comment": "结束时间（毫秒时间戳）"
+      },
+      "key_words": {
+        "type": "string",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "关键字搜索"
+      },
+      "dev_type": {
+        "type": "integer",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "设备类型: 0不限 1万象 2安全设备 3网络设备 4IP资产 5应用资产 6框类组件"
+      },
+      "etl_success": {
+        "type": "bool",
+        "optional": true,
+        "comment": "解析成功"
+      },
+      "log_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "标准日志ID过滤（StringQuery JSON，如: [{\"oper\":\"=\",\"target\":\"log-id\"}]）",
+        "queryType": "StringQuery"
+      },
+      "non_log_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "非标日志ID过滤（StringQuery JSON，如: [{\"oper\":\"=\",\"target\":\"non-log-id\"}]）",
+        "queryType": "StringQuery"
+      },
+      "device_name": {
+        "type": "string",
+        "optional": true,
+        "comment": "设备名称过滤（StringQuery JSON，如: [{\"oper\":\"like\",\"target\":\"device\"}]）",
+        "queryType": "StringQuery"
+      },
+      "agent_name": {
+        "type": "string",
+        "optional": true,
+        "comment": "探针名称过滤（StringQuery JSON，如: [{\"oper\":\"like\",\"target\":\"agent\"}]）",
+        "queryType": "StringQuery"
+      },
+      "condition_query": {
+        "type": "string",
+        "optional": true,
+        "comment": "组合查询条件（ConditionQuery JSON）",
+        "queryType": "JSON"
+      }
+    },
+    "reply": {}
+  }
+]

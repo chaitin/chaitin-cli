@@ -55,30 +55,56 @@ func TestDecodeProductUsesEnvWithoutConfigSection(t *testing.T) {
 	}
 }
 
-func TestDecodeProductCamelCaseProductEnvOverrides(t *testing.T) {
-	t.Setenv("CLOUD_ATLAS_URL", "https://camel.example.com")
-	t.Setenv("CLOUD_ATLAS_TOKEN", "camel-token")
-	t.Setenv("CLOUD_ATLAS_SPACE_ID", "7")
-
-	type cloudAtlasConfig struct {
+func TestDecodeProductSupportsCamelCaseEnvironmentPrefix(t *testing.T) {
+	type runtimeConfig struct {
 		URL     string `yaml:"url"`
 		Token   string `yaml:"token"`
 		SpaceID string `yaml:"space_id"`
 	}
 
-	cfg, err := DecodeProduct[cloudAtlasConfig](Raw{}, "cloudAtlas")
-	if err != nil {
-		t.Fatalf("DecodeProduct() error = %v", err)
-	}
-	if cfg.URL != "https://camel.example.com" {
-		t.Fatalf("URL = %q, want env override", cfg.URL)
-	}
-	if cfg.Token != "camel-token" {
-		t.Fatalf("Token = %q, want env override", cfg.Token)
-	}
-	if cfg.SpaceID != "7" {
-		t.Fatalf("SpaceID = %q, want env override", cfg.SpaceID)
-	}
+	t.Run("documented prefix", func(t *testing.T) {
+		t.Setenv("CLOUD_ATLAS_URL", "https://documented.example.com/openapi")
+		t.Setenv("CLOUD_ATLAS_TOKEN", "documented-token")
+		t.Setenv("CLOUD_ATLAS_SPACE_ID", "6")
+
+		cfg, err := DecodeProduct[runtimeConfig](Raw{}, "cloudAtlas")
+		if err != nil {
+			t.Fatalf("DecodeProduct() error = %v", err)
+		}
+		if cfg.URL != "https://documented.example.com/openapi" || cfg.Token != "documented-token" || cfg.SpaceID != "6" {
+			t.Fatalf("DecodeProduct() = %#v, want documented CLOUD_ATLAS_* values", cfg)
+		}
+	})
+
+	t.Run("legacy prefix remains compatible", func(t *testing.T) {
+		t.Setenv("CLOUD_ATLAS_URL", "")
+		t.Setenv("CLOUD_ATLAS_TOKEN", "")
+		t.Setenv("CLOUD_ATLAS_SPACE_ID", "")
+		t.Setenv("CLOUDATLAS_URL", "https://legacy.example.com/openapi")
+		t.Setenv("CLOUDATLAS_TOKEN", "legacy-token")
+		t.Setenv("CLOUDATLAS_SPACE_ID", "7")
+
+		cfg, err := DecodeProduct[runtimeConfig](Raw{}, "cloudAtlas")
+		if err != nil {
+			t.Fatalf("DecodeProduct() error = %v", err)
+		}
+		if cfg.URL != "https://legacy.example.com/openapi" || cfg.Token != "legacy-token" || cfg.SpaceID != "7" {
+			t.Fatalf("DecodeProduct() = %#v, want legacy CLOUDATLAS_* values", cfg)
+		}
+	})
+
+	t.Run("documented prefix wins", func(t *testing.T) {
+		t.Setenv("CLOUDATLAS_URL", "https://legacy.example.com/openapi")
+		t.Setenv("CLOUD_ATLAS_URL", "https://documented.example.com/openapi")
+
+		cfg, err := DecodeProduct[runtimeConfig](Raw{}, "cloudAtlas")
+		if err != nil {
+			t.Fatalf("DecodeProduct() error = %v", err)
+		}
+		if cfg.URL != "https://documented.example.com/openapi" {
+			t.Fatalf("URL = %q, want documented CLOUD_ATLAS_URL to take precedence", cfg.URL)
+		}
+	})
 }
 
 func TestLoadEnvFile(t *testing.T) {

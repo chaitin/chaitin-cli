@@ -747,6 +747,12 @@ func makeGroupOfOperationsPlanCmd() (*cobra.Command, error) {
 	}
 	parent.AddCommand(sub5)
 
+	sub6, err := makeOperationPlanUpdateQuickCmd()
+	if err != nil {
+		return nil, err
+	}
+	parent.AddCommand(sub6)
+
 	return parent, nil
 } // makeGroupOfOperationsProjectCmd returns a parent command to handle all operations with tag "project"
 func makeGroupOfOperationsProjectCmd() (*cobra.Command, error) {

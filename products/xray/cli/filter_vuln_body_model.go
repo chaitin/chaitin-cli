@@ -94,6 +94,10 @@ func registerModelFilterVulnBodyFlags(depth int, cmdPrefix string, cmd *cobra.Co
 		return err
 	}
 
+	if err := registerFilterVulnBodyPropXprocessID(depth, cmdPrefix, cmd); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -306,6 +310,16 @@ func registerFilterVulnBodyPropUpdatedTime(depth int, cmdPrefix string, cmd *cob
 	return nil
 }
 
+func registerFilterVulnBodyPropXprocessID(depth int, cmdPrefix string, cmd *cobra.Command) error {
+	if depth > maxDepth {
+		return nil
+	}
+
+	flagName := fmt.Sprintf("%v.xprocess_id", cmdPrefix)
+	_ = cmd.PersistentFlags().Int64(flagName, 0, "任务实例 ID")
+	return nil
+}
+
 // retrieve flags from commands, and set value in model. Return true if any flag is passed by user to fill model field.
 func retrieveModelFilterVulnBodyFlags(depth int, m *models.FilterVulnBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
 	retAdded := false
@@ -424,6 +438,12 @@ func retrieveModelFilterVulnBodyFlags(depth int, m *models.FilterVulnBody, cmdPr
 		return err, false
 	}
 	retAdded = retAdded || UpdatedTimeAdded
+
+	err, XprocessIDAdded := retrieveFilterVulnBodyPropXprocessIDFlags(depth, m, cmdPrefix, cmd)
+	if err != nil {
+		return err, false
+	}
+	retAdded = retAdded || XprocessIDAdded
 
 	return nil, retAdded
 }
@@ -718,4 +738,21 @@ func retrieveFilterVulnBodyPropUpdatedTimeFlags(depth int, m *models.FilterVulnB
 	}
 
 	return nil, retAdded
+}
+
+func retrieveFilterVulnBodyPropXprocessIDFlags(depth int, m *models.FilterVulnBody, cmdPrefix string, cmd *cobra.Command) (error, bool) {
+	if depth > maxDepth {
+		return nil, false
+	}
+
+	flagName := fmt.Sprintf("%v.xprocess_id", cmdPrefix)
+	if !cmd.Flags().Changed(flagName) {
+		return nil, false
+	}
+	value, err := cmd.Flags().GetInt64(flagName)
+	if err != nil {
+		return err, false
+	}
+	m.XprocessID = value
+	return nil, true
 }

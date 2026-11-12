@@ -2031,7 +2031,7 @@
       "description": "系统配置/TED 加密配置/列表"
     },
     {
-      "name": "system/tedencryptconfig/37852520-0516-4950-9dc4-80687e979e5d",
+      "name": "system/tedencryptconfig/{config_id}",
       "description": "系统配置/TED 加密配置/指定资源"
     },
     {
@@ -3111,7 +3111,7 @@
       "description": "策略管理/外设"
     },
     {
-      "name": "policy/externaldevice/dbc780f7-4099-48e2-8db4-5fe000c2022a",
+      "name": "policy/externaldevice/{policy_id}",
       "description": "策略管理/外设/指定资源"
     },
     {
@@ -256217,15 +256217,25 @@
         "security": []
       }
     },
-    "/system/tedencryptconfig/37852520-0516-4950-9dc4-80687e979e5d": {
+    "/system/tedencryptconfig/{config_id}": {
       "post": {
         "summary": "修改",
         "deprecated": false,
         "description": "",
         "tags": [
-          "system/tedencryptconfig/37852520-0516-4950-9dc4-80687e979e5d"
+          "system/tedencryptconfig/{config_id}"
         ],
         "parameters": [
+          {
+            "name": "config_id",
+            "in": "path",
+            "description": "配置 ID",
+            "required": true,
+            "example": "string",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "X-CS-Header-App",
             "in": "header",
@@ -303243,15 +303253,25 @@
         "security": []
       }
     },
-    "/policy/externaldevice/dbc780f7-4099-48e2-8db4-5fe000c2022a": {
+    "/policy/externaldevice/{policy_id}": {
       "post": {
         "summary": "管控策略极速模式更新",
         "deprecated": false,
         "description": "",
         "tags": [
-          "policy/externaldevice/dbc780f7-4099-48e2-8db4-5fe000c2022a"
+          "policy/externaldevice/{policy_id}"
         ],
         "parameters": [
+          {
+            "name": "policy_id",
+            "in": "path",
+            "description": "策略 ID",
+            "required": true,
+            "example": "string",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "X-CS-Header-App",
             "in": "header",

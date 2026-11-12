@@ -121,6 +121,32 @@ func TestGenerateCommandsDeduplicatesSiblingNames(t *testing.T) {
 	assertCommandNames(t, findCommand(t, commands, "watermarkrule"), "wr-id-get", "wt-id-get")
 }
 
+func TestGeneratedCommandsUsePathPlaceholders(t *testing.T) {
+	root := NewCommand()
+
+	// policy/externaldevice 下不应再出现以写死 UUID 命名的命令，极速模式更新应支持 --policy-id
+	externaldevice := findCommand(t, root.Commands(), "policy", "externaldevice")
+	for _, cmd := range externaldevice.Commands() {
+		if strings.Contains(cmd.Name(), "dbc780f7") {
+			t.Fatalf("policy externaldevice should not expose a command named after a hardcoded policy ID, got %q", cmd.Name())
+		}
+	}
+	if flag := findCommand(t, root.Commands(), "policy", "externaldevice", "create").Flags().Lookup("policy-id"); flag == nil {
+		t.Fatalf("policy externaldevice create should expose a --policy-id flag")
+	}
+
+	// system/tedencryptconfig 下不应再出现以写死 UUID 命名的命令，修改配置应支持 --config-id
+	tedencryptconfig := findCommand(t, root.Commands(), "system", "tedencryptconfig")
+	for _, cmd := range tedencryptconfig.Commands() {
+		if strings.Contains(cmd.Name(), "37852520") {
+			t.Fatalf("system tedencryptconfig should not expose a command named after a hardcoded config ID, got %q", cmd.Name())
+		}
+	}
+	if flag := findCommand(t, root.Commands(), "system", "tedencryptconfig", "create").Flags().Lookup("config-id"); flag == nil {
+		t.Fatalf("system tedencryptconfig create should expose a --config-id flag")
+	}
+}
+
 func findCommand(t *testing.T, commands []*cobra.Command, names ...string) *cobra.Command {
 	t.Helper()
 	current := commands

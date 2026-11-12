@@ -84,7 +84,7 @@ jobs:
         run: echo "VERSION=${GITHUB_REF_NAME}" >> "$GITHUB_ENV"
 
       - name: Build package
-        run: task package GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} PACKAGE_NAME=chaitin-cli_${VERSION}_${{ matrix.goos }}_${{ matrix.goarch }}
+        run: task package GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} VERSION=${VERSION} PACKAGE_NAME=chaitin-cli_${VERSION}_${{ matrix.goos }}_${{ matrix.goarch }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

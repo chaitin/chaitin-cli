@@ -55,6 +55,8 @@ type Parameter struct {
 	In          string  `yaml:"in"`
 	Description string  `yaml:"description"`
 	Required    bool    `yaml:"required"`
+	Style       string  `yaml:"style"`
+	Explode     *bool   `yaml:"explode"`
 	Example     any     `yaml:"example"`
 	Schema      *Schema `yaml:"schema"`
 }

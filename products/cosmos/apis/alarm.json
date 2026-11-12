@@ -1,0 +1,769 @@
+[
+  {
+    "name": "AlarmService.GetAlarmList",
+    "comment": "获取告警列表（需提供 created_at 或 updated_at 时间筛选，TimeQuery target 使用毫秒时间戳范围）",
+    "args": {
+      "count": {
+        "type": "integer",
+        "optional": true,
+        "comment": "每页数量"
+      },
+      "offset": {
+        "type": "integer",
+        "optional": true,
+        "comment": "偏移量"
+      },
+      "scenarios": {
+        "type": "integer",
+        "optional": true,
+        "comment": "场景"
+      },
+      "workflow_id": {
+        "type": "integer",
+        "optional": true,
+        "comment": "工单ID"
+      },
+      "alarm_level": {
+        "type": "string",
+        "optional": true,
+        "comment": "告警等级: urgent超危/high高危/medium中危/low低危；数值: -1未知 0无威胁 1低危 2中危 3高危 4超危 (JSON, 如: [{\"oper\":\"=\",\"target\":\"high\"}]       // oper: =,!=,like,not like,reg,is_null)",
+        "queryType": "StringQuery"
+      },
+      "alarm_name": {
+        "type": "string",
+        "optional": true,
+        "comment": "告警名称 (JSON, 如: [{\"oper\":\"=\",\"target\":\"value\"}]       // oper: =,!=,like,not like,reg,is_null)",
+        "queryType": "StringQuery"
+      },
+      "alarm_major_type": {
+        "type": "string",
+        "optional": true,
+        "comment": "主要告警类型 (JSON, 如: [{\"oper\":\"=\",\"target\":\"value\"}]       // oper: =,!=,like,not like,reg,is_null)",
+        "queryType": "StringQuery"
+      },
+      "alarm_minor_type": {
+        "type": "string",
+        "optional": true,
+        "comment": "次要告警类型 (JSON, 如: [{\"oper\":\"=\",\"target\":\"value\"}]       // oper: =,!=,like,not like,reg,is_null)",
+        "queryType": "StringQuery"
+      },
+      "id": {
+        "type": "string",
+        "optional": true,
+        "comment": "告警ID (JSON, 如: [{\"oper\":\"=\",\"target\":\"value\"}]       // oper: =,!=,like,not like,reg,is_null)",
+        "queryType": "StringQuery"
+      },
+      "attack_ip": {
+        "type": "string",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "攻击IP (JSON, 如: [{\"oper\":\"array_in\",\"target\":\"val\"}]  // oper: like,not like,array_in,not array_in,inet_in)",
+        "queryType": "StringInArrayQuery"
+      },
+      "victim_ip": {
+        "type": "string",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "受害IP (JSON, 如: [{\"oper\":\"array_in\",\"target\":\"val\"}]  // oper: like,not like,array_in,not array_in,inet_in)",
+        "queryType": "StringInArrayQuery"
+      },
+      "attack_ip_string": {
+        "type": "string",
+        "optional": true,
+        "comment": "攻击IP(精确) (JSON, 如: [{\"oper\":\"=\",\"target\":\"10.0.0.1\"}]    // oper: =,!=,in,not in)",
+        "queryType": "InetQuery"
+      },
+      "victim_ip_string": {
+        "type": "string",
+        "optional": true,
+        "comment": "受害IP(精确) (JSON, 如: [{\"oper\":\"=\",\"target\":\"10.0.0.1\"}]    // oper: =,!=,in,not in)",
+        "queryType": "InetQuery"
+      },
+      "attack_ip_asset": {
+        "type": "string",
+        "optional": true,
+        "comment": "攻击IP资产 (JSON, 如: [{\"oper\":\"=\",\"target\":\"10.0.0.1\"}]    // oper: =,!=,in,not in)",
+        "queryType": "InetQuery"
+      },
+      "victim_ip_asset": {
+        "type": "string",
+        "optional": true,
+        "comment": "受害IP资产 (JSON, 如: [{\"oper\":\"=\",\"target\":\"10.0.0.1\"}]    // oper: =,!=,in,not in)",
+        "queryType": "InetQuery"
+      },
+      "attack_ip_scope": {
+        "type": "integer",
+        "optional": true,
+        "comment": "攻击IP安全域 (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "UintQuery"
+      },
+      "victim_ip_scope": {
+        "type": "integer",
+        "optional": true,
+        "comment": "受害IP安全域 (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "UintQuery"
+      },
+      "attack_port": {
+        "type": "integer",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "攻击端口 (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null (数组列，单值匹配))",
+        "queryType": "UintInArrayQuery"
+      },
+      "victim_port": {
+        "type": "integer",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "受害端口 (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null (数组列，单值匹配))",
+        "queryType": "UintInArrayQuery"
+      },
+      "attack_direction": {
+        "type": "string",
+        "optional": true,
+        "comment": "攻击方向: in外到内 out内到外 lateral内到内 other其他 (JSON, 如: [{\"oper\":\"=\",\"target\":\"in\"}]       // oper: =,!=,like,not like,reg,is_null)",
+        "queryType": "StringQuery"
+      },
+      "attack_method": {
+        "type": "string",
+        "optional": true,
+        "comment": "攻击方式 (JSON, 如: [{\"oper\":\"=\",\"target\":\"value\"}]       // oper: =,!=,like,not like,reg,is_null)",
+        "queryType": "StringQuery"
+      },
+      "attack_result": {
+        "type": "integer",
+        "optional": true,
+        "comment": "攻击结果: -1未知 0默认 1成功 2失败 3疑似成功 (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "IntQuery"
+      },
+      "attack_chain_phase": {
+        "type": "integer",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "攻击链阶段: -1未知 1侦查 2入侵 3载荷投递 4命令与控制 5内网横向 6达成目标 7痕迹清理 (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null (数组列，单值匹配))",
+        "queryType": "IntInArrayQuery"
+      },
+      "attack_info": {
+        "type": "string",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "ATT&CK信息 (JSON, 如: [{\"oper\":\"array_in\",\"target\":\"val\"}]  // oper: like,not like,array_in,not array_in,inet_in)",
+        "queryType": "StringInArrayQuery"
+      },
+      "fall": {
+        "type": "integer",
+        "optional": true,
+        "comment": "失陷: -1未知 0默认 1失陷 2未失陷 3疑似失陷 (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "IntQuery"
+      },
+      "judged_state": {
+        "type": "integer",
+        "optional": true,
+        "comment": "研判状态: 0未研判 1已确认 2已忽略 (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "UintQuery"
+      },
+      "disposed_state": {
+        "type": "integer",
+        "optional": true,
+        "comment": "处置状态: 0未处置 1已处置 (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "UintQuery"
+      },
+      "disposed_raw_status": {
+        "type": "string",
+        "optional": true,
+        "comment": "工单发送状态 (JSON, 如: [{\"oper\":\"=\",\"target\":\"value\"}]       // oper: =,!=,like,not like,reg,is_null)",
+        "queryType": "StringQuery"
+      },
+      "workflow_status": {
+        "type": "integer",
+        "optional": true,
+        "comment": "工单状态: 1未发送 2已发送 (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "UintQuery"
+      },
+      "focused": {
+        "type": "bool",
+        "optional": true,
+        "comment": "是否为重点告警 (JSON, 如: [{\"oper\":\"=\",\"target\":true}]           // oper: =,!=)",
+        "queryType": "BoolQuery"
+      },
+      "is_blocked": {
+        "type": "bool",
+        "optional": true,
+        "comment": "是否已封禁"
+      },
+      "is_hi_blocked": {
+        "type": "bool",
+        "optional": true,
+        "comment": "是否已主机隔离封禁"
+      },
+      "is_asset_hit": {
+        "type": "integer",
+        "optional": true,
+        "comment": "是否命中资产: 0未命中 1命中 (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "UintQuery"
+      },
+      "is_sub_cosmos_alarm": {
+        "type": "bool",
+        "optional": true,
+        "comment": "是否为下级告警 (JSON, 如: [{\"oper\":\"=\",\"target\":true}]           // oper: =,!=)",
+        "queryType": "BoolQuery"
+      },
+      "tag": {
+        "type": "string",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "标签过滤 (JSON, 如: [{\"oper\":\"array_in\",\"target\":\"val\"}]  // oper: like,not like,array_in,not array_in,inet_in)",
+        "queryType": "StringInArrayQuery"
+      },
+      "ai_analysis": {
+        "type": "integer",
+        "optional": true,
+        "comment": "AI研判: 0否 1是 (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "IntQuery"
+      },
+      "ai_disposal": {
+        "type": "integer",
+        "optional": true,
+        "comment": "AI处置: 0否 1是 (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "IntQuery"
+      },
+      "ai_event_nature": {
+        "type": "string",
+        "optional": true,
+        "comment": "AI事件性质 (JSON, 如: [{\"oper\":\"=\",\"target\":\"value\"}]       // oper: =,!=,like,not like,reg,is_null)",
+        "queryType": "StringQuery"
+      },
+      "ai_judgment_level": {
+        "type": "string",
+        "optional": true,
+        "comment": "AI研判等级 (JSON, 如: [{\"oper\":\"=\",\"target\":\"value\"}]       // oper: =,!=,like,not like,reg,is_null)",
+        "queryType": "StringQuery"
+      },
+      "ai_judgment_result": {
+        "type": "string",
+        "optional": true,
+        "comment": "AI研判结果 (JSON, 如: [{\"oper\":\"=\",\"target\":\"value\"}]       // oper: =,!=,like,not like,reg,is_null)",
+        "queryType": "StringQuery"
+      },
+      "created_at": {
+        "type": "string",
+        "optional": true,
+        "comment": "告警创建时间（必需时间筛选之一；可用简写 startMs-endMs，如 0-1781501714000；或 JSON: [{\"oper\":\"eq_in\",\"target\":\"0-1781501714000\"}]；target 为毫秒时间戳范围）",
+        "queryType": "TimeQuery"
+      },
+      "updated_at": {
+        "type": "string",
+        "optional": true,
+        "comment": "告警更新时间（必需时间筛选之一；可用简写 startMs-endMs，如 0-1781501714000；或 JSON: [{\"oper\":\"eq_in\",\"target\":\"0-1781501714000\"}]；target 为毫秒时间戳范围）",
+        "queryType": "TimeQuery"
+      },
+      "operation_at": {
+        "type": "string",
+        "optional": true,
+        "comment": "告警操作时间 (TimeQuery JSON 或简写 startMs-endMs；target 为毫秒时间戳范围)",
+        "queryType": "TimeQuery"
+      },
+      "log_start_at": {
+        "type": "string",
+        "optional": true,
+        "comment": "日志开始时间 (TimeQuery JSON 或简写 startMs-endMs；target 为毫秒时间戳范围)",
+        "queryType": "TimeQuery"
+      },
+      "log_end_at": {
+        "type": "string",
+        "optional": true,
+        "comment": "日志结束时间 (TimeQuery JSON 或简写 startMs-endMs；target 为毫秒时间戳范围)",
+        "queryType": "TimeQuery"
+      },
+      "window_time": {
+        "type": "string",
+        "optional": true,
+        "comment": "时间窗口 (TimeQuery JSON 或简写 startMs-endMs；target 为毫秒时间戳范围)",
+        "queryType": "TimeQuery"
+      },
+      "device_id": {
+        "type": "integer",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "关联设备ID (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null (数组列，单值匹配))",
+        "queryType": "UintInArrayQuery"
+      },
+      "device_id_int": {
+        "type": "integer",
+        "optional": true,
+        "comment": "关联设备ID(单值) (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "IntQuery"
+      },
+      "organization_id": {
+        "type": "integer",
+        "optional": true,
+        "comment": "组织机构ID (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "UintQuery"
+      },
+      "alarm_area_id": {
+        "type": "integer",
+        "optional": true,
+        "comment": "告警区域ID (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "UintQuery"
+      },
+      "location_id": {
+        "type": "integer",
+        "optional": true,
+        "comment": "位置ID (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "UintQuery"
+      },
+      "origin_log_id": {
+        "type": "string",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "关联安全告警日志ID (JSON, 如: [{\"oper\":\"array_in\",\"target\":\"val\"}]  // oper: like,not like,array_in,not array_in,inet_in)",
+        "queryType": "StringInArrayQuery"
+      },
+      "sub_cosmos_alarm_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "下级原始告警ID (JSON, 如: [{\"oper\":\"=\",\"target\":\"value\"}]       // oper: =,!=,like,not like,reg,is_null)",
+        "queryType": "StringQuery"
+      },
+      "sub_cosmos_device_ids": {
+        "type": "integer",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "下级关联设备ID (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null (数组列，单值匹配))",
+        "queryType": "UintInArrayQuery"
+      },
+      "query_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "查询ID (JSON, 如: [{\"oper\":\"=\",\"target\":\"value\"}]       // oper: =,!=,like,not like,reg,is_null)",
+        "queryType": "StringQuery"
+      },
+      "host_asset_by_web": {
+        "type": "integer",
+        "optional": true,
+        "comment": "受害web应用关联IP资产 (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "UintQuery"
+      },
+      "victim_web_asset_id": {
+        "type": "integer",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "网站资产ID (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null (数组列，单值匹配))",
+        "queryType": "UintInArrayQuery"
+      },
+      "victim_web_url": {
+        "type": "string",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "URL筛选 (JSON, 如: [{\"oper\":\"array_in\",\"target\":\"val\"}]  // oper: like,not like,array_in,not array_in,inet_in)",
+        "queryType": "StringInArrayQuery"
+      },
+      "business_ext": {
+        "type": "string",
+        "optional": true,
+        "comment": "业务信息 (JSON, 如: [{\"oper\":\"=\",\"target\":\"value\"}]       // oper: =,!=,like,not like,reg,is_null)",
+        "queryType": "StringQuery"
+      },
+      "comment": {
+        "type": "string",
+        "optional": true,
+        "comment": "其他信息/备注 (JSON, 如: [{\"oper\":\"=\",\"target\":\"value\"}]       // oper: =,!=,like,not like,reg,is_null)",
+        "queryType": "StringQuery"
+      },
+      "custom_data": {
+        "type": "string",
+        "optional": true,
+        "comment": "用户自定义非告警字段 (JSON, 如: [{\"oper\":\"=\",\"target\":\"value\"}]       // oper: =,!=,like,not like,reg,is_null)",
+        "queryType": "StringQuery"
+      },
+      "notice_status": {
+        "type": "integer",
+        "optional": true,
+        "comment": "通知状态: 1未通知 2已邮件 3已短信 (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "IntQuery"
+      },
+      "operate_event": {
+        "type": "integer",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "操作事件 (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null (数组列，单值匹配))",
+        "queryType": "UintInArrayQuery"
+      },
+      "hit_intelligence": {
+        "type": "integer",
+        "optional": true,
+        "comment": "命中情报: 0未知/未计算 1命中 2未命中 (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "UintQuery"
+      },
+      "ip": {
+        "type": "string",
+        "optional": true,
+        "comment": "IP(通用) (JSON, 如: [{\"oper\":\"=\",\"target\":\"value\"}]       // oper: =,!=,like,not like,reg,is_null)",
+        "queryType": "StringQuery"
+      },
+      "alarm_level_statistics": {
+        "type": "bool",
+        "optional": true,
+        "comment": "是否对告警等级做统计"
+      },
+      "attack_chain_statistics": {
+        "type": "bool",
+        "optional": true,
+        "comment": "是否对攻击链做统计"
+      },
+      "exclude_time_filter": {
+        "type": "bool",
+        "optional": true,
+        "comment": "排除时间筛选（配合 workflow_id 使用时允许跳过时间过滤）"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "AlarmService.GetAlarmInfo",
+    "comment": "获取告警详情",
+    "args": {
+      "id": {
+        "type": "string",
+        "optional": false,
+        "comment": "告警ID（必填）"
+      },
+      "created_at": {
+        "type": "integer",
+        "optional": true,
+        "comment": "分区键：告警创建时间（毫秒时间戳），用于加速查询"
+      },
+      "include_event_history": {
+        "type": "bool",
+        "optional": true,
+        "comment": "是否包含处置历史记录，默认 true"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "AlarmService.UpdateTag",
+    "comment": "批量修改告警标签",
+    "args": {
+      "alarm_ids": {
+        "type": "string",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "告警ID列表（必填）"
+      },
+      "tags": {
+        "type": "string",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "标签列表（必填）"
+      },
+      "created_at": {
+        "type": "integer",
+        "optional": true,
+        "comment": "分区键：本批次最小告警创建时间（毫秒时间戳），用于加速查询"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "AlarmService.UpdateAlarmMoreInfo",
+    "comment": "更新告警扩展信息",
+    "args": {
+      "id": {
+        "type": "string",
+        "optional": false,
+        "comment": "告警ID（必填）"
+      },
+      "more_info.attack_ip_pic": {
+        "type": "string",
+        "optional": true,
+        "comment": "更多信息-攻击IP负责人"
+      },
+      "more_info.victim_ip_pic": {
+        "type": "string",
+        "optional": true,
+        "comment": "更多信息-受害IP负责人"
+      },
+      "more_info.business_ext": {
+        "type": "string",
+        "optional": true,
+        "comment": "更多信息-业务信息"
+      },
+      "more_info.email_info": {
+        "type": "string",
+        "optional": true,
+        "comment": "更多信息-邮件信息"
+      },
+      "more_info.origin_info": {
+        "type": "string",
+        "optional": true,
+        "comment": "更多信息-原始信息"
+      },
+      "more_info.protocol_info": {
+        "type": "string",
+        "optional": true,
+        "comment": "更多信息-协议信息"
+      },
+      "more_info.sensitive_data": {
+        "type": "string",
+        "optional": true,
+        "comment": "更多信息-敏感数据"
+      },
+      "host_security.endpoint_info": {
+        "type": "string",
+        "optional": true,
+        "comment": "主机安全-终端信息"
+      },
+      "host_security.endpoint_protection": {
+        "type": "string",
+        "optional": true,
+        "comment": "主机安全-终端防护"
+      },
+      "malicious_file.file_info": {
+        "type": "string",
+        "optional": true,
+        "comment": "恶意文件-文件信息"
+      },
+      "malicious_file.file_tags": {
+        "type": "string",
+        "optional": true,
+        "comment": "恶意文件-恶意标识"
+      },
+      "net_attack.dns_info": {
+        "type": "string",
+        "optional": true,
+        "comment": "网络攻击-DNS信息"
+      },
+      "net_attack.http_status": {
+        "type": "string",
+        "optional": true,
+        "comment": "网络攻击-HTTP状态"
+      },
+      "user_abnormal_behavior.account_info": {
+        "type": "string",
+        "optional": true,
+        "comment": "用户异常行为-账户信息"
+      },
+      "user_abnormal_behavior.attacker_info": {
+        "type": "string",
+        "optional": true,
+        "comment": "用户异常行为-攻击者信息"
+      },
+      "user_abnormal_behavior.suspicious_action": {
+        "type": "string",
+        "optional": true,
+        "comment": "用户异常行为-可疑操作"
+      },
+      "user_abnormal_behavior.victim_info": {
+        "type": "string",
+        "optional": true,
+        "comment": "用户异常行为-受害者信息"
+      },
+      "vulnerability.compliance_baseline": {
+        "type": "string",
+        "optional": true,
+        "comment": "脆弱性-合规基线"
+      },
+      "vulnerability.vuln_info": {
+        "type": "string",
+        "optional": true,
+        "comment": "脆弱性-漏洞信息"
+      },
+      "vulnerability.weak_pwd": {
+        "type": "string",
+        "optional": true,
+        "comment": "脆弱性-弱口令"
+      },
+      "extra_field": {
+        "type": "string",
+        "optional": true,
+        "comment": "脆弱性自定义字段(JSON)"
+      },
+      "created_at": {
+        "type": "integer",
+        "optional": true,
+        "comment": "分区键：告警创建时间（毫秒时间戳），用于加速查询"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "AlarmService.UpdateAlarmInfo",
+    "comment": "更新告警信息",
+    "args": {
+      "id": {
+        "type": "string",
+        "optional": false,
+        "comment": "告警ID（必填）"
+      },
+      "alarm_name": {
+        "type": "string",
+        "optional": false,
+        "comment": "告警名称（必填）"
+      },
+      "alarm_level": {
+        "type": "string",
+        "optional": false,
+        "comment": "告警等级: urgent超危/high高危/medium中危/low低危；数值: -1未知 0无威胁 1低危 2中危 3高危 4超危（必填）"
+      },
+      "alarm_major_type": {
+        "type": "string",
+        "optional": false,
+        "comment": "主要告警分类（必填）"
+      },
+      "alarm_minor_type": {
+        "type": "string",
+        "optional": false,
+        "comment": "次要告警分类（必填）"
+      },
+      "attack_direction": {
+        "type": "string",
+        "optional": true,
+        "comment": "攻击方向: in外到内 out内到外 lateral内到内 other其他"
+      },
+      "attack_method": {
+        "type": "string",
+        "optional": false,
+        "comment": "攻击方式（必填）"
+      },
+      "attack_result": {
+        "type": "integer",
+        "optional": false,
+        "comment": "攻击结果: -1未知 0默认 1成功 2失败 3疑似成功（必填）"
+      },
+      "fall": {
+        "type": "integer",
+        "optional": false,
+        "comment": "失陷: -1未知 0默认 1失陷 2未失陷 3疑似失陷（必填）"
+      },
+      "attack_chain_phase": {
+        "type": "integer",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "攻击链阶段: -1未知 1侦查 2入侵 3载荷投递 4命令与控制 5内网横向 6达成目标 7痕迹清理（必填）"
+      },
+      "attack_info": {
+        "type": "string",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "ATT&CK信息（必填）"
+      },
+      "tag": {
+        "type": "string",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "标签（必填）"
+      },
+      "business_ext": {
+        "type": "string",
+        "optional": false,
+        "comment": "业务信息（必填）"
+      },
+      "comment": {
+        "type": "string",
+        "optional": false,
+        "comment": "备注（必填）"
+      },
+      "disposition_advice": {
+        "type": "string",
+        "optional": false,
+        "comment": "处置建议（必填）"
+      },
+      "alarm_area_id": {
+        "type": "integer",
+        "optional": true,
+        "comment": "告警区域ID"
+      },
+      "created_at": {
+        "type": "integer",
+        "optional": true,
+        "comment": "分区键：告警创建时间（毫秒时间戳），用于加速查询"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "AlarmService.UpdateAiFieldsContent",
+    "comment": "更新告警 AI 研判与处置字段",
+    "args": {
+      "ai_fields.alarm_id": {
+        "type": "string",
+        "optional": false,
+        "comment": "告警ID（必填）"
+      },
+      "ai_fields.analysis_report": {
+        "type": "string",
+        "optional": true,
+        "comment": "AI研判报告，写入告警字段 ai_analysis_result"
+      },
+      "ai_fields.confidence_score": {
+        "type": "integer",
+        "optional": true,
+        "comment": "AI置信度，写入告警字段 ai_confidence_score"
+      },
+      "ai_fields.ai_analysis": {
+        "type": "integer",
+        "optional": true,
+        "comment": "AI是否研判: 0否 1是"
+      },
+      "ai_fields.ai_judgment_result": {
+        "type": "string",
+        "optional": true,
+        "comment": "AI研判结果: 真实/误报/研判要素缺失/失败"
+      },
+      "ai_fields.ai_judgment_level": {
+        "type": "string",
+        "optional": true,
+        "comment": "AI研判等级: -1未知 0无威胁 1低危 2中危 3高危 4超危"
+      },
+      "ai_fields.ai_event_nature": {
+        "type": "string",
+        "optional": true,
+        "comment": "AI事件性质"
+      },
+      "ai_fields.disposal_report": {
+        "type": "string",
+        "optional": true,
+        "comment": "AI处置报告，写入告警字段 ai_disposal_result"
+      },
+      "ai_fields.ai_disposal": {
+        "type": "integer",
+        "optional": true,
+        "comment": "AI是否处置: 0否 1是"
+      },
+      "ai_fields.created_at": {
+        "type": "string",
+        "optional": true,
+        "comment": "可选分区键：告警真实创建时间，RFC3339 格式；不确定时不要传"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "JudgeService.MultiJudgeAlert",
+    "comment": "批量研判告警",
+    "args": {
+      "alarm_ids": {
+        "type": "string",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "告警ID列表（必填）"
+      },
+      "judge_result": {
+        "type": "bool",
+        "optional": false,
+        "comment": "研判结果（必填）"
+      },
+      "remark": {
+        "type": "string",
+        "optional": false,
+        "comment": "备注（必填）"
+      },
+      "created_at": {
+        "type": "integer",
+        "optional": true,
+        "comment": "分区键：批量研判时传递最小的告警创建时间（毫秒时间戳），用于分区裁剪"
+      }
+    },
+    "reply": {}
+  }
+]

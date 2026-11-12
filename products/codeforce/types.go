@@ -88,10 +88,10 @@ func (c Config) normalized() Config {
 
 func (c Config) validate() error {
 	if strings.TrimSpace(c.URL) == "" {
-		return fmt.Errorf("codeforce url is not configured; set --url, CODEFORCE_URL, or config.yaml codeforce.url")
+		return fmt.Errorf("codeforce url is not configured; set --url, CODEFORCE_URL, or config file codeforce.url")
 	}
 	if strings.TrimSpace(c.AccessToken) == "" {
-		return fmt.Errorf("codeforce access token is not configured; set --access-token/--api-key, CODEFORCE_ACCESS_TOKEN/CODEFORCE_API_KEY, or config.yaml codeforce.access_token")
+		return fmt.Errorf("codeforce access token is not configured; set --access-token/--api-key, CODEFORCE_ACCESS_TOKEN/CODEFORCE_API_KEY, or config file codeforce.access_token")
 	}
 	switch c.AccountType {
 	case accountTypeAdmin, accountTypeUser, accountTypeOpenAPI:

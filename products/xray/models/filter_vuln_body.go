@@ -21,58 +21,61 @@ type FilterVulnBody struct {
 	LimitAndOffsetFilter
 
 	// asset group ids
-	AssetGroupIds []int64 `json:"asset_group_ids"`
+	AssetGroupIds []int64 `json:"asset_group_ids,omitempty"`
 
 	// 漏洞资产关联的资产的一些信息，比如对应的 Website 的 URL
-	AssetInfo []*PartialInputType `json:"asset_info"`
+	AssetInfo []*PartialInputType `json:"asset_info,omitempty"`
 
 	// asset type
-	AssetType []string `json:"asset_type"`
+	AssetType []string `json:"asset_type,omitempty"`
 
 	// business system ids
-	BusinessSystemIds []int64 `json:"business_system_ids"`
+	BusinessSystemIds []int64 `json:"business_system_ids,omitempty"`
 
 	// 漏洞分类，请使用/vuln_category/接口获取漏洞分类列表
-	Categorys []string `json:"categorys"`
+	Categorys []string `json:"categorys,omitempty"`
 
 	// created time
 	CreatedTime *TimeFilterType `json:"created_time,omitempty"`
 
 	// 漏洞资产的确信度，疑似是开启漏洞库版本匹配产生的漏洞
-	Definiteness []DefinitenessEnum `json:"definiteness"`
+	Definiteness []DefinitenessEnum `json:"definiteness,omitempty"`
 
 	// 漏洞资产的编号
-	Exposure []*PartialInputType `json:"exposure"`
+	Exposure []*PartialInputType `json:"exposure,omitempty"`
 
 	// 漏洞资产的严重程度
-	Level []SeverityEnum `json:"level"`
+	Level []SeverityEnum `json:"level,omitempty"`
 
 	// location ids
-	LocationIds []int64 `json:"location_ids"`
+	LocationIds []int64 `json:"location_ids,omitempty"`
 
 	// network region ids
-	NetworkRegionIds []int64 `json:"network_region_ids"`
+	NetworkRegionIds []int64 `json:"network_region_ids,omitempty"`
 
 	// project full name
-	ProjectFullName []*PartialInputType `json:"project_full_name"`
+	ProjectFullName []*PartialInputType `json:"project_full_name,omitempty"`
 
 	// 对应的工作区的 ID
 	ProjectID int64 `json:"project_id,omitempty"`
 
 	// 漏洞资产相关联的任务的名字
-	RelatedTaskName []*PartialInputType `json:"related_task_name"`
+	RelatedTaskName []*PartialInputType `json:"related_task_name,omitempty"`
 
 	// 漏洞资产的状态
-	Status []VulnStatusEnum `json:"status"`
+	Status []VulnStatusEnum `json:"status,omitempty"`
 
 	// tag ids
-	TagIds []int64 `json:"tag_ids"`
+	TagIds []int64 `json:"tag_ids,omitempty"`
 
 	// 漏洞资产的标题
-	Title []*PartialInputType `json:"title"`
+	Title []*PartialInputType `json:"title,omitempty"`
 
 	// updated time
 	UpdatedTime *TimeFilterType `json:"updated_time,omitempty"`
+
+	// 任务实例 ID
+	XprocessID int64 `json:"xprocess_id,omitempty"`
 }
 
 // UnmarshalJSON unmarshals this object from a JSON structure
@@ -86,41 +89,43 @@ func (m *FilterVulnBody) UnmarshalJSON(raw []byte) error {
 
 	// now for regular properties
 	var propsFilterVulnBody struct {
-		AssetGroupIds []int64 `json:"asset_group_ids"`
+		AssetGroupIds []int64 `json:"asset_group_ids,omitempty"`
 
-		AssetInfo []*PartialInputType `json:"asset_info"`
+		AssetInfo []*PartialInputType `json:"asset_info,omitempty"`
 
-		AssetType []string `json:"asset_type"`
+		AssetType []string `json:"asset_type,omitempty"`
 
-		BusinessSystemIds []int64 `json:"business_system_ids"`
+		BusinessSystemIds []int64 `json:"business_system_ids,omitempty"`
 
-		Categorys []string `json:"categorys"`
+		Categorys []string `json:"categorys,omitempty"`
 
 		CreatedTime *TimeFilterType `json:"created_time,omitempty"`
 
-		Definiteness []DefinitenessEnum `json:"definiteness"`
+		Definiteness []DefinitenessEnum `json:"definiteness,omitempty"`
 
-		Exposure []*PartialInputType `json:"exposure"`
+		Exposure []*PartialInputType `json:"exposure,omitempty"`
 
-		Level []SeverityEnum `json:"level"`
+		Level []SeverityEnum `json:"level,omitempty"`
 
-		LocationIds []int64 `json:"location_ids"`
+		LocationIds []int64 `json:"location_ids,omitempty"`
 
-		NetworkRegionIds []int64 `json:"network_region_ids"`
+		NetworkRegionIds []int64 `json:"network_region_ids,omitempty"`
 
-		ProjectFullName []*PartialInputType `json:"project_full_name"`
+		ProjectFullName []*PartialInputType `json:"project_full_name,omitempty"`
 
 		ProjectID int64 `json:"project_id,omitempty"`
 
-		RelatedTaskName []*PartialInputType `json:"related_task_name"`
+		RelatedTaskName []*PartialInputType `json:"related_task_name,omitempty"`
 
-		Status []VulnStatusEnum `json:"status"`
+		Status []VulnStatusEnum `json:"status,omitempty"`
 
-		TagIds []int64 `json:"tag_ids"`
+		TagIds []int64 `json:"tag_ids,omitempty"`
 
-		Title []*PartialInputType `json:"title"`
+		Title []*PartialInputType `json:"title,omitempty"`
 
 		UpdatedTime *TimeFilterType `json:"updated_time,omitempty"`
+
+		XprocessID int64 `json:"xprocess_id,omitempty"`
 	}
 	if err := swag.ReadJSON(raw, &propsFilterVulnBody); err != nil {
 		return err
@@ -161,6 +166,8 @@ func (m *FilterVulnBody) UnmarshalJSON(raw []byte) error {
 
 	m.UpdatedTime = propsFilterVulnBody.UpdatedTime
 
+	m.XprocessID = propsFilterVulnBody.XprocessID
+
 	return nil
 }
 
@@ -176,41 +183,43 @@ func (m FilterVulnBody) MarshalJSON() ([]byte, error) {
 
 	// now for regular properties
 	var propsFilterVulnBody struct {
-		AssetGroupIds []int64 `json:"asset_group_ids"`
+		AssetGroupIds []int64 `json:"asset_group_ids,omitempty"`
 
-		AssetInfo []*PartialInputType `json:"asset_info"`
+		AssetInfo []*PartialInputType `json:"asset_info,omitempty"`
 
-		AssetType []string `json:"asset_type"`
+		AssetType []string `json:"asset_type,omitempty"`
 
-		BusinessSystemIds []int64 `json:"business_system_ids"`
+		BusinessSystemIds []int64 `json:"business_system_ids,omitempty"`
 
-		Categorys []string `json:"categorys"`
+		Categorys []string `json:"categorys,omitempty"`
 
 		CreatedTime *TimeFilterType `json:"created_time,omitempty"`
 
-		Definiteness []DefinitenessEnum `json:"definiteness"`
+		Definiteness []DefinitenessEnum `json:"definiteness,omitempty"`
 
-		Exposure []*PartialInputType `json:"exposure"`
+		Exposure []*PartialInputType `json:"exposure,omitempty"`
 
-		Level []SeverityEnum `json:"level"`
+		Level []SeverityEnum `json:"level,omitempty"`
 
-		LocationIds []int64 `json:"location_ids"`
+		LocationIds []int64 `json:"location_ids,omitempty"`
 
-		NetworkRegionIds []int64 `json:"network_region_ids"`
+		NetworkRegionIds []int64 `json:"network_region_ids,omitempty"`
 
-		ProjectFullName []*PartialInputType `json:"project_full_name"`
+		ProjectFullName []*PartialInputType `json:"project_full_name,omitempty"`
 
 		ProjectID int64 `json:"project_id,omitempty"`
 
-		RelatedTaskName []*PartialInputType `json:"related_task_name"`
+		RelatedTaskName []*PartialInputType `json:"related_task_name,omitempty"`
 
-		Status []VulnStatusEnum `json:"status"`
+		Status []VulnStatusEnum `json:"status,omitempty"`
 
-		TagIds []int64 `json:"tag_ids"`
+		TagIds []int64 `json:"tag_ids,omitempty"`
 
-		Title []*PartialInputType `json:"title"`
+		Title []*PartialInputType `json:"title,omitempty"`
 
 		UpdatedTime *TimeFilterType `json:"updated_time,omitempty"`
+
+		XprocessID int64 `json:"xprocess_id,omitempty"`
 	}
 	propsFilterVulnBody.AssetGroupIds = m.AssetGroupIds
 
@@ -247,6 +256,8 @@ func (m FilterVulnBody) MarshalJSON() ([]byte, error) {
 	propsFilterVulnBody.Title = m.Title
 
 	propsFilterVulnBody.UpdatedTime = m.UpdatedTime
+
+	propsFilterVulnBody.XprocessID = m.XprocessID
 
 	jsonDataPropsFilterVulnBody, errFilterVulnBody := swag.WriteJSON(propsFilterVulnBody)
 	if errFilterVulnBody != nil {

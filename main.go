@@ -1,20 +1,27 @@
 package main
 
 import (
-	"log"
+	"context"
+	"fmt"
+	"io"
 	"os"
+	"os/signal"
 	"path/filepath"
 	"strings"
 
 	"github.com/chaitin/chaitin-cli/config"
+	"github.com/chaitin/chaitin-cli/products/agentcompose"
 	"github.com/chaitin/chaitin-cli/products/apisec"
 	"github.com/chaitin/chaitin-cli/products/chaitin"
 	"github.com/chaitin/chaitin-cli/products/cloudatlas"
 	"github.com/chaitin/chaitin-cli/products/cloudwalker"
 	"github.com/chaitin/chaitin-cli/products/codeforce"
 	"github.com/chaitin/chaitin-cli/products/codeinsight"
+	"github.com/chaitin/chaitin-cli/products/cosmos"
 	"github.com/chaitin/chaitin-cli/products/ddr"
 	"github.com/chaitin/chaitin-cli/products/dsensor"
+	"github.com/chaitin/chaitin-cli/products/insight"
+	"github.com/chaitin/chaitin-cli/products/monkeyscan"
 	"github.com/chaitin/chaitin-cli/products/safeline"
 	safelinece "github.com/chaitin/chaitin-cli/products/safeline-ce"
 	"github.com/chaitin/chaitin-cli/products/safeline3"
@@ -27,13 +34,17 @@ import (
 type app struct {
 	root             *cobra.Command
 	aliasSubcommands map[string]struct{}
+	productNames     map[string]struct{}
 	config           config.Raw
 	configPath       string
 	configLoaded     bool
 	dryRun           bool
 }
 
-const defaultConfigPath = "config.yaml"
+const (
+	defaultConfigDir  = ".chaitin-cli"
+	defaultConfigFile = "config.yaml"
+)
 
 func newApp() (*app, error) {
 	root := &cobra.Command{
@@ -43,16 +54,23 @@ func newApp() (*app, error) {
 		SilenceErrors: true,
 	}
 
+	root.Version = resolveVersion()
+	root.SetVersionTemplate("{{.Version}}\n")
+
 	a := &app{
 		root:             root,
 		aliasSubcommands: make(map[string]struct{}),
-		configPath:       defaultConfigPathFromCWD(),
+		productNames:     make(map[string]struct{}),
+		configPath:       defaultConfigPath(),
 	}
 
-	root.PersistentFlags().StringVarP(&a.configPath, "config", "c", a.configPath, "Config file path")
+	root.AddCommand(newVersionCommand(root))
+
+	root.PersistentFlags().StringVarP(&a.configPath, "config", "c", a.configPath, "Config file path; when unset, CLI tries recognized ./config.yaml before ~/.chaitin-cli/config.yaml")
 	root.PersistentFlags().BoolVar(&a.dryRun, "dry-run", false, "Do not send requests; commands that support dry-run print a request summary")
 
 	a.registerProductCommand(chaitin.NewCommand())
+	a.registerProductCommand(agentcompose.NewCommand())
 	a.registerProductCommand(cloudatlas.NewCommand())
 	a.registerProductCommand(apisec.NewCommand())
 	a.registerProductCommand(safelinece.NewCommand())
@@ -62,8 +80,11 @@ func newApp() (*app, error) {
 	a.registerProductCommand(codeinsight.NewCommand())
 	a.registerProductCommand(ddr.NewCommand())
 	a.registerProductCommand(dsensor.NewCommand())
+	a.registerProductCommand(monkeyscan.NewCommand())
 	a.registerProductCommand(tanswer.NewCommand())
 	a.registerProductCommand(veinmind.NewCommand())
+	a.registerProductCommand(cosmos.NewCommand())
+	a.registerProductCommand(insight.NewCommand())
 
 	xrayCmd, err := xray.NewCommand()
 	if err != nil {
@@ -106,6 +127,7 @@ func (a *app) registerProductCommand(cmd *cobra.Command) {
 
 	a.wrapProductCommand(cmd)
 	a.aliasSubcommands[cmd.Name()] = struct{}{}
+	a.productNames[cmd.Name()] = struct{}{}
 	a.root.AddCommand(cmd)
 }
 
@@ -115,10 +137,15 @@ func (a *app) wrapProductCommand(cmd *cobra.Command) {
 
 	cmd.PersistentPreRunE = func(command *cobra.Command, args []string) error {
 		if err := a.ensureRuntimeConfigLoaded(); err != nil {
+			if cmd.Name() == "agent-compose" {
+				return agentcompose.RuntimeConfigError(command, err)
+			}
 			return err
 		}
 
 		switch cmd.Name() {
+		case "agent-compose":
+			agentcompose.ApplyRuntimeConfig(command, a.config, a.writeConfigPath(), a.dryRun)
 		case "cloudAtlas":
 			cloudatlas.ApplyRuntimeConfig(command, a.config, a.dryRun)
 		case "apisec":
@@ -134,13 +161,19 @@ func (a *app) wrapProductCommand(cmd *cobra.Command) {
 		case "codeinsight":
 			codeinsight.ApplyRuntimeConfig(command, a.config, a.dryRun)
 		case "ddr":
-			ddr.ApplyRuntimeConfig(command, a.config, a.configPath, a.dryRun)
+			ddr.ApplyRuntimeConfig(command, a.config, a.writeConfigPath(), a.dryRun)
 		case "dsensor":
 			dsensor.ApplyRuntimeConfig(command, a.config, a.dryRun)
+		case "monkeyscan":
+			monkeyscan.ApplyRuntimeConfig(command, a.config, a.writeConfigPath(), a.dryRun)
 		case "tanswer":
 			tanswer.ApplyRuntimeConfig(command, a.config)
 		case "veinmind":
 			veinmind.ApplyRuntimeConfig(command, a.config, a.dryRun)
+		case "cosmos":
+			cosmos.ApplyRuntimeConfig(command, a.config, a.dryRun)
+		case "insight":
+			insight.ApplyRuntimeConfig(command, a.config, a.dryRun)
 		case "xray":
 			xray.ApplyRuntimeConfig(command, a.config, a.dryRun)
 		case "safeline":
@@ -167,7 +200,7 @@ func (a *app) ensureRuntimeConfigLoaded() error {
 		return err
 	}
 
-	cfg, err := loadConfigFile(a.configPath)
+	cfg, err := a.loadRuntimeConfig()
 	if err != nil {
 		return err
 	}
@@ -191,17 +224,91 @@ func loadConfigFile(path string) (config.Raw, error) {
 	return config.Load(path)
 }
 
-func defaultConfigPathFromCWD() string {
-	return filepath.Join(".", defaultConfigPath)
+func (a *app) loadRuntimeConfig() (config.Raw, error) {
+	if a.configFlagChanged() {
+		return loadConfigFile(a.configPath)
+	}
+
+	localCfg, localRecognized, err := a.loadLocalConfigIfRecognized()
+	if err == nil && localRecognized {
+		return localCfg, nil
+	}
+
+	globalCfg, err := loadConfigFile(defaultConfigPath())
+	if err != nil {
+		return nil, err
+	}
+	return globalCfg, nil
 }
 
-func main() {
+func (a *app) writeConfigPath() string {
+	if a.configFlagChanged() {
+		return a.configPath
+	}
+	if _, ok, err := a.loadLocalConfigIfRecognized(); err == nil && ok {
+		return localConfigPath()
+	}
+	return defaultConfigPath()
+}
+
+func (a *app) loadLocalConfigIfRecognized() (config.Raw, bool, error) {
+	localCfg, err := loadConfigFile(localConfigPath())
+	if err != nil {
+		return nil, false, err
+	}
+	return localCfg, looksLikeCLIConfig(localCfg, a.productNames), nil
+}
+
+func (a *app) configFlagChanged() bool {
+	if a.root == nil {
+		return a.configPath != "" && a.configPath != defaultConfigPath()
+	}
+	flag := a.root.PersistentFlags().Lookup("config")
+	return flag != nil && flag.Changed
+}
+
+func looksLikeCLIConfig(cfg config.Raw, productNames map[string]struct{}) bool {
+	for name := range cfg {
+		if _, ok := productNames[name]; ok {
+			return true
+		}
+	}
+	return false
+}
+
+func localConfigPath() string {
+	return filepath.Join(".", defaultConfigFile)
+}
+
+func defaultConfigPath() string {
+	homeDir, err := os.UserHomeDir()
+	if err != nil || homeDir == "" {
+		return localConfigPath()
+	}
+	return filepath.Join(homeDir, defaultConfigDir, defaultConfigFile)
+}
+
+func runMain() int {
 	app, err := newApp()
 	if err != nil {
-		log.Fatal(err)
+		fmt.Fprintln(os.Stderr, "Error:", err)
+		return 1
 	}
-
+	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
+	defer cancel()
+	app.root.SetContext(ctx)
 	if err := app.execute(); err != nil {
-		log.Fatal(err)
+		if renderer, ok := err.(interface{ RenderError(io.Writer) error }); ok {
+			_ = renderer.RenderError(app.root.ErrOrStderr())
+		} else {
+			fmt.Fprintln(app.root.ErrOrStderr(), "Error:", err)
+		}
+		if coder, ok := err.(interface{ ExitCode() int }); ok {
+			return coder.ExitCode()
+		}
+		return 1
 	}
+	return 0
 }
+
+func main() { os.Exit(runMain()) }

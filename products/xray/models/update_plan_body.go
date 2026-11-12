@@ -17,7 +17,7 @@ import (
 type UpdatePlanBody struct {
 
 	// Plan 的一些设置，是个 json
-	BasicSetting string `json:"basic_setting,omitempty"`
+	BasicSetting any `json:"basic_setting,omitempty"`
 
 	// true 为保存并立即执行，即立即执行一次，不影响排期
 	// Required: true

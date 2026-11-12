@@ -1,0 +1,103 @@
+[
+  {
+    "name": "AgentService.SearchDeviceList",
+    "comment": "查询安全设备列表",
+    "args": {
+      "count": {
+        "type": "integer",
+        "optional": true,
+        "comment": "每页数量"
+      },
+      "offset": {
+        "type": "integer",
+        "optional": true,
+        "comment": "偏移量"
+      },
+      "id": {
+        "type": "string",
+        "optional": true,
+        "comment": "设备ID过滤（UintQuery JSON，如: [{\"oper\":\"=\",\"target\":1}]）",
+        "queryType": "UintQuery"
+      },
+      "ip": {
+        "type": "string",
+        "optional": true,
+        "comment": "IP 地址过滤（InetQuery JSON，如: [{\"oper\":\"=\",\"target\":\"10.0.0.1\"}]）",
+        "queryType": "InetQuery"
+      },
+      "name": {
+        "type": "string",
+        "optional": true,
+        "comment": "设备名称过滤（StringQuery JSON，如: [{\"oper\":\"like\",\"target\":\"device\"}]）",
+        "queryType": "StringQuery"
+      },
+      "device_type": {
+        "type": "string",
+        "optional": true,
+        "comment": "设备类型过滤: 0其他 1雷池 2谛听 3洞鉴 4牧云 5网站监测 6全流量探针 7安骑士(胖版) 8安骑士(瘦版) 9万象(云地)（UintQuery JSON，如: [{\"oper\":\"=\",\"target\":1}]）",
+        "queryType": "UintQuery"
+      },
+      "product_name": {
+        "type": "string",
+        "optional": true,
+        "comment": "产品名称过滤（StringQuery JSON，如: [{\"oper\":\"like\",\"target\":\"product\"}]）",
+        "queryType": "StringQuery"
+      },
+      "security_scope_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "安全域ID过滤（UintQuery JSON，如: [{\"oper\":\"=\",\"target\":1}]）",
+        "queryType": "UintQuery"
+      },
+      "last_receive_time": {
+        "type": "string",
+        "optional": true,
+        "comment": "上次事件接收时间（TimeQuery JSON 或简写 startMs-endMs；target 为毫秒时间戳范围）",
+        "queryType": "TimeQuery"
+      },
+      "created_time": {
+        "type": "string",
+        "optional": true,
+        "comment": "设备创建时间（TimeQuery JSON 或简写 startMs-endMs；target 为毫秒时间戳范围）",
+        "queryType": "TimeQuery"
+      },
+      "is_monitoring": {
+        "type": "string",
+        "optional": true,
+        "comment": "是否开启监控（BoolQuery JSON，如: [{\"oper\":\"=\",\"target\":true}]）",
+        "queryType": "BoolQuery"
+      },
+      "status": {
+        "type": "string",
+        "optional": true,
+        "comment": "设备状态过滤: 1设备启用 2设备禁用（UintQuery JSON，如: [{\"oper\":\"=\",\"target\":1}]）",
+        "queryType": "UintQuery"
+      },
+      "owner_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "责任人ID过滤（UintQuery JSON，如: [{\"oper\":\"=\",\"target\":1}]）",
+        "queryType": "UintQuery"
+      },
+      "organization_ids": {
+        "type": "integer",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "组织机构ID列表"
+      },
+      "order_by": {
+        "type": "string",
+        "optional": true,
+        "comment": "排序配置（OrderBy JSON，如: {\"today_parse_count\":\"desc\"}）",
+        "queryType": "JSON"
+      },
+      "receive_check": {
+        "type": "string",
+        "optional": true,
+        "comment": "数据接收检查过滤（BoolQuery JSON，如: [{\"oper\":\"=\",\"target\":true}]）",
+        "queryType": "BoolQuery"
+      }
+    },
+    "reply": {}
+  }
+]

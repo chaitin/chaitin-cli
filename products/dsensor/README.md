@@ -10,7 +10,7 @@ chaitin-cli dsensor --help
 
 ## Configuration
 
-Use `config.yaml`:
+Use `~/.chaitin-cli/config.yaml`, or a recognized local `./config.yaml`:
 
 ```yaml
 dsensor:

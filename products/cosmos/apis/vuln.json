@@ -1,0 +1,916 @@
+[
+  {
+    "name": "ScanVulnIpService.SearchScanVulnIpList",
+    "comment": "IP 漏洞列表查看（复杂查询参数传 JSON 数组）",
+    "args": {
+      "count": {
+        "type": "integer",
+        "optional": false,
+        "comment": "每页数量（IP 漏洞列表需提供，否则后端只返回 total）"
+      },
+      "offset": {
+        "type": "integer",
+        "optional": true,
+        "comment": "偏移量"
+      },
+      "id": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞 ID (JSON, 如: [{\"oper\":\"=\",\"target\":68}])",
+        "queryType": "UintQuery"
+      },
+      "organization_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "组织机构 ID (JSON, 如: [{\"oper\":\"=\",\"target\":1}])",
+        "queryType": "UintQuery"
+      },
+      "name": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞名称 (JSON, 如: [{\"oper\":\"like\",\"target\":\"CVE\"}])",
+        "queryType": "StringQuery"
+      },
+      "port": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞端口 (JSON, 如: [{\"oper\":\"=\",\"target\":443}])",
+        "queryType": "UintQuery"
+      },
+      "service": {
+        "type": "string",
+        "optional": true,
+        "comment": "受影响服务 (JSON, 如: [{\"oper\":\"like\",\"target\":\"nginx\"}])",
+        "queryType": "StringQuery"
+      },
+      "vuln_category": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞类型 (JSON, 如: [{\"oper\":\"=\",\"target\":\"web\"}])",
+        "queryType": "StringQuery"
+      },
+      "vuln_level": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞等级: -1未知 0无威胁 1低危 2中危 3高危 4超危 (JSON, 如: [{\"oper\":\"=\",\"target\":3}])",
+        "queryType": "IntQuery"
+      },
+      "vuln_ip": {
+        "type": "string",
+        "optional": true,
+        "comment": "影响 IP 资产 (JSON, 如: [{\"oper\":\"like\",\"target\":\"10.0.0.1\"}])",
+        "queryType": "StringQuery"
+      },
+      "merge_num": {
+        "type": "string",
+        "optional": true,
+        "comment": "合并漏洞数量 (JSON, 如: [{\"oper\":\">=\",\"target\":2}])",
+        "queryType": "UintQuery"
+      },
+      "updated_at": {
+        "type": "string",
+        "optional": true,
+        "comment": "最近更新时间 (TimeQuery JSON 或简写 startMs-endMs)",
+        "queryType": "TimeQuery"
+      },
+      "created_at": {
+        "type": "string",
+        "optional": true,
+        "comment": "首次发现时间 (TimeQuery JSON 或简写 startMs-endMs)",
+        "queryType": "TimeQuery"
+      },
+      "vuln_update_time": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞最近发现时间 (TimeQuery JSON 或简写 startMs-endMs)",
+        "queryType": "TimeQuery"
+      },
+      "vuln_dispose_type": {
+        "type": "string",
+        "optional": true,
+        "comment": "处置方式: 1直接处置 2邮件通知 3工单 4复测 5短信通知 6Webhook通知 7创建漏洞 8更新漏洞 9重新合并 (JSON, 如: [{\"oper\":\"=\",\"target\":1}])",
+        "queryType": "UintQuery"
+      },
+      "vuln_status": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞状态: 1待处理 2验证中 3修复中 4复测中 5误报 6忽略 7修复完成 (JSON, 如: [{\"oper\":\"=\",\"target\":1}])",
+        "queryType": "UintQuery"
+      },
+      "vuln_tag": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞标签 (JSON, 如: [{\"oper\":\"like\",\"target\":\"重点\"}])",
+        "queryType": "StringQuery"
+      },
+      "task_name": {
+        "type": "string",
+        "optional": true,
+        "comment": "任务名称 (JSON, 如: [{\"oper\":\"like\",\"target\":\"scan\"}])",
+        "queryType": "StringQuery"
+      },
+      "defect_founder": {
+        "type": "string",
+        "optional": true,
+        "comment": "发现人员 (JSON, 如: [{\"oper\":\"like\",\"target\":\"user\"}])",
+        "queryType": "StringQuery"
+      },
+      "defect_verifier": {
+        "type": "string",
+        "optional": true,
+        "comment": "验证人员 (JSON, 如: [{\"oper\":\"like\",\"target\":\"user\"}])",
+        "queryType": "StringQuery"
+      },
+      "defect_fixer": {
+        "type": "string",
+        "optional": true,
+        "comment": "修复人员 (JSON, 如: [{\"oper\":\"like\",\"target\":\"user\"}])",
+        "queryType": "StringQuery"
+      },
+      "defect_rechecker": {
+        "type": "string",
+        "optional": true,
+        "comment": "复测人员 (JSON, 如: [{\"oper\":\"like\",\"target\":\"user\"}])",
+        "queryType": "StringQuery"
+      },
+      "defect_closer": {
+        "type": "string",
+        "optional": true,
+        "comment": "闭环人员 (JSON, 如: [{\"oper\":\"like\",\"target\":\"user\"}])",
+        "queryType": "StringQuery"
+      },
+      "found_time": {
+        "type": "string",
+        "optional": true,
+        "comment": "发现时间 (TimeQuery JSON 或简写 startMs-endMs)",
+        "queryType": "TimeQuery"
+      },
+      "verify_time": {
+        "type": "string",
+        "optional": true,
+        "comment": "验证时间 (TimeQuery JSON 或简写 startMs-endMs)",
+        "queryType": "TimeQuery"
+      },
+      "fix_time": {
+        "type": "string",
+        "optional": true,
+        "comment": "修复时间 (TimeQuery JSON 或简写 startMs-endMs)",
+        "queryType": "TimeQuery"
+      },
+      "recheck_time": {
+        "type": "string",
+        "optional": true,
+        "comment": "复测时间 (TimeQuery JSON 或简写 startMs-endMs)",
+        "queryType": "TimeQuery"
+      },
+      "close_time": {
+        "type": "string",
+        "optional": true,
+        "comment": "闭环时间 (TimeQuery JSON 或简写 startMs-endMs)",
+        "queryType": "TimeQuery"
+      },
+      "is_match_vuln": {
+        "type": "string",
+        "optional": true,
+        "comment": "是否命中漏洞库 (JSON, 如: [{\"oper\":\"=\",\"target\":true}])",
+        "queryType": "BoolQuery"
+      },
+      "is_match_asset": {
+        "type": "string",
+        "optional": true,
+        "comment": "是否命中资产 (JSON, 如: [{\"oper\":\"=\",\"target\":true}])",
+        "queryType": "BoolQuery"
+      },
+      "find_by": {
+        "type": "string",
+        "optional": true,
+        "comment": "来源/扫描设备名 (JSON, 如: [{\"oper\":\"=\",\"target\":\"洞鉴\"}])",
+        "queryType": "StringQuery"
+      },
+      "user": {
+        "type": "string",
+        "optional": true,
+        "comment": "用户名 (JSON, 如: [{\"oper\":\"like\",\"target\":\"root\"}])",
+        "queryType": "StringQuery"
+      },
+      "password": {
+        "type": "string",
+        "optional": true,
+        "comment": "密码 (JSON, 如: [{\"oper\":\"like\",\"target\":\"weak\"}])",
+        "queryType": "StringQuery"
+      },
+      "vuln_data_type": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞数据类型: 0漏洞 1弱口令 10其他 (JSON, 如: [{\"oper\":\"=\",\"target\":0}])",
+        "queryType": "UintQuery"
+      },
+      "asset_owner_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "责任人 ID (JSON, 如: [{\"oper\":\"=\",\"target\":1}])",
+        "queryType": "UintQuery"
+      },
+      "condition_query": {
+        "type": "string",
+        "optional": true,
+        "comment": "高级条件查询(JSON)",
+        "queryType": "JSON"
+      },
+      "sort_field": {
+        "type": "string",
+        "optional": true,
+        "comment": "排序字段: last_discovery_time / first_discovery_time / updated_time"
+      },
+      "sort_order": {
+        "type": "string",
+        "optional": true,
+        "comment": "排序方向: asc / desc"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "ScanVulnIpService.SearchScanVulnIpDetail",
+    "comment": "IP 漏洞详情查看",
+    "args": {
+      "vuln_id": {
+        "type": "integer",
+        "optional": false,
+        "comment": "漏洞 ID（必填）"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "ScanVulnIpService.UpsertScanVulnIp",
+    "comment": "新增或更新 IP 漏洞",
+    "args": {
+      "id": {
+        "type": "integer",
+        "optional": true,
+        "comment": "漏洞 ID（更新时填入，新增不填）"
+      },
+      "name": {
+        "type": "string",
+        "optional": false,
+        "comment": "漏洞名称（必填）"
+      },
+      "organization_id": {
+        "type": "integer",
+        "optional": false,
+        "comment": "组织机构 ID（必填）"
+      },
+      "engine_category": {
+        "type": "string",
+        "optional": true,
+        "comment": "引擎上报的漏洞类型"
+      },
+      "engine_level": {
+        "type": "string",
+        "optional": true,
+        "comment": "引擎上报的漏洞等级"
+      },
+      "vuln_major_category": {
+        "type": "string",
+        "optional": false,
+        "comment": "漏洞类型大类（必填）"
+      },
+      "vuln_category": {
+        "type": "string",
+        "optional": false,
+        "comment": "漏洞类型小类（必填）"
+      },
+      "vuln_level": {
+        "type": "integer",
+        "optional": true,
+        "comment": "漏洞等级: -1未知 0无威胁 1低危 2中危 3高危 4超危"
+      },
+      "vuln_weight": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞权重"
+      },
+      "vuln_ip": {
+        "type": "string",
+        "optional": false,
+        "comment": "影响 IP 资产（必填）"
+      },
+      "port": {
+        "type": "integer",
+        "optional": true,
+        "comment": "漏洞端口"
+      },
+      "protocol": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞协议: TCP/ICMP/UDP"
+      },
+      "service": {
+        "type": "string",
+        "optional": true,
+        "comment": "受影响服务"
+      },
+      "vendor_detect_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "厂商检测插件 ID"
+      },
+      "mess_info": {
+        "type": "string",
+        "optional": true,
+        "comment": "其他信息"
+      },
+      "file_id": {
+        "type": "string",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "附件 ID 列表"
+      },
+      "vuln_belong_os": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞影响系统"
+      },
+      "cwe": {
+        "type": "string",
+        "optional": true,
+        "comment": "CWE 编号"
+      },
+      "cpe": {
+        "type": "string",
+        "optional": true,
+        "comment": "CPE 编号"
+      },
+      "cve_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "CVE 编号"
+      },
+      "cnnvd": {
+        "type": "string",
+        "optional": true,
+        "comment": "CNNVD 编号"
+      },
+      "bugtraq_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "Bugtraq ID"
+      },
+      "cnvd": {
+        "type": "string",
+        "optional": true,
+        "comment": "CNVD 编号"
+      },
+      "cncve": {
+        "type": "string",
+        "optional": true,
+        "comment": "CNCVE 编号"
+      },
+      "windowskb": {
+        "type": "string",
+        "optional": true,
+        "comment": "Windows KB 编号"
+      },
+      "bid": {
+        "type": "string",
+        "optional": true,
+        "comment": "BID 编号"
+      },
+      "vendor_vuln_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "厂商漏洞编号"
+      },
+      "location": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞存在位置"
+      },
+      "cvss": {
+        "type": "float",
+        "optional": true,
+        "comment": "CVSS 评分"
+      },
+      "description": {
+        "type": "string",
+        "optional": false,
+        "comment": "漏洞描述（必填）"
+      },
+      "harm": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞危害"
+      },
+      "influence_service": {
+        "type": "string",
+        "optional": true,
+        "comment": "影响组件/服务"
+      },
+      "vuln_principle": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞原理"
+      },
+      "vuln_verification": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞复现方式"
+      },
+      "solution": {
+        "type": "string",
+        "optional": true,
+        "comment": "修复/缓解方法"
+      },
+      "reference": {
+        "type": "string",
+        "optional": true,
+        "comment": "参考信息"
+      },
+      "retest_record": {
+        "type": "string",
+        "optional": true,
+        "comment": "复测记录"
+      },
+      "find_by": {
+        "type": "string",
+        "optional": true,
+        "comment": "来源/扫描设备名（默认 manual）"
+      },
+      "user": {
+        "type": "string",
+        "optional": true,
+        "comment": "用户名"
+      },
+      "password": {
+        "type": "string",
+        "optional": true,
+        "comment": "密码"
+      },
+      "vuln_data_type": {
+        "type": "integer",
+        "optional": true,
+        "comment": "漏洞数据类型: 0漏洞 1弱口令 10其他"
+      },
+      "extra_field": {
+        "type": "string",
+        "optional": true,
+        "comment": "脆弱性自定义字段(JSON object)",
+        "queryType": "JSON"
+      },
+      "vuln_tag": {
+        "type": "string",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "标签列表"
+      },
+      "task_name": {
+        "type": "string",
+        "optional": true,
+        "comment": "任务名称"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "ScanVulnIpService.SearchScanVulnWebList",
+    "comment": "应用漏洞列表查看（复杂查询参数传 JSON 数组）",
+    "args": {
+      "count": {
+        "type": "integer",
+        "optional": true,
+        "comment": "每页数量"
+      },
+      "offset": {
+        "type": "integer",
+        "optional": true,
+        "comment": "偏移量"
+      },
+      "id": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞 ID (JSON, 如: [{\"oper\":\"=\",\"target\":68}])",
+        "queryType": "UintQuery"
+      },
+      "organization_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "组织机构 ID (JSON, 如: [{\"oper\":\"=\",\"target\":1}])",
+        "queryType": "UintQuery"
+      },
+      "name": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞名称 (JSON, 如: [{\"oper\":\"like\",\"target\":\"CVE\"}])",
+        "queryType": "StringQuery"
+      },
+      "vuln_category": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞类型 (JSON, 如: [{\"oper\":\"=\",\"target\":\"web\"}])",
+        "queryType": "StringQuery"
+      },
+      "vuln_level": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞等级: -1未知 0无威胁 1低危 2中危 3高危 4超危 (JSON, 如: [{\"oper\":\"=\",\"target\":3}])",
+        "queryType": "IntQuery"
+      },
+      "vuln_url": {
+        "type": "string",
+        "optional": true,
+        "comment": "影响 URL (JSON, 如: [{\"oper\":\"like\",\"target\":\"example.com\"}])",
+        "queryType": "StringQuery"
+      },
+      "merge_num": {
+        "type": "string",
+        "optional": true,
+        "comment": "合并漏洞数量 (JSON, 如: [{\"oper\":\">=\",\"target\":2}])",
+        "queryType": "UintQuery"
+      },
+      "vuln_update_time": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞最近发现时间 (TimeQuery JSON 或简写 startMs-endMs)",
+        "queryType": "TimeQuery"
+      },
+      "updated_at": {
+        "type": "string",
+        "optional": true,
+        "comment": "最近更新时间 (TimeQuery JSON 或简写 startMs-endMs)",
+        "queryType": "TimeQuery"
+      },
+      "created_at": {
+        "type": "string",
+        "optional": true,
+        "comment": "首次发现时间 (TimeQuery JSON 或简写 startMs-endMs)",
+        "queryType": "TimeQuery"
+      },
+      "vuln_dispose_type": {
+        "type": "string",
+        "optional": true,
+        "comment": "处置方式: 1直接处置 2邮件通知 3工单 4复测 5短信通知 6Webhook通知 7创建漏洞 8更新漏洞 9重新合并 (JSON, 如: [{\"oper\":\"=\",\"target\":1}])",
+        "queryType": "UintQuery"
+      },
+      "vuln_status": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞状态: 1待处理 2验证中 3修复中 4复测中 5误报 6忽略 7修复完成 (JSON, 如: [{\"oper\":\"=\",\"target\":1}])",
+        "queryType": "UintQuery"
+      },
+      "vuln_tag": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞标签 (JSON, 如: [{\"oper\":\"like\",\"target\":\"重点\"}])",
+        "queryType": "StringQuery"
+      },
+      "task_name": {
+        "type": "string",
+        "optional": true,
+        "comment": "任务名称 (JSON, 如: [{\"oper\":\"like\",\"target\":\"scan\"}])",
+        "queryType": "StringQuery"
+      },
+      "defect_founder": {
+        "type": "string",
+        "optional": true,
+        "comment": "发现人员 (JSON, 如: [{\"oper\":\"like\",\"target\":\"user\"}])",
+        "queryType": "StringQuery"
+      },
+      "defect_verifier": {
+        "type": "string",
+        "optional": true,
+        "comment": "验证人员 (JSON, 如: [{\"oper\":\"like\",\"target\":\"user\"}])",
+        "queryType": "StringQuery"
+      },
+      "defect_fixer": {
+        "type": "string",
+        "optional": true,
+        "comment": "修复人员 (JSON, 如: [{\"oper\":\"like\",\"target\":\"user\"}])",
+        "queryType": "StringQuery"
+      },
+      "defect_rechecker": {
+        "type": "string",
+        "optional": true,
+        "comment": "复测人员 (JSON, 如: [{\"oper\":\"like\",\"target\":\"user\"}])",
+        "queryType": "StringQuery"
+      },
+      "defect_closer": {
+        "type": "string",
+        "optional": true,
+        "comment": "闭环人员 (JSON, 如: [{\"oper\":\"like\",\"target\":\"user\"}])",
+        "queryType": "StringQuery"
+      },
+      "found_time": {
+        "type": "string",
+        "optional": true,
+        "comment": "发现时间 (TimeQuery JSON 或简写 startMs-endMs)",
+        "queryType": "TimeQuery"
+      },
+      "verify_time": {
+        "type": "string",
+        "optional": true,
+        "comment": "验证时间 (TimeQuery JSON 或简写 startMs-endMs)",
+        "queryType": "TimeQuery"
+      },
+      "fix_time": {
+        "type": "string",
+        "optional": true,
+        "comment": "修复时间 (TimeQuery JSON 或简写 startMs-endMs)",
+        "queryType": "TimeQuery"
+      },
+      "recheck_time": {
+        "type": "string",
+        "optional": true,
+        "comment": "复测时间 (TimeQuery JSON 或简写 startMs-endMs)",
+        "queryType": "TimeQuery"
+      },
+      "close_time": {
+        "type": "string",
+        "optional": true,
+        "comment": "闭环时间 (TimeQuery JSON 或简写 startMs-endMs)",
+        "queryType": "TimeQuery"
+      },
+      "is_match_vuln": {
+        "type": "string",
+        "optional": true,
+        "comment": "是否命中漏洞库 (JSON, 如: [{\"oper\":\"=\",\"target\":true}])",
+        "queryType": "BoolQuery"
+      },
+      "is_match_asset": {
+        "type": "string",
+        "optional": true,
+        "comment": "是否命中资产 (JSON, 如: [{\"oper\":\"=\",\"target\":true}])",
+        "queryType": "BoolQuery"
+      },
+      "find_by": {
+        "type": "string",
+        "optional": true,
+        "comment": "来源/扫描设备名 (JSON, 如: [{\"oper\":\"=\",\"target\":\"洞鉴\"}])",
+        "queryType": "StringQuery"
+      },
+      "user": {
+        "type": "string",
+        "optional": true,
+        "comment": "用户名 (JSON, 如: [{\"oper\":\"like\",\"target\":\"root\"}])",
+        "queryType": "StringQuery"
+      },
+      "password": {
+        "type": "string",
+        "optional": true,
+        "comment": "密码 (JSON, 如: [{\"oper\":\"like\",\"target\":\"weak\"}])",
+        "queryType": "StringQuery"
+      },
+      "vuln_data_type": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞数据类型: 0漏洞 1弱口令 10其他 (JSON, 如: [{\"oper\":\"=\",\"target\":0}])",
+        "queryType": "UintQuery"
+      },
+      "asset_owner_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "责任人 ID (JSON, 如: [{\"oper\":\"=\",\"target\":1}])",
+        "queryType": "UintQuery"
+      },
+      "condition_query": {
+        "type": "string",
+        "optional": true,
+        "comment": "高级条件查询(JSON)",
+        "queryType": "JSON"
+      },
+      "sort_field": {
+        "type": "string",
+        "optional": true,
+        "comment": "排序字段: last_discovery_time / first_discovery_time / updated_time"
+      },
+      "sort_order": {
+        "type": "string",
+        "optional": true,
+        "comment": "排序方向: asc / desc"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "ScanVulnIpService.GetWebVulnDetail",
+    "comment": "应用漏洞详情查看",
+    "args": {
+      "vuln_id": {
+        "type": "integer",
+        "optional": false,
+        "comment": "漏洞 ID（必填）"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "ScanVulnIpService.UpsertScanVulnWeb",
+    "comment": "新增或更新应用漏洞",
+    "args": {
+      "id": {
+        "type": "integer",
+        "optional": true,
+        "comment": "漏洞 ID（更新时填入，新增不填）"
+      },
+      "name": {
+        "type": "string",
+        "optional": false,
+        "comment": "漏洞名称（必填）"
+      },
+      "organization_id": {
+        "type": "integer",
+        "optional": false,
+        "comment": "组织机构 ID（必填）"
+      },
+      "engine_category": {
+        "type": "string",
+        "optional": true,
+        "comment": "引擎上报的漏洞类型"
+      },
+      "engine_level": {
+        "type": "string",
+        "optional": true,
+        "comment": "引擎上报的漏洞等级"
+      },
+      "vuln_major_category": {
+        "type": "string",
+        "optional": false,
+        "comment": "漏洞类型大类（必填）"
+      },
+      "vuln_category": {
+        "type": "string",
+        "optional": false,
+        "comment": "漏洞类型小类（必填）"
+      },
+      "vuln_level": {
+        "type": "integer",
+        "optional": true,
+        "comment": "漏洞等级: -1未知 0无威胁 1低危 2中危 3高危 4超危"
+      },
+      "vuln_weight": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞权重"
+      },
+      "vuln_url": {
+        "type": "string",
+        "optional": false,
+        "comment": "影响 URL（必填）"
+      },
+      "vuln_location": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞存在位置"
+      },
+      "vendor_detect_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "厂商检测插件 ID"
+      },
+      "mess_info": {
+        "type": "string",
+        "optional": true,
+        "comment": "其他信息"
+      },
+      "file_id": {
+        "type": "string",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "附件 ID 列表"
+      },
+      "vuln_belong_os": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞影响系统"
+      },
+      "cwe": {
+        "type": "string",
+        "optional": true,
+        "comment": "CWE 编号"
+      },
+      "cve_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "CVE 编号"
+      },
+      "cnnvd": {
+        "type": "string",
+        "optional": true,
+        "comment": "CNNVD 编号"
+      },
+      "bugtraq_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "Bugtraq ID"
+      },
+      "cnvd": {
+        "type": "string",
+        "optional": true,
+        "comment": "CNVD 编号"
+      },
+      "cncve": {
+        "type": "string",
+        "optional": true,
+        "comment": "CNCVE 编号"
+      },
+      "windowskb": {
+        "type": "string",
+        "optional": true,
+        "comment": "Windows KB 编号"
+      },
+      "bid": {
+        "type": "string",
+        "optional": true,
+        "comment": "BID 编号"
+      },
+      "vendor_vuln_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "厂商漏洞编号"
+      },
+      "cvss_score": {
+        "type": "float",
+        "optional": true,
+        "comment": "CVSS 评分"
+      },
+      "description": {
+        "type": "string",
+        "optional": false,
+        "comment": "漏洞描述（必填）"
+      },
+      "harm": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞危害"
+      },
+      "influence_service": {
+        "type": "string",
+        "optional": true,
+        "comment": "影响组件/服务"
+      },
+      "vuln_principle": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞原理"
+      },
+      "vuln_verification": {
+        "type": "string",
+        "optional": true,
+        "comment": "漏洞复现方式"
+      },
+      "solution": {
+        "type": "string",
+        "optional": true,
+        "comment": "修复/缓解方法"
+      },
+      "reference": {
+        "type": "string",
+        "optional": true,
+        "comment": "参考信息"
+      },
+      "retest_record": {
+        "type": "string",
+        "optional": true,
+        "comment": "复测记录"
+      },
+      "find_by": {
+        "type": "string",
+        "optional": true,
+        "comment": "来源/扫描设备名（默认 manual）"
+      },
+      "user": {
+        "type": "string",
+        "optional": true,
+        "comment": "用户名"
+      },
+      "password": {
+        "type": "string",
+        "optional": true,
+        "comment": "密码"
+      },
+      "vuln_data_type": {
+        "type": "integer",
+        "optional": true,
+        "comment": "漏洞数据类型: 0漏洞 1弱口令 10其他"
+      },
+      "extra_field": {
+        "type": "string",
+        "optional": true,
+        "comment": "脆弱性自定义字段(JSON object)",
+        "queryType": "JSON"
+      },
+      "vuln_tag": {
+        "type": "string",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "标签列表"
+      },
+      "task_name": {
+        "type": "string",
+        "optional": true,
+        "comment": "任务名称"
+      }
+    },
+    "reply": {}
+  }
+]

@@ -84,8 +84,14 @@ func applyEnvOverrides(product string, target any) {
 		return
 	}
 
-	envPrefix := normalizeEnvSegment(product)
-	applyStructEnvOverrides(elem, []string{envPrefix})
+	legacyPrefix := legacyEnvSegment(product)
+	preferredPrefix := normalizeEnvSegment(product)
+	if legacyPrefix != preferredPrefix {
+		// Apply the historical compact prefix first, then let the documented
+		// camel-case-aware prefix override it when both are present.
+		applyStructEnvOverrides(elem, []string{legacyPrefix})
+	}
+	applyStructEnvOverrides(elem, []string{preferredPrefix})
 }
 
 func applyStructEnvOverrides(v reflect.Value, path []string) {
@@ -147,19 +153,35 @@ func yamlFieldName(field reflect.StructField) (string, bool) {
 // segment. Dashes and dots become underscores, and camelCase boundaries are
 // split so that e.g. "cloudAtlas" becomes "CLOUD_ATLAS".
 func normalizeEnvSegment(s string) string {
+	runes := []rune(s)
+	var result strings.Builder
+	lastUnderscore := false
+	for i, r := range runes {
+		if r == '-' || r == '.' || r == '_' || unicode.IsSpace(r) {
+			if result.Len() > 0 && !lastUnderscore {
+				result.WriteByte('_')
+				lastUnderscore = true
+			}
+			continue
+		}
+
+		if unicode.IsUpper(r) && result.Len() > 0 && !lastUnderscore {
+			previous := runes[i-1]
+			nextIsLower := i+1 < len(runes) && unicode.IsLower(runes[i+1])
+			if unicode.IsLower(previous) || unicode.IsDigit(previous) || (unicode.IsUpper(previous) && nextIsLower) {
+				result.WriteByte('_')
+			}
+		}
+		result.WriteRune(unicode.ToUpper(r))
+		lastUnderscore = false
+	}
+	return strings.Trim(result.String(), "_")
+}
+
+func legacyEnvSegment(s string) string {
 	s = strings.ReplaceAll(s, "-", "_")
 	s = strings.ReplaceAll(s, ".", "_")
-
-	var b strings.Builder
-	var prev rune
-	for _, r := range s {
-		if unicode.IsUpper(r) && (unicode.IsLower(prev) || unicode.IsDigit(prev)) {
-			b.WriteRune('_')
-		}
-		b.WriteRune(r)
-		prev = r
-	}
-	return strings.ToUpper(b.String())
+	return strings.ToUpper(s)
 }
 
 func decodeScalar(raw string, target reflect.Value) error {

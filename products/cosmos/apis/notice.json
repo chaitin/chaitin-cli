@@ -1,0 +1,685 @@
+[
+  {
+    "name": "NoticeService.CreateWebhook",
+    "comment": "创建Webhook",
+    "args": {
+      "display_name": {
+        "type": "string",
+        "optional": false,
+        "comment": "Webhook显示名称"
+      },
+      "type": {
+        "type": "integer",
+        "optional": false,
+        "comment": "Webhook类型: 0钉钉 1企业微信"
+      },
+      "webhook_secret": {
+        "type": "string",
+        "optional": false,
+        "comment": "Webhook密钥"
+      },
+      "webhook_url": {
+        "type": "string",
+        "optional": false,
+        "comment": "Webhook URL地址"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.DeleteWebhook",
+    "comment": "删除Webhook",
+    "args": {
+      "id": {
+        "type": "integer",
+        "optional": false,
+        "comment": "Webhook ID"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.EditWebhook",
+    "comment": "编辑Webhook",
+    "args": {
+      "id": {
+        "type": "integer",
+        "optional": false,
+        "comment": "Webhook ID"
+      },
+      "webhook_secret": {
+        "type": "string",
+        "optional": false,
+        "comment": "Webhook密钥"
+      },
+      "webhook_url": {
+        "type": "string",
+        "optional": false,
+        "comment": "Webhook URL地址"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.EnableWebhook",
+    "comment": "启用/禁用Webhook",
+    "args": {
+      "id": {
+        "type": "integer",
+        "optional": false,
+        "comment": "Webhook ID"
+      },
+      "is_enabled": {
+        "type": "bool",
+        "optional": true,
+        "comment": "是否启用"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.GetWebhook",
+    "comment": "查询Webhook详情",
+    "args": {
+      "id": {
+        "type": "integer",
+        "optional": false,
+        "comment": "Webhook ID"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.ListWebhook",
+    "comment": "查询Webhook列表",
+    "args": {
+      "count": {
+        "type": "integer",
+        "optional": true,
+        "comment": "每页数量"
+      },
+      "offset": {
+        "type": "integer",
+        "optional": true,
+        "comment": "偏移量"
+      },
+      "display_name": {
+        "type": "string",
+        "optional": true,
+        "comment": "Webhook名称过滤"
+      },
+      "is_enabled": {
+        "type": "string",
+        "optional": true,
+        "comment": "是否启用过滤"
+      },
+      "type": {
+        "type": "integer",
+        "optional": true,
+        "comment": "Webhook类型过滤: 0钉钉 1企业微信"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.GetNoticeHistory",
+    "comment": "获取通知历史记录",
+    "args": {},
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.GetNoticeSmtpConfig",
+    "comment": "获取邮件SMTP配置",
+    "args": {},
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.GetNoticeTemplate",
+    "comment": "获取通知模板",
+    "args": {
+      "template_type": {
+        "type": "string",
+        "optional": false,
+        "comment": "模板类型: asset_ip IP资产 asset_web应用资产 vuln_ip IP漏洞 vuln_web应用漏洞 alarm告警"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.GetSmsConfig",
+    "comment": "获取短信配置",
+    "args": {},
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.GetSmsTplList",
+    "comment": "获取短信模板列表",
+    "args": {},
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.GetVolumeConfig",
+    "comment": "获取通知量配置",
+    "args": {},
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.NoticeTest",
+    "comment": "通知测试（发送测试邮件/短信）",
+    "args": {
+      "to_email": {
+        "type": "string",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "测试邮件接收人列表"
+      },
+      "to_sms": {
+        "type": "string",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "测试短信接收人列表"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.QuerySmsTplStatus",
+    "comment": "查询短信模板审核状态",
+    "args": {
+      "tpl_ids": {
+        "type": "string",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "短信模板ID列表"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.ApplySmsTplCode",
+    "comment": "申请短信模板验证码",
+    "args": {
+      "tpl_ids": {
+        "type": "string",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "短信模板ID列表"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.SaveSmsConfig",
+    "comment": "保存短信配置",
+    "args": {
+      "access_key_id": {
+        "type": "string",
+        "optional": false,
+        "comment": "短信服务AccessKeyId"
+      },
+      "access_secret": {
+        "type": "string",
+        "optional": false,
+        "comment": "短信服务AccessKeySecret"
+      },
+      "ali_sign_name": {
+        "type": "string",
+        "optional": false,
+        "comment": "阿里云短信签名"
+      },
+      "app_name": {
+        "type": "string",
+        "optional": false,
+        "comment": "短信应用名称"
+      },
+      "use_app": {
+        "type": "bool",
+        "optional": false,
+        "comment": "是否使用应用"
+      },
+      "use_proxy": {
+        "type": "bool",
+        "optional": false,
+        "comment": "是否使用代理"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.SaveVolumeConfig",
+    "comment": "保存通知量配置",
+    "args": {
+      "enabled": {
+        "type": "bool",
+        "optional": false,
+        "comment": "是否启用通知量限制"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.UpdateNoticeTemplate",
+    "comment": "更新通知模板",
+    "args": {
+      "content": {
+        "type": "string",
+        "optional": false,
+        "comment": "模板内容"
+      },
+      "template_type": {
+        "type": "string",
+        "optional": false,
+        "comment": "模板类型: asset_ip IP资产 asset_web应用资产 vuln_ip IP漏洞 vuln_web应用漏洞 alarm告警"
+      },
+      "title": {
+        "type": "string",
+        "optional": false,
+        "comment": "模板标题"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.RemoveNoticeFollower",
+    "comment": "移除通知订阅人",
+    "args": {
+      "id": {
+        "type": "integer",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "订阅人ID列表"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.DeleteStrategy",
+    "comment": "删除通知策略",
+    "args": {
+      "id": {
+        "type": "integer",
+        "optional": false,
+        "comment": "策略ID"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.OperatorStrategy",
+    "comment": "启停通知策略",
+    "args": {
+      "id": {
+        "type": "integer",
+        "optional": false,
+        "comment": "策略ID"
+      },
+      "status": {
+        "type": "integer",
+        "optional": false,
+        "comment": "策略状态: 1未启用/禁用 2已启用"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.GetStrategy",
+    "comment": "查看通知策略详情",
+    "args": {
+      "id": {
+        "type": "integer",
+        "optional": false,
+        "comment": "策略ID"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.GetStrategyList",
+    "comment": "查看通知策略列表",
+    "args": {
+      "count": {
+        "type": "integer",
+        "optional": false,
+        "comment": "每页数量（必填）"
+      },
+      "offset": {
+        "type": "integer",
+        "optional": false,
+        "comment": "偏移量（必填）"
+      },
+      "created_by_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "创建人ID过滤（JSON，如: [{\"eq\":1}]）",
+        "queryType": "UintQuery"
+      },
+      "name": {
+        "type": "string",
+        "optional": true,
+        "comment": "策略名称过滤（JSON，如: [{\"eq\":\"name\"}]）",
+        "queryType": "StringQuery"
+      },
+      "status": {
+        "type": "string",
+        "optional": true,
+        "comment": "状态过滤: 1未启用/禁用 2已启用（JSON，如: [{\"eq\":1}]）",
+        "queryType": "UintQuery"
+      },
+      "strategy_type": {
+        "type": "string",
+        "optional": true,
+        "comment": "策略类型过滤: audit_log审计日志 sys_alarm系统告警（JSON，如: [{\"eq\":\"sys_alarm\"}]）",
+        "queryType": "StringQuery"
+      },
+      "updated_at": {
+        "type": "string",
+        "optional": true,
+        "comment": "更新时间过滤（JSON，如: [{\"gt\":\"2024-01-01\"}]）",
+        "queryType": "TimeQuery"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.CreateStrategy",
+    "comment": "创建通知策略",
+    "args": {
+      "created_by_id": {
+        "type": "integer",
+        "optional": false,
+        "comment": "创建人ID"
+      },
+      "describe": {
+        "type": "string",
+        "optional": false,
+        "comment": "策略描述"
+      },
+      "email": {
+        "type": "string",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "邮件接收人列表"
+      },
+      "match_rule": {
+        "type": "string",
+        "optional": false,
+        "comment": "匹配规则"
+      },
+      "name": {
+        "type": "string",
+        "optional": false,
+        "comment": "策略名称"
+      },
+      "send_notice": {
+        "type": "bool",
+        "optional": false,
+        "comment": "是否发送通知"
+      },
+      "sms": {
+        "type": "string",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "短信接收人列表"
+      },
+      "strategy_type": {
+        "type": "string",
+        "optional": false,
+        "comment": "策略类型: audit_log审计日志 sys_alarm系统告警"
+      },
+      "template": {
+        "type": "string",
+        "optional": false,
+        "comment": "通知模板内容"
+      },
+      "topic_name": {
+        "type": "string",
+        "optional": false,
+        "comment": "主题名称"
+      },
+      "trigger_soar": {
+        "type": "bool",
+        "optional": false,
+        "comment": "是否触发SOAR"
+      },
+      "trigger_soar_params": {
+        "type": "string",
+        "optional": false,
+        "comment": "SOAR触发参数（JSON数组，如: [{\"soar_uuid\":\"xxx\",\"soar_args\":\"{}\"}]）",
+        "queryType": "JSON"
+      },
+      "webhook": {
+        "type": "integer",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "Webhook ID列表"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.EditStrategy",
+    "comment": "编辑通知策略",
+    "args": {
+      "id": {
+        "type": "integer",
+        "optional": false,
+        "comment": "策略ID"
+      },
+      "describe": {
+        "type": "string",
+        "optional": false,
+        "comment": "策略描述"
+      },
+      "email": {
+        "type": "string",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "邮件接收人列表"
+      },
+      "match_rule": {
+        "type": "string",
+        "optional": false,
+        "comment": "匹配规则"
+      },
+      "name": {
+        "type": "string",
+        "optional": false,
+        "comment": "策略名称"
+      },
+      "send_notice": {
+        "type": "bool",
+        "optional": false,
+        "comment": "是否发送通知"
+      },
+      "sms": {
+        "type": "string",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "短信接收人列表"
+      },
+      "strategy_type": {
+        "type": "string",
+        "optional": false,
+        "comment": "策略类型: audit_log审计日志 sys_alarm系统告警"
+      },
+      "template": {
+        "type": "string",
+        "optional": false,
+        "comment": "通知模板内容"
+      },
+      "topic_name": {
+        "type": "string",
+        "optional": false,
+        "comment": "主题名称"
+      },
+      "trigger_soar": {
+        "type": "bool",
+        "optional": false,
+        "comment": "是否触发SOAR"
+      },
+      "trigger_soar_params": {
+        "type": "string",
+        "optional": false,
+        "comment": "SOAR触发参数（JSON数组，如: [{\"soar_uuid\":\"xxx\",\"soar_args\":\"{}\"}]）",
+        "queryType": "JSON"
+      },
+      "webhook": {
+        "type": "integer",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "Webhook ID列表"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.SearchNoticeFollower",
+    "comment": "查询通知订阅人列表",
+    "args": {
+      "count": {
+        "type": "integer",
+        "optional": true,
+        "comment": "每页数量"
+      },
+      "offset": {
+        "type": "integer",
+        "optional": true,
+        "comment": "偏移量"
+      },
+      "channel": {
+        "type": "string",
+        "optional": true,
+        "comment": "通知渠道过滤: 0邮件 1短信 2Webhook（JSON，如: [{\"in\":[1,2]}]）",
+        "queryType": "UintInArrayQuery"
+      },
+      "id": {
+        "type": "string",
+        "optional": true,
+        "comment": "订阅人ID过滤（JSON，如: [{\"eq\":1}]）",
+        "queryType": "UintQuery"
+      },
+      "module": {
+        "type": "string",
+        "optional": true,
+        "comment": "模块过滤: 1网站监测 2告警 3关联分析 4报表 5流量查询 6监控告警 7事件存储可用性（JSON，如: [{\"in\":[1,2]}]）",
+        "queryType": "UintInArrayQuery"
+      },
+      "user_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "用户ID过滤（JSON，如: [{\"eq\":1}]）",
+        "queryType": "UintQuery"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.SaveNoticeFollower",
+    "comment": "保存通知订阅人",
+    "args": {
+      "channel": {
+        "type": "string",
+        "optional": false,
+        "comment": "通知渠道（JSON数组，channel_type: 0邮件 1短信 2Webhook，如: [{\"channel_type\":1,\"enabled\":true}]）",
+        "queryType": "JSON"
+      },
+      "describe": {
+        "type": "string",
+        "optional": false,
+        "comment": "描述"
+      },
+      "id": {
+        "type": "integer",
+        "optional": false,
+        "comment": "订阅人ID（更新时填入）"
+      },
+      "module": {
+        "type": "string",
+        "optional": false,
+        "comment": "通知模块（JSON数组，module_type: 1网站监测 2告警 3关联分析 4报表 5流量查询 6监控告警 7事件存储可用性，如: [{\"module_type\":1,\"enabled\":true}]）",
+        "queryType": "JSON"
+      },
+      "name": {
+        "type": "string",
+        "optional": false,
+        "comment": "订阅人名称"
+      },
+      "to": {
+        "type": "integer",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "接收用户ID列表"
+      },
+      "webhooks": {
+        "type": "integer",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "Webhook ID列表"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "NoticeService.UpdateNoticeSmtpConfig",
+    "comment": "更新邮件SMTP配置",
+    "args": {
+      "email": {
+        "type": "string",
+        "optional": false,
+        "comment": "发件人邮箱"
+      },
+      "encrypt": {
+        "type": "string",
+        "optional": false,
+        "comment": "加密方式（如 SSL/TLS）"
+      },
+      "host": {
+        "type": "string",
+        "optional": false,
+        "comment": "SMTP服务器地址"
+      },
+      "ips": {
+        "type": "string",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "IP地址列表"
+      },
+      "no_auth": {
+        "type": "bool",
+        "optional": false,
+        "comment": "是否无需认证"
+      },
+      "password": {
+        "type": "string",
+        "optional": false,
+        "comment": "邮箱密码"
+      },
+      "port": {
+        "type": "integer",
+        "optional": false,
+        "comment": "SMTP端口"
+      },
+      "proxy_host": {
+        "type": "string",
+        "optional": false,
+        "comment": "代理服务器地址"
+      },
+      "proxy_port": {
+        "type": "integer",
+        "optional": false,
+        "comment": "代理服务器端口"
+      },
+      "use_proxy": {
+        "type": "bool",
+        "optional": false,
+        "comment": "是否使用代理"
+      },
+      "username": {
+        "type": "string",
+        "optional": false,
+        "comment": "邮箱用户名"
+      }
+    },
+    "reply": {}
+  }
+]

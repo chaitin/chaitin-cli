@@ -3,6 +3,7 @@ package log
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/chaitin/chaitin-cli/products/safeline/cmd"
 	"github.com/chaitin/chaitin-cli/products/safeline/version"
@@ -40,6 +41,14 @@ func newDetectListCmd() *cobra.Command {
 	var targetPage int
 	var tailSort string
 	var headSort string
+	var srcIP string
+	var srcCIDR string
+	var host string
+	var urlPath string
+	var method string
+	var statusCode string
+	var eventID string
+	var filters []string
 
 	c := &cobra.Command{
 		Use:   "list",
@@ -52,6 +61,14 @@ Parameters:
   --target-page  Target page number, starts from 1 (default: 1)
   --tail-sort    Sort cursor for forward pagination (JSON array from last item's sort field)
   --head-sort    Sort cursor for backward pagination (JSON array from first item's sort field)
+  --src-ip       Filter by exact source IP
+  --src-cidr     Filter by source CIDR
+  --host         Filter by host substring
+  --url-path     Filter by URL path substring
+  --method       Filter by HTTP method
+  --status-code  Filter by exact status code
+  --event-id     Filter by exact event ID
+  --filter       Raw FilterV2 key=value filter (repeatable)
 
 Pagination:
   - First query: current_page=0, target_page=1, no sort cursor needed
@@ -62,6 +79,9 @@ Pagination:
 Examples:
   safeline log detect list
   safeline log detect list --count 50
+  safeline log detect list --src-ip 1.2.3.4
+  safeline log detect list --src-cidr 1.2.3.0/24 --host example.com
+  safeline log detect list --filter attack_type__in=5 --filter risk_level__in=2
   safeline log detect list --current-page 1 --target-page 2 --tail-sort '[1743628800, "abc123"]'`,
 		RunE: func(c *cobra.Command, args []string) error {
 			cl := cmd.NewClient()
@@ -72,6 +92,16 @@ Examples:
 				"current_page": fmt.Sprintf("%d", currentPage),
 				"target_page":  fmt.Sprintf("%d", targetPage),
 				"count":        fmt.Sprintf("%d", count),
+			}
+			addOptionalQuery(query, "src_ip__exact", srcIP)
+			addOptionalQuery(query, "src_ip__net_contained_or_equal", srcCIDR)
+			addOptionalQuery(query, "host__contains", host)
+			addOptionalQuery(query, "url_path__contains", urlPath)
+			addOptionalQuery(query, "method__in", method)
+			addOptionalQuery(query, "status_code__exact", statusCode)
+			addOptionalQuery(query, "event_id__exact", eventID)
+			if err := addRawFilters(query, filters); err != nil {
+				return err
 			}
 
 			// Filter params based on server version
@@ -157,8 +187,35 @@ Examples:
 	c.Flags().IntVar(&targetPage, "target-page", 1, "Target page number (starts from 1)")
 	c.Flags().StringVar(&tailSort, "tail-sort", "", "Sort cursor for forward pagination (JSON array)")
 	c.Flags().StringVar(&headSort, "head-sort", "", "Sort cursor for backward pagination (JSON array)")
+	c.Flags().StringVar(&srcIP, "src-ip", "", "Filter by exact source IP")
+	c.Flags().StringVar(&srcCIDR, "src-cidr", "", "Filter by source CIDR")
+	c.Flags().StringVar(&host, "host", "", "Filter by host substring")
+	c.Flags().StringVar(&urlPath, "url-path", "", "Filter by URL path substring")
+	c.Flags().StringVar(&method, "method", "", "Filter by HTTP method")
+	c.Flags().StringVar(&statusCode, "status-code", "", "Filter by exact status code")
+	c.Flags().StringVar(&eventID, "event-id", "", "Filter by exact event ID")
+	c.Flags().StringArrayVar(&filters, "filter", nil, "Raw FilterV2 query filter in key=value form; can be repeated")
 
 	return c
+}
+
+func addOptionalQuery(query map[string]string, key, value string) {
+	if value = strings.TrimSpace(value); value != "" {
+		query[key] = value
+	}
+}
+
+func addRawFilters(query map[string]string, filters []string) error {
+	for _, filter := range filters {
+		key, value, ok := strings.Cut(filter, "=")
+		key = strings.TrimSpace(key)
+		value = strings.TrimSpace(value)
+		if !ok || key == "" || value == "" {
+			return fmt.Errorf("invalid --filter %q: use key=value", filter)
+		}
+		query[key] = value
+	}
+	return nil
 }
 
 func newDetectGetCmd() *cobra.Command {

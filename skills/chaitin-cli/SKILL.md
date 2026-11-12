@@ -1,6 +1,6 @@
 ---
 name: chaitin-cli
-description: "Use when running chaitin-cli commands to manage Chaitin security products: SafeLine WAF (site management, IP blocking, ACL, policy rules, attack logs), X-Ray vulnerability scanner (scan tasks, results, assets), CodeInsight (projects, repository configs, scan tasks, reports), CodeForce (projects, AI tasks, denoise, repositories), CloudWalker CWPP (events, vulnerabilities, assets), and T-Answer (firewall rules, blocklists)."
+description: "Use when running chaitin-cli commands to manage Chaitin security products: SafeLine WAF (site management, IP blocking, ACL, policy rules, attack logs), X-Ray vulnerability scanner (scan tasks, results, assets), CodeInsight (projects, repository configs, scan tasks, reports), CodeForce (projects, AI tasks, denoise, repositories), CloudWalker CWPP (events, vulnerabilities, assets), and T-Answer (semantic security operations for alarms, assets, policies, response actions, and Open API fallback)."
 version: 1.0.0
 author: chaitin
 tags: [chaitin-cli, safeline, xray, codeinsight, codeforce, cloudwalker, tanswer, waf, security, chaitin, cli, ddr, veinmind]
@@ -66,12 +66,14 @@ Before running any `chaitin-cli` command:
 
 1. **Network reachability** — the machine running `chaitin-cli` must be able to reach each product's console / API endpoint.
 2. **API key** — generate one from each product's UI (SafeLine → System → API Token; X-Ray → System Settings → API Key; etc.) and supply it via `--api-key`, the product env var, or `config.yaml`.
-3. **TLS with self-signed certs** — `chaitin-cli xray` takes `--insecure` (off by default). `chaitin-cli safeline` also exposes `--insecure`, but its default is `true` (already skipping verification); pass `--insecure=false` to re-enable verification. `chaitin-cli safeline-ce`, `chaitin-cli cloudwalker`, and `chaitin-cli tanswer` don't expose the flag and always skip TLS verification in their HTTP clients.
+3. **TLS with self-signed certs** — `chaitin-cli xray` takes `--insecure` (off by default). `chaitin-cli safeline` also exposes `--insecure`, but its default is `true` (already skipping verification); pass `--insecure=false` to re-enable verification. `chaitin-cli tanswer` exposes `--insecure` for environments that require skipping TLS certificate verification. Other products differ, so check product help when unsure.
 4. **Build from source** — Go 1.25+ (see `go.mod`). Otherwise use the pre-built binary from GitHub Releases.
 
 ## Configuration
 
-Create `config.yaml` in the working directory:
+For a project-specific setup, create a recognized `./config.yaml` in the working directory (it must contain at least one chaitin-cli product name such as `tanswer`). Otherwise, place the same configuration in `~/.chaitin-cli/config.yaml`, which is the default configuration path:
+For T-Answer, use `--url`, `--api-key`, `--timeout`, and `--insecure`; `TANSWER_URL`, `TANSWER_API_KEY`, `TANSWER_TIMEOUT`, and `TANSWER_INSECURE`; or `tanswer.url`, `tanswer.api_key`, `tanswer.timeout`, and `tanswer.insecure` in the shared configuration file.
+
 
 ```yaml
 safeline:
@@ -95,8 +97,10 @@ veinmind:
   api_key: YOUR_64_CHARACTER_API_TOKEN
 
 tanswer:
-  url: https://your-tanswer-server
-  api_key: YOUR_API_KEY
+  url: 'https://<全悉 Web 端 IP>'
+  api_key: '<全悉 OpenAPI Token>'
+  timeout: 30s
+  insecure: false
 
 codeinsight:
   url: https://your-codeinsight-server
@@ -114,9 +118,13 @@ DDR_URL=https://your-ddr-server/qzh/api/v1
 DDR_API_KEY=YOUR_API_KEY
 CODEINSIGHT_URL=https://your-codeinsight-server
 CODEINSIGHT_TOKEN=YOUR_ACCESS_TOKEN
+TANSWER_URL='https://<全悉 Web 端 IP>'
+TANSWER_API_KEY='<全悉 OpenAPI Token>'
+TANSWER_TIMEOUT=30s
+TANSWER_INSECURE=false
 ```
 
-Priority: `flags > environment/.env > config.yaml`
+Priority: `flags > environment/.env > recognized ./config.yaml > ~/.chaitin-cli/config.yaml`. A local `./config.yaml` that does not contain a recognized chaitin-cli product is ignored, so it will not accidentally override another project's configuration.
 
 Use `-c` to switch between config files (e.g., multiple environments):
 
@@ -129,7 +137,7 @@ chaitin-cli -c ./configs/staging.yaml safeline stats overview
 
 | Flag | Description |
 |------|-------------|
-| `-c, --config` | Config file path (default: `./config.yaml`) |
+| `-c, --config` | Explicit config file path. Without this flag, CLI tries recognized `./config.yaml` first, then `~/.chaitin-cli/config.yaml`. |
 | `--dry-run` | Print the API request without executing when the product honors it. Applied by the root command to `xray`, `cloudwalker`, and `veinmind`. `safeline` registers its own `--dry-run` and forwards it to subcommands. `safeline-ce` inherits the root flag, but the current codebase stores the value without using it; `tanswer` ignores it. |
 
 ### Discovering Commands
@@ -166,9 +174,9 @@ Each product uses its own output convention — there is no unified `-f` / `--fo
 | `chaitin-cli xray` | JSON (no alternative) | — | `--debug` for debug logs |
 | `chaitin-cli cloudwalker` | text | `-f json` (or `--format json`) | `--no-trunc` to disable text truncation |
 | `chaitin-cli veinmind` | table | `-o json` (or `--output json`) | `-v` for request debug; `--dry-run` prints request summary |
-| `chaitin-cli tanswer` | formatted text | `--raw` (bool) | — |
+| `chaitin-cli tanswer` | JSON | default; no format switch required | `--insecure` for TLS certificate verification bypass |
 
-When piping into `jq`, note that SafeLine uses `--indent` (not `-o`/`-f`), and T-Answer uses `--raw`.
+When piping into `jq`, note that SafeLine uses `--indent` (not `-o`/`-f`), and T-Answer outputs JSON by default.
 
 ---
 
@@ -202,7 +210,7 @@ Pick by task, not by product name. Items are listed most- to least-common.
 | DDR approvals / policy logs | `ddr disposal approvalinstance list` · `ddr policylog channel list` · `ddr policylog softwarenetwork list` |
 | DDR behavior control policies | `ddr policy channel` · `ddr policy landing` · `ddr policy email` · `ddr policy codecontrol` · `ddr policy clipboard` · `ddr policy webpost-control` |
 | DDR device uninstall | `ddr device status-action --operation uninstall` |
-| Traffic-level threat detection firewall (whitelist / block rules) | `tanswer firewall` · `tanswer rules` |
+| Traffic threat detection and response operations | `tanswer alarm` · `tanswer file-alarm` · `tanswer asset` · `tanswer policy` · `tanswer response` |
 | System info / license management | `safeline system` · `safeline-ce cert info/get` · `xray system_info` · `xray system_service PostSystemLicense` |
 
 ---
@@ -749,30 +757,46 @@ Do not invent VeinMind request bodies. Confirm the leaf command with `--help`, i
 
 ## T-Answer (全悉 Traffic Threat Detection)
 
-### Global Flags (T-Answer)
+For T-Answer tasks, use the following protocol:
 
-| Flag | Env Var | Description |
-|------|---------|-------------|
-| `--url` | `TANSWER_URL` | T-Answer server address (required) |
-| `--api-key` | `TANSWER_API_KEY` | API token |
+1. **Connect and authenticate.** Configure `TANSWER_URL` and `TANSWER_API_KEY` (or the `tanswer` config section). Run `chaitin-cli tanswer auth status` to inspect local configuration and `chaitin-cli tanswer auth check` before accessing the product. If configuration or authorization is unavailable, ask the user; do not invent values.
+2. **Discover before operating.** First run `chaitin-cli tanswer --help`, then domain and leaf-command `--help`. Discover unknown commands, flags, output fields, and protected-write requirements from help or `chaitin-cli tanswer manifest`; do not depend on repository product documents or guess commands.
+3. **Read operations.** Prefer semantic commands over `api`, execute read-only operations after authentication, and summarize the returned JSON for the user.
+4. **Protected semantic writes require user authorization.** First run the target command with `--preview`. Present the target, change summary, impact, and risk warnings to the user, then wait for explicit confirmation for that specific change. Only after the user confirms may you invoke the command with its exact documented `--confirm` token. A token discoverable from help or manifest is a mechanical CLI requirement, not user authorization; never use it to execute a write on your own.
+5. **Open API fallback.** Use `chaitin-cli tanswer api` only when no semantic command covers the requested capability and the user has supplied a known, authorized endpoint, method, and request body. Do not guess RPC methods, paths, or request bodies. GET/HEAD requests may run directly. For every other HTTP method, first run the command without `--confirm` or with `--preview`; present its method, path, query, body, and risks; wait for explicit confirmation for that exact request; then use `--confirm CONFIRM_TANSWER_RAW_API_WRITE`. The root-level `--dry-run` flag does not apply to `tanswer`.
 
-> Note: T-Answer does not expose `--insecure`, but its HTTP client always sets `InsecureSkipVerify: true`, so self-signed certs just work — no CA install or HTTP fallback needed.
+### Fast Agent Workflow (T-Answer)
 
-### Commands
+Before autonomous T-Answer work, run `chaitin-cli tanswer auth check` and `chaitin-cli tanswer manifest` unless the current session already verified the environment. For create, update, delete, import, enable, disable, or response actions, run the command with `--preview` first and do not fill `--confirm` unless the user or upstream system explicitly provides the exact confirmation token.
 
-```bash
-# Firewall whitelist
-chaitin-cli tanswer firewall check-ip-is-white       # Check if IP is whitelisted
-chaitin-cli tanswer firewall search-white-list       # Search whitelist entries
-chaitin-cli tanswer firewall delete-white-list       # Remove from whitelist
-chaitin-cli tanswer firewall update-white-list-status  # Enable/disable whitelist entry
+For routine read-only tasks, this section is enough. For complex routing, write-operation planning, or ambiguous policy/response decisions, continue with the relevant domain/leaf `--help` and `chaitin-cli tanswer manifest`; do not guess. Use `products/tanswer/COMMAND_REFERENCE.md` when a specific command's full flags, output fields, long examples, or boundaries are needed. Onboarding, Token setup, permission requirements, smoke tests, and troubleshooting live in `products/tanswer/README.md`.
 
-# Block rules
-chaitin-cli tanswer rules search-block-rules         # List block rules
-chaitin-cli tanswer rules create-block-rules         # Create a block rule
-chaitin-cli tanswer rules update-block-rules         # Update a block rule
-chaitin-cli tanswer rules update-block-rules-status  # Enable/disable a block rule
-```
+### Quick Routing (T-Answer)
+
+| User intent | Prefer |
+| --- | --- |
+| Verify connection, local config, or Token availability | `tanswer auth status`, `tanswer auth check` |
+| Discover supported commands, flags, risk levels, output fields | `tanswer manifest` |
+| System version, License, node status, health summary | `tanswer system status` |
+| Overall threat posture, alarm distribution, attacker/victim top lists | `tanswer alarm overview` |
+| Critical/high successful or compromised alarms for duty handling | `tanswer alarm high-priority` |
+| Original threat alarm rows or one alarm detail | `tanswer alarm list`, then `tanswer alarm detail --id <doc_id>` |
+| Related alarms around one source alarm | `tanswer alarm related --id <doc_id>` |
+| Malicious file, Webshell, or sandbox-result investigation | `tanswer file-alarm overview`, `malicious`, `webshell`, `sandbox`, `detail` |
+| Configured asset inventory, group tree, import/export, asset maintenance | `tanswer asset ...` |
+| Traffic metadata by protocol, advanced query, detail, or alarm context | `tanswer metadata ...` |
+| Detection whitelist or custom IOC intelligence | `tanswer policy ...` |
+| Bypass block policies, block records, response whitelist, linkage devices, automatic response | `tanswer response ...` |
+
+Use `alarm detail`, `file-alarm detail`, `asset detail`, `metadata detail`, `metadata near-alarm`, and alarm-derived policy/response commands only after the required IDs are available from list/detail commands or the user.
+
+### Safety Rules (T-Answer)
+
+- Do not bypass `chaitin-cli tanswer` with `curl` for state-changing operations.
+- Do not guess RPC methods or request bodies. Use semantic commands, `manifest`, command `--help`, or user-provided authorized Open API documentation.
+- Do not use `file-alarm` to download samples, submit samples, or trigger new sandbox analysis.
+- Treat `metadata near-alarm` as investigation context, not standalone proof of an attack.
+- Do not treat T-Answer response records as proof that a third-party device completed enforcement without separate validation.
 
 ---
 

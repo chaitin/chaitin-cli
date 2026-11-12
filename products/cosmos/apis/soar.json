@@ -1,0 +1,47 @@
+[
+  {
+    "name": "AnalysisService.GetSOARPlaybookList",
+    "comment": "获取 SOAR 剧本列表",
+    "args": {
+      "types": {"type": "integer", "optional": true, "comment": "类型: 1 剧本 2 智能体，默认 1"},
+      "ai_call": {"type": "integer", "optional": true, "comment": "AI 调用: 1 是 2 否，默认全部"},
+      "description": {"type": "string", "optional": true, "comment": "描述过滤"},
+      "display_name": {"type": "string", "optional": true, "comment": "中文名称过滤"},
+      "display_name_en": {"type": "string", "optional": true, "comment": "英文名称过滤"},
+      "group_name": {"type": "string", "optional": true, "comment": "分组名过滤"}
+    },
+    "reply": {}
+  },
+  {
+    "name": "AnalysisService.GetSoarJobExecInfoList",
+    "comment": "获取 SOAR 执行记录列表",
+    "args": {
+      "user_id": {"type": "integer", "optional": true, "comment": "用户 ID"},
+      "job_id": {"type": "integer", "optional": true, "comment": "任务 ID"},
+      "model_id": {"type": "integer", "optional": true, "comment": "剧本 ID"},
+      "offset": {"type": "integer", "optional": true, "comment": "偏移量"},
+      "count": {"type": "integer", "optional": true, "comment": "数量"},
+      "trigger_way": {"type": "string", "optional": true, "comment": "触发方式，如 ANALYSIS_RULES、ALARM_HANDLING、NOTICE_STRATEGY、API_TRIGGER、AUTO_STRATEGY"},
+      "organize_id": {"type": "string", "optional": true, "comment": "组织机构 ID，多个用逗号分隔；为空时使用当前用户可访问组织"},
+      "deploy_name_cn": {"type": "string", "optional": true, "comment": "剧本名称"},
+      "task_status": {"type": "string", "optional": true, "comment": "任务状态: RUN、CLOSE、ERROR、END"},
+      "start_time": {"type": "integer", "optional": true, "comment": "任务开始时间起点（时间戳）"},
+      "end_time": {"type": "integer", "optional": true, "comment": "任务开始时间终点（时间戳）"}
+    },
+    "reply": {}
+  },
+  {
+    "name": "AlarmService.TriggerPlaybookGeneral",
+    "comment": "触发 SOAR 剧本（通用）",
+    "args": {
+      "soar_id": {"type": "string", "optional": false, "comment": "SOAR 剧本 UUID"},
+      "params": {
+        "type": "string",
+        "optional": false,
+        "comment": "SOAR 入参对象（JSON，如: {\"title\":\"告警标题\",\"msg\":\"通知内容\"}；需与剧本参数定义匹配）",
+        "queryType": "JSON"
+      }
+    },
+    "reply": {}
+  }
+]

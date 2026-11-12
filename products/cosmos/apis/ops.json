@@ -1,0 +1,249 @@
+[
+  {
+    "name": "OpsService.BigdataCpuAvg",
+    "comment": "查询集群节点CPU平均使用率",
+    "paramStyle": "array",
+    "args": {
+      "end": {
+        "type": "float",
+        "optional": false,
+        "comment": "结束时间（Unix秒级时间戳，如: 1781519364）"
+      },
+      "ip": {
+        "type": "string",
+        "optional": false,
+        "comment": "节点IP地址"
+      },
+      "start": {
+        "type": "float",
+        "optional": false,
+        "comment": "开始时间（Unix秒级时间戳，如: 1781515764）"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "OpsService.BigdataMemAvg",
+    "comment": "查询集群节点内存平均使用率",
+    "paramStyle": "array",
+    "args": {
+      "end": {
+        "type": "float",
+        "optional": false,
+        "comment": "结束时间（Unix秒级时间戳，如: 1781519364）"
+      },
+      "ip": {
+        "type": "string",
+        "optional": false,
+        "comment": "节点IP地址"
+      },
+      "start": {
+        "type": "float",
+        "optional": false,
+        "comment": "开始时间（Unix秒级时间戳，如: 1781515764）"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "OpsService.BigdataDiskIO",
+    "comment": "查询集群节点磁盘IO",
+    "paramStyle": "array",
+    "args": {
+      "end": {
+        "type": "float",
+        "optional": false,
+        "comment": "结束时间（Unix秒级时间戳，如: 1781519364）"
+      },
+      "ip": {
+        "type": "string",
+        "optional": false,
+        "comment": "节点IP地址"
+      },
+      "start": {
+        "type": "float",
+        "optional": false,
+        "comment": "开始时间（Unix秒级时间戳，如: 1781515764）"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "OpsService.BigdataNetwork",
+    "comment": "查询集群节点网络IO",
+    "paramStyle": "array",
+    "args": {
+      "end": {
+        "type": "float",
+        "optional": false,
+        "comment": "结束时间（Unix秒级时间戳，如: 1781519364）"
+      },
+      "ip": {
+        "type": "string",
+        "optional": false,
+        "comment": "节点IP地址"
+      },
+      "start": {
+        "type": "float",
+        "optional": false,
+        "comment": "开始时间（Unix秒级时间戳，如: 1781515764）"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "OpsService.BigdataNodeList",
+    "comment": "查询集群节点列表",
+    "args": {},
+    "reply": {}
+  },
+  {
+    "name": "OpsService.BigdataAmbari",
+    "comment": "查询大数据集群ES监控总览",
+    "paramStyle": "array",
+    "args": {
+      "end": {
+        "type": "float",
+        "optional": false,
+        "comment": "结束时间（Unix秒级时间戳，如: 1781519364）"
+      },
+      "ip": {
+        "type": "string",
+        "optional": false,
+        "comment": "节点IP地址"
+      },
+      "start": {
+        "type": "float",
+        "optional": false,
+        "comment": "开始时间（Unix秒级时间戳，如: 1781515764）"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "OpsService.SearchSystemAlarm",
+    "comment": "查询系统告警列表",
+    "args": {
+      "count": {
+        "type": "integer",
+        "optional": true,
+        "comment": "每页数量"
+      },
+      "offset": {
+        "type": "integer",
+        "optional": true,
+        "comment": "偏移量"
+      },
+      "alarmed_at": {
+        "type": "string",
+        "optional": true,
+        "comment": "告警时间过滤（JSON，如: [{\"gt\":\"2024-01-01T00:00:00Z\"}]）",
+        "queryType": "TimeQuery"
+      },
+      "level": {
+        "type": "string",
+        "optional": true,
+        "comment": "告警等级过滤: CRITICAL紧急 MAJOR重要 MINOR次要 WARNING提示（JSON，如: [{\"eq\":\"CRITICAL\"}]）",
+        "queryType": "StringQuery"
+      },
+      "module": {
+        "type": "string",
+        "optional": true,
+        "comment": "告警模块过滤（JSON，如: [{\"eq\":\"etl\"}]）",
+        "queryType": "StringQuery"
+      },
+      "platform": {
+        "type": "string",
+        "optional": true,
+        "comment": "平台过滤（JSON，如: [{\"eq\":\"bigdata\"}]）",
+        "queryType": "StringQuery"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "OpsService.SearchSystemAlarmModule",
+    "comment": "查询系统告警模块列表",
+    "args": {
+      "platform": {
+        "type": "string",
+        "optional": true,
+        "comment": "平台过滤（JSON，如: [{\"eq\":\"bigdata\"}]）",
+        "queryType": "StringQuery"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "OpsService.SearchExecutor",
+    "comment": "查询执行器列表",
+    "args": {
+      "category": {
+        "type": "string",
+        "optional": false,
+        "comment": "执行器类型（必填，传执行器的 category 字符串；接口返回当前已注册执行器列表）"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "OpsService.SearchOperation",
+    "comment": "查询运维操作记录",
+    "args": {},
+    "reply": {}
+  },
+  {
+    "name": "OpsService.SearchPackage",
+    "comment": "查询升级包列表",
+    "args": {},
+    "reply": {}
+  },
+  {
+    "name": "OpsService.GetKafkaBootstrapServers",
+    "comment": "获取Kafka服务地址列表",
+    "args": {},
+    "reply": {}
+  },
+  {
+    "name": "OpsService.RestartEtlService",
+    "comment": "重启ETL服务",
+    "args": {},
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.DataMonitor",
+    "comment": "数据监控总览（探针/安全设备/泛化规则状态统计）",
+    "args": {},
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.GetDataMonitorStatus",
+    "comment": "获取数据监控详细状态",
+    "args": {
+      "time_unit": {
+        "type": "string",
+        "optional": true,
+        "comment": "时间筛选字段"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "ExtraSettingService.GetNodeInfo",
+    "comment": "获取节点信息（大数据组件/管理端组件健康状态，含HDFS/Yarn/Hive/Kafka/ZooKeeper及apsix/datasvr/estgo等）",
+    "args": {},
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.GetDataMonitorTendency",
+    "comment": "获取数据监控趋势",
+    "args": {
+      "time_unit": {
+        "type": "string",
+        "optional": true,
+        "comment": "时间筛选字段"
+      }
+    },
+    "reply": {}
+  }
+]

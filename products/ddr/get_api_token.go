@@ -56,7 +56,7 @@ func newGetAPITokenCommand() *cobra.Command {
 
 	cmd := &cobra.Command{
 		Use:   "get-api-token",
-		Short: "Create a Serval API token from a JWT token and persist it to config.yaml",
+		Short: "Create a Serval API token from a JWT token and persist it to a config file",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if runtimeConfigPath == "" {
 				return fmt.Errorf("config path is empty")

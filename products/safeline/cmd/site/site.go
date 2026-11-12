@@ -112,6 +112,7 @@ func NewCommand() *cobra.Command {
 	c.AddCommand(newDisableCmd())
 	c.AddCommand(newCreateCmd())
 	c.AddCommand(newDeleteCmd())
+	c.AddCommand(newHealthCmd())
 	return c
 }
 

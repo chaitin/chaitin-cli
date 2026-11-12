@@ -5,10 +5,13 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
+	"reflect"
 	"strings"
 	"testing"
 
 	"github.com/chaitin/chaitin-cli/config"
+	cloudatlasspec "github.com/chaitin/chaitin-cli/products/cloudatlas/spec"
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v3"
 )
@@ -78,6 +81,21 @@ func TestNewCommandHelpShowsGeneratedCommands(t *testing.T) {
 	}
 }
 
+func TestNewCommandHelpShowsOpenAPIBaseURLExample(t *testing.T) {
+	cmd := NewCommand()
+	cmd.SetArgs([]string{"--help"})
+	var out bytes.Buffer
+	cmd.SetOut(&out)
+	cmd.SetErr(&out)
+
+	if err := cmd.Execute(); err != nil {
+		t.Fatalf("Execute() error = %v", err)
+	}
+	if want := "https://host/openapi"; !strings.Contains(out.String(), want) {
+		t.Fatalf("help missing OpenAPI base URL example %q:\n%s", want, out.String())
+	}
+}
+
 func TestListSendsQueryAndTokenHeader(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
@@ -126,6 +144,68 @@ func TestListUsesConfiguredSpaceID(t *testing.T) {
 	ApplyRuntimeConfig(nil, rawConfig(Config{URL: server.URL, Token: "secret-token", SpaceID: "42"}), false)
 	cmd := NewCommand()
 	cmd.SetArgs([]string{"asset", "ip", "list", "--status", "valid"})
+
+	if err := cmd.Execute(); err != nil {
+		t.Fatalf("Execute() error = %v", err)
+	}
+}
+
+func TestWebsiteFingerprintListURLIsNotALocalFlag(t *testing.T) {
+	cmd := NewCommand()
+	leaf := findLeaf(t, cmd, "exposure", "website-fingerprint", "list")
+	if got := leaf.LocalFlags().Lookup("url"); got != nil {
+		t.Fatalf("--url should not be registered as a local query flag")
+	}
+	if got := leaf.Flags().Lookup("url"); got == nil {
+		t.Fatalf("--url should still be available as the base URL flag")
+	}
+}
+
+func TestWebsiteFingerprintListURLFlagDoesNotBecomeQueryParameter(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/v1/attack/appfinger" {
+			t.Fatalf("path = %s", r.URL.Path)
+		}
+		if got := r.Header.Get("TOKEN"); got != "secret-token" {
+			t.Fatalf("TOKEN = %q", got)
+		}
+		if got := r.URL.Query().Get("space"); got != "35" {
+			t.Fatalf("space = %q", got)
+		}
+		if r.URL.Query().Has("url") {
+			t.Fatalf("url query parameter should not be set from --url, got %q", r.URL.Query().Get("url"))
+		}
+		writeJSON(t, w, map[string]any{"code": 200, "message": "", "data": map[string]any{"current": 1, "size": 3, "total": 0, "items": []any{}}})
+	}))
+	defer server.Close()
+
+	ApplyRuntimeConfig(nil, rawConfig(Config{Token: "secret-token"}), false)
+	cmd := NewCommand()
+	cmd.SetArgs([]string{"exposure", "website-fingerprint", "list", "--url", server.URL, "--space-id", "35", "--page", "1", "--size", "3"})
+
+	if err := cmd.Execute(); err != nil {
+		t.Fatalf("Execute() error = %v", err)
+	}
+}
+
+func TestWebsiteFingerprintListURLFilterViaQueryFlag(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/v1/attack/appfinger" {
+			t.Fatalf("path = %s", r.URL.Path)
+		}
+		if got := r.URL.Query().Get("space"); got != "35" {
+			t.Fatalf("space = %q", got)
+		}
+		if got := r.URL.Query().Get("url"); got != "foo" {
+			t.Fatalf("url query parameter = %q, want foo", got)
+		}
+		writeJSON(t, w, map[string]any{"code": 200, "message": "", "data": map[string]any{"current": 1, "size": 3, "total": 0, "items": []any{}}})
+	}))
+	defer server.Close()
+
+	ApplyRuntimeConfig(nil, rawConfig(Config{Token: "secret-token"}), false)
+	cmd := NewCommand()
+	cmd.SetArgs([]string{"exposure", "website-fingerprint", "list", "--url", server.URL, "--space-id", "35", "--query", "url=foo", "--page", "1", "--size", "3"})
 
 	if err := cmd.Execute(); err != nil {
 		t.Fatalf("Execute() error = %v", err)
@@ -330,6 +410,297 @@ func TestRequestBodyHelpExplainsFields(t *testing.T) {
 			t.Fatalf("body help missing %q:\n%s", want, help)
 		}
 	}
+}
+
+func TestVulnerabilityListSerializesMultiSelectAsCommaSeparated(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		query := r.URL.Query()
+		// The embedded document models these multi-select filters as
+		// comma-separated strings, and the server ORs the comma values; sending
+		// one repeated key per value matches nothing.
+		assertQueryValues(t, query["status"], []string{"open,following"})
+		assertQueryValues(t, query["severity"], []string{"1,2"})
+		assertQueryValues(t, query["subject_id"], []string{"id1,id2"})
+		assertQueryValues(t, query["bu_id"], []string{"1,2"})
+		assertQueryValues(t, query["tag_id"], []string{"1,2"})
+
+		for key, want := range map[string]string{
+			"space":           "1",
+			"page":            "1",
+			"size":            "20",
+			"query":           "keyword",
+			"created_at_days": "30",
+		} {
+			if got := query.Get(key); got != want {
+				t.Errorf("query[%q] = %q, want %q", key, got, want)
+			}
+		}
+		writeJSON(t, w, map[string]any{"code": 200, "message": "", "data": map[string]any{"current": 1, "size": 20, "total": 0, "items": []any{}}})
+	}))
+	defer server.Close()
+
+	ApplyRuntimeConfig(nil, rawConfig(Config{URL: server.URL, Token: "token"}), false)
+	cmd := NewCommand()
+	cmd.SetOut(&bytes.Buffer{})
+	cmd.SetErr(&bytes.Buffer{})
+	cmd.SetArgs([]string{
+		"risk", "vulnerability", "list",
+		"--space", "1",
+		"--status", "open,following",
+		"--severity", "1,2",
+		"--subject-id", "id1,id2",
+		"--bu-id", "1,2",
+		"--tag-id", "1,2",
+		"--page", "1", "--size", "20", "--query", "keyword", "--created-at-days", "30",
+	})
+
+	if err := cmd.Execute(); err != nil {
+		t.Fatalf("Execute() error = %v", err)
+	}
+}
+
+func TestQueryParamPreservesRepeatedKeys(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		assertQueryValues(t, r.URL.Query()["status"], []string{"open", "following"})
+		writeJSON(t, w, map[string]any{"code": 200, "message": "", "data": map[string]any{"current": 1, "size": 20, "total": 0, "items": []any{}}})
+	}))
+	defer server.Close()
+
+	ApplyRuntimeConfig(nil, rawConfig(Config{URL: server.URL, Token: "token"}), false)
+	cmd := NewCommand()
+	cmd.SetOut(&bytes.Buffer{})
+	cmd.SetErr(&bytes.Buffer{})
+	cmd.SetArgs([]string{
+		"risk", "vulnerability", "list",
+		"--space", "1",
+		"--query-param", "status=open",
+		"--query-param", "status=following",
+	})
+
+	if err := cmd.Execute(); err != nil {
+		t.Fatalf("Execute() error = %v", err)
+	}
+}
+
+func TestVulnerabilityListDryRunSerializesCommaSeparatedMultiSelect(t *testing.T) {
+	oldDryRun, oldOutputFormat := dryRun, outputFormat
+	t.Cleanup(func() {
+		dryRun = oldDryRun
+		outputFormat = oldOutputFormat
+	})
+
+	tests := []struct {
+		name  string
+		value string
+		want  []string
+	}{
+		{name: "single value", value: "open", want: []string{"open"}},
+		{name: "comma separated values", value: "open,following", want: []string{"open,following"}},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			ApplyRuntimeConfig(nil, rawConfig(Config{}), true)
+			cmd := NewCommand()
+			cmd.SetArgs([]string{"risk", "vulnerability", "list", "--output", "json", "--space", "1", "--status", tt.value})
+			var out bytes.Buffer
+			cmd.SetOut(&out)
+			cmd.SetErr(&bytes.Buffer{})
+
+			if err := cmd.Execute(); err != nil {
+				t.Fatalf("Execute() error = %v", err)
+			}
+			var result struct {
+				URL string `json:"url"`
+			}
+			if err := json.Unmarshal(bytes.TrimSpace(out.Bytes()), &result); err != nil {
+				t.Fatalf("parse dry-run output %q: %v", out.String(), err)
+			}
+			parsedURL, err := url.Parse(result.URL)
+			if err != nil {
+				t.Fatalf("parse dry-run URL %q: %v", result.URL, err)
+			}
+			assertQueryValues(t, parsedURL.Query()["status"], tt.want)
+		})
+	}
+}
+
+func TestBuildQuerySerializesArrayStyles(t *testing.T) {
+	falseValue := false
+	tests := []struct {
+		name      string
+		parameter Parameter
+		want      []string
+	}{
+		{
+			name:      "default form explode true",
+			parameter: Parameter{Name: "status", In: "query", Schema: &Schema{Type: "array", Items: &Schema{Type: "string"}}},
+			want:      []string{"open", "following"},
+		},
+		{
+			name:      "form explode false",
+			parameter: Parameter{Name: "status", In: "query", Style: "form", Explode: &falseValue, Schema: &Schema{Type: "array", Items: &Schema{Type: "string"}}},
+			want:      []string{"open,following"},
+		},
+		{
+			name:      "space delimited",
+			parameter: Parameter{Name: "status", In: "query", Style: "spaceDelimited", Schema: &Schema{Type: "array", Items: &Schema{Type: "string"}}},
+			want:      []string{"open following"},
+		},
+		{
+			name:      "pipe delimited",
+			parameter: Parameter{Name: "status", In: "query", Style: "pipeDelimited", Schema: &Schema{Type: "array", Items: &Schema{Type: "string"}}},
+			want:      []string{"open|following"},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			cmd := &cobra.Command{Use: "test"}
+			cmd.Flags().StringArray("status", nil, "")
+			cmd.Flags().String("space", "", "")
+			cmd.Flags().StringArray("query", nil, "")
+			if err := cmd.Flags().Set("status", "open"); err != nil {
+				t.Fatal(err)
+			}
+			if err := cmd.Flags().Set("status", "following"); err != nil {
+				t.Fatal(err)
+			}
+			if err := cmd.Flags().Set("space", "1"); err != nil {
+				t.Fatal(err)
+			}
+
+			query, err := buildQuery(cmd, []Parameter{
+				{Name: "space", In: "query", Schema: &Schema{Type: "integer"}},
+				tt.parameter,
+			})
+			if err != nil {
+				t.Fatalf("buildQuery() error = %v", err)
+			}
+			assertQueryValues(t, query["status"], tt.want)
+		})
+	}
+}
+
+func TestParseSpecPreservesParameterStyleAndExplode(t *testing.T) {
+	api, err := ParseSpec([]byte(`
+openapi: 3.0.1
+paths:
+  /items:
+    get:
+      parameters:
+        - name: status
+          in: query
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+`))
+	if err != nil {
+		t.Fatalf("ParseSpec() error = %v", err)
+	}
+	parameter := api.Paths["/items"].Get.Parameters[0]
+	if parameter.Style != "form" {
+		t.Fatalf("Style = %q, want form", parameter.Style)
+	}
+	if parameter.Explode == nil || *parameter.Explode {
+		t.Fatalf("Explode = %v, want pointer to false", parameter.Explode)
+	}
+}
+
+func TestVulnerabilityListHelpDocumentsCommaSeparatedMultiSelect(t *testing.T) {
+	cmd := NewCommand()
+	cmd.SetArgs([]string{"risk", "vulnerability", "list", "--help"})
+	var out bytes.Buffer
+	cmd.SetOut(&out)
+	cmd.SetErr(&out)
+
+	if err := cmd.Execute(); err != nil {
+		t.Fatalf("Execute() error = %v", err)
+	}
+	help := out.String()
+	for _, want := range []string{
+		"--status string",
+		"--severity string",
+		"逗号分隔多选",
+	} {
+		if !strings.Contains(help, want) {
+			t.Fatalf("help missing %q:\n%s", want, help)
+		}
+	}
+	// Only the generic pass-through flag may be repeatable; the document's
+	// multi-select filters are plain string flags.
+	for _, unwanted := range []string{"--status stringArray", "--severity stringArray"} {
+		if strings.Contains(help, unwanted) {
+			t.Fatalf("help advertises repeatable flag %q but the document declares a comma-separated string:\n%s", unwanted, help)
+		}
+	}
+}
+
+func TestAllOpenAPIQueryArraysUseRepeatableFlags(t *testing.T) {
+	api, err := ParseSpec(cloudatlasspec.OpenAPIJSON)
+	if err != nil {
+		t.Fatalf("ParseSpec() error = %v", err)
+	}
+	parser := NewParser(api)
+	arrayCount := 0
+	for path, pathItem := range api.Paths {
+		for _, operation := range operationsForPath(pathItem) {
+			if operation.op == nil {
+				continue
+			}
+			cmd := parser.createOperationCommand("test", operation.method, path, operation.op)
+			for _, parameter := range operation.op.Parameters {
+				if !isQueryArrayParameter(parameter) {
+					continue
+				}
+				arrayCount++
+				flagName := normalizeFlagName(parameter.Name)
+				flag := cmd.Flags().Lookup(flagName)
+				if flag == nil {
+					t.Errorf("%s %s query array %q has no flag", operation.method, path, parameter.Name)
+					continue
+				}
+				if got := flag.Value.Type(); got != "stringArray" {
+					t.Errorf("%s %s --%s type = %q, want stringArray", operation.method, path, flagName, got)
+				}
+				if strings.Contains(flag.Usage, "示例: [") {
+					t.Errorf("%s %s --%s contains JSON array example: %q", operation.method, path, flagName, flag.Usage)
+				}
+			}
+		}
+	}
+	if arrayCount == 0 {
+		t.Skip("embedded OpenAPI spec declares no query array parameters; multi-select filters are comma-separated strings")
+	}
+}
+
+func assertQueryValues(t *testing.T, got, want []string) {
+	t.Helper()
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("query values = %#v, want %#v", got, want)
+	}
+}
+
+func findLeaf(t *testing.T, root *cobra.Command, path ...string) *cobra.Command {
+	t.Helper()
+	current := root
+	for _, name := range path {
+		var next *cobra.Command
+		for _, child := range current.Commands() {
+			if child.Name() == name {
+				next = child
+				break
+			}
+		}
+		if next == nil {
+			t.Fatalf("command %q not found under %q", name, current.Name())
+		}
+		current = next
+	}
+	return current
 }
 
 func rawConfig(value Config) config.Raw {

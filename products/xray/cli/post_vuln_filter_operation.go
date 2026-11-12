@@ -5,6 +5,8 @@ package cli
 import (
 	"encoding/json"
 	"fmt"
+	"io"
+	"strings"
 
 	"github.com/chaitin/chaitin-cli/products/xray/client/vulnerability"
 	"github.com/chaitin/chaitin-cli/products/xray/models"
@@ -94,7 +96,7 @@ func retrieveOperationVulnerabilityPostVulnFilterBodyFlag(m *vulnerability.PostV
 		}
 
 		flagBodyValue := models.FilterVulnBody{}
-		if err := json.Unmarshal([]byte(flagBodyValueStr), &flagBodyValue); err != nil {
+		if err := decodeFilterVulnBody(flagBodyValueStr, &flagBodyValue); err != nil {
 			return fmt.Errorf("cannot unmarshal body string in models.FilterVulnBody: %w", err), false
 		}
 		m.Body = &flagBodyValue
@@ -122,6 +124,36 @@ func retrieveOperationVulnerabilityPostVulnFilterBodyFlag(m *vulnerability.PostV
 	retAdded = retAdded || added
 
 	return nil, retAdded
+}
+
+func decodeFilterVulnBody(raw string, target *models.FilterVulnBody) error {
+	allowedFields := map[string]struct{}{
+		"asset_group_ids": {}, "asset_info": {}, "asset_type": {},
+		"business_system_ids": {}, "categorys": {}, "created_time": {},
+		"definiteness": {}, "exposure": {}, "level": {}, "limit": {},
+		"location_ids": {}, "network_region_ids": {}, "offset": {},
+		"project_full_name": {}, "project_id": {}, "related_task_name": {},
+		"status": {}, "tag_ids": {}, "title": {}, "updated_time": {},
+		"xprocess_id": {},
+	}
+
+	decoder := json.NewDecoder(strings.NewReader(raw))
+	var fields map[string]json.RawMessage
+	if err := decoder.Decode(&fields); err != nil {
+		return err
+	}
+	if err := decoder.Decode(&struct{}{}); err != io.EOF {
+		if err == nil {
+			return fmt.Errorf("multiple JSON values are not allowed")
+		}
+		return err
+	}
+	for name := range fields {
+		if _, ok := allowedFields[name]; !ok {
+			return fmt.Errorf("unknown field %q", name)
+		}
+	}
+	return json.Unmarshal([]byte(raw), target)
 }
 
 // parseOperationVulnerabilityPostVulnFilterResult parses request result and return the string content

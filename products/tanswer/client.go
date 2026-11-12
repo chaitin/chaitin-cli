@@ -2,135 +2,214 @@ package tanswer
 
 import (
 	"bytes"
+	"context"
 	"crypto/tls"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io"
+	"mime"
+	"mime/multipart"
 	"net/http"
+	"net/url"
+	"path/filepath"
 	"strings"
-
-	"github.com/chaitin/chaitin-cli/config"
-	"github.com/google/uuid"
-	"github.com/spf13/cobra"
 )
 
-var httpClient = &http.Client{
-	Transport: &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-	},
+type Client struct {
+	cfg        Config
+	httpClient *http.Client
 }
 
-var (
-	serverURL string
-	apiToken  string
-)
-
-type runtimeConfig struct {
-	URL    string `yaml:"url"`
-	APIKey string `yaml:"api_key"`
+type HTTPResponse struct {
+	StatusCode int             `json:"status_code"`
+	Header     http.Header     `json:"-"`
+	Body       json.RawMessage `json:"body"`
 }
 
-// jsonRPCRequest 是 JSON-RPC 2.0 请求体。
-type jsonRPCRequest struct {
-	ID      string                 `json:"id"`
-	JSONRPC string                 `json:"jsonrpc"`
-	Method  string                 `json:"method"`
-	Params  map[string]interface{} `json:"params"`
+type DownloadedFile struct {
+	StatusCode int
+	Header     http.Header
+	FileName   string
+	Body       []byte
 }
 
-// doRequest 构造 JSON-RPC 2.0 请求并发送到 /rpc 端点。
-func doRequest(cmd *cobra.Command, method string, params map[string]interface{}, raw bool) error {
-	server := serverURL
-	if server == "" {
-		return fmt.Errorf("tanswer url is not configured")
+type UploadedFile struct {
+	StatusCode int             `json:"status_code"`
+	Header     http.Header     `json:"-"`
+	Body       json.RawMessage `json:"body"`
+}
+
+func NewClient(cfg Config) *Client {
+	transport := http.DefaultTransport.(*http.Transport).Clone()
+	if cfg.InsecureSkipVerify {
+		transport.TLSClientConfig = &tls.Config{InsecureSkipVerify: true} //nolint:gosec // Explicit CLI opt-in to bypass certificate validation.
 	}
-	server = strings.TrimRight(server, "/")
-
-	url := server + "/rpc"
-
-	if params == nil {
-		params = make(map[string]interface{})
+	return &Client{
+		cfg: cfg,
+		httpClient: &http.Client{
+			Timeout:   cfg.Timeout,
+			Transport: transport,
+		},
 	}
+}
 
-	rpcReq := jsonRPCRequest{
-		ID:      uuid.New().String(),
-		JSONRPC: "2.0",
-		Method:  method,
-		Params:  params,
-	}
-
-	data, err := json.Marshal(rpcReq)
+func (c *Client) DoJSON(ctx context.Context, method, path string, query map[string]string, body any) (*HTTPResponse, error) {
+	target, err := c.url(path, query)
 	if err != nil {
-		return fmt.Errorf("failed to marshal request body: %w", err)
+		return nil, err
 	}
-
-	req, err := http.NewRequestWithContext(cmd.Context(), http.MethodPost, url, bytes.NewReader(data))
+	var reader io.Reader
+	if body != nil {
+		raw, err := json.Marshal(body)
+		if err != nil {
+			return nil, err
+		}
+		reader = bytes.NewReader(raw)
+	}
+	req, err := http.NewRequestWithContext(ctx, method, target, reader)
 	if err != nil {
-		return fmt.Errorf("failed to create request: %w", err)
+		return nil, err
 	}
-
-	req.Header.Set("Content-Type", "application/json;charset=UTF-8")
-	if apiToken != "" {
-		req.Header.Set("API-Token", apiToken)
+	if c.cfg.APIToken != "" {
+		req.Header.Set("Api-Token", c.cfg.APIToken)
 	}
-
-	resp, err := httpClient.Do(req)
+	if body != nil {
+		req.Header.Set("Content-Type", "application/json")
+	}
+	resp, err := c.httpClient.Do(req)
 	if err != nil {
-		return fmt.Errorf("request failed: %w", err)
+		return nil, err
 	}
 	defer resp.Body.Close()
-
-	respBody, err := io.ReadAll(resp.Body)
+	raw, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return fmt.Errorf("failed to read response: %w", err)
+		return nil, err
 	}
-
-	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		fmt.Fprintf(cmd.ErrOrStderr(), "Error: %d - %s\n", resp.StatusCode, string(respBody))
-		return fmt.Errorf("request failed with status %d", resp.StatusCode)
-	}
-
-	return outputResponse(cmd.OutOrStdout(), respBody, raw)
+	return &HTTPResponse{StatusCode: resp.StatusCode, Header: resp.Header, Body: json.RawMessage(raw)}, nil
 }
 
-// outputResponse 输出响应体。raw=true 时输出紧凑 JSON，否则格式化输出。
-func outputResponse(w io.Writer, data []byte, raw bool) error {
-	if raw || len(data) == 0 {
-		_, err := fmt.Fprintln(w, string(data))
-		return err
+func (c *Client) Download(ctx context.Context, methodID string, query any) (*DownloadedFile, error) {
+	rawQuery := []byte("{}")
+	if query != nil {
+		raw, err := json.Marshal(query)
+		if err != nil {
+			return nil, err
+		}
+		rawQuery = raw
 	}
-
-	var pretty bytes.Buffer
-	if err := json.Indent(&pretty, data, "", "  "); err != nil {
-		_, err := fmt.Fprintln(w, string(data))
-		return err
+	target, err := c.url("/api/download", map[string]string{
+		"id":    methodID,
+		"query": base64.StdEncoding.EncodeToString(rawQuery),
+	})
+	if err != nil {
+		return nil, err
 	}
-
-	_, err := fmt.Fprintln(w, pretty.String())
-	return err
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, target, nil)
+	if err != nil {
+		return nil, err
+	}
+	if c.cfg.APIToken != "" {
+		req.Header.Set("Api-Token", c.cfg.APIToken)
+	}
+	resp, err := c.httpClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	return &DownloadedFile{
+		StatusCode: resp.StatusCode,
+		Header:     resp.Header,
+		FileName:   filenameFromContentDisposition(resp.Header.Get("Content-Disposition")),
+		Body:       body,
+	}, nil
 }
 
-func ApplyRuntimeConfig(cmd *cobra.Command, cfg config.Raw) {
-	productCfg, err := config.DecodeProduct[runtimeConfig](cfg, "tanswer")
+func (c *Client) UploadFile(ctx context.Context, methodID string, fileName string, reader io.Reader) (*UploadedFile, error) {
+	return c.UploadFileWithFields(ctx, methodID, fileName, reader, nil)
+}
+
+func (c *Client) UploadFileWithFields(ctx context.Context, methodID string, fileName string, reader io.Reader, fields map[string]string) (*UploadedFile, error) {
+	var body bytes.Buffer
+	writer := multipart.NewWriter(&body)
+	for key, value := range fields {
+		if err := writer.WriteField(key, value); err != nil {
+			return nil, err
+		}
+	}
+	part, err := writer.CreateFormFile("file", filepath.Base(fileName))
 	if err != nil {
-		return
+		return nil, err
 	}
+	if _, err := io.Copy(part, reader); err != nil {
+		return nil, err
+	}
+	if err := writer.Close(); err != nil {
+		return nil, err
+	}
+	target, err := c.url("/api/upload", map[string]string{"id": methodID})
+	if err != nil {
+		return nil, err
+	}
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, target, &body)
+	if err != nil {
+		return nil, err
+	}
+	if c.cfg.APIToken != "" {
+		req.Header.Set("Api-Token", c.cfg.APIToken)
+	}
+	req.Header.Set("Content-Type", writer.FormDataContentType())
+	resp, err := c.httpClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	raw, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	return &UploadedFile{StatusCode: resp.StatusCode, Header: resp.Header, Body: json.RawMessage(raw)}, nil
+}
 
-	if flag := cmd.Flags().Lookup("url"); flag != nil && flag.Changed {
-		value, flagErr := cmd.Flags().GetString("url")
-		if flagErr == nil {
-			serverURL = value
-		}
-	} else {
-		serverURL = productCfg.URL
+func filenameFromContentDisposition(value string) string {
+	if strings.TrimSpace(value) == "" {
+		return ""
 	}
+	_, params, err := mime.ParseMediaType(value)
+	if err != nil {
+		return ""
+	}
+	return params["filename"]
+}
 
-	if flag := cmd.Flags().Lookup("api-key"); flag != nil && flag.Changed {
-		value, flagErr := cmd.Flags().GetString("api-key")
-		if flagErr == nil {
-			apiToken = value
-		}
-	} else {
-		apiToken = productCfg.APIKey
+func (c *Client) url(path string, query map[string]string) (string, error) {
+	path = strings.TrimSpace(path)
+	parsedPath, err := url.Parse(path)
+	if err != nil {
+		return "", err
 	}
+	if parsedPath.IsAbs() || parsedPath.Host != "" {
+		return "", fmt.Errorf("api path must be under the configured TAnswer URL, not a full URL")
+	}
+	if !strings.HasPrefix(path, "/") {
+		return "", fmt.Errorf("api path must start with /")
+	}
+	u, err := url.Parse(c.cfg.BaseURL)
+	if err != nil {
+		return "", err
+	}
+	u.Path = strings.TrimRight(u.Path, "/") + parsedPath.Path
+	u.RawPath = ""
+	u.RawQuery = parsedPath.RawQuery
+	u.Fragment = ""
+	values := u.Query()
+	for key, value := range query {
+		values.Set(key, value)
+	}
+	u.RawQuery = values.Encode()
+	return u.String(), nil
 }

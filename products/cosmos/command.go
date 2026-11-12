@@ -1,10 +1,10 @@
-package tanswer
+package cosmos
 
 import (
 	"embed"
 	"encoding/json"
 	"fmt"
-	"path/filepath"
+	"path"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -13,15 +13,16 @@ import (
 //go:embed apis/*.json
 var apiSpecs embed.FS
 
-// NewCommand 创建 answer 产品的根命令，自动加载所有 JSON API 定义。
+// NewCommand 创建 cosmos（万象/AISOC）产品的根命令，自动加载所有 JSON API 定义。
 func NewCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "tanswer",
-		Short: "T-Answer product APIs",
+		Use:   "cosmos",
+		Short: "Cosmos (万象/AISOC) product APIs",
+		Long:  "Cosmos (万象/AISOC) CLI — 告警分析研判、日志查询、情报分析、IP 封禁、资产管理、漏洞扫描等安全运营能力。",
 	}
 
-	cmd.PersistentFlags().String("url", "", "API URL (e.g. https://api.example.com)")
-	cmd.PersistentFlags().String("api-key", "", "API Key for authentication")
+	cmd.PersistentFlags().String("url", "", "Cosmos API URL (e.g. https://cosmos.example.com)")
+	cmd.PersistentFlags().String("api-key", "", "JWT Bearer Token for authentication")
 	cmd.PersistentFlags().Bool("raw", false, "Output raw JSON without formatting")
 
 	entries, err := apiSpecs.ReadDir("apis")
@@ -34,7 +35,7 @@ func NewCommand() *cobra.Command {
 			continue
 		}
 
-		data, err := apiSpecs.ReadFile(filepath.Join("apis", entry.Name()))
+		data, err := apiSpecs.ReadFile(path.Join("apis", entry.Name()))
 		if err != nil {
 			fmt.Printf("warning: failed to read %s: %v\n", entry.Name(), err)
 			continue
@@ -48,7 +49,7 @@ func NewCommand() *cobra.Command {
 
 		var ops []APIOperation
 		if err := json.Unmarshal(data, &ops); err != nil {
-			name := strings.TrimSuffix(filepath.Base(entry.Name()), ".json")
+			name := strings.TrimSuffix(path.Base(entry.Name()), ".json")
 			fmt.Printf("warning: failed to parse %s: %v\n", name, err)
 			continue
 		}

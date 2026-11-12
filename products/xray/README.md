@@ -53,7 +53,7 @@ xray:
 
 ### 创建任务 (PostPlanCreateQuick)
 
-快速创建扫描任务，立即执行（马上扫一次）。
+快速创建立即、单次定时或周期扫描任务。不指定 `--plan-type` 时保持原有行为：创建后立即执行。
 
 ```bash
 chaitin-cli xray plan PostPlanCreateQuick \
@@ -71,6 +71,52 @@ chaitin-cli xray plan PostPlanCreateQuick \
 | `--project-id` | 是 | 项目 ID |
 | `--template-name` | 否 | 模板名称搜索关键字（默认"基础服务漏洞扫描"） |
 | `--name` | 否 | 任务名称（默认 quick-scan） |
+| `--plan-type` | 否 | NOW/CLOCKED/DAY/WEEK/MONTH/MONTH_WEEK（默认 NOW） |
+| `--exec-at` | 按类型 | CLOCKED 使用带时区 RFC3339；周期任务使用 HH:MM 或 HH:MM:SS |
+| `--weekday` | 按类型 | WEEK/MONTH_WEEK 使用，1=周一，...，7=周日 |
+| `--day-of-month` | 按类型 | MONTH 使用，范围 1-31 |
+| `--week-of-month` | 按类型 | MONTH_WEEK 使用，范围 1-4 |
+
+`--exec-at` 表示任务触发时间，不是扫描结束时间。周期计划不会在创建时额外触发扫描。
+
+```bash
+# 每天 10:30 执行
+chaitin-cli xray plan PostPlanCreateQuick \
+  --targets=10.3.0.4 \
+  --engines=00000000000000000000000000000001 \
+  --project-id=1 \
+  --template-name=主机资产监控 \
+  --plan-type=DAY \
+  --exec-at=10:30
+
+# 每月第 2 周的星期五 10:30 执行
+chaitin-cli xray plan PostPlanCreateQuick \
+  --targets=10.3.0.4 \
+  --engines=00000000000000000000000000000001 \
+  --project-id=1 \
+  --plan-type=MONTH_WEEK \
+  --week-of-month=2 \
+  --weekday=5 \
+  --exec-at=10:30
+```
+
+### 更新任务排期 (PostPlanUpdateQuick)
+
+只修改已有任务的排期，保留名称、目标、引擎、扫描配置和执行窗口，并且不会立即触发扫描。
+
+```bash
+# 修改为每周五 11:00 执行
+chaitin-cli xray plan PostPlanUpdateQuick \
+  --id=783 \
+  --plan-type=WEEK \
+  --weekday=5 \
+  --exec-at=11:00
+
+# 保持当前计划类型，只修改触发时间
+chaitin-cli xray plan PostPlanUpdateQuick \
+  --id=783 \
+  --exec-at=12:00
+```
 
 ### 任务列表 (PostPlanFilter)
 

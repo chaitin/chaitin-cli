@@ -32,7 +32,7 @@ func NewCommand() *cobra.Command {
 		Long: `SafeLine CE CLI - SafeLine 社区版命令行管理工具
 
 快速入门:
-  # 1. 创建配置文件 config.yaml
+  # 1. 创建配置文件 ~/.chaitin-cli/config.yaml
   safeline-ce:
     url: https://your-server:9443
     api_key: your-api-key

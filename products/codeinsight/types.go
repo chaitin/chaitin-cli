@@ -105,10 +105,10 @@ func (c Config) normalized() Config {
 
 func (c Config) validate() error {
 	if strings.TrimSpace(c.URL) == "" {
-		return fmt.Errorf("codeinsight url is not configured; set --url, CODEINSIGHT_URL, or config.yaml codeinsight.url")
+		return fmt.Errorf("codeinsight url is not configured; set --url, CODEINSIGHT_URL, or config file codeinsight.url")
 	}
 	if strings.TrimSpace(c.AccessToken) == "" {
-		return fmt.Errorf("codeinsight access token is not configured; set --access-token, CODEINSIGHT_TOKEN/CODEINSIGHT_ACCESS_TOKEN, or config.yaml codeinsight.access_token")
+		return fmt.Errorf("codeinsight access token is not configured; set --access-token, CODEINSIGHT_TOKEN/CODEINSIGHT_ACCESS_TOKEN, or config file codeinsight.access_token")
 	}
 	return nil
 }

@@ -1,0 +1,230 @@
+[
+  {
+    "name": "IpBlockService.SearchBlockHistory",
+    "comment": "查找封禁历史记录",
+    "args": {
+      "count": {"type": "integer", "optional": true, "comment": "每页数量"},
+      "offset": {"type": "integer", "optional": true, "comment": "偏移量"},
+      "filter.ip": {
+        "type": "string",
+        "optional": true,
+        "comment": "IP 地址过滤（StringQuery JSON，如: [{\"oper\":\"like\",\"target\":\"1.1.1.1\"}]）",
+        "queryType": "StringQuery"
+      },
+      "filter.dev_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "设备 ID 过滤（StringQuery JSON，如: [{\"oper\":\"=\",\"target\":\"dev-id\"}]）",
+        "queryType": "StringQuery"
+      },
+      "filter.block_mode": {
+        "type": "string",
+        "optional": true,
+        "comment": "封禁方式过滤（StringQuery JSON，如: [{\"oper\":\"like\",\"target\":\"人工\"}]）",
+        "queryType": "StringQuery"
+      },
+      "filter.block_time": {
+        "type": "string",
+        "optional": true,
+        "comment": "封禁时间过滤（TimeQuery JSON 或简写 startMs-endMs；target 为毫秒时间戳范围）",
+        "queryType": "TimeQuery"
+      },
+      "filter.unblock_mode": {
+        "type": "string",
+        "optional": true,
+        "comment": "解封方式过滤（StringQuery JSON，如: [{\"oper\":\"like\",\"target\":\"人工\"}]）",
+        "queryType": "StringQuery"
+      },
+      "filter.unblock_time": {
+        "type": "string",
+        "optional": true,
+        "comment": "解封时间过滤（TimeQuery JSON 或简写 startMs-endMs；target 为毫秒时间戳范围）",
+        "queryType": "TimeQuery"
+      },
+      "filter.organization_id": {
+        "type": "integer",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "组织机构 ID 列表"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "IpBlockService.SearchBlockedList",
+    "comment": "查询已封禁列表",
+    "args": {
+      "count": {"type": "integer", "optional": true, "comment": "每页数量"},
+      "offset": {"type": "integer", "optional": true, "comment": "偏移量"},
+      "filter.ip": {
+        "type": "string",
+        "optional": true,
+        "comment": "IP 地址过滤（StringQuery JSON，如: [{\"oper\":\"like\",\"target\":\"1.1.1.1\"}]）",
+        "queryType": "StringQuery"
+      },
+      "filter.dev_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "设备 ID 过滤（StringQuery JSON，如: [{\"oper\":\"=\",\"target\":\"dev-id\"}]）",
+        "queryType": "StringQuery"
+      },
+      "filter.block_mode": {
+        "type": "string",
+        "optional": true,
+        "comment": "封禁方式过滤（StringQuery JSON，如: [{\"oper\":\"like\",\"target\":\"人工\"}]）",
+        "queryType": "StringQuery"
+      },
+      "filter.block_time": {
+        "type": "string",
+        "optional": true,
+        "comment": "封禁时间过滤（TimeQuery JSON 或简写 startMs-endMs；target 为毫秒时间戳范围）",
+        "queryType": "TimeQuery"
+      },
+      "filter.organization_id": {
+        "type": "integer",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "组织机构 ID 列表"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "IpBlockService.CreateBlackIp",
+    "comment": "新增黑名单 IP / 创建封禁 IP",
+    "args": {
+      "configs": {
+        "type": "string",
+        "optional": false,
+        "comment": "封禁配置（JSON 数组，type: type_add_black_forever永久黑名单 type_add_black_expire限时黑名单 type_add_block_pool封禁池；如: [{\"ips\":[\"1.2.3.4\"],\"dev_ids\":[\"dev-id\"],\"expire_at\":253402271999000,\"type\":\"type_add_black_forever\",\"remark\":\"\"}]）",
+        "queryType": "JSON"
+      },
+      "alarm_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "关联告警 ID"
+      },
+      "created_at": {
+        "type": "integer",
+        "optional": true,
+        "comment": "关联告警创建时间（毫秒时间戳），用于记录处置历史"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "IpBlockService.DeleteBlackIp",
+    "comment": "删除黑名单 IP / 解除封禁 IP",
+    "args": {
+      "black_list": {
+        "type": "string",
+        "optional": false,
+        "comment": "黑名单列表（JSON 数组，如: [{\"ip\":\"1.2.3.4\",\"dev_id\":\"dev-id\"}]）",
+        "queryType": "JSON"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "IpBlockService.SearchDeviceList",
+    "comment": "查询封禁设备列表",
+    "args": {
+      "count": {"type": "integer", "optional": true, "comment": "每页数量"},
+      "offset": {"type": "integer", "optional": true, "comment": "偏移量"},
+      "filter.dev_name": {
+        "type": "string",
+        "optional": true,
+        "comment": "设备名称过滤（StringQuery JSON，如: [{\"oper\":\"like\",\"target\":\"device\"}]）",
+        "queryType": "StringQuery"
+      },
+      "filter.dev_vendor": {
+        "type": "string",
+        "optional": true,
+        "comment": "设备厂商过滤（StringQuery JSON，如: [{\"oper\":\"like\",\"target\":\"vendor\"}]）",
+        "queryType": "StringQuery"
+      },
+      "filter.organization_id": {
+        "type": "integer",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "组织机构 ID 列表"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "IpBlockService.SearchWhiteList",
+    "comment": "查询白名单列表",
+    "args": {
+      "count": {"type": "integer", "optional": true, "comment": "每页数量"},
+      "offset": {"type": "integer", "optional": true, "comment": "偏移量"},
+      "filter.ip": {
+        "type": "string",
+        "optional": true,
+        "comment": "IP 地址过滤（StringQuery JSON，如: [{\"oper\":\"like\",\"target\":\"1.1.1.1\"}]）",
+        "queryType": "StringQuery"
+      },
+      "filter.dev_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "设备 ID 过滤（StringQuery JSON，如: [{\"oper\":\"=\",\"target\":\"dev-id\"}]）",
+        "queryType": "StringQuery"
+      },
+      "filter.remark": {
+        "type": "string",
+        "optional": true,
+        "comment": "备注过滤（StringQuery JSON，如: [{\"oper\":\"like\",\"target\":\"remark\"}]）",
+        "queryType": "StringQuery"
+      },
+      "filter.create_time": {
+        "type": "string",
+        "optional": true,
+        "comment": "创建时间过滤（TimeQuery JSON 或简写 startMs-endMs；target 为毫秒时间戳范围）",
+        "queryType": "TimeQuery"
+      },
+      "filter.update_time": {
+        "type": "string",
+        "optional": true,
+        "comment": "更新时间过滤（TimeQuery JSON 或简写 startMs-endMs；target 为毫秒时间戳范围）",
+        "queryType": "TimeQuery"
+      },
+      "filter.created_by_id": {
+        "type": "string",
+        "optional": true,
+        "comment": "创建人 ID 过滤（UintQuery JSON，如: [{\"oper\":\"=\",\"target\":1}]）",
+        "queryType": "UintQuery"
+      },
+      "filter.type": {
+        "type": "string",
+        "optional": true,
+        "comment": "类型过滤: 1普通IP 2IP掩码 3IP段（UintQuery JSON，如: [{\"oper\":\"=\",\"target\":1}]）",
+        "queryType": "UintQuery"
+      },
+      "filter.expire_state": {
+        "type": "string",
+        "optional": true,
+        "comment": "过期状态过滤: permanent永久 expired已过期 unexpired未过期；多个用英文逗号分隔"
+      },
+      "filter.organization_id": {
+        "type": "integer",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "组织机构 ID 列表"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "IpBlockService.CreateWhiteIp",
+    "comment": "写入万象白名单",
+    "args": {
+      "configs": {
+        "type": "string",
+        "optional": false,
+        "comment": "白名单配置（JSON 数组，type: type_add_white_list加入白名单；如: [{\"ips\":[\"1.2.3.4\"],\"dev_ids\":[\"dev-id\"],\"expire_at\":1781501714000,\"type\":\"type_add_white_list\",\"remark\":\"\"}]）",
+        "queryType": "JSON"
+      }
+    },
+    "reply": {}
+  }
+]

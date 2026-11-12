@@ -1,0 +1,276 @@
+[
+  {
+    "name": "IntelligenceService.GetIPIocList",
+    "comment": "获取 IP 情报列表 / 查询 IP 是否存在情报（复杂查询参数传 JSON 数组）",
+    "args": {
+      "count": {
+        "type": "integer",
+        "optional": true,
+        "comment": "每页数量"
+      },
+      "offset": {
+        "type": "integer",
+        "optional": true,
+        "comment": "偏移量"
+      },
+      "ip": {
+        "type": "string",
+        "optional": true,
+        "comment": "IP 地址过滤 (JSON, 如: [{\"oper\":\"=\",\"target\":\"1.1.1.1\"}]       // oper: =,!=,like,not like,reg,is_null)",
+        "queryType": "StringQuery"
+      },
+      "ioc_src": {
+        "type": "string",
+        "optional": true,
+        "comment": "情报来源: cosmos_analyze万象分析 manual_add人工新增 chaitin_shared长亭共享 aliyun阿里云 threatbook微步 tianji平台情报 safe_point长亭情报库导入 (JSON, 如: [{\"oper\":\"like\",\"target\":\"manual_add\"}]       // oper: =,!=,like,not like,reg,is_null)",
+        "queryType": "StringQuery"
+      },
+      "severity": {
+        "type": "string",
+        "optional": true,
+        "comment": "威胁等级: 0信息/无威胁 1低危 2中危 3高危 4严重/超危 (JSON, 如: [{\"oper\":\"=\",\"target\":3}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "IntQuery"
+      },
+      "confidence_level": {
+        "type": "string",
+        "optional": true,
+        "comment": "可信度等级: 2低可信[0,60) 3一定可信[60,85) 4高可信[85,100] (JSON, 如: [{\"oper\":\"=\",\"target\":3}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "IntQuery"
+      },
+      "updated_at": {
+        "type": "string",
+        "optional": true,
+        "comment": "更新时间 (JSON, 如: [{\"oper\":\"in\",\"target\":\"0-1781501714000\"}]，或直接传毫秒时间戳范围 0-1781501714000)",
+        "queryType": "TimeQuery"
+      },
+      "invalid_date": {
+        "type": "string",
+        "optional": true,
+        "comment": "失效时间 (JSON, 如: [{\"oper\":\">=\",\"target\":\"1781501714\"}]；范围查询可传 0-1781501714000)",
+        "queryType": "TimeQuery"
+      },
+      "is_hit": {
+        "type": "string",
+        "optional": true,
+        "comment": "是否命中: 1命中 2未命中 (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "IntQuery"
+      },
+      "is_block": {
+        "type": "string",
+        "optional": true,
+        "comment": "是否封禁: 1封禁中 2未封禁 (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "IntQuery"
+      },
+      "judgments": {
+        "type": "string",
+        "optional": true,
+        "comment": "威胁标签 (JSON, 如: [{\"oper\":\"like\",\"target\":\"Scanner\"}]       // oper: =,!=,like,not like,reg,is_null)",
+        "queryType": "StringQuery"
+      },
+      "tags": {
+        "type": "string",
+        "optional": true,
+        "comment": "信息标签 (JSON, 如: [{\"oper\":\"like\",\"target\":\"IDC\"}]       // oper: =,!=,like,not like,reg,is_null)",
+        "queryType": "StringQuery"
+      },
+      "state": {
+        "type": "string",
+        "optional": true,
+        "comment": "情报状态: 1有效 2无效 0未知 (JSON, 如: [{\"oper\":\"=\",\"target\":1}]             // oper: =,!=,>,>=,<,<=,is_null)",
+        "queryType": "IntQuery"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "IntelligenceService.GetIPIocByIp",
+    "comment": "根据 IP 获取 IP 情报信息（返回主情报信息和各来源详情）",
+    "args": {
+      "ip": {
+        "type": "string",
+        "optional": false,
+        "comment": "IP 地址"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "IntelligenceService.GetIPIocInfo",
+    "comment": "获取 IP 情报详情（主情报信息）",
+    "args": {
+      "ip": {
+        "type": "string",
+        "optional": false,
+        "comment": "IP 地址"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "IntelligenceService.GetIPIocTag",
+    "comment": "获取 IP 情报标签",
+    "args": {
+      "ip": {
+        "type": "string",
+        "optional": false,
+        "comment": "IP 地址"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "IntelligenceService.CreateIpIoc",
+    "comment": "新增 IP 情报",
+    "args": {
+      "ip_ioc.ip": {
+        "type": "string",
+        "optional": false,
+        "comment": "情报 IP"
+      },
+      "ip_ioc.threat_type": {
+        "type": "string",
+        "optional": false,
+        "comment": "情报类型: 攻击IP 失陷IP IP信息"
+      },
+      "ip_ioc.severity": {
+        "type": "integer",
+        "optional": false,
+        "comment": "威胁等级: 0信息/无威胁 1低危 2中危 3高危 4严重/超危"
+      },
+      "ip_ioc.confidence": {
+        "type": "integer",
+        "optional": false,
+        "comment": "可信度评分 0-100"
+      },
+      "ip_ioc.confidence_level": {
+        "type": "integer",
+        "optional": false,
+        "comment": "可信度等级: 2低可信[0,60) 3一定可信[60,85) 4高可信[85,100]"
+      },
+      "ip_ioc.todo_propose": {
+        "type": "string",
+        "optional": true,
+        "comment": "处置建议"
+      },
+      "ip_ioc.intel_type": {
+        "type": "string",
+        "optional": true,
+        "comment": "IP 类型，如 ipv4、ipv6"
+      },
+      "ip_ioc.industry": {
+        "type": "string",
+        "optional": true,
+        "comment": "行业，多个用逗号分隔"
+      },
+      "ip_ioc.ip_port": {
+        "type": "string",
+        "optional": true,
+        "comment": "开放端口"
+      },
+      "ip_ioc.domains": {
+        "type": "string",
+        "optional": true,
+        "comment": "相关域名"
+      },
+      "ip_ioc.whois": {
+        "type": "string",
+        "optional": true,
+        "comment": "Whois 信息"
+      },
+      "ip_ioc.url": {
+        "type": "string",
+        "optional": true,
+        "comment": "相关 URL"
+      },
+      "ip_ioc.gangs": {
+        "type": "string",
+        "optional": true,
+        "comment": "攻击团伙"
+      },
+      "ip_ioc.more_info": {
+        "type": "string",
+        "optional": true,
+        "comment": "补充信息"
+      },
+      "ip_ioc.ip_country": {
+        "type": "string",
+        "optional": true,
+        "comment": "所属国家"
+      },
+      "ip_ioc.ip_country_code": {
+        "type": "string",
+        "optional": true,
+        "comment": "所属国家 code"
+      },
+      "ip_ioc.ip_region": {
+        "type": "string",
+        "optional": true,
+        "comment": "所属区域"
+      },
+      "ip_ioc.ip_city": {
+        "type": "string",
+        "optional": true,
+        "comment": "所属城市"
+      },
+      "ip_ioc.ip_lng": {
+        "type": "string",
+        "optional": true,
+        "comment": "经度"
+      },
+      "ip_ioc.ip_lat": {
+        "type": "string",
+        "optional": true,
+        "comment": "纬度"
+      },
+      "ip_ioc.operator": {
+        "type": "string",
+        "optional": true,
+        "comment": "运营商"
+      },
+      "ip_ioc.asn_info": {
+        "type": "string",
+        "optional": true,
+        "comment": "自治系统编号"
+      },
+      "ip_ioc.idc_name": {
+        "type": "string",
+        "optional": true,
+        "comment": "IDC 服务器"
+      },
+      "ip_ioc.asn_label": {
+        "type": "string",
+        "optional": true,
+        "comment": "ASN 名称"
+      },
+      "ip_ioc.invalid_date": {
+        "type": "string",
+        "optional": true,
+        "comment": "情报失效时间"
+      },
+      "ip_ioc.pattern": {
+        "type": "string",
+        "optional": true,
+        "comment": "攻击模式"
+      },
+      "threat_tags": {
+        "type": "string",
+        "optional": true,
+        "comment": "人工新增-威胁标签(JSON数组，types: 1威胁标签 2信息标签；validity: 1有效 2失效，如: [{\"types\":1,\"tag\":\"Scanner\",\"validity\":1}])",
+        "queryType": "JSON"
+      },
+      "info_tags": {
+        "type": "string",
+        "optional": true,
+        "comment": "人工新增-信息标签(JSON数组，types: 1威胁标签 2信息标签；validity: 1有效 2失效，如: [{\"types\":2,\"tag\":\"IDC\",\"validity\":1}])",
+        "queryType": "JSON"
+      },
+      "invalid_tags": {
+        "type": "integer",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "设置失效的标签 ID 列表"
+      }
+    },
+    "reply": {}
+  }
+]
