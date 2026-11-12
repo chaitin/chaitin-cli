@@ -149,6 +149,9 @@ func yamlFieldName(field reflect.StructField) (string, bool) {
 	return name, true
 }
 
+// normalizeEnvSegment converts a config key into its environment-variable
+// segment. Dashes and dots become underscores, and camelCase boundaries are
+// split so that e.g. "cloudAtlas" becomes "CLOUD_ATLAS".
 func normalizeEnvSegment(s string) string {
 	runes := []rune(s)
 	var result strings.Builder

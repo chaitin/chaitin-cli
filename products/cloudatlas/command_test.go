@@ -13,12 +13,61 @@ import (
 	"github.com/chaitin/chaitin-cli/config"
 	cloudatlasspec "github.com/chaitin/chaitin-cli/products/cloudatlas/spec"
 	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 	"gopkg.in/yaml.v3"
 )
 
+func TestDisabledOperationsAreHidden(t *testing.T) {
+	cmd := NewCommand()
+
+	for _, path := range [][]string{
+		{"intelligence", "monitor-rule", "async-download"},
+		{"risk", "admin-panel", "async-download"},
+		{"risk", "high-risk-app", "async-download"},
+		{"risk", "high-risk-port", "async-download"},
+		{"intelligence", "monitor-rule", "download-status"},
+		{"risk", "admin-panel", "download-status"},
+		{"risk", "high-risk-app", "download-status"},
+		{"risk", "high-risk-port", "download-status"},
+	} {
+		if found := findCommand(cmd, path); found != nil {
+			t.Errorf("command %q should be hidden while the endpoint returns 500", strings.Join(path, " "))
+		}
+	}
+
+	// The sibling synchronous download keeps working and must stay available.
+	for _, path := range [][]string{
+		{"intelligence", "monitor-rule", "sync-download"},
+		{"risk", "admin-panel", "sync-download"},
+		{"risk", "high-risk-app", "sync-download"},
+		{"risk", "high-risk-port", "sync-download"},
+	} {
+		if found := findCommand(cmd, path); found == nil {
+			t.Errorf("command %q should be available", strings.Join(path, " "))
+		}
+	}
+}
+
+func findCommand(root *cobra.Command, path []string) *cobra.Command {
+	current := root
+	for _, name := range path {
+		var next *cobra.Command
+		for _, candidate := range current.Commands() {
+			if candidate.Name() == name {
+				next = candidate
+				break
+			}
+		}
+		if next == nil {
+			return nil
+		}
+		current = next
+	}
+	return current
+}
 func TestNewCommandHelpShowsGeneratedCommands(t *testing.T) {
 	cmd := NewCommand()
-	cmd.SetArgs([]string{"asset", "seed", "enterprise", "--help"})
+	cmd.SetArgs([]string{"seed", "enterprise", "--help"})
 	var out bytes.Buffer
 	cmd.SetOut(&out)
 	cmd.SetErr(&out)
@@ -26,7 +75,7 @@ func TestNewCommandHelpShowsGeneratedCommands(t *testing.T) {
 	if err := cmd.Execute(); err != nil {
 		t.Fatalf("Execute() error = %v", err)
 	}
-	for _, want := range []string{"list", "get", "update", "batch-add", "delete", "set-confidence", "set-monitor"} {
+	for _, want := range []string{"list", "get", "update", "patch", "create", "batch-delete", "set-confidence", "set-enabled"} {
 		if !strings.Contains(out.String(), want) {
 			t.Fatalf("help missing %q:\n%s", want, out.String())
 		}
@@ -79,8 +128,63 @@ func TestListSendsQueryAndTokenHeader(t *testing.T) {
 	if err := cmd.Execute(); err != nil {
 		t.Fatalf("Execute() error = %v", err)
 	}
-	if !strings.Contains(out.String(), "1.1.1.1") || !strings.Contains(out.String(), "total=1") {
+	var rendered struct {
+		Total int `json:"total"`
+		Items []struct {
+			IP string `json:"ip"`
+		} `json:"items"`
+	}
+	if err := json.Unmarshal(out.Bytes(), &rendered); err != nil {
+		t.Fatalf("output is not JSON: %v\n%s", err, out.String())
+	}
+	if rendered.Total != 1 || len(rendered.Items) != 1 || rendered.Items[0].IP != "1.1.1.1" {
 		t.Fatalf("unexpected output:\n%s", out.String())
+	}
+}
+
+func TestUnknownSubcommandFails(t *testing.T) {
+	tests := []struct {
+		name string
+		args []string
+	}{
+		{name: "unknown product subcommand", args: []string{"nonexist"}},
+		{name: "mistyped group", args: []string{"seed", "titel", "list"}},
+		{name: "mistyped leaf", args: []string{"seed", "title", "lst"}},
+		{name: "extra positional argument", args: []string{"seed", "title", "list", "extra"}},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			cmd := NewCommand()
+			cmd.SetArgs(tt.args)
+			var out bytes.Buffer
+			cmd.SetOut(&out)
+			cmd.SetErr(&out)
+
+			err := cmd.Execute()
+			if err == nil {
+				t.Fatalf("Execute() should fail for %v:\n%s", tt.args, out.String())
+			}
+			if !strings.Contains(err.Error(), "unknown command") {
+				t.Fatalf("Execute() error = %v, want an unknown command error", err)
+			}
+		})
+	}
+}
+
+func TestUnknownSubcommandSuggestsClosestCommand(t *testing.T) {
+	cmd := NewCommand()
+	cmd.SetArgs([]string{"seed", "titel", "list"})
+	var out bytes.Buffer
+	cmd.SetOut(&out)
+	cmd.SetErr(&out)
+
+	err := cmd.Execute()
+	if err == nil {
+		t.Fatalf("Execute() should fail")
+	}
+	if !strings.Contains(err.Error(), "Did you mean this?") || !strings.Contains(err.Error(), "title") {
+		t.Fatalf("Execute() error = %v, want a suggestion for %q", err, "title")
 	}
 }
 
@@ -167,7 +271,7 @@ func TestWebsiteFingerprintListURLFilterViaQueryFlag(t *testing.T) {
 func TestSpaceIsRequiredForEveryCommand(t *testing.T) {
 	ApplyRuntimeConfig(nil, rawConfig(Config{URL: "https://example.com", Token: "token"}), false)
 	cmd := NewCommand()
-	cmd.SetArgs([]string{"asset", "seed", "enterprise", "list", "--size", "1"})
+	cmd.SetArgs([]string{"seed", "enterprise", "list", "--size", "1"})
 
 	err := cmd.Execute()
 	if err == nil || !strings.Contains(err.Error(), "--space is required") {
@@ -189,7 +293,7 @@ func TestPathParameterAndRequiredQuery(t *testing.T) {
 
 	ApplyRuntimeConfig(nil, rawConfig(Config{URL: server.URL, Token: "token"}), false)
 	cmd := NewCommand()
-	cmd.SetArgs([]string{"task", "schedule", "list", "--task-type", "asset", "--space", "1"})
+	cmd.SetArgs([]string{"task", "asset", "schedule", "list", "--space", "1"})
 	var out bytes.Buffer
 	cmd.SetOut(&out)
 	cmd.SetErr(&out)
@@ -199,9 +303,46 @@ func TestPathParameterAndRequiredQuery(t *testing.T) {
 	}
 }
 
+func TestFlowListRequiresTaskID(t *testing.T) {
+	ApplyRuntimeConfig(nil, rawConfig(Config{URL: "https://example.com", Token: "token"}), false)
+	cmd := NewCommand()
+	cmd.SetArgs([]string{"task", "asset", "flow", "list", "--space", "1"})
+
+	err := cmd.Execute()
+	if err == nil || !strings.Contains(err.Error(), "--task-id is required") {
+		t.Fatalf("Execute() error = %v, want --task-id requirement", err)
+	}
+}
+
+func TestTruncateHelpDocumentsResourceTypes(t *testing.T) {
+	cmd := NewCommand()
+	cmd.SetArgs([]string{"space", "truncate", "--help"})
+	var out bytes.Buffer
+	cmd.SetOut(&out)
+	cmd.SetErr(&out)
+
+	if err := cmd.Execute(); err != nil {
+		t.Fatalf("Execute() error = %v", err)
+	}
+	if help := out.String(); !strings.Contains(help, "attack, seed, risk, drps, asset") {
+		t.Fatalf("truncate help missing resource types:\n%s", help)
+	}
+}
+
+func TestCreateTaskRequiresConfirmation(t *testing.T) {
+	ApplyRuntimeConfig(nil, rawConfig(Config{URL: "https://example.com", Token: "token"}), false)
+	cmd := NewCommand()
+	cmd.SetArgs([]string{"strategy", "vulnerability", "create-task", "--space", "1"})
+
+	err := cmd.Execute()
+	if err == nil || !strings.Contains(err.Error(), "--yes") {
+		t.Fatalf("Execute() error = %v, want --yes requirement", err)
+	}
+}
+
 func TestBodyFileAndConfirmation(t *testing.T) {
 	cmd := NewCommand()
-	cmd.SetArgs([]string{"asset", "seed", "enterprise", "delete", "--body", `{"ids":[1]}`})
+	cmd.SetArgs([]string{"seed", "enterprise", "batch-delete", "--body", `{"pk":[1]}`})
 	if err := cmd.Execute(); err == nil || !strings.Contains(err.Error(), "--yes") {
 		t.Fatalf("Execute() error = %v, want --yes requirement", err)
 	}
@@ -210,7 +351,7 @@ func TestBodyFileAndConfirmation(t *testing.T) {
 func TestDryRunRedactsToken(t *testing.T) {
 	ApplyRuntimeConfig(nil, rawConfig(Config{URL: "https://example.com", Token: "secret-token"}), true)
 	cmd := NewCommand()
-	cmd.SetArgs([]string{"asset", "seed", "enterprise", "batch-add", "--space", "1", "--body", `{"name":["demo"],"confidence":"100"}`})
+	cmd.SetArgs([]string{"seed", "enterprise", "create", "--space", "1", "--body", `{"name":["demo"],"level":1,"equity":100,"status":"存续"}`})
 	var out, errOut bytes.Buffer
 	cmd.SetOut(&out)
 	cmd.SetErr(&errOut)
@@ -244,10 +385,10 @@ func TestGeneratedHelpExplainsRequiredParameterValues(t *testing.T) {
 	help := out.String()
 	for _, want := range []string{
 		"--status",
-		"可选值: valid=已确认, await=待确认, ignored=已排除",
+		"类型: string",
 		"--page",
 		"类型: integer",
-		"示例: 1",
+		"默认值: 1",
 		"可由 --space-id 或 cloudAtlas.space_id 提供默认值",
 	} {
 		if !strings.Contains(help, want) {
@@ -319,7 +460,7 @@ func TestRequestBodyHelpExplainsFields(t *testing.T) {
 		}},
 	}}
 
-	help := formatRequestBodyHelp(body)
+	help := NewParser(&OpenAPI{}).formatRequestBodyHelp(body)
 	for _, want := range []string{"status: 状态；必填；类型: string；可选值: enabled=启用, disabled=停用", "name: 名称；类型: string；示例: demo"} {
 		if !strings.Contains(help, want) {
 			t.Fatalf("body help missing %q:\n%s", want, help)
@@ -327,14 +468,17 @@ func TestRequestBodyHelpExplainsFields(t *testing.T) {
 	}
 }
 
-func TestVulnerabilityListSerializesRepeatedQueryArrays(t *testing.T) {
+func TestVulnerabilityListSerializesMultiSelectAsCommaSeparated(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		query := r.URL.Query()
-		assertQueryValues(t, query["status"], []string{"open", "following"})
-		assertQueryValues(t, query["severity"], []string{"1", "2"})
-		assertQueryValues(t, query["subject_id"], []string{"id1", "id2"})
-		assertQueryValues(t, query["bu_id"], []string{"1", "2"})
-		assertQueryValues(t, query["tag_id"], []string{"1", "2"})
+		// The embedded document models these multi-select filters as
+		// comma-separated strings, and the server ORs the comma values; sending
+		// one repeated key per value matches nothing.
+		assertQueryValues(t, query["status"], []string{"open,following"})
+		assertQueryValues(t, query["severity"], []string{"1,2"})
+		assertQueryValues(t, query["subject_id"], []string{"id1,id2"})
+		assertQueryValues(t, query["bu_id"], []string{"1,2"})
+		assertQueryValues(t, query["tag_id"], []string{"1,2"})
 
 		for key, want := range map[string]string{
 			"space":           "1",
@@ -358,38 +502,16 @@ func TestVulnerabilityListSerializesRepeatedQueryArrays(t *testing.T) {
 	cmd.SetArgs([]string{
 		"risk", "vulnerability", "list",
 		"--space", "1",
-		"--status", "open", "--status", "following",
-		"--severity", "1", "--severity", "2",
-		"--subject-id", "id1", "--subject-id", "id2",
-		"--bu-id", "1", "--bu-id", "2",
-		"--tag-id", "1", "--tag-id", "2",
+		"--status", "open,following",
+		"--severity", "1,2",
+		"--subject-id", "id1,id2",
+		"--bu-id", "1,2",
+		"--tag-id", "1,2",
 		"--page", "1", "--size", "20", "--query", "keyword", "--created-at-days", "30",
 	})
 
 	if err := cmd.Execute(); err != nil {
 		t.Fatalf("Execute() error = %v", err)
-	}
-}
-
-func TestQueryArrayRejectsLegacyJSONArraySyntax(t *testing.T) {
-	ApplyRuntimeConfig(nil, rawConfig(Config{URL: "https://example.com", Token: "token"}), false)
-	cmd := NewCommand()
-	cmd.SetOut(&bytes.Buffer{})
-	cmd.SetErr(&bytes.Buffer{})
-	cmd.SetArgs([]string{
-		"risk", "vulnerability", "list",
-		"--space", "1",
-		"--status", `["open","following"]`,
-	})
-
-	err := cmd.Execute()
-	if err == nil {
-		t.Fatal("Execute() error = nil, want legacy JSON array syntax error")
-	}
-	for _, want := range []string{"invalid value for --status", "--status open --status following"} {
-		if !strings.Contains(err.Error(), want) {
-			t.Fatalf("Execute() error = %q, want it to contain %q", err, want)
-		}
 	}
 }
 
@@ -416,7 +538,7 @@ func TestQueryParamPreservesRepeatedKeys(t *testing.T) {
 	}
 }
 
-func TestVulnerabilityListDryRunSerializesArrayQuery(t *testing.T) {
+func TestVulnerabilityListDryRunSerializesCommaSeparatedMultiSelect(t *testing.T) {
 	oldDryRun, oldOutputFormat := dryRun, outputFormat
 	t.Cleanup(func() {
 		dryRun = oldDryRun
@@ -424,22 +546,19 @@ func TestVulnerabilityListDryRunSerializesArrayQuery(t *testing.T) {
 	})
 
 	tests := []struct {
-		name   string
-		values []string
+		name  string
+		value string
+		want  []string
 	}{
-		{name: "single value", values: []string{"open"}},
-		{name: "multiple values", values: []string{"open", "following"}},
+		{name: "single value", value: "open", want: []string{"open"}},
+		{name: "comma separated values", value: "open,following", want: []string{"open,following"}},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			ApplyRuntimeConfig(nil, rawConfig(Config{}), true)
 			cmd := NewCommand()
-			args := []string{"risk", "vulnerability", "list", "--output", "json", "--space", "1"}
-			for _, value := range tt.values {
-				args = append(args, "--status", value)
-			}
-			cmd.SetArgs(args)
+			cmd.SetArgs([]string{"risk", "vulnerability", "list", "--output", "json", "--space", "1", "--status", tt.value})
 			var out bytes.Buffer
 			cmd.SetOut(&out)
 			cmd.SetErr(&bytes.Buffer{})
@@ -457,7 +576,7 @@ func TestVulnerabilityListDryRunSerializesArrayQuery(t *testing.T) {
 			if err != nil {
 				t.Fatalf("parse dry-run URL %q: %v", result.URL, err)
 			}
-			assertQueryValues(t, parsedURL.Query()["status"], tt.values)
+			assertQueryValues(t, parsedURL.Query()["status"], tt.want)
 		})
 	}
 }
@@ -547,7 +666,7 @@ paths:
 	}
 }
 
-func TestVulnerabilityListHelpUsesRepeatableArrayFlags(t *testing.T) {
+func TestVulnerabilityListHelpDocumentsCommaSeparatedMultiSelect(t *testing.T) {
 	cmd := NewCommand()
 	cmd.SetArgs([]string{"risk", "vulnerability", "list", "--help"})
 	var out bytes.Buffer
@@ -559,27 +678,25 @@ func TestVulnerabilityListHelpUsesRepeatableArrayFlags(t *testing.T) {
 	}
 	help := out.String()
 	for _, want := range []string{
-		"--status stringArray",
-		"--severity stringArray",
-		"--subject-id stringArray",
-		"--bu-id stringArray",
-		"--tag-id stringArray",
-		"可重复指定",
-		"示例: --status open",
+		"--status string",
+		"--severity string",
+		"逗号分隔多选",
 	} {
 		if !strings.Contains(help, want) {
 			t.Fatalf("help missing %q:\n%s", want, help)
 		}
 	}
-	for _, unwanted := range []string{`示例: ["open"]`, `示例: ["1"]`} {
+	// Only the generic pass-through flag may be repeatable; the document's
+	// multi-select filters are plain string flags.
+	for _, unwanted := range []string{"--status stringArray", "--severity stringArray"} {
 		if strings.Contains(help, unwanted) {
-			t.Fatalf("help contains misleading JSON array example %q:\n%s", unwanted, help)
+			t.Fatalf("help advertises repeatable flag %q but the document declares a comma-separated string:\n%s", unwanted, help)
 		}
 	}
 }
 
 func TestAllOpenAPIQueryArraysUseRepeatableFlags(t *testing.T) {
-	api, err := ParseSpec(cloudatlasspec.OpenAPIYAML)
+	api, err := ParseSpec(cloudatlasspec.OpenAPIJSON)
 	if err != nil {
 		t.Fatalf("ParseSpec() error = %v", err)
 	}
@@ -612,7 +729,101 @@ func TestAllOpenAPIQueryArraysUseRepeatableFlags(t *testing.T) {
 		}
 	}
 	if arrayCount == 0 {
-		t.Fatal("embedded OpenAPI spec contains no query array parameters")
+		t.Skip("embedded OpenAPI spec declares no query array parameters; multi-select filters are comma-separated strings")
+	}
+}
+
+func TestFlagUsageKeepsBackticksOutOfValuePlaceholder(t *testing.T) {
+	cmd := NewCommand()
+	leaf := findLeaf(t, cmd, "seed", "title", "list")
+	flag := leaf.Flags().Lookup("sort")
+	if flag == nil {
+		t.Fatal("seed title list should declare --sort")
+	}
+	if strings.Contains(flag.Usage, "`") {
+		t.Fatalf("--sort usage still contains a backtick: %q", flag.Usage)
+	}
+	if name, _ := pflag.UnquoteUsage(flag); name != "string" {
+		t.Fatalf("--sort value placeholder = %q, want %q", name, "string")
+	}
+	if !strings.Contains(flag.Usage, "- 前缀表示降序") {
+		t.Fatalf("--sort usage lost its description: %q", flag.Usage)
+	}
+}
+
+func TestInvalidTypedParameterValueFailsBeforeRequest(t *testing.T) {
+	requests := 0
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		requests++
+		writeJSON(t, w, map[string]any{"code": 200, "message": "", "data": map[string]any{}})
+	}))
+	defer server.Close()
+
+	tests := []struct {
+		name string
+		args []string
+		want string
+	}{
+		{
+			name: "boolean",
+			args: []string{"seed", "title", "list", "--space", "1", "--enable", "yes"},
+			want: `invalid value for --enable: "yes" (want boolean: true or false)`,
+		},
+		{
+			name: "integer",
+			args: []string{"seed", "title", "list", "--space", "1", "--size", "abc"},
+			want: `invalid value for --size: "abc" (want integer)`,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			ApplyRuntimeConfig(nil, rawConfig(Config{URL: server.URL, Token: "secret-token"}), false)
+			cmd := NewCommand()
+			cmd.SetArgs(tt.args)
+			var out bytes.Buffer
+			cmd.SetOut(&out)
+			cmd.SetErr(&out)
+
+			err := cmd.Execute()
+			if err == nil {
+				t.Fatalf("Execute() should reject %v", tt.args)
+			}
+			if !strings.Contains(err.Error(), tt.want) {
+				t.Fatalf("Execute() error = %v, want %q", err, tt.want)
+			}
+		})
+	}
+
+	if requests != 0 {
+		t.Fatalf("server received %d requests, want 0: invalid values must fail locally", requests)
+	}
+}
+
+func TestUnsupportedOutputFormatFailsBeforeRequest(t *testing.T) {
+	requests := 0
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		requests++
+		writeJSON(t, w, map[string]any{"code": 200, "message": "", "data": map[string]any{}})
+	}))
+	defer server.Close()
+
+	ApplyRuntimeConfig(nil, rawConfig(Config{URL: server.URL, Token: "secret-token"}), false)
+	cmd := NewCommand()
+	cmd.SetArgs([]string{"seed", "title", "list", "--space", "1", "-o", "table"})
+	var out bytes.Buffer
+	cmd.SetOut(&out)
+	cmd.SetErr(&out)
+
+	err := cmd.Execute()
+	if err == nil {
+		t.Fatalf("Execute() should reject -o table")
+	}
+	if !strings.Contains(err.Error(), "unsupported output format") {
+		t.Fatalf("Execute() error = %v, want an unsupported output format error", err)
+	}
+	if requests != 0 {
+		t.Fatalf("server received %d requests, want 0", requests)
 	}
 }
 
