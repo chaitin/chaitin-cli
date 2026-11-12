@@ -9,6 +9,7 @@ import (
 	"os"
 
 	"github.com/chaitin/chaitin-cli/config"
+	"github.com/chaitin/chaitin-cli/egressproxy"
 	cmdpkg "github.com/chaitin/chaitin-cli/products/safeline/cmd"
 	"github.com/chaitin/chaitin-cli/products/safeline/cmd/acl"
 	"github.com/chaitin/chaitin-cli/products/safeline/cmd/cert"
@@ -118,7 +119,7 @@ func detectServerVersion() {
 	httpClient := &http.Client{Transport: transport}
 	if insecure {
 		httpClient.Transport = &auth.Transport{
-			Base:  &http.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}},
+			Base:  egressproxy.Wrap(&http.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}),
 			Token: apiKey,
 		}
 	}
@@ -165,9 +166,9 @@ func NewClient() *client.Client {
 	}
 
 	if insecure {
-		httpClient.Transport = &http.Transport{
+		httpClient.Transport = egressproxy.Wrap(&http.Transport{
 			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		}
+		})
 		// Wrap auth transport
 		httpClient.Transport = &auth.Transport{
 			Base:  httpClient.Transport,

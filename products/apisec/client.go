@@ -8,6 +8,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+
+	"github.com/chaitin/chaitin-cli/egressproxy"
 	"net/textproto"
 	"net/url"
 	"os"
@@ -39,9 +41,9 @@ func NewClient(cfg *Config, verbose bool) *Client {
 		config: cfg,
 		httpClient: &http.Client{
 			Timeout: 30 * time.Second,
-			Transport: &http.Transport{
+			Transport: egressproxy.Wrap(&http.Transport{
 				TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-			},
+			}),
 		},
 		baseURL: strings.TrimSuffix(cfg.URL, "/"),
 		verbose: verbose,

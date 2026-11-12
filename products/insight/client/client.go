@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+
+	"github.com/chaitin/chaitin-cli/egressproxy"
 	"net/url"
 	"time"
 
@@ -77,7 +79,7 @@ func (c *Client) Request(method, path string, body io.Reader) ([]byte, error) {
 	}
 
 	// NOTE: In production, configure insecure transport if needed.
-	transport := &http.Transport{}
+	transport := egressproxy.Wrap(&http.Transport{})
 	if c.insecure {
 		transport.TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 	}

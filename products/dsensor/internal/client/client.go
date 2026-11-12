@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+
+	"github.com/chaitin/chaitin-cli/egressproxy"
 	"time"
 )
 
@@ -19,11 +21,11 @@ type Client struct {
 
 // New creates a new API client.
 func New(baseURL, apiKey string, insecure bool) *Client {
-	transport := &http.Transport{
+	transport := egressproxy.Wrap(&http.Transport{
 		TLSClientConfig: &tls.Config{
 			InsecureSkipVerify: insecure,
 		},
-	}
+	})
 
 	return &Client{
 		BaseURL: baseURL,

@@ -1,3 +1,8 @@
+# Optional egress proxy in this same config file. If omitted, the CLI connects directly.
+# The CHAITIN_CLI_PROXY environment variable overrides this value, including when empty.
+# Supported schemes: http, https, socks5, socks5h.
+# CHAITIN_CLI_PROXY: "http://jump.example:3128"
+
 cloudAtlas:
   # OpenAPI 基址通常以 /openapi 结尾，例如 https://cloud-atlas.example.com/openapi
   url: ""
