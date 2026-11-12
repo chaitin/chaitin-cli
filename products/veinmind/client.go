@@ -11,6 +11,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+
+	"github.com/chaitin/chaitin-cli/egressproxy"
 	"net/http/cookiejar"
 	"net/url"
 	"os"
@@ -33,9 +35,9 @@ func NewClient(cfg *Config, headers map[string]string, verbose bool) *Client {
 		headers: headers,
 		httpClient: &http.Client{
 			Timeout: 30 * time.Second,
-			Transport: &http.Transport{
+			Transport: egressproxy.Wrap(&http.Transport{
 				TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-			},
+			}),
 			Jar: mustCookieJar(),
 		},
 		baseURL: strings.TrimSuffix(cfg.URL, "/"),

@@ -10,6 +10,7 @@ import (
 	neturl "net/url"
 
 	"github.com/chaitin/chaitin-cli/config"
+	"github.com/chaitin/chaitin-cli/egressproxy"
 	"github.com/spf13/cobra"
 
 	"github.com/chaitin/chaitin-cli/products/xray/client"
@@ -74,9 +75,9 @@ func makeClient(cmd *cobra.Command, _ []string) (*client.OPENAPI, error) {
 
 	// Configure insecure TLS if flag is set
 	if insecure {
-		r.Transport = &http.Transport{
+		r.Transport = egressproxy.Wrap(&http.Transport{
 			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		}
+		})
 	}
 
 	appCli := client.New(r, strfmt.Default)

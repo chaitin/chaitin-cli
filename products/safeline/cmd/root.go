@@ -10,6 +10,7 @@ import (
 	"strings"
 	"text/tabwriter"
 
+	"github.com/chaitin/chaitin-cli/egressproxy"
 	"github.com/chaitin/chaitin-cli/products/safeline/pkg/auth"
 	"github.com/chaitin/chaitin-cli/products/safeline/pkg/client"
 	"github.com/spf13/cobra"
@@ -59,9 +60,9 @@ func NewClient() *client.Client {
 
 	// Create base transport
 	if Insecure {
-		transport = &http.Transport{
+		transport = egressproxy.Wrap(&http.Transport{
 			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		}
+		})
 	} else {
 		transport = http.DefaultTransport
 	}

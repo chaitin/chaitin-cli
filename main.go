@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/chaitin/chaitin-cli/config"
+	"github.com/chaitin/chaitin-cli/egressproxy"
 	"github.com/chaitin/chaitin-cli/products/agentcompose"
 	"github.com/chaitin/chaitin-cli/products/apisec"
 	"github.com/chaitin/chaitin-cli/products/chaitin"
@@ -202,6 +203,9 @@ func (a *app) ensureRuntimeConfigLoaded() error {
 
 	cfg, err := a.loadRuntimeConfig()
 	if err != nil {
+		return err
+	}
+	if err := egressproxy.Configure(cfg); err != nil {
 		return err
 	}
 

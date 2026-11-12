@@ -110,7 +110,9 @@ npx skills add chaitin/chaitin-cli
 
 ## 配置
 
-推荐将各产品的连接信息写入 `~/.chaitin-cli/config.yaml`。如果当前目录存在 `./config.yaml`，且顶层包含 chaitin-cli 产品名，CLI 会优先读取这个本地配置，以兼容既有使用流程：
+推荐将各产品的连接信息写入 `~/.chaitin-cli/config.yaml`。如果当前目录存在 `./config.yaml`，且顶层包含 chaitin-cli 产品名，CLI 会优先读取这个本地配置，以兼容既有使用流程。
+
+产品 HTTP/HTTPS API 的出网代理按这个顺序选择，命中即停止：环境变量 `CHAITIN_CLI_PROXY`、当前选中的那份 `config.yaml` 顶层 `CHAITIN_CLI_PROXY`、`HTTP_PROXY` / `HTTPS_PROXY` / `ALL_PROXY`（含小写形式，并遵守 `NO_PROXY`）、操作系统的 HTTP/HTTPS 代理，最后直连。空的 `CHAITIN_CLI_PROXY` 视为没设置，继续看下一级。当前配置没有这一项时，不会去另一份配置文件里找。不占用产品命令自己的 `--proxy`。显式代理使用 `http` 或 `https`，例如 `http://jump.example:3128`。
 
 ```yaml
 cloudAtlas:

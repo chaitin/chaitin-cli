@@ -9,6 +9,8 @@ import (
 	"io"
 	"mime/multipart"
 	"net/http"
+
+	"github.com/chaitin/chaitin-cli/egressproxy"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -36,12 +38,12 @@ func NewClient(cfg Config) *Client {
 		config: cfg,
 		httpClient: &http.Client{
 			Timeout: time.Duration(cfg.TimeoutSeconds) * time.Second,
-			Transport: &http.Transport{
+			Transport: egressproxy.Wrap(&http.Transport{
 				Proxy: http.ProxyFromEnvironment,
 				TLSClientConfig: &tls.Config{
 					InsecureSkipVerify: cfg.Insecure,
 				},
-			},
+			}),
 		},
 		baseURL: strings.TrimRight(cfg.URL, "/"),
 	}

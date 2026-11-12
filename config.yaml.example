@@ -1,3 +1,8 @@
+# Optional explicit egress proxy in this same config file.
+# Priority: CHAITIN_CLI_PROXY env, this key, HTTP(S)_PROXY/ALL_PROXY, OS proxy, direct.
+# An empty value is treated as unset. Supported schemes: http, https.
+# CHAITIN_CLI_PROXY: "http://jump.example:3128"
+
 cloudAtlas:
   # OpenAPI 基址通常以 /openapi 结尾，例如 https://cloud-atlas.example.com/openapi
   url: ""

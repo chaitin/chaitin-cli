@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+
+	"github.com/chaitin/chaitin-cli/egressproxy"
 	"strings"
 
 	"github.com/google/uuid"
@@ -14,9 +16,9 @@ import (
 )
 
 var httpClient = &http.Client{
-	Transport: &http.Transport{
+	Transport: egressproxy.Wrap(&http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-	},
+	}),
 }
 
 // jsonRPCRequest 是 JSON-RPC 2.0 请求体。

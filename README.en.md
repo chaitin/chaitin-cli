@@ -103,7 +103,9 @@ The root command handles configuration loading, product command registration, an
 
 ## Configuration
 
-Prefer putting product connection settings in `~/.chaitin-cli/config.yaml`. If `./config.yaml` exists in the current directory and has a chaitin-cli product name at the top level, the CLI reads that local config first to keep existing workflows compatible:
+Prefer putting product connection settings in `~/.chaitin-cli/config.yaml`. If `./config.yaml` exists in the current directory and has a chaitin-cli product name at the top level, the CLI reads that local config first to keep existing workflows compatible.
+
+Product HTTP/HTTPS API calls choose an egress proxy in this order and stop at the first match: the `CHAITIN_CLI_PROXY` environment variable, top-level `CHAITIN_CLI_PROXY` in the selected `config.yaml`, `HTTP_PROXY` / `HTTPS_PROXY` / `ALL_PROXY` (including lowercase names, honoring `NO_PROXY`), the operating system HTTP/HTTPS proxy, then a direct connection. An empty `CHAITIN_CLI_PROXY` is treated as unset. If the selected file has no such key, the CLI does not consult the other config file. It does not reuse product command flags such as `--proxy`. Explicit proxy URLs use `http` or `https`, for example `http://jump.example:3128`.
 
 ```yaml
 cloudwalker:
