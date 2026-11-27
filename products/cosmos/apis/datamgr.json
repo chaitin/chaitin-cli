@@ -86,8 +86,8 @@
     "args": {
       "table_id": {
         "type": "integer",
-        "optional": false,
-        "comment": "采集接入表 ID"
+        "optional": true,
+        "comment": "采集接入表 ID（传 0 时按字段 ID 查询）"
       },
       "column_id": {
         "type": "integer",

@@ -856,7 +856,7 @@ func TestDataMgrJSONFieldAndMappingStructure(t *testing.T) {
 		assertOptional(t, columns, "offset")
 
 		detail := byName["DataMgrService.GetTableColumn"]
-		assertRequired(t, detail, "table_id")
+		assertOptional(t, detail, "table_id")
 		assertRequired(t, detail, "column_id")
 
 		byIds := byName["DataMgrService.ListColumnsByFieldTableIds"]
