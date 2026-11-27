@@ -99,7 +99,7 @@ Preview images live in `assets/casts/` and are no longer loaded from asciinema.o
 | `dsensor` | D-Sensor security monitoring, agent, honeypot, alarm, and threat log management |
 | `codeinsight` | CodeInsight project, repository configuration, scan task, and report export management |
 | `codeforce` | CodeForce project, project AI employee, AI dev task, native audit, denoise, code package, repository, and Git auth management |
-| `cosmos` | Cosmos / AISOC alarm, log, intelligence, IP block, asset, notice, ops, SOAR, and vulnerability management |
+| `cosmos` | Cosmos / AISOC alarm, log, intelligence, IP block, asset, notice, ops, field management/mapping, SOAR, and vulnerability management |
 
 The root command handles configuration loading, product command registration, and BusyBox-style dispatch. Each product directory owns its commands, flags, configuration decoding, and API calls.
 
@@ -259,7 +259,7 @@ chaitin-cli --dry-run cosmos asset save-host-asset --ip 10.0.0.1/32 --name demo-
 
 Full module documentation lives in [`products/cosmos/README.md`](products/cosmos/README.md).
 
-Cosmos generic JSON-RPC commands cover alarms, logs, intelligence, IP blocks, assets, notices, ops, SOAR, and vulnerabilities. Root-level `--dry-run` prints a redacted request summary without sending the request. Saving a host asset usually needs asset type, category, and group parameters on current deployments. `--asset_ip_type` currently uses `1` for a real IP and `2` for a virtual IP:
+Cosmos generic JSON-RPC commands cover alarms, logs, intelligence, IP blocks, assets, notices, ops, field management/mapping, SOAR, and vulnerabilities. Root-level `--dry-run` prints a redacted request summary without sending the request. Saving a host asset usually needs asset type, category, and group parameters on current deployments. `--asset_ip_type` currently uses `1` for a real IP and `2` for a virtual IP:
 
 ```bash
 chaitin-cli cosmos asset search-host-asset --count 20 --offset 0 --raw

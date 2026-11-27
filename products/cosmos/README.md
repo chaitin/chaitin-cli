@@ -64,7 +64,7 @@ chaitin-cli cosmos asset search-host-asset
 | `nonstandard-log` | `NonstandardLogApiService` | 非标日志查询 |
 | `notice` | `NoticeService` | Webhook、通知策略、SMTP、短信和订阅人 |
 | `ops` | `OpsService` | 集群监控、系统告警、执行器和运维操作 |
-| `data-mgr` | `DataMgrService` | 数据监控总览、状态和趋势 |
+| `data-mgr` | `DataMgrService` | 数据监控总览、状态和趋势；字段管理、字段映射查询 |
 | `extra-setting` | `ExtraSettingService` | 节点和组件健康信息 |
 | `analysis` | `AnalysisService` | SOAR 剧本和执行记录查询 |
 | `scan-vuln-ip` | `ScanVulnIpService` | IP / Web 漏洞列表、详情和新增更新 |
@@ -204,6 +204,98 @@ chaitin-cli cosmos ops bigdata-cpu-avg \
   --start 1781515764 \
   --end 1781519364
 ```
+
+查询字段管理中的采集接入表，以及表中的字段：
+
+```bash
+chaitin-cli cosmos data-mgr list-field-table --with_count_of_columns --raw
+
+chaitin-cli cosmos data-mgr list-field-table-columns \
+  --field_table_id FIELD_TABLE_ID \
+  --name '[{"oper":"like","target":"src_ip"}]' \
+  --base_type '[{"oper":"=","target":1}]' \
+  --count 20 \
+  --offset 0 \
+  --raw
+
+# 按热点字段（被泛化规则引用的次数）降序，返回 rule_reference_count
+chaitin-cli cosmos data-mgr list-field-table-columns \
+  --field_table_id FIELD_TABLE_ID \
+  --include_hotness \
+  --hotness_order desc \
+  --count 20 \
+  --offset 0 \
+  --raw
+
+# 按更新时间降序；hotness_order 与 updated_at_order 只能二选一
+chaitin-cli cosmos data-mgr list-field-table-columns \
+  --field_table_id FIELD_TABLE_ID \
+  --updated_at_order desc \
+  --count 20 \
+  --offset 0 \
+  --raw
+
+chaitin-cli cosmos data-mgr get-table-column \
+  --table_id FIELD_TABLE_ID \
+  --column_id COLUMN_ID \
+  --raw
+```
+
+查询用户自定义字段集、资产表字段和字段管理常量：
+
+```bash
+chaitin-cli cosmos data-mgr list-column-sets --with_count_of_columns --raw
+
+chaitin-cli cosmos data-mgr list-column-set-columns \
+  --column_set_id COLUMN_SET_ID \
+  --count 20 \
+  --offset 0 \
+  --raw
+
+chaitin-cli cosmos data-mgr list-asset-tables --with_count_of_columns --raw
+
+chaitin-cli cosmos data-mgr list-asset-table-columns \
+  --asset_table_id ASSET_TABLE_ID \
+  --count 20 \
+  --offset 0 \
+  --raw
+
+chaitin-cli cosmos data-mgr list-constants --raw
+```
+
+查询字段映射规则、规则分组和安全事件映射：
+
+```bash
+chaitin-cli cosmos data-mgr list-mapping-rules \
+  --name '[{"oper":"like","target":"src"}]' \
+  --group_ids '[{"oper":"=","target":3}]' \
+  --count 20 \
+  --offset 0 \
+  --raw
+
+chaitin-cli cosmos data-mgr get-mapping-rule --id MAPPING_RULE_ID --raw
+
+chaitin-cli cosmos data-mgr list-mapping-rule-group --raw
+
+chaitin-cli cosmos data-mgr list-security-event-mapping --raw
+
+# 风险类型下拉（字段映射/日志检索等页面共用）
+chaitin-cli cosmos data-mgr list-event-classified-enum --raw
+```
+
+按表分组或表名查询字段选择器数据：
+
+```bash
+# table_group 取 table（宽表）/ asset_table（资产表）/ column_set（用户管理表）
+chaitin-cli cosmos data-mgr list-table-groups --table_group table --raw
+
+chaitin-cli cosmos data-mgr list-table-columns-by-table-name --table_name pg_alarm --raw
+
+# 字段模版（字段管理-采集接入数据-字段模版）
+chaitin-cli cosmos extra-setting get-http-template --raw
+```
+
+字段管理/字段映射中的 `name`、`display_name`、`base_type`、`is_built_in` 等字段属于查询类型字段，需要传 JSON 数组；分页使用 `--count` / `--offset`。
 
 ## 维护 API 定义
 

@@ -799,6 +799,357 @@ func TestOpsJSONSystemMonitoringStructure(t *testing.T) {
 	if len(getNodeInfo.Args) != 0 {
 		t.Fatalf("ExtraSettingService.GetNodeInfo args len = %d, want 0", len(getNodeInfo.Args))
 	}
+
+	getHttpTemplate := byName["ExtraSettingService.GetHttpTemplate"]
+	if len(getHttpTemplate.Args) != 0 {
+		t.Fatalf("ExtraSettingService.GetHttpTemplate args len = %d, want 0", len(getHttpTemplate.Args))
+	}
+}
+
+func TestDataMgrJSONFieldAndMappingStructure(t *testing.T) {
+	ops := loadAPIOperations(t, "datamgr.json", 23)
+	byName := mapByName(ops)
+
+	for _, name := range []string{
+		"DataMgrService.ListFieldTable",
+		"DataMgrService.ListFieldTableColumns",
+		"DataMgrService.GetTableColumn",
+		"DataMgrService.ListColumnsByFieldTableIds",
+		"DataMgrService.ListColumnSets",
+		"DataMgrService.ListColumnSetColumns",
+		"DataMgrService.GetColumnSetColumn",
+		"DataMgrService.ListAssetTables",
+		"DataMgrService.ListAssetTableColumns",
+		"DataMgrService.ListAssetTableCategory",
+		"DataMgrService.ListCustomAssetFields",
+		"DataMgrService.GetCustomAssetField",
+		"DataMgrService.ListCustomAssetFieldCategory",
+		"DataMgrService.ListEnumColumns",
+		"DataMgrService.ListVulnFieldCategory",
+		"DataMgrService.ListConstants",
+		"DataMgrService.ListMappingRules",
+		"DataMgrService.GetMappingRule",
+		"DataMgrService.ListMappingRuleGroup",
+		"DataMgrService.ListSecurityEventMapping",
+		"DataMgrService.ListEventClassifiedEnum",
+		"DataMgrService.ListTableGroups",
+		"DataMgrService.ListTableColumnsByTableName",
+	} {
+		assertOperationRegistered(t, byName[name])
+	}
+
+	t.Run("field_table_queries", func(t *testing.T) {
+		listFieldTable := byName["DataMgrService.ListFieldTable"]
+		for field, queryType := range map[string]string{
+			"name":         "StringQuery",
+			"display_name": "StringQuery",
+		} {
+			assertQueryType(t, listFieldTable, field, queryType)
+		}
+		assertOptional(t, listFieldTable, "with_count_of_columns")
+		assertOptional(t, listFieldTable, "include_nonstandard")
+
+		columns := byName["DataMgrService.ListFieldTableColumns"]
+		assertRequired(t, columns, "field_table_id")
+		for field, queryType := range map[string]string{
+			"name":         "StringQuery",
+			"display_name": "StringQuery",
+			"base_type":    "IntQuery",
+			"is_built_in":  "BoolQuery",
+			"is_required":  "BoolQuery",
+		} {
+			assertQueryType(t, columns, field, queryType)
+		}
+		assertOptional(t, columns, "count")
+		assertOptional(t, columns, "offset")
+		assertOptional(t, columns, "include_hotness")
+		assertOptional(t, columns, "hotness_order")
+		assertOptional(t, columns, "updated_at_order")
+
+		detail := byName["DataMgrService.GetTableColumn"]
+		assertOptional(t, detail, "table_id")
+		assertRequired(t, detail, "column_id")
+
+		byIds := byName["DataMgrService.ListColumnsByFieldTableIds"]
+		assertRequired(t, byIds, "field_table_ids")
+		assertArray(t, byIds, "field_table_ids")
+	})
+
+	t.Run("column_set_queries", func(t *testing.T) {
+		sets := byName["DataMgrService.ListColumnSets"]
+		assertOptional(t, sets, "with_count_of_columns")
+
+		columns := byName["DataMgrService.ListColumnSetColumns"]
+		assertOptional(t, columns, "column_set_id")
+		assertOptional(t, columns, "column_set_name")
+		for field, queryType := range map[string]string{
+			"name":         "StringQuery",
+			"display_name": "StringQuery",
+			"base_type":    "IntQuery",
+			"is_built_in":  "BoolQuery",
+			"is_required":  "BoolQuery",
+			"is_hidden":    "BoolQuery",
+		} {
+			assertQueryType(t, columns, field, queryType)
+		}
+
+		detail := byName["DataMgrService.GetColumnSetColumn"]
+		assertRequired(t, detail, "column_set_id")
+		assertRequired(t, detail, "column_id")
+	})
+
+	t.Run("asset_table_queries", func(t *testing.T) {
+		tables := byName["DataMgrService.ListAssetTables"]
+		for field, queryType := range map[string]string{
+			"name":         "StringQuery",
+			"display_name": "StringQuery",
+			"description":  "StringQuery",
+			"is_built_in":  "BoolQuery",
+			"storage":      "IntQuery",
+		} {
+			assertQueryType(t, tables, field, queryType)
+		}
+
+		columns := byName["DataMgrService.ListAssetTableColumns"]
+		assertOptional(t, columns, "asset_table_id")
+		assertOptional(t, columns, "asset_table_name")
+		assertArray(t, columns, "custom_asset_category_id")
+		for field, queryType := range map[string]string{
+			"name":         "StringQuery",
+			"display_name": "StringQuery",
+			"base_type":    "IntQuery",
+			"is_built_in":  "BoolQuery",
+			"is_required":  "BoolQuery",
+		} {
+			assertQueryType(t, columns, field, queryType)
+		}
+
+		category := byName["DataMgrService.ListAssetTableCategory"]
+		assertOptional(t, category, "asset_table_name")
+		assertOptional(t, category, "asset_table_ID")
+		assertOptional(t, category, "with_count_of_columns")
+	})
+
+	t.Run("custom_asset_field_queries", func(t *testing.T) {
+		fields := byName["DataMgrService.ListCustomAssetFields"]
+		assertOptional(t, fields, "asset_type")
+		assertArray(t, fields, "category_id")
+		for field, queryType := range map[string]string{
+			"name":         "StringQuery",
+			"display_name": "StringQuery",
+			"base_type":    "IntQuery",
+			"is_built_in":  "BoolQuery",
+			"is_hidden":    "BoolQuery",
+			"is_virtual":   "BoolQuery",
+		} {
+			assertQueryType(t, fields, field, queryType)
+		}
+
+		detail := byName["DataMgrService.GetCustomAssetField"]
+		assertRequired(t, detail, "id")
+
+		for _, name := range []string{
+			"DataMgrService.ListCustomAssetFieldCategory",
+			"DataMgrService.ListConstants",
+		} {
+			if got := len(byName[name].Args); got != 0 {
+				t.Fatalf("%s args len = %d, want 0", name, got)
+			}
+		}
+
+		enumColumns := byName["DataMgrService.ListEnumColumns"]
+		assertOptional(t, enumColumns, "exclude_not_normalizable_column")
+		assertOptional(t, enumColumns, "is_show")
+
+		vulnCategory := byName["DataMgrService.ListVulnFieldCategory"]
+		assertOptional(t, vulnCategory, "with_count_of_columns")
+	})
+
+	t.Run("mapping_rule_queries", func(t *testing.T) {
+		rules := byName["DataMgrService.ListMappingRules"]
+		for field, queryType := range map[string]string{
+			"name":         "StringQuery",
+			"description":  "StringQuery",
+			"column_names": "StringQuery",
+			"column_ids":   "IntQuery",
+			"group_ids":    "IntQuery",
+		} {
+			assertQueryType(t, rules, field, queryType)
+		}
+		assertOptional(t, rules, "count")
+		assertOptional(t, rules, "offset")
+
+		detail := byName["DataMgrService.GetMappingRule"]
+		assertOptional(t, detail, "id")
+		assertOptional(t, detail, "name")
+
+		for _, name := range []string{
+			"DataMgrService.ListMappingRuleGroup",
+			"DataMgrService.ListSecurityEventMapping",
+			"DataMgrService.ListEventClassifiedEnum",
+		} {
+			if got := len(byName[name].Args); got != 0 {
+				t.Fatalf("%s args len = %d, want 0", name, got)
+			}
+		}
+	})
+
+	t.Run("field_selector_queries", func(t *testing.T) {
+		tableGroups := byName["DataMgrService.ListTableGroups"]
+		assertRequired(t, tableGroups, "table_group")
+		for _, field := range []string{"table_id", "asset_table_id", "column_set_id"} {
+			assertOptional(t, tableGroups, field)
+		}
+
+		byTableName := byName["DataMgrService.ListTableColumnsByTableName"]
+		assertRequired(t, byTableName, "table_name")
+	})
+}
+
+func TestDataMgrFieldAndMappingCommandsRegistered(t *testing.T) {
+	cmd := NewCommand()
+
+	for _, path := range [][]string{
+		{"data-mgr", "list-field-table"},
+		{"data-mgr", "list-field-table-columns"},
+		{"data-mgr", "get-table-column"},
+		{"data-mgr", "list-columns-by-field-table-ids"},
+		{"data-mgr", "list-column-sets"},
+		{"data-mgr", "list-column-set-columns"},
+		{"data-mgr", "get-column-set-column"},
+		{"data-mgr", "list-asset-tables"},
+		{"data-mgr", "list-asset-table-columns"},
+		{"data-mgr", "list-asset-table-category"},
+		{"data-mgr", "list-custom-asset-fields"},
+		{"data-mgr", "get-custom-asset-field"},
+		{"data-mgr", "list-custom-asset-field-category"},
+		{"data-mgr", "list-enum-columns"},
+		{"data-mgr", "list-vuln-field-category"},
+		{"data-mgr", "list-constants"},
+		{"data-mgr", "list-mapping-rules"},
+		{"data-mgr", "get-mapping-rule"},
+		{"data-mgr", "list-mapping-rule-group"},
+		{"data-mgr", "list-security-event-mapping"},
+		{"data-mgr", "list-event-classified-enum"},
+		{"data-mgr", "list-table-groups"},
+		{"data-mgr", "list-table-columns-by-table-name"},
+		{"extra-setting", "get-http-template"},
+	} {
+		if _, _, err := cmd.Find(path); err != nil {
+			t.Fatalf("missing command %v: %v", path, err)
+		}
+	}
+}
+
+func TestDataMgrFieldTableColumnsDryRun(t *testing.T) {
+	oldServerURL := serverURL
+	oldAPIToken := apiToken
+	oldDryRun := dryRun
+	t.Cleanup(func() {
+		serverURL = oldServerURL
+		apiToken = oldAPIToken
+		dryRun = oldDryRun
+	})
+
+	serverURL = "https://cosmos.example.com"
+	apiToken = "test-token"
+	dryRun = true
+
+	cmd := NewCommand()
+	var out bytes.Buffer
+	cmd.SetOut(&out)
+	cmd.SetArgs([]string{
+		"data-mgr", "list-field-table-columns",
+		"--field_table_id", "7",
+		"--name", `[{"oper":"like","target":"src_ip"}]`,
+		"--base_type", `[{"oper":"=","target":1}]`,
+		"--is_built_in", `[{"oper":"=","target":true}]`,
+		"--count", "20",
+		"--offset", "0",
+		"--raw",
+	})
+
+	if err := cmd.Execute(); err != nil {
+		t.Fatalf("execute list-field-table-columns: %v", err)
+	}
+
+	var summary dryRunRequestSummary
+	if err := json.Unmarshal(out.Bytes(), &summary); err != nil {
+		t.Fatalf("unmarshal dry-run output: %v\n%s", err, out.String())
+	}
+	if summary.Body.Method != "DataMgrService.ListFieldTableColumns" {
+		t.Fatalf("method = %q, want DataMgrService.ListFieldTableColumns", summary.Body.Method)
+	}
+
+	params, ok := summary.Body.Params.(map[string]interface{})
+	if !ok {
+		t.Fatalf("params type = %T, want map[string]interface{}", summary.Body.Params)
+	}
+	if got := params["field_table_id"]; got != float64(7) {
+		t.Errorf("field_table_id = %#v, want 7", got)
+	}
+	if got := params["count"]; got != float64(20) {
+		t.Errorf("count = %#v, want 20", got)
+	}
+	if got := params["offset"]; got != float64(0) {
+		t.Errorf("offset = %#v, want 0", got)
+	}
+	for _, field := range []string{"name", "base_type", "is_built_in"} {
+		items, ok := params[field].([]interface{})
+		if !ok || len(items) != 1 {
+			t.Fatalf("%s = %#v, want single-item JSON array", field, params[field])
+		}
+	}
+}
+
+func TestDataMgrMappingRulesDryRun(t *testing.T) {
+	oldServerURL := serverURL
+	oldAPIToken := apiToken
+	oldDryRun := dryRun
+	t.Cleanup(func() {
+		serverURL = oldServerURL
+		apiToken = oldAPIToken
+		dryRun = oldDryRun
+	})
+
+	serverURL = "https://cosmos.example.com"
+	apiToken = "test-token"
+	dryRun = true
+
+	cmd := NewCommand()
+	var out bytes.Buffer
+	cmd.SetOut(&out)
+	cmd.SetArgs([]string{
+		"data-mgr", "list-mapping-rules",
+		"--name", `[{"oper":"like","target":"src"}]`,
+		"--group_ids", `[{"oper":"=","target":3}]`,
+		"--count", "10",
+		"--offset", "0",
+		"--raw",
+	})
+
+	if err := cmd.Execute(); err != nil {
+		t.Fatalf("execute list-mapping-rules: %v", err)
+	}
+
+	var summary dryRunRequestSummary
+	if err := json.Unmarshal(out.Bytes(), &summary); err != nil {
+		t.Fatalf("unmarshal dry-run output: %v\n%s", err, out.String())
+	}
+	if summary.Body.Method != "DataMgrService.ListMappingRules" {
+		t.Fatalf("method = %q, want DataMgrService.ListMappingRules", summary.Body.Method)
+	}
+
+	params, ok := summary.Body.Params.(map[string]interface{})
+	if !ok {
+		t.Fatalf("params type = %T, want map[string]interface{}", summary.Body.Params)
+	}
+	for _, field := range []string{"name", "group_ids"} {
+		items, ok := params[field].([]interface{})
+		if !ok || len(items) != 1 {
+			t.Fatalf("%s = %#v, want single-item JSON array", field, params[field])
+		}
+	}
 }
 
 func TestBigdataMetricDryRunUsesArrayParams(t *testing.T) {

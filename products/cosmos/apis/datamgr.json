@@ -1,0 +1,595 @@
+[
+  {
+    "name": "DataMgrService.ListFieldTable",
+    "comment": "获取采集接入表列表（字段管理-采集接入数据）",
+    "args": {
+      "with_count_of_columns": {
+        "type": "bool",
+        "optional": true,
+        "comment": "是否统计每个表的字段数量"
+      },
+      "include_nonstandard": {
+        "type": "bool",
+        "optional": true,
+        "comment": "是否包含非标日志表"
+      },
+      "name": {
+        "type": "string",
+        "optional": true,
+        "queryType": "StringQuery",
+        "comment": "表名称过滤（StringQuery JSON，如: [{\"oper\":\"like\",\"target\":\"log\"}]）"
+      },
+      "display_name": {
+        "type": "string",
+        "optional": true,
+        "queryType": "StringQuery",
+        "comment": "表显示名称过滤（StringQuery JSON）"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.ListFieldTableColumns",
+    "comment": "获取采集接入表中的字段列表（字段管理-采集接入数据）",
+    "args": {
+      "field_table_id": {
+        "type": "integer",
+        "optional": false,
+        "comment": "采集接入表 ID"
+      },
+      "name": {
+        "type": "string",
+        "optional": true,
+        "queryType": "StringQuery",
+        "comment": "字段名称过滤（StringQuery JSON）"
+      },
+      "display_name": {
+        "type": "string",
+        "optional": true,
+        "queryType": "StringQuery",
+        "comment": "字段显示名称过滤（StringQuery JSON）"
+      },
+      "base_type": {
+        "type": "string",
+        "optional": true,
+        "queryType": "IntQuery",
+        "comment": "基础类型过滤（IntQuery JSON，如: [{\"oper\":\"=\",\"target\":1}]）"
+      },
+      "is_built_in": {
+        "type": "string",
+        "optional": true,
+        "queryType": "BoolQuery",
+        "comment": "是否内置（BoolQuery JSON）"
+      },
+      "is_required": {
+        "type": "string",
+        "optional": true,
+        "queryType": "BoolQuery",
+        "comment": "是否必填（BoolQuery JSON）"
+      },
+      "count": {
+        "type": "integer",
+        "optional": true,
+        "comment": "每页数量（默认 10）"
+      },
+      "offset": {
+        "type": "integer",
+        "optional": true,
+        "comment": "偏移量"
+      },
+      "include_hotness": {
+        "type": "bool",
+        "optional": true,
+        "comment": "是否返回字段被泛化规则引用的数量（热点字段）"
+      },
+      "hotness_order": {
+        "type": "string",
+        "optional": true,
+        "comment": "热点字段排序：asc / desc（与 updated_at_order 二选一）"
+      },
+      "updated_at_order": {
+        "type": "string",
+        "optional": true,
+        "comment": "更新时间排序：asc / desc（与 hotness_order 二选一）"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.GetTableColumn",
+    "comment": "获取采集接入表中的字段详情（字段管理-采集接入数据）",
+    "args": {
+      "table_id": {
+        "type": "integer",
+        "optional": true,
+        "comment": "采集接入表 ID（传 0 时按字段 ID 查询）"
+      },
+      "column_id": {
+        "type": "integer",
+        "optional": false,
+        "comment": "字段 ID"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.ListColumnsByFieldTableIds",
+    "comment": "按采集接入表 ID 批量获取字段列表（字段管理-采集接入数据）",
+    "args": {
+      "field_table_ids": {
+        "type": "integer",
+        "optional": false,
+        "typeclass": "array",
+        "comment": "采集接入表 ID 列表"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.ListColumnSets",
+    "comment": "获取字段集列表（字段管理-用户自定义数据）",
+    "args": {
+      "with_count_of_columns": {
+        "type": "bool",
+        "optional": true,
+        "comment": "是否统计每个字段集的字段数量"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.ListColumnSetColumns",
+    "comment": "获取字段集中的字段列表（字段管理-用户自定义数据）",
+    "args": {
+      "column_set_id": {
+        "type": "integer",
+        "optional": true,
+        "comment": "字段集 ID（与 column_set_name 二选一）"
+      },
+      "column_set_name": {
+        "type": "string",
+        "optional": true,
+        "comment": "字段集名称（与 column_set_id 二选一）"
+      },
+      "name": {
+        "type": "string",
+        "optional": true,
+        "queryType": "StringQuery",
+        "comment": "字段名称过滤（StringQuery JSON）"
+      },
+      "display_name": {
+        "type": "string",
+        "optional": true,
+        "queryType": "StringQuery",
+        "comment": "字段显示名称过滤（StringQuery JSON）"
+      },
+      "base_type": {
+        "type": "string",
+        "optional": true,
+        "queryType": "IntQuery",
+        "comment": "基础类型过滤（IntQuery JSON）"
+      },
+      "is_built_in": {
+        "type": "string",
+        "optional": true,
+        "queryType": "BoolQuery",
+        "comment": "是否内置（BoolQuery JSON）"
+      },
+      "is_required": {
+        "type": "string",
+        "optional": true,
+        "queryType": "BoolQuery",
+        "comment": "是否必填（BoolQuery JSON）"
+      },
+      "is_hidden": {
+        "type": "string",
+        "optional": true,
+        "queryType": "BoolQuery",
+        "comment": "是否隐藏（BoolQuery JSON）"
+      },
+      "count": {
+        "type": "integer",
+        "optional": true,
+        "comment": "每页数量（默认 10）"
+      },
+      "offset": {
+        "type": "integer",
+        "optional": true,
+        "comment": "偏移量"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.GetColumnSetColumn",
+    "comment": "获取字段集中的字段详情（字段管理-用户自定义数据）",
+    "args": {
+      "column_set_id": {
+        "type": "integer",
+        "optional": false,
+        "comment": "字段集 ID"
+      },
+      "column_id": {
+        "type": "integer",
+        "optional": false,
+        "comment": "字段 ID"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.ListAssetTables",
+    "comment": "获取资产表列表（字段管理-资产模型/平台数据）",
+    "args": {
+      "with_count_of_columns": {
+        "type": "bool",
+        "optional": true,
+        "comment": "是否统计每个资产表的字段数量"
+      },
+      "name": {
+        "type": "string",
+        "optional": true,
+        "queryType": "StringQuery",
+        "comment": "表名称过滤（StringQuery JSON）"
+      },
+      "display_name": {
+        "type": "string",
+        "optional": true,
+        "queryType": "StringQuery",
+        "comment": "表显示名称过滤（StringQuery JSON）"
+      },
+      "description": {
+        "type": "string",
+        "optional": true,
+        "queryType": "StringQuery",
+        "comment": "表描述过滤（StringQuery JSON）"
+      },
+      "is_built_in": {
+        "type": "string",
+        "optional": true,
+        "queryType": "BoolQuery",
+        "comment": "是否内置（BoolQuery JSON）"
+      },
+      "storage": {
+        "type": "string",
+        "optional": true,
+        "queryType": "IntQuery",
+        "comment": "存储类型过滤（IntQuery JSON）"
+      },
+      "count": {
+        "type": "integer",
+        "optional": true,
+        "comment": "每页数量"
+      },
+      "offset": {
+        "type": "integer",
+        "optional": true,
+        "comment": "偏移量"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.ListAssetTableColumns",
+    "comment": "获取资产表字段列表（字段管理-资产模型/平台数据）",
+    "args": {
+      "asset_table_id": {
+        "type": "integer",
+        "optional": true,
+        "comment": "资产表 ID（与 asset_table_name 二选一）"
+      },
+      "asset_table_name": {
+        "type": "string",
+        "optional": true,
+        "comment": "资产表名称（与 asset_table_id 二选一，如: pg_alarm）"
+      },
+      "name": {
+        "type": "string",
+        "optional": true,
+        "queryType": "StringQuery",
+        "comment": "字段名称过滤（StringQuery JSON）"
+      },
+      "display_name": {
+        "type": "string",
+        "optional": true,
+        "queryType": "StringQuery",
+        "comment": "字段显示名称过滤（StringQuery JSON）"
+      },
+      "base_type": {
+        "type": "string",
+        "optional": true,
+        "queryType": "IntQuery",
+        "comment": "基础类型过滤（IntQuery JSON）"
+      },
+      "custom_asset_category_id": {
+        "type": "integer",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "自定义资产字段分类 ID 列表"
+      },
+      "is_built_in": {
+        "type": "string",
+        "optional": true,
+        "queryType": "BoolQuery",
+        "comment": "是否内置（BoolQuery JSON）"
+      },
+      "is_required": {
+        "type": "string",
+        "optional": true,
+        "queryType": "BoolQuery",
+        "comment": "是否必填（BoolQuery JSON）"
+      },
+      "count": {
+        "type": "integer",
+        "optional": true,
+        "comment": "每页数量"
+      },
+      "offset": {
+        "type": "integer",
+        "optional": true,
+        "comment": "偏移量"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.ListAssetTableCategory",
+    "comment": "获取资产表字段分类（字段管理-告警模型）",
+    "args": {
+      "asset_table_name": {
+        "type": "string",
+        "optional": true,
+        "comment": "资产表名称（与 asset_table_ID 二选一，如: pg_alarm）"
+      },
+      "asset_table_ID": {
+        "type": "string",
+        "optional": true,
+        "comment": "资产表 ID（与 asset_table_name 二选一）"
+      },
+      "with_count_of_columns": {
+        "type": "bool",
+        "optional": true,
+        "comment": "是否统计分类下的字段数量"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.ListCustomAssetFields",
+    "comment": "获取自定义资产字段列表（字段管理-资产模型）",
+    "args": {
+      "asset_type": {
+        "type": "string",
+        "optional": true,
+        "comment": "资产类型：host 或 web"
+      },
+      "category_id": {
+        "type": "integer",
+        "optional": true,
+        "typeclass": "array",
+        "comment": "资产字段分类 ID 列表"
+      },
+      "name": {
+        "type": "string",
+        "optional": true,
+        "queryType": "StringQuery",
+        "comment": "字段名称过滤（StringQuery JSON）"
+      },
+      "display_name": {
+        "type": "string",
+        "optional": true,
+        "queryType": "StringQuery",
+        "comment": "字段显示名称过滤（StringQuery JSON）"
+      },
+      "base_type": {
+        "type": "string",
+        "optional": true,
+        "queryType": "IntQuery",
+        "comment": "基础类型过滤（IntQuery JSON）"
+      },
+      "is_built_in": {
+        "type": "string",
+        "optional": true,
+        "queryType": "BoolQuery",
+        "comment": "是否内置（BoolQuery JSON）"
+      },
+      "is_hidden": {
+        "type": "string",
+        "optional": true,
+        "queryType": "BoolQuery",
+        "comment": "是否隐藏（BoolQuery JSON）"
+      },
+      "is_virtual": {
+        "type": "string",
+        "optional": true,
+        "queryType": "BoolQuery",
+        "comment": "是否虚拟字段（BoolQuery JSON）"
+      },
+      "count": {
+        "type": "integer",
+        "optional": true,
+        "comment": "每页数量"
+      },
+      "offset": {
+        "type": "integer",
+        "optional": true,
+        "comment": "偏移量"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.GetCustomAssetField",
+    "comment": "获取自定义资产字段详情（字段管理-资产模型/告警模型/脆弱性模型/平台数据）",
+    "args": {
+      "id": {
+        "type": "integer",
+        "optional": false,
+        "comment": "自定义资产字段 ID"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.ListCustomAssetFieldCategory",
+    "comment": "获取自定义资产字段分类（字段管理-资产模型）",
+    "args": {},
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.ListEnumColumns",
+    "comment": "获取枚举字段列表（字段管理/字段映射）",
+    "args": {
+      "exclude_not_normalizable_column": {
+        "type": "bool",
+        "optional": true,
+        "comment": "是否排除不可泛化的字段"
+      },
+      "is_show": {
+        "type": "bool",
+        "optional": true,
+        "comment": "是否只返回展示字段"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.ListVulnFieldCategory",
+    "comment": "获取脆弱性字段分类（字段管理-脆弱性模型）",
+    "args": {
+      "with_count_of_columns": {
+        "type": "bool",
+        "optional": true,
+        "comment": "是否统计分类下的字段数量"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.ListConstants",
+    "comment": "获取字段管理常量（存储类型、基础类型、业务类型、字段类型等）",
+    "args": {},
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.ListMappingRules",
+    "comment": "获取字段映射规则列表（字段映射）",
+    "args": {
+      "name": {
+        "type": "string",
+        "optional": true,
+        "queryType": "StringQuery",
+        "comment": "规则名称过滤（StringQuery JSON）"
+      },
+      "description": {
+        "type": "string",
+        "optional": true,
+        "queryType": "StringQuery",
+        "comment": "规则描述过滤（StringQuery JSON）"
+      },
+      "column_names": {
+        "type": "string",
+        "optional": true,
+        "queryType": "StringQuery",
+        "comment": "字段名称过滤（StringQuery JSON）"
+      },
+      "column_ids": {
+        "type": "string",
+        "optional": true,
+        "queryType": "IntQuery",
+        "comment": "字段 ID 过滤（IntQuery JSON）"
+      },
+      "group_ids": {
+        "type": "string",
+        "optional": true,
+        "queryType": "IntQuery",
+        "comment": "规则分组 ID 过滤（IntQuery JSON）"
+      },
+      "count": {
+        "type": "integer",
+        "optional": true,
+        "comment": "每页数量（默认 20）"
+      },
+      "offset": {
+        "type": "integer",
+        "optional": true,
+        "comment": "偏移量"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.GetMappingRule",
+    "comment": "获取字段映射规则详情（字段映射）",
+    "args": {
+      "id": {
+        "type": "integer",
+        "optional": true,
+        "comment": "映射规则 ID（与 name 二选一）"
+      },
+      "name": {
+        "type": "string",
+        "optional": true,
+        "comment": "映射规则名称（与 id 二选一）"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.ListMappingRuleGroup",
+    "comment": "获取字段映射规则分组（字段映射）",
+    "args": {},
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.ListSecurityEventMapping",
+    "comment": "获取安全事件映射（字段映射-风险类型）",
+    "args": {},
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.ListEventClassifiedEnum",
+    "comment": "获取事件分类枚举（字段映射-风险类型下拉）",
+    "args": {},
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.ListTableGroups",
+    "comment": "按表分组获取字段列表（字段查询-日志检索/资产字段选择器）",
+    "args": {
+      "table_group": {
+        "type": "string",
+        "optional": false,
+        "comment": "表分组：table（宽表）/ asset_table（资产表）/ column_set（用户管理表）"
+      },
+      "table_id": {
+        "type": "integer",
+        "optional": true,
+        "comment": "宽表 ID（table_group=table 时使用）"
+      },
+      "asset_table_id": {
+        "type": "integer",
+        "optional": true,
+        "comment": "资产表 ID（table_group=asset_table 时使用）"
+      },
+      "column_set_id": {
+        "type": "integer",
+        "optional": true,
+        "comment": "用户管理表 ID（table_group=column_set 时使用）"
+      }
+    },
+    "reply": {}
+  },
+  {
+    "name": "DataMgrService.ListTableColumnsByTableName",
+    "comment": "按表名获取字段列表（字段查询-日志/告警字段选择器）",
+    "args": {
+      "table_name": {
+        "type": "string",
+        "optional": false,
+        "comment": "表名，如: pg_alarm"
+      }
+    },
+    "reply": {}
+  }
+]
