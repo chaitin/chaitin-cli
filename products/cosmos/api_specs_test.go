@@ -799,10 +799,15 @@ func TestOpsJSONSystemMonitoringStructure(t *testing.T) {
 	if len(getNodeInfo.Args) != 0 {
 		t.Fatalf("ExtraSettingService.GetNodeInfo args len = %d, want 0", len(getNodeInfo.Args))
 	}
+
+	getHttpTemplate := byName["ExtraSettingService.GetHttpTemplate"]
+	if len(getHttpTemplate.Args) != 0 {
+		t.Fatalf("ExtraSettingService.GetHttpTemplate args len = %d, want 0", len(getHttpTemplate.Args))
+	}
 }
 
 func TestDataMgrJSONFieldAndMappingStructure(t *testing.T) {
-	ops := loadAPIOperations(t, "datamgr.json", 20)
+	ops := loadAPIOperations(t, "datamgr.json", 23)
 	byName := mapByName(ops)
 
 	for _, name := range []string{
@@ -826,6 +831,9 @@ func TestDataMgrJSONFieldAndMappingStructure(t *testing.T) {
 		"DataMgrService.GetMappingRule",
 		"DataMgrService.ListMappingRuleGroup",
 		"DataMgrService.ListSecurityEventMapping",
+		"DataMgrService.ListEventClassifiedEnum",
+		"DataMgrService.ListTableGroups",
+		"DataMgrService.ListTableColumnsByTableName",
 	} {
 		assertOperationRegistered(t, byName[name])
 	}
@@ -854,6 +862,9 @@ func TestDataMgrJSONFieldAndMappingStructure(t *testing.T) {
 		}
 		assertOptional(t, columns, "count")
 		assertOptional(t, columns, "offset")
+		assertOptional(t, columns, "include_hotness")
+		assertOptional(t, columns, "hotness_order")
+		assertOptional(t, columns, "updated_at_order")
 
 		detail := byName["DataMgrService.GetTableColumn"]
 		assertOptional(t, detail, "table_id")
@@ -975,11 +986,23 @@ func TestDataMgrJSONFieldAndMappingStructure(t *testing.T) {
 		for _, name := range []string{
 			"DataMgrService.ListMappingRuleGroup",
 			"DataMgrService.ListSecurityEventMapping",
+			"DataMgrService.ListEventClassifiedEnum",
 		} {
 			if got := len(byName[name].Args); got != 0 {
 				t.Fatalf("%s args len = %d, want 0", name, got)
 			}
 		}
+	})
+
+	t.Run("field_selector_queries", func(t *testing.T) {
+		tableGroups := byName["DataMgrService.ListTableGroups"]
+		assertRequired(t, tableGroups, "table_group")
+		for _, field := range []string{"table_id", "asset_table_id", "column_set_id"} {
+			assertOptional(t, tableGroups, field)
+		}
+
+		byTableName := byName["DataMgrService.ListTableColumnsByTableName"]
+		assertRequired(t, byTableName, "table_name")
 	})
 }
 
@@ -1007,6 +1030,10 @@ func TestDataMgrFieldAndMappingCommandsRegistered(t *testing.T) {
 		{"data-mgr", "get-mapping-rule"},
 		{"data-mgr", "list-mapping-rule-group"},
 		{"data-mgr", "list-security-event-mapping"},
+		{"data-mgr", "list-event-classified-enum"},
+		{"data-mgr", "list-table-groups"},
+		{"data-mgr", "list-table-columns-by-table-name"},
+		{"extra-setting", "get-http-template"},
 	} {
 		if _, _, err := cmd.Find(path); err != nil {
 			t.Fatalf("missing command %v: %v", path, err)

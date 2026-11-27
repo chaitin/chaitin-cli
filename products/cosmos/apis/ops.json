@@ -245,5 +245,11 @@
       }
     },
     "reply": {}
+  },
+  {
+    "name": "ExtraSettingService.GetHttpTemplate",
+    "comment": "获取 HTTP 字段模版配置（字段管理-字段模版）",
+    "args": {},
+    "reply": {}
   }
 ]
